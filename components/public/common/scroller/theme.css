@@ -1,1 +1,21 @@
-.vp-scroller {}
+.vp-scroller {
+  overflow-x: hidden;
+  overflow-y: auto;
+  position: relative;
+  font-size: 12px;
+  background-color: #fff;
+
+  ul.vp-scroller-container {
+    @mixin border-bottom-quarter .vp-scroller-item, #cfcfcf;
+    li.vp-scroller-item{
+      width: 100%;
+      padding: 1em;
+      height: 2.5em;
+      line-height: 2.5em;
+      background-color: #fff;
+    }
+    li.vp-scroller-item:after {
+      z-index: 1;
+    }
+  }
+}

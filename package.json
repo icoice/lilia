@@ -16,10 +16,10 @@
   },
   "dependencies": {
     "axios": "^0.16.2",
-    "planes": "0.0.2",
+    "imagination-adapter": "file:../../modules/imagination-adapter",
+    "planes": "file:../../modules/planes",
     "vue": "^2.5.0",
-    "vuex": "^2.4.1",
-    "imagination-adapter": "file:../../modules/imagination-adapter"
+    "vuex": "^2.4.1"
   },
   "devDependencies": {
     "autoprefixer": "^7.1.2",
