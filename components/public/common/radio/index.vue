@@ -21,10 +21,6 @@
         type: Array,
         default: [],
       },
-      type: {
-        type: String,
-        default: 'single',
-      },
       selected: {
         type: Number,
         default: null,
@@ -37,7 +33,6 @@
     data() {
       return {
         radioItems: this.items,
-        radioType: this.type,
         radioSelected: this.selected,
         radioDisabled: this.disabled,
       };

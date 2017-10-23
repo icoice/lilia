@@ -1,39 +1,57 @@
 <template>
   <div class="vp-date animated fadeIn">
     <div class="vp-date-time">
-      <div class="vp-date-time-item vp-date-year" @click="selectDateType('year')">
-        <p :class="{ 'vp-date-selected': selectType === 'year'}">
-          {{base.year.selected}}{{base.year.unit}}
-        </p>
+      <div class="vp-date-time-item vp-date-year">
+        <vp-button @tap="selectDateType('year')">
+          <span slot="button-name" :class="{ 'vp-date-selected': selectType === 'year'}">
+            {{base.year.selected}}{{base.year.unit}}
+          </span>
+        </vp-button>
       </div>
-      <div class="vp-date-time-item vp-date-month" @click="selectDateType('month')">
-        <p :class="{ 'vp-date-selected': selectType === 'month'}">
-          {{base.month.selected}}{{base.month.unit}}
-        </p>
+      <div class="vp-date-time-item vp-date-month">
+        <vp-button @tap="selectDateType('month')">
+            <span slot="button-name" :class="{ 'vp-date-selected': selectType === 'month'}">
+              {{base.month.selected}}{{base.month.unit}}
+            </span>
+        </vp-button>
       </div>
       <div class="vp-date-time-item vp-date-day" @click="selectDateType('day')">
-        <p :class="{ 'vp-date-selected': selectType === 'day'}">
-          {{base.day.selected}}{{base.day.unit}}
-        </p>
+        <vp-button @tap="selectDateType('day')">
+            <span slot="button-name" :class="{ 'vp-date-selected': selectType === 'day'}">
+              {{base.day.selected}}{{base.day.unit}}
+            </span>
+        </vp-button>
       </div>
     </div>
     <div class="vp-date-time-select">
-      <ul class="vp-date-weeks" v-if="selectType === 'day'">
-        <li v-for="week in weeks">{{week}}</li>
-      </ul>
-      <ul class="vp-date-time-scope">
-        <li class="animated fadeIn" :class="{ 'vp-date-selected': no === base[selectType].selected}" v-for="no in selectNo" @click="selectTime(no)">
-          {{no < 10 && no !== '' ? `0${no}` : no}}
-        </li>
-      </ul>
+      <div class="vp-date-time-select-body">
+        <ul class="vp-date-weeks" v-if="selectType === 'day'">
+          <li v-for="week in weeks">{{week}}</li>
+        </ul>
+        <ul class="vp-date-time-scope">
+          <li class="animated fadeIn" v-for="(no, code) in selectNo" :class="{
+            'vp-date-selected': no === base[selectType].selected,
+            'vp-date-last-grid': (code + 1) % 7 === 0 || (code + 1) === selectNo.length,
+          }">
+            <vp-button @tap="selectTime(no)">
+              <span slot="button-name">{{no < 10 && no !== '' ? `0${no}` : no}}</span>
+            </vp-button>
+          </li>
+        </ul>
+      </div>
+      <div class="vp-date-time-select-bg"></div>
     </div>
   </div>
 </template>
 
 <script>
   /* import css */;
+  import { vpButton } from '../common';
 
   export default {
+    components: {
+      vpButton,
+    },
     props: {
       selected: {
         type: Object,
@@ -79,6 +97,14 @@
           },
         },
       };
+    },
+    mounted() {
+      const { base } = this;
+      this.$emit('init', {
+        year: base.year.selected,
+        month: base.month.selected,
+        day: base.day.selected,
+      });
     },
     computed: {
       selectNo() {

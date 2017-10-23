@@ -98,6 +98,9 @@
       defValue(val) {
         this.value = val;
       },
+      filter(reg) {
+        this.valFilter = reg;
+      }
     },
     data() {
       return {
@@ -115,6 +118,7 @@
       };
     },
     updated() {
+      // 注意，input重渲染的时候也会被触发，会让值被置空
       this.$emit('update', this.getVal());
     },
     methods: {
@@ -140,6 +144,8 @@
           this.hasEmptry = false;
           this.$emit('verify', true);
         }
+
+        this.$emit('keyup', this.getVal());
       },
       clear() {
         this.value = '';

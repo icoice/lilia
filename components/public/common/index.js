@@ -7,6 +7,7 @@ import _vpRadio from './radio/index.vue';
 import _vpToast from './toast/index.vue';
 import _vpMemo from './memo/index.vue';
 import _vpScroller from './scroller/index.vue';
+import _vpImage from './image/index.vue';
 
 export const vpButton = _vpButton;
 export const vpInput = _vpInput;
@@ -17,6 +18,7 @@ export const vpRadio = _vpRadio;
 export const vpToast = _vpToast;
 export const vpMemo = _vpMemo;
 export const vpScroller = _vpScroller;
+export const vpImage = _vpImage;
 
 export default {
   vpButton,
@@ -28,4 +30,5 @@ export default {
   vpRadio,
   vpToast,
   vpScroller,
+  vpImage,
 };

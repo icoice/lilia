@@ -7,6 +7,7 @@ import _vpRadio from './public/common/radio';
 import _vpToast from './public/common/toast';
 import _vpMemo from './public/common/memo';
 import _vpScroller from './public/common/scroller';
+import _vpImage from './public/common/image';
 import _vpDataTable from './public/dataTable';
 import _vpConfirm from './public/confirm';
 import _vpShowcase from './public/showcase';
@@ -37,12 +38,14 @@ export const vpPaging = _vpPaging;
 export const vpMultipleChoose = _vpMultipleChoose;
 export const vpFalls = _vpFalls;
 export const vpDate = _vpDate;
+export const vpImage = _vpImage;
 
 const components = {
   vpButton,
   vpMemo,
   vpFile,
   vpInput,
+  vpImage,
   vpSelect,
   vpLoading,
   vpRadio,
@@ -68,7 +71,27 @@ export const register = function register(Vue) {
  });
 }
 
+const focusRegisterEvent = {};
+
+function listenInputFocus() {
+  return function ifInputFocus() {
+    window.scrollTo(0, this.offsetHeight);
+  }
+}
+
+export const focusEffectScroll = function focusEffectScroll() {
+  const inputs = document.getElementsByTagName('input');
+  for (let i = 0; i < inputs.length; i += 1) {
+   const input = inputs[i];
+   if (input.type === 'file') continue;
+   input.removeEventListener('focus', focusRegisterEvent[i] , false);
+   focusRegisterEvent[i] =  listenInputFocus().bind(input);
+   input.addEventListener('focus', focusRegisterEvent[i] , false);
+  }
+}
+
 export default {
   components,
+  focusEffectScroll,
   register,
 };

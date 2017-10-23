@@ -29,6 +29,10 @@ export const vxStore = function vxStore(Vue, process) {
       return `${namespace}${firstLetterUppercase(name)}`;
     };
 
+    this.mealActionName = function mealActionName(name) {
+      return `set${firstLetterUppercase(namespace)}${firstLetterUppercase(name)}`;
+    };
+
     this.getState = function getState(state, name) {
      return state[this.namespace(name)];
     };

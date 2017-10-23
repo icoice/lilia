@@ -1,13 +1,14 @@
 <template>
   <div :class="['vp-button', disabledHappen]">
+      <!-- 假设在移动端触发行为时，移动端禁用mouse的所有事件触发。（mouseover确实有可能被触发 -->
       <div :class="['vp-button-touch', mouseOverShow, hasTapped]"
-        @touchstart="onTouchStart"
-        @touchmove = "onTouchMove"
-        @touchend="onTouchEnd"
-        @mousedown="onMouseDown"
-        @mouseup="onMouseUp"
-        @mousemove="onMouseOver"
-        @mouseleave="onMouseLeave">
+        @touchstart.stop="onTouchStart"
+        @touchmove.stop= "onTouchMove"
+        @touchend.stop="onTouchEnd"
+        @mousedown.stop="!banMouseEvt ? onMouseDown : () => {}"
+        @mouseup.stop="!banMouseEvt ? onMouseUp : () => {}"
+        @mousemove.stop="!banMouseEvt ? onMouseOver : () => {}"
+        @mouseleave.stop="!banMouseEvt ? onMouseLeave : () => {}">
         <slot name="button-name"/>
       </div>
   </div>
@@ -31,7 +32,6 @@
       return {
         btnName: this.name,
         btnDisabled: this.disabled,
-        // 假设在移动端触发行为时，移动端禁用mouse的所有事件触发。（mouseover确实有可能被触发）
         banMouseEvt: false,
         isCanTap: true,
         isMouseOver: false,
@@ -86,16 +86,13 @@
         });
       },
       onMouseOver(e) {
-        if (this.banMouseEvt) return;
         this.isMouseOver = true;
       },
       onMouseLeave() {
-        if (this.banMouseEvt) return;
         this.isTouched = false;
         this.isMouseOver = false;
       },
       onMouseDown(e) {
-        if (this.banMouseEvt) return;
         this.isTouched = true;
         this.initTap({
           x: e.pageX,
@@ -103,12 +100,13 @@
         });
       },
       onMouseUp(e) {
-        if (this.banMouseEvt) return;
-        this.isTouched = false;
-        this.doTap({
-          x: e.pageX,
-          y: e.pageY,
-        }, e);
+        if (this.isTouched) {
+          this.isTouched = false;
+          this.doTap({
+            x: e.pageX,
+            y: e.pageY,
+          }, e);
+        }
       },
       onTouchStart(e) {
         const fingers = e.touches;
@@ -125,12 +123,14 @@
       },
       onTouchEnd(e) {
         const fingers = e.changedTouches;
-        this.isTouched = false;
-        // 限单指
-        this.doTap({
-          x: fingers[0].pageX,
-          y: fingers[0].pageY,
-        }, e);
+        if (this.isTouched) {
+          this.isTouched = false;
+          // 限单指
+          this.doTap({
+            x: fingers[0].pageX,
+            y: fingers[0].pageY,
+          }, e);
+        }
       },
     },
   };

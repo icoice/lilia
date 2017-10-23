@@ -6,16 +6,11 @@
   background-color: #fff;
 
   ul.vp-scroller-container {
-    @mixin border-bottom-quarter .vp-scroller-item, #cfcfcf;
-    li.vp-scroller-item{
+    overflow: hidden;
+    position: relative;
+
+    li.vp-scroller-item {
       width: 100%;
-      padding: 1em;
-      height: 2.5em;
-      line-height: 2.5em;
-      background-color: #fff;
-    }
-    li.vp-scroller-item:after {
-      z-index: 1;
     }
   }
 }
