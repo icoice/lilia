@@ -1,0 +1,111 @@
+  .vp-date {
+    .vp-date-time {
+      overflow: hidden;
+
+      .vp-date-time-item {
+        float: left;
+        width: 33.33%;
+
+        .vp-button {
+          .vp-button-touch {
+            height: 3em;
+            line-height: normal;
+            border-radius: 0;
+
+            span {
+              display: block;
+              height: 3em;
+              line-height: 3em;
+              text-align: center;
+              font-size: 22px;
+              font-weight: 300;
+            }
+
+            span.vp-date-selected {
+              background-color: #ff5724;
+              color: #fff;
+            }
+          }
+        }
+      }
+    }
+    .vp-date-time-scope {
+      .vp-button {
+        border-bottom: 1px solid #dfdfdf;
+        .vp-button-touch {
+          border-radius: 0;
+          border-top: 1px solid #dfdfdf;
+          border-left: 1px solid #dfdfdf;
+          background-color: #fff;
+
+          span {
+            color: #333;
+          }
+        }
+      }
+    }
+    .vp-date-time-select {
+      position: relative;
+
+      ul {
+        overflow: hidden;
+        padding-left: .5em;
+        padding-right: .5em;
+        padding-top: .5em;
+
+        li {
+          float: left;
+          padding-bottom: .5em;
+          width: 14.28%;
+          text-align: center;
+          border-radius: 5px;
+          cursor: pointer;
+        }
+
+        li.vp-date-selected {
+          background-color: #ff5724;
+          color: #fff;
+          .vp-button {
+            .vp-button-touch {
+              span {
+                color: #ff5724;
+              }
+            }
+          }
+        }
+
+        li.vp-date-last-grid {
+          .vp-button {
+            border-right: 1px solid #dfdfdf;
+          }
+        }
+      }
+
+      ul.vp-date-weeks  {
+        li {
+          float: left;
+          padding-top: .5em;
+          width: 14.28%;
+          text-align: center;
+          border-radius: 5px;
+          cursor: pointer;
+          color: #666;
+        }
+      }
+
+      .vp-date-time-select-body {
+        position: relative;
+        z-index: 1;
+      }
+
+      .vp-date-time-select-bg {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: #fff;
+        opacity: .9;
+      }
+    }
+  }

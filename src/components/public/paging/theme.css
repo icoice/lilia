@@ -1,0 +1,50 @@
+  .vp-paging {
+  overflow: hidden;
+  font-size: 12px;
+  padding-top: .5em;
+  padding-bottom: .5em;
+  background-color: #dfdfdf;
+  .vp-paging-tips {
+    font-size: 15px;
+    height: 2em;
+    line-height: 2em;
+    text-align: center;
+  }
+  ul {
+    overflow: hidden;
+    margin: 0;
+    padding: 0;
+    li {
+      float: left;
+      margin: 0 .25em;
+      padding: .2em;
+      list-style-type: none;
+      border-radius: 5px;
+      .vp-button {
+        .vp-button-touch {
+          height: 2em;
+          line-height: 2em;
+          padding: 0 .5em;
+        }
+      }
+    }
+    li.vp-page-no-selected {
+      .vp-button {
+        .vp-button-touch {
+          background-color: #f52;
+        }
+      }
+    }
+    li.vp-paging-operate {
+      .vp-button {
+        .vp-button-touch {
+          background-color: transparent;
+          color: #666;
+        }
+        .vp-button-touch:hover {
+          color: #333;
+        }
+      }
+    }
+  }
+}
