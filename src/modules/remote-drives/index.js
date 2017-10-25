@@ -53,7 +53,6 @@ import Adapter from 'imagination-adapter';
               break;
             default: axiosSetting.params = requestData;
           }
-          console.log(axiosSetting);
           return axios(axiosSetting);
         }
 

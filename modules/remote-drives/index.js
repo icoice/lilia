@@ -4,6 +4,10 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
+var _typeof2 = require('babel-runtime/helpers/typeof');
+
+var _typeof3 = _interopRequireDefault(_typeof2);
+
 var _assign = require('babel-runtime/core-js/object/assign');
 
 var _assign2 = _interopRequireDefault(_assign);
@@ -33,7 +37,7 @@ exports.default = function (setting) {
 
   setting.access = setting.access.map(function (api) {
     var newApi = (0, _assign2.default)({}, api);
-    newApi.fake = api.fake !== null && typeof api.fake === 'Object' ? {
+    newApi.fake = api.fake !== null && (0, _typeof3.default)(api.fake) === 'object' ? {
       config: {},
       headers: {},
       request: {},
@@ -133,7 +137,6 @@ var Remote = function () {
               default:
                 axiosSetting.params = requestData;
             }
-            console.log(axiosSetting);
             return (0, _axios2.default)(axiosSetting);
           }
 
