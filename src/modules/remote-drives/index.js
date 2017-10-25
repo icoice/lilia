@@ -75,7 +75,7 @@ export default function (setting) {
 
   setting.access = setting.access.map(api=> {
     const newApi = Object.assign({}, api);
-    newApi.fake = api.fake !== null && typeof api.fake === 'Object' ? {
+    newApi.fake = api.fake !== null && typeof api.fake === 'object' ? {
       config: {},
       headers: {},
       request: {},
