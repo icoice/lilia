@@ -3,7 +3,6 @@
   "version": "0.0.1",
   "description": "vue ui",
   "author": "985611106@qq.com",
-  "private": true,
   "scripts": {
     "dev": "node build/dev-server.js",
     "start": "node build/dev-server.js",

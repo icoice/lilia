@@ -7,6 +7,7 @@
 ## 库的开发备忘
 1、请使用npm run encode进行初步编译。  
 2、修改webpack.base.js的include属性，添加resolve('node_modules/vue-moo')，让Vue的webpack环境中编译模块。  
+3、项目请安装“babel-plugin-transform-object-entries”插件，并在babel的配置中设置。
 
 ## How to use ?
 npm install --save vue-moo
