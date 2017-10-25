@@ -35,6 +35,7 @@ import Adapter from 'imagination-adapter';
         // 1存在未被定义的内容，那么使用2。
         const requestMethod = params.remoteMethod || method;
         const requestData = params.remoteData || params;
+
         if (fake === null) {
           const headers = {
             'Content-Type': requestData instanceof FormData ? 'multipart/form-data' : 'application/json',
@@ -52,6 +53,7 @@ import Adapter from 'imagination-adapter';
               break;
             default: axiosSetting.params = requestData;
           }
+          console.log(axiosSetting);
           return axios(axiosSetting);
         }
 
@@ -73,14 +75,14 @@ export default function (setting) {
 
   setting.access = setting.access.map(api=> {
     const newApi = Object.assign({}, api);
-    newApi.fake = {
+    newApi.fake = api.fake !== null && typeof api.fake === 'Object' ? {
       config: {},
       headers: {},
       request: {},
       status: 200,
       statusText: 'ok',
       data: Object.assign({}, api.fake),
-   }
+   } : api.fake;
    return newApi;
   });
 

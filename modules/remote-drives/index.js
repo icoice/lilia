@@ -33,14 +33,14 @@ exports.default = function (setting) {
 
   setting.access = setting.access.map(function (api) {
     var newApi = (0, _assign2.default)({}, api);
-    newApi.fake = {
+    newApi.fake = api.fake !== null && typeof api.fake === 'Object' ? {
       config: {},
       headers: {},
       request: {},
       status: 200,
       statusText: 'ok',
       data: (0, _assign2.default)({}, api.fake)
-    };
+    } : api.fake;
     return newApi;
   });
 
@@ -114,6 +114,7 @@ var Remote = function () {
           // 1存在未被定义的内容，那么使用2。
           var requestMethod = params.remoteMethod || method;
           var requestData = params.remoteData || params;
+
           if (fake === null) {
             var headers = {
               'Content-Type': requestData instanceof FormData ? 'multipart/form-data' : 'application/json'
@@ -132,6 +133,7 @@ var Remote = function () {
               default:
                 axiosSetting.params = requestData;
             }
+            console.log(axiosSetting);
             return (0, _axios2.default)(axiosSetting);
           }
 
