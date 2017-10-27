@@ -42,13 +42,28 @@
         this.radioItems = items;
       },
     },
+    mounted() {
+      const { radioSelected, radioItems } = this;
+      if (radioSelected !== null) {
+        this.selectRadio(radioSelected, radioItems[radioSelected], () => {
+          this.$emit('selected', { code, selected: data });
+        });
+      }
+    },
+    updated() {
+      const { radioSelected, radioItems } = this;
+      if (radioSelected !== null) {
+        this.selectRadio(radioSelected, radioItems[radioSelected], () => {
+          this.$emit('selected', { code, selected: data });
+        });
+      }
+    },
     methods: {
       hasSelected(code) {
         return this.radioSelected === code;
       },
       selectRadio(code, data) {
         this.radioSelected = code;
-        this.$emit('selected', { code, selected: data });
       },
     },
   };

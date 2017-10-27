@@ -15,6 +15,10 @@
         type: Array,
         default: data => (data === null || !data ? [] : data),
       },
+      hasSave: {
+        type: Boolean,
+        default: false,
+      },
       total: {
         type: Number,
         default: 0,
@@ -33,6 +37,7 @@
         scrollerList: this.list,
         no: 1,
         scrollerTotal: this.total,
+        currentTop: this.scrollTo,
         showAmount: this.amount,
         beforeCode: 0,
         groups: [],
@@ -59,19 +64,24 @@
         this.scrollerTotal = total;
         this.spaceHeight = null;
       },
+      scrollTo(top) {
+        this.currentTop = top;
+      },
       amount(amount) {
         this.showAmount = amount;
       },
     },
     mounted() {
       this.init();
-      window.addEventListener('resize', () => this.init());
+      window.addEventListener('resize', () => this.init(), false);
+      this.$refs.main.scrollTop = this.currentTop;
     },
     updated() {
       this.resize();
     },
     activated() {
       this.init();
+      this.$refs.main.scrollTop = this.currentTop;
     },
     methods: {
       init() {
@@ -116,10 +126,13 @@
         const bottom = this.scrollBottom(e.target);
         const code = Math.floor(bottom / (spaceHeight === null ? 1 : spaceHeight));
 
+        this.currentTop = top;
         if (code !== this.beforeCode) {
           this.push(code);
           this.beforeCode = code;
         }
+
+        this.$emit('scroll',  e.target);
       },
       push(code) {
         const { scrollerList, showAmount, scrollerTotal, beforeCode } = this;

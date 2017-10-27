@@ -42,6 +42,18 @@
         this.radioItems = items;
       },
     },
+    mounted() {
+      const { radioSelected, radioItems } = this;
+      if (radioSelected !== null) {
+        this.selectRadio(radioSelected, radioItems[radioSelected]);
+      }
+    },
+    updated() {
+      const { radioSelected, radioItems } = this;
+      if (radioSelected !== null) {
+        this.selectRadio(radioSelected, radioItems[radioSelected]);
+      }
+    },
     methods: {
       hasSelected(code) {
         return this.radioSelected === code;
