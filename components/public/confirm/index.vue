@@ -3,10 +3,10 @@
     <div class="vp-confirm-view" ref="vpConfirmView">
       <slot name="confirm-content"/>
       <div class="vp-confirm-operate">
-        <vp-button  @click="operate('sure')">
+        <vp-button  @tap="operate('sure')">
           <span slot="button-name">确定</span>
         </vp-button>
-        <vp-button  @click="operate('cancel')">
+        <vp-button  @tap="operate('cancel')">
           <span slot="button-name">取消</span>
         </vp-button>
       </div>
