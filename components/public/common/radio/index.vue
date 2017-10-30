@@ -45,13 +45,17 @@
     mounted() {
       const { radioSelected, radioItems } = this;
       if (radioSelected !== null) {
-        this.selectRadio(radioSelected, radioItems[radioSelected]);
+        this.selectRadio(radioSelected, radioItems[radioSelected], () => {
+          this.$emit('selected', { code, selected: data });
+        });
       }
     },
     updated() {
       const { radioSelected, radioItems } = this;
       if (radioSelected !== null) {
-        this.selectRadio(radioSelected, radioItems[radioSelected]);
+        this.selectRadio(radioSelected, radioItems[radioSelected], () => {
+          this.$emit('selected', { code, selected: data });
+        });
       }
     },
     methods: {
@@ -60,7 +64,6 @@
       },
       selectRadio(code, data) {
         this.radioSelected = code;
-        this.$emit('selected', { code, selected: data });
       },
     },
   };
