@@ -8,6 +8,8 @@
 </template>
 
 <script>
+  import vpButton from '.'
+
   export default {
     props: {
       width: {

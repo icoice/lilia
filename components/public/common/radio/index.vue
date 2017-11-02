@@ -41,29 +41,34 @@
       items(items) {
         this.radioItems = items;
       },
+      selected(no) {
+        this.radioSelected = no;
+      },
     },
     mounted() {
-      const { radioSelected, radioItems } = this;
-      if (radioSelected !== null) {
-        this.selectRadio(radioSelected, radioItems[radioSelected], () => {
-          this.$emit('selected', { code, selected: data });
-        });
-      }
+      this.setSelect();
+    },
+    activated() {
+      this.setSelect();
     },
     updated() {
-      const { radioSelected, radioItems } = this;
-      if (radioSelected !== null) {
-        this.selectRadio(radioSelected, radioItems[radioSelected], () => {
-          this.$emit('selected', { code, selected: data });
-        });
-      }
+      this.setSelect();
     },
     methods: {
       hasSelected(code) {
         return this.radioSelected === code;
       },
+      setSelect() {
+        const { radioSelected, radioItems } = this;
+        if (radioSelected !== null) {
+          this.selectRadio(radioSelected, radioItems[radioSelected], () => {
+            this.$emit('updated', { code, selected: data });
+          });
+        }
+      },
       selectRadio(code, data) {
         this.radioSelected = code;
+        this.$emit('selected', { code, selected: data });
       },
     },
   };

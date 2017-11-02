@@ -1,3 +1,6 @@
+import remoteDrives from '../modules/remote-drives';
+import RemoteDrivesMecha from '../modules/remote-drives/mecha';
+
 // animate.css的控制
 export const animate = function animate(name, target, type) {
   clearTimeout(animate.sid);
@@ -22,14 +25,24 @@ export const animate = function animate(name, target, type) {
   }
 };
 
+// 简易的storage存取
 export const storage = {
   set(name, value) {
-    localStorage.setItem(name, JSON.stringify(value));
+    try {
+      localStorage.setItem(name, JSON.stringify(value));
+    } catch(e) {
+      this.exception(e);
+    }
   },
   get(name) {
-    const data = localStorage.getItem(name);
-    return data !== null ? JSON.parse(data) : data;
+    try {
+      const data = localStorage.getItem(name);
+      return data !== null ? JSON.parse(data) : data;
+    } catch(e) {
+     this.exception(e);
+    }
   },
+  exception: () => {},
 };
 
 // 时间
@@ -61,24 +74,104 @@ export const objectValueString = function charsetChange(obj) {
   return target;
 };
 
+// 首字母大写
 export const firstLetterUppercase = function firstLetterUppercase(word) {
   if (typeof word !== 'string') return word;
   const firstLetter = word.charAt(0);
   return `${firstLetter.toUpperCase()}${word.substr(1, word.length)}`;
 }
 
+// 判断变量是否为空值
 export const hasEmpty = function hasEmpty(word) {
   return word === '' ||
   word === null ||
   word === 'null' ||
+  JSON.stringify(word) === '{}' ||
+  JSON.stringify(word) === '[]' ||
   typeof word === 'undefined';
+}
+
+// 驼峰替换
+export const humpChangeTo = function humpChangeTo(word, separator) {
+  const newWord = [];
+  for (let i = 0; i < word.length; i += 1) {
+    const letter = word[i];
+    newWord.push(/[A-Z]/g.test(letter) ? `${separator}${letter.toLowerCase()}` : letter);
+  }
+  return newWord.join('');
+}
+
+/**
+ * 用于转换remote-drives的access格式。
+ * payload是用于校验API的参数，
+ * payload必须被定义，payload未被定义的参数不会被接入。
+ * 比如有3个参数，payload仅定义了argus1,argus2,
+ * 那么argus3在实际传参中不会被服务器获得。
+ *  payload需定义默认值。
+ */
+export const remoteApdaterFormater = function remoteApdaterFormater(maps) {
+ const apiMap = [];
+ const apiPayload = [];
+
+ Object.entries(maps).map((api) => {
+   const [, desc] = api;
+   apiMap.push(desc.info);
+   apiPayload.push(desc.payload);
+   return api;
+ });
+
+ return {
+   list: apiMap,
+   payloads: apiPayload,
+ };
+}
+
+/**
+* domain：使用代理时，请不要填写Domain。（暂时）
+* access：API的映射表。
+* fakeDelayTime：虚拟数据的延时获得，用于仿造访问远程时的情景。
+*  fake: 是否接入虚假数据, 假设并没有定义fake的数据时，则默认接入真实接口。
+* adapterMecha: 用于置换数据，预定义请求体, 方法别名，增加Promise的支持等等。
+*  mecha用于支持remote-drives在HTTP协议规范上的情景处理。
+*/
+export const  defineRemoteAdapter = function defineRemoteAdapter(config, maps) {
+  const apiMaps = remoteApdaterFormater(maps);
+  const adapterMecha = new RemoteDrivesMecha(remoteDrives({
+   domain: config.domain,
+   access: apiMaps.list.map(api => Object.assign(api, {
+     fake: !config.hasFake ? null : config.fakeBaseDataStruct(api.fake),
+   })),
+   fakeDelayTime: config.fakeDelay,
+  }));
+
+  // 预定义请求体。
+  apiMaps.payloads.map((payload) => {
+   adapterMecha.definePayload(payload.name, payload.origin, payload.alias);
+   return payload;
+  });
+
+  // 可用于请求前，变更payload的内容。
+  // 这里主要处理用户数据在各类API间的切入。
+  adapterMecha.defineRequestBefore((payload) => {
+   const { USER_INFO } = window;
+   return Object.assign(payload,
+    !USER_INFO ? {} : {
+      userId: USER_INFO.id,
+      police: USER_INFO.id,
+    });
+  });
+
+  return adapterMecha.init();
 }
 
 export default {
   animate,
   storage,
   clock,
-  objectValueString,
   firstLetterUppercase,
+  humpChangeTo,
   hasEmpty,
+  objectValueString,
+  remoteApdaterFormater,
+  defineRemoteAdapter,
 };

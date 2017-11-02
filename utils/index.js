@@ -3,7 +3,11 @@
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.hasEmpty = exports.firstLetterUppercase = exports.objectValueString = exports.clock = exports.storage = exports.animate = undefined;
+exports.defineRemoteAdapter = exports.remoteApdaterFormater = exports.humpChangeTo = exports.hasEmpty = exports.firstLetterUppercase = exports.objectValueString = exports.clock = exports.storage = exports.animate = undefined;
+
+var _assign = require('babel-runtime/core-js/object/assign');
+
+var _assign2 = _interopRequireDefault(_assign);
 
 var _slicedToArray2 = require('babel-runtime/helpers/slicedToArray');
 
@@ -20,6 +24,14 @@ var _typeof3 = _interopRequireDefault(_typeof2);
 var _stringify = require('babel-runtime/core-js/json/stringify');
 
 var _stringify2 = _interopRequireDefault(_stringify);
+
+var _remoteDrives = require('../modules/remote-drives');
+
+var _remoteDrives2 = _interopRequireDefault(_remoteDrives);
+
+var _mecha = require('../modules/remote-drives/mecha');
+
+var _mecha2 = _interopRequireDefault(_mecha);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -49,14 +61,25 @@ var animate = exports.animate = function animate(name, target, type) {
   }
 };
 
+// 简易的storage存取
 var storage = exports.storage = {
   set: function set(name, value) {
-    localStorage.setItem(name, (0, _stringify2.default)(value));
+    try {
+      localStorage.setItem(name, (0, _stringify2.default)(value));
+    } catch (e) {
+      this.exception(e);
+    }
   },
   get: function get(name) {
-    var data = localStorage.getItem(name);
-    return data !== null ? JSON.parse(data) : data;
-  }
+    try {
+      var data = localStorage.getItem(name);
+      return data !== null ? JSON.parse(data) : data;
+    } catch (e) {
+      this.exception(e);
+    }
+  },
+
+  exception: function exception() {}
 };
 
 // 时间
@@ -93,21 +116,104 @@ var objectValueString = exports.objectValueString = function charsetChange(obj) 
   return target;
 };
 
+// 首字母大写
 var firstLetterUppercase = exports.firstLetterUppercase = function firstLetterUppercase(word) {
   if (typeof word !== 'string') return word;
   var firstLetter = word.charAt(0);
   return '' + firstLetter.toUpperCase() + word.substr(1, word.length);
 };
 
+// 判断变量是否为空值
 var hasEmpty = exports.hasEmpty = function hasEmpty(word) {
-  return word === '' || word === null || word === 'null' || typeof word === 'undefined';
+  return word === '' || word === null || word === 'null' || (0, _stringify2.default)(word) === '{}' || (0, _stringify2.default)(word) === '[]' || typeof word === 'undefined';
+};
+
+// 驼峰替换
+var humpChangeTo = exports.humpChangeTo = function humpChangeTo(word, separator) {
+  var newWord = [];
+  for (var i = 0; i < word.length; i += 1) {
+    var letter = word[i];
+    newWord.push(/[A-Z]/g.test(letter) ? '' + separator + letter.toLowerCase() : letter);
+  }
+  return newWord.join('');
+};
+
+/**
+ * 用于转换remote-drives的access格式。
+ * payload是用于校验API的参数，
+ * payload必须被定义，payload未被定义的参数不会被接入。
+ * 比如有3个参数，payload仅定义了argus1,argus2,
+ * 那么argus3在实际传参中不会被服务器获得。
+ *  payload需定义默认值。
+ */
+var remoteApdaterFormater = exports.remoteApdaterFormater = function remoteApdaterFormater(maps) {
+  var apiMap = [];
+  var apiPayload = [];
+
+  (0, _entries2.default)(maps).map(function (api) {
+    var _api = (0, _slicedToArray3.default)(api, 2),
+        desc = _api[1];
+
+    apiMap.push(desc.info);
+    apiPayload.push(desc.payload);
+    return api;
+  });
+
+  return {
+    list: apiMap,
+    payloads: apiPayload
+  };
+};
+
+/**
+* domain：使用代理时，请不要填写Domain。（暂时）
+* access：API的映射表。
+* fakeDelayTime：虚拟数据的延时获得，用于仿造访问远程时的情景。
+*  fake: 是否接入虚假数据, 假设并没有定义fake的数据时，则默认接入真实接口。
+* adapterMecha: 用于置换数据，预定义请求体, 方法别名，增加Promise的支持等等。
+*  mecha用于支持remote-drives在HTTP协议规范上的情景处理。
+*/
+var defineRemoteAdapter = exports.defineRemoteAdapter = function defineRemoteAdapter(config, maps) {
+  var apiMaps = remoteApdaterFormater(maps);
+  var adapterMecha = new _mecha2.default((0, _remoteDrives2.default)({
+    domain: config.domain,
+    access: apiMaps.list.map(function (api) {
+      return (0, _assign2.default)(api, {
+        fake: !config.hasFake ? null : config.fakeBaseDataStruct(api.fake)
+      });
+    }),
+    fakeDelayTime: config.fakeDelay
+  }));
+
+  // 预定义请求体。
+  apiMaps.payloads.map(function (payload) {
+    adapterMecha.definePayload(payload.name, payload.origin, payload.alias);
+    return payload;
+  });
+
+  // 可用于请求前，变更payload的内容。
+  // 这里主要处理用户数据在各类API间的切入。
+  adapterMecha.defineRequestBefore(function (payload) {
+    var _window = window,
+        USER_INFO = _window.USER_INFO;
+
+    return (0, _assign2.default)(payload, !USER_INFO ? {} : {
+      userId: USER_INFO.id,
+      police: USER_INFO.id
+    });
+  });
+
+  return adapterMecha.init();
 };
 
 exports.default = {
   animate: animate,
   storage: storage,
   clock: clock,
-  objectValueString: objectValueString,
   firstLetterUppercase: firstLetterUppercase,
-  hasEmpty: hasEmpty
+  humpChangeTo: humpChangeTo,
+  hasEmpty: hasEmpty,
+  objectValueString: objectValueString,
+  remoteApdaterFormater: remoteApdaterFormater,
+  defineRemoteAdapter: defineRemoteAdapter
 };
