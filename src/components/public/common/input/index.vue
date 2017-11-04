@@ -7,6 +7,11 @@
         :value="value"
         :maxlength="maxLimit"
         :placeholder="tips"
+        ref="input"
+        @input = "onInput"
+        @change = "onChange"
+        @focus = "onFocus"
+        @blur ="onBlur"
         @keyup="verifyVal"/>
       <input v-if="category === 'password'"
         type="password"
@@ -14,9 +19,14 @@
         :value="value"
         :maxlength="maxLimit"
         :placeholder="tips"
+        ref="input"
+        @input = "onInput"
+        @change = "onChange"
+        @focus = "onFocus"
+        @blur ="onBlur"
         @keyup="verifyVal"/>
       <div class="vp-input-clear" v-if="hasClear && value && value !== '' && !hasDisabled">
-        <span class="psm-icon psm-clear" @click="clear"></span>
+        <span class="psm-icon psm-clear" @click.stop="clear" @touchend.stop="clear"></span>
       </div>
       <div class="vp-input-mask" v-if="hasDisabled"></div>
     </div>
@@ -113,6 +123,7 @@
         verifyInput: this.verify,
         checkEmptry: this.isNoEmpty,
         hasDisabled: this.disabled,
+        hasClearNow: false,
         hasEmptry: false,
         hasVerifyFail: false,
       };
@@ -147,7 +158,26 @@
 
         this.$emit('keyup', this.getVal());
       },
+      onInput() {
+        this.$emit('input', this.getVal());
+      },
+      onChange() {
+        this.$emit('change', this.getVal());
+      },
+      onFocus() {
+        this.$emit('focus', this.getVal());
+        his.hasClearNow = false;
+      },
+      onBlur(e) {
+        if (!this.hasClearNow) {
+          this.$emit('blur', this.getVal());
+        } else {
+          this.hasClearNow = false;
+          e.target.focus();
+        }
+      },
       clear() {
+        this.hasClearNow = true;
         this.value = '';
         this.verifyVal();
         this.$emit('clear', this.getVal());
