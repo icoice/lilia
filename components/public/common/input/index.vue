@@ -166,7 +166,7 @@
       },
       onFocus() {
         this.$emit('focus', this.getVal());
-        his.hasClearNow = false;
+        this.hasClearNow = false;
       },
       onBlur(e) {
         if (!this.hasClearNow) {
