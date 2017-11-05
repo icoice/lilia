@@ -173,17 +173,27 @@ var remoteApdaterFormater = exports.remoteApdaterFormater = function remoteApdat
 * adapterMecha: 用于置换数据，预定义请求体, 方法别名，增加Promise的支持等等。
 *  mecha用于支持remote-drives在HTTP协议规范上的情景处理。
 */
-var defineRemoteAdapter = exports.defineRemoteAdapter = function defineRemoteAdapter(config, maps, before) {
+var defineRemoteAdapter = exports.defineRemoteAdapter = function defineRemoteAdapter(_ref) {
+  var config = _ref.config,
+      maps = _ref.maps,
+      sendBefore = _ref.sendBefore,
+      onBuildPayload = _ref.onBuildPayload,
+      onBuildHeaders = _ref.onBuildHeaders;
+
   var apiMaps = remoteApdaterFormater(maps);
-  var adapterMecha = new _mecha2.default((0, _remoteDrives2.default)({
+  var api = (0, _remoteDrives2.default)({
     domain: config.domain,
     access: apiMaps.list.map(function (api) {
       return (0, _assign2.default)(api, {
         fake: !config.hasFake ? null : config.fakeBaseDataStruct(api.fake)
       });
     }),
-    fakeDelayTime: config.fakeDelay
-  }));
+    fakeDelayTime: config.fakeDelay,
+    onBuildPayload: onBuildPayload,
+    onBuildHeaders: onBuildHeaders
+  });
+
+  var adapterMecha = new _mecha2.default(api);
 
   // 预定义请求体。
   apiMaps.payloads.map(function (payload) {
@@ -194,7 +204,7 @@ var defineRemoteAdapter = exports.defineRemoteAdapter = function defineRemoteAda
   // 可用于请求前，变更payload的内容。
   // 这里主要处理用户数据在各类API间的切入。
   adapterMecha.defineRequestBefore(function (payload) {
-    return (0, _assign2.default)(payload, before());
+    return (0, _assign2.default)(payload, sendBefore());
   });
 
   return adapterMecha.init();

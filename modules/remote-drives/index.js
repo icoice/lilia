@@ -8,13 +8,13 @@ var _typeof2 = require('babel-runtime/helpers/typeof');
 
 var _typeof3 = _interopRequireDefault(_typeof2);
 
-var _assign = require('babel-runtime/core-js/object/assign');
-
-var _assign2 = _interopRequireDefault(_assign);
-
 var _promise = require('babel-runtime/core-js/promise');
 
 var _promise2 = _interopRequireDefault(_promise);
+
+var _assign = require('babel-runtime/core-js/object/assign');
+
+var _assign2 = _interopRequireDefault(_assign);
 
 var _classCallCheck2 = require('babel-runtime/helpers/classCallCheck');
 
@@ -34,7 +34,6 @@ exports.default = function (setting) {
   _imaginationAdapter2.default.accross('onExecuteAfter', function (next) {
     return next();
   });
-
   setting.access = setting.access.map(function (api) {
     var newApi = (0, _assign2.default)({}, api);
     newApi.fake = api.fake !== null && (0, _typeof3.default)(api.fake) === 'object' ? {
@@ -47,7 +46,6 @@ exports.default = function (setting) {
     } : api.fake;
     return newApi;
   });
-
   return new _imaginationAdapter2.default(new Remote(setting));
 };
 
@@ -91,6 +89,12 @@ var Remote = function () {
       this.fakeDelayTime = fakeDelayTime ? fakeDelayTime : 1000;
       this.domain = domain ? domain : '';
       this.access = access ? access : [];
+      this.buildHeaders = !setting.onBuildHeaders ? function (params) {
+        return params;
+      } : setting.onBuildHeaders;
+      this.buildPayload = !setting.onBuildPayload ? function (params) {
+        return params;
+      } : setting.onBuildPayload;
       return this.register();
     }
     // 注册Remote实例方法
@@ -98,6 +102,8 @@ var Remote = function () {
   }, {
     key: 'register',
     value: function register() {
+      var _this = this;
+
       var access = this.access,
           domain = this.domain,
           fakeDelayTime = this.fakeDelayTime;
@@ -119,32 +125,40 @@ var Remote = function () {
           var requestMethod = params.remoteMethod || method;
           var requestData = params.remoteData || params;
 
-          if (fake === null) {
-            var headers = {
-              'Content-Type': requestData instanceof FormData ? 'multipart/form-data' : 'application/json'
-            };
-            var axiosSetting = {
-              url: '' + domain + path,
-              method: requestMethod,
-              params: {},
-              data: {},
-              headers: headers
-            };
-            switch (requestMethod) {
-              case 'POST':
-                axiosSetting.data = requestData;
-                break;
-              default:
-                axiosSetting.params = requestData;
+          var headers = _this.buildHeaders({
+            'Content-Type': requestData instanceof FormData ? 'multipart/form-data' : 'application/json'
+          });
+
+          var axiosSetting = _this.buildPayload({
+            url: '' + domain + path,
+            method: requestMethod,
+            params: {},
+            data: {},
+            headers: headers
+          });
+
+          //  发送请求
+          function send(setting) {
+            if (fake === null) {
+              switch (requestMethod) {
+                case 'POST':
+                  setting.data = (0, _assign2.default)({}, setting.data, requestData);
+                  break;
+                default:
+                  setting.params = (0, _assign2.default)({}, setting.params, requestData);
+              }
+              return (0, _axios2.default)(setting);
             }
-            return (0, _axios2.default)(axiosSetting);
+            return new _promise2.default(function (resolve) {
+              return setTimeout(function () {
+                return resolve(fake);
+              }, fakeDelayTime);
+            });
           }
 
-          return new _promise2.default(function (resolve) {
-            return setTimeout(function () {
-              return resolve(fake);
-            }, fakeDelayTime);
-          });
+          return axiosSetting instanceof _promise2.default ? axiosSetting.then(function (setting) {
+            return send(setting);
+          }) : send(axiosSetting);
         };
         return item;
       });

@@ -134,15 +134,25 @@ export const remoteApdaterFormater = function remoteApdaterFormater(maps) {
 * adapterMecha: 用于置换数据，预定义请求体, 方法别名，增加Promise的支持等等。
 *  mecha用于支持remote-drives在HTTP协议规范上的情景处理。
 */
-export const  defineRemoteAdapter = function defineRemoteAdapter(config, maps, before) {
+export const  defineRemoteAdapter = function defineRemoteAdapter({
+ config,
+ maps,
+ sendBefore,
+ onBuildPayload,
+ onBuildHeaders,
+}) {
   const apiMaps = remoteApdaterFormater(maps);
-  const adapterMecha = new RemoteDrivesMecha(remoteDrives({
+  const api = remoteDrives({
    domain: config.domain,
    access: apiMaps.list.map(api => Object.assign(api, {
      fake: !config.hasFake ? null : config.fakeBaseDataStruct(api.fake),
    })),
    fakeDelayTime: config.fakeDelay,
-  }));
+   onBuildPayload,
+   onBuildHeaders,
+  });
+
+  const adapterMecha = new RemoteDrivesMecha(api);
 
   // 预定义请求体。
   apiMaps.payloads.map((payload) => {
@@ -153,7 +163,7 @@ export const  defineRemoteAdapter = function defineRemoteAdapter(config, maps, b
   // 可用于请求前，变更payload的内容。
   // 这里主要处理用户数据在各类API间的切入。
   adapterMecha.defineRequestBefore((payload) => {
-   return Object.assign(payload, before());
+   return Object.assign(payload, sendBefore());
   });
 
   return adapterMecha.init();

@@ -20,6 +20,8 @@ import Adapter from 'imagination-adapter';
     this.fakeDelayTime = fakeDelayTime ? fakeDelayTime : 1000;
     this.domain = domain ? domain : '';
     this.access = access ? access : [];
+    this.buildHeaders = !setting.onBuildHeaders ?  params => params : setting.onBuildHeaders;
+    this.buildPayload = !setting.onBuildPayload ?  params => params : setting.onBuildPayload;
     return this.register();
   }
   // 注册Remote实例方法
@@ -36,27 +38,37 @@ import Adapter from 'imagination-adapter';
         const requestMethod = params.remoteMethod || method;
         const requestData = params.remoteData || params;
 
-        if (fake === null) {
-          const headers = {
-            'Content-Type': requestData instanceof FormData ? 'multipart/form-data' : 'application/json',
-          };
-          const axiosSetting = {
-            url: `${domain}${path}`,
-            method: requestMethod,
-            params: {},
-            data: {},
-            headers,
-          };
-          switch (requestMethod) {
-            case 'POST':
-              axiosSetting.data = requestData;
-              break;
-            default: axiosSetting.params = requestData;
+        const headers = this.buildHeaders({
+          'Content-Type': requestData instanceof FormData ? 'multipart/form-data' : 'application/json',
+        });
+
+        const axiosSetting = this.buildPayload({
+          url: `${domain}${path}`,
+          method: requestMethod,
+          params: {},
+          data: {},
+          headers,
+        });
+
+        //  发送请求
+        function send(setting) {
+          if (fake === null) {
+            switch (requestMethod) {
+              case 'POST':
+                setting.data = Object.assign({},
+                 setting.data,
+                 requestData);
+                break;
+              default: setting.params = Object.assign({},
+               setting.params,
+               requestData);
+            }
+            return axios(setting);
           }
-          return axios(axiosSetting);
+          return new Promise(resolve => setTimeout(() => resolve(fake), fakeDelayTime));
         }
 
-        return new Promise(resolve => setTimeout(() => resolve(fake), fakeDelayTime));
+       return axiosSetting instanceof Promise ? axiosSetting.then(setting => send(setting)) : send(axiosSetting);
       };
       return item;
     });
@@ -71,7 +83,6 @@ export default function (setting) {
   const { access } = setting;
   Adapter.accross('onExecuteBefore', next => next());
   Adapter.accross('onExecuteAfter', next => next());
-
   setting.access = setting.access.map(api=> {
     const newApi = Object.assign({}, api);
     newApi.fake = api.fake !== null && typeof api.fake === 'object' ? {
@@ -84,6 +95,5 @@ export default function (setting) {
    } : api.fake;
    return newApi;
   });
-
   return new Adapter(new Remote(setting));
 }
