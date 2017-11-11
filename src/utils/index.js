@@ -140,6 +140,7 @@ export const  defineRemoteAdapter = function defineRemoteAdapter({
  sendBefore,
  onBuildPayload,
  onBuildHeaders,
+ replaceSender,
 }) {
   const apiMaps = remoteApdaterFormater(maps);
   const api = remoteDrives({
@@ -150,6 +151,7 @@ export const  defineRemoteAdapter = function defineRemoteAdapter({
    fakeDelayTime: config.fakeDelay,
    onBuildPayload,
    onBuildHeaders,
+   replaceSender,
   });
 
   const adapterMecha = new RemoteDrivesMecha(api);
@@ -169,6 +171,32 @@ export const  defineRemoteAdapter = function defineRemoteAdapter({
   return adapterMecha.init();
 }
 
+// scroller的分页用法支持
+export const ScrollerPaging = function ScrollerPaging(scroller) {
+  this.data = {};
+  this.currentPage = null;
+  this.onChange = function(scroller, callback) {
+   if (this.currentPage !== scroller.nextPage) {
+     this.currentPage = scroller.nextPage;
+     if(callback) callback(params => this.getter(params), data => this.setter(this.currentPage, data), scroller);
+   }
+  },
+  this.setter = function(page, data) {
+   this.data[page] = typeof data === 'object' && data instanceof Array ? data : [] ;
+  }
+  this.getter = function(scroller) {
+   const { data } = this;
+   let allData = [];
+   Object.entries(data).map((kv) => {
+     const [, v] = kv;
+     allData = allData.concat(v);
+     return kv;
+   });
+   return !scroller ? allData : data[scroller.page];
+  }
+}
+
+
 export default {
   animate,
   storage,
@@ -178,5 +206,6 @@ export default {
   hasEmpty,
   objectValueString,
   remoteApdaterFormater,
+  ScrollerPaging,
   defineRemoteAdapter,
 };

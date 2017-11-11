@@ -3,7 +3,7 @@
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.defineRemoteAdapter = exports.remoteApdaterFormater = exports.humpChangeTo = exports.hasEmpty = exports.firstLetterUppercase = exports.objectValueString = exports.clock = exports.storage = exports.animate = undefined;
+exports.ScrollerPaging = exports.defineRemoteAdapter = exports.remoteApdaterFormater = exports.humpChangeTo = exports.hasEmpty = exports.firstLetterUppercase = exports.objectValueString = exports.clock = exports.storage = exports.animate = undefined;
 
 var _assign = require('babel-runtime/core-js/object/assign');
 
@@ -178,7 +178,8 @@ var defineRemoteAdapter = exports.defineRemoteAdapter = function defineRemoteAda
       maps = _ref.maps,
       sendBefore = _ref.sendBefore,
       onBuildPayload = _ref.onBuildPayload,
-      onBuildHeaders = _ref.onBuildHeaders;
+      onBuildHeaders = _ref.onBuildHeaders,
+      replaceSender = _ref.replaceSender;
 
   var apiMaps = remoteApdaterFormater(maps);
   var api = (0, _remoteDrives2.default)({
@@ -190,7 +191,8 @@ var defineRemoteAdapter = exports.defineRemoteAdapter = function defineRemoteAda
     }),
     fakeDelayTime: config.fakeDelay,
     onBuildPayload: onBuildPayload,
-    onBuildHeaders: onBuildHeaders
+    onBuildHeaders: onBuildHeaders,
+    replaceSender: replaceSender
   });
 
   var adapterMecha = new _mecha2.default(api);
@@ -210,6 +212,39 @@ var defineRemoteAdapter = exports.defineRemoteAdapter = function defineRemoteAda
   return adapterMecha.init();
 };
 
+// scroller的分页用法支持
+var ScrollerPaging = exports.ScrollerPaging = function ScrollerPaging(scroller) {
+  this.data = {};
+  this.currentPage = null;
+  this.onChange = function (scroller, callback) {
+    var _this = this;
+
+    if (this.currentPage !== scroller.nextPage) {
+      this.currentPage = scroller.nextPage;
+      if (callback) callback(function (params) {
+        return _this.getter(params);
+      }, function (data) {
+        return _this.setter(_this.currentPage, data);
+      }, scroller);
+    }
+  }, this.setter = function (page, data) {
+    this.data[page] = (typeof data === 'undefined' ? 'undefined' : (0, _typeof3.default)(data)) === 'object' && data instanceof Array ? data : [];
+  };
+  this.getter = function (scroller) {
+    var data = this.data;
+
+    var allData = [];
+    (0, _entries2.default)(data).map(function (kv) {
+      var _kv2 = (0, _slicedToArray3.default)(kv, 2),
+          v = _kv2[1];
+
+      allData = allData.concat(v);
+      return kv;
+    });
+    return !scroller ? allData : data[scroller.page];
+  };
+};
+
 exports.default = {
   animate: animate,
   storage: storage,
@@ -219,5 +254,6 @@ exports.default = {
   hasEmpty: hasEmpty,
   objectValueString: objectValueString,
   remoteApdaterFormater: remoteApdaterFormater,
+  ScrollerPaging: ScrollerPaging,
   defineRemoteAdapter: defineRemoteAdapter
 };

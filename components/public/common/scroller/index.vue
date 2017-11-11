@@ -39,7 +39,7 @@
         scrollerTotal: this.total,
         currentTop: this.scrollTo,
         showAmount: this.amount,
-        beforeCode: 0,
+        beforeCode: 10,
         groups: [],
         spaceHeight: null,
         containerStyle: {
@@ -59,16 +59,19 @@
       list(list) {
         this.scrollerList = list;
         this.init();
+        this.resize(1);
       },
       total(total) {
         this.scrollerTotal = total;
-        this.spaceHeight = null;
+        this.resize(1);
       },
       scrollTo(top) {
         this.currentTop = top;
+        this.resize(1);
       },
       amount(amount) {
         this.showAmount = amount;
+        this.resize(1);
       },
     },
     mounted() {
@@ -81,6 +84,7 @@
     },
     activated() {
       this.init();
+      this.resize();
       this.$refs.main.scrollTop = this.currentTop;
     },
     methods: {
@@ -88,8 +92,7 @@
         const { container } = this.$refs;
         let { showAmount, scrollerList } = this;
         showAmount = showAmount > scrollerList.length ? scrollerList.length : showAmount;
-        this.beforeCode = 10;
-        this.push(0);
+        this.push(this.beforeCode);
       },
       getItemStyle(code) {
         const { spaceHeight, itemStyle } = this;
@@ -102,11 +105,10 @@
         const reallyHeight = dom.scrollHeight - (dom.scrollHeight - dom.offsetHeight);
         return dom.scrollTop + reallyHeight;
       },
-      resize() {
+      resize(refresh = 0) {
         const { spaceHeight, scrollerTotal, showAmount } = this;
         const { container } = this.$refs;
-
-        if (spaceHeight === null && container.children.length > 0) {
+        if (spaceHeight === null && container.children.length > 0 || refresh) {
           const sample = container.children[0];
           const height = sample.offsetHeight;
           this.containerStyle = {
@@ -114,25 +116,34 @@
           }
           if (this.viewHeight === null) {
             this.mainStyle = {
-              height: `${height * (scrollerTotal > showAmount ? showAmount : scrollerTotal)}px`,
+              height: `${height * scrollerTotal}px`,
             }
           }
-          this.spaceHeight = height;
+          this.spaceHeight = typeof height === 'number' ? height : this.spaceHeight;
         }
+        if (refresh) this.push(this.beforeCode);
       },
       onScroll(e) {
-        const { showAmount, beforeCode, spaceHeight } = this;
+        const { showAmount, beforeCode, spaceHeight, scrollerTotal } = this;
         const top = e.target.scrollTop;
         const bottom = this.scrollBottom(e.target);
-        const code = Math.floor(bottom / (spaceHeight === null ? 1 : spaceHeight));
+        const code = Math.ceil(bottom / (spaceHeight === null ? 1 : spaceHeight));
+        const page = Math.ceil(code / showAmount);
 
         this.currentTop = top;
+
         if (code !== this.beforeCode) {
           this.push(code);
           this.beforeCode = code;
         }
-
-        this.$emit('scroll',  e.target);
+        this.$emit('scroll',  {
+          page,
+          nextPage: code >= scrollerTotal ? page + 1 : page,
+          amount: showAmount,
+          code,
+          top,
+          bottom,
+        });
       },
       push(code) {
         const { scrollerList, showAmount, scrollerTotal, beforeCode } = this;

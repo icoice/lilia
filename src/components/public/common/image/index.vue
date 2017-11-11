@@ -39,6 +39,15 @@
         this.isLoad = false;
         this.readFile(data);
       },
+      link(link) {
+        this.imageLink = link;
+      },
+      width(width) {
+        this.imageWidth = width;
+      },
+      height(height) {
+        this.imageHeight = height;
+      },
     },
     data() {
       return {

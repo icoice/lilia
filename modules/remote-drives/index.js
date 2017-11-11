@@ -95,6 +95,7 @@ var Remote = function () {
       this.buildPayload = !setting.onBuildPayload ? function (params) {
         return params;
       } : setting.onBuildPayload;
+      this.replaceSender = !setting.replaceSender ? null : setting.replaceSender;
       return this.register();
     }
     // 注册Remote实例方法
@@ -116,6 +117,7 @@ var Remote = function () {
             path = item.path,
             fake = item.fake;
 
+        var _self = _this;
         apiList[name] = function () {
           var params = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
 
@@ -147,7 +149,11 @@ var Remote = function () {
                 default:
                   setting.params = (0, _assign2.default)({}, setting.params, requestData);
               }
-              return (0, _axios2.default)(setting);
+              if (typeof _self.replaceSender === 'function') {
+                return _self.replaceSender(setting);
+              } else {
+                return (0, _axios2.default)(setting);
+              }
             }
             return new _promise2.default(function (resolve) {
               return setTimeout(function () {

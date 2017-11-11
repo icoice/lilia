@@ -22,6 +22,7 @@ import Adapter from 'imagination-adapter';
     this.access = access ? access : [];
     this.buildHeaders = !setting.onBuildHeaders ?  params => params : setting.onBuildHeaders;
     this.buildPayload = !setting.onBuildPayload ?  params => params : setting.onBuildPayload;
+    this.replaceSender = !setting.replaceSender ? null : setting.replaceSender;
     return this.register();
   }
   // 注册Remote实例方法
@@ -31,6 +32,7 @@ import Adapter from 'imagination-adapter';
 
     access.map((item) => {
       const { name, method, path, fake } = item;
+      const _self = this;
       apiList[name] = (params = {}) => {
         // 1、实时传参
         // 2、payload的默认定义
@@ -63,7 +65,11 @@ import Adapter from 'imagination-adapter';
                setting.params,
                requestData);
             }
-            return axios(setting);
+            if (typeof _self.replaceSender === 'function') {
+              return _self.replaceSender(setting);
+            } else {
+              return axios(setting);
+            }
           }
           return new Promise(resolve => setTimeout(() => resolve(fake), fakeDelayTime));
         }
