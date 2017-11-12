@@ -47,24 +47,18 @@ import Adapter from 'imagination-adapter';
         const axiosSetting = this.buildPayload({
           url: `${domain}${path}`,
           method: requestMethod,
-          params: {},
-          data: {},
+          params: Object.assign({},
+           setting.params,
+           requestData),
+          data: Object.assign({},
+           setting.data,
+           requestData),
           headers,
         });
 
         //  发送请求
         function send(setting) {
           if (fake === null) {
-            switch (requestMethod) {
-              case 'POST':
-                setting.data = Object.assign({},
-                 setting.data,
-                 requestData);
-                break;
-              default: setting.params = Object.assign({},
-               setting.params,
-               requestData);
-            }
             if (typeof _self.replaceSender === 'function') {
               return _self.replaceSender(setting);
             } else {
