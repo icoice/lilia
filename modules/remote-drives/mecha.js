@@ -101,7 +101,7 @@ var Mecha = function () {
           if (!(params instanceof FormData)) {
             payload = _this.getRequestPayload(name, params);
             if (backRequestBefore) {
-              payload = (0, _assign2.default)({}, backRequestBefore(payload));
+              payload = (0, _assign2.default)({}, backRequestBefore(payload, method));
             }
           }
 

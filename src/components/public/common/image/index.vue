@@ -60,18 +60,52 @@
       };
     },
     methods: {
+       getRealMimeType(reader) {
+          const arr = (new Uint8Array(reader.result)).subarray(0, 4);
+          let realMimeType;
+          let header = '';
+
+          for (var i = 0; i < arr.length; i++) {
+              header += arr[i].toString(16);
+          }
+
+          // magic numbers: http://www.garykessler.net/library/file_sigs.html
+          switch (header) {
+              case "89504e47":
+                  realMimeType = "image/png";
+                  break;
+              case "47494638":
+                  realMimeType = "image/gif";
+                  break;
+              case "ffd8ffDB":
+              case "ffd8ffe0":
+              case "ffd8ffe1":
+              case "ffd8ffe2":
+              case "ffd8ffe3":
+              case "ffd8ffe8":
+                  realMimeType = "image/jpeg";
+                  break;
+              default:
+                  realMimeType = "unknown"; // Or you can use the blob.type as fallback
+                  break;
+          }
+
+          return realMimeType;
+      },
       readFile(file) {
-        if (!(file instanceof File) || (!file instanceof Blob)) return;
-
+        if (!(file instanceof File) && (!file instanceof Blob)) return;
         const reader = new FileReader();
+        const base64 = new FileReader();
 
-        reader.addEventListener('load', () => {
-          this.isLoad = true;
-          this.readFileReslut = reader.result;
-          this.$emit('onload', reader.result);
-        }, false);
-
-        reader.readAsDataURL(file);
+        reader.onload = () => {
+          base64.readAsDataURL(file);
+          base64.onloadend =  () => {
+              this.readFileReslut = base64.result;
+              this.$emit('onload', base64.result);
+              this.isLoad = true;
+          };
+        }
+        reader.readAsArrayBuffer(file);
       },
       loadComplete() {
         this.isLoad = true;

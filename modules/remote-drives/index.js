@@ -134,8 +134,8 @@ var Remote = function () {
           var axiosSetting = _this.buildPayload({
             url: '' + domain + path,
             method: requestMethod,
-            params: {},
-            data: {},
+            params: requestData,
+            data: requestData,
             headers: headers
           });
 
