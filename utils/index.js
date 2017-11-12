@@ -206,7 +206,7 @@ var defineRemoteAdapter = exports.defineRemoteAdapter = function defineRemoteAda
   // 可用于请求前，变更payload的内容。
   // 这里主要处理用户数据在各类API间的切入。
   adapterMecha.defineRequestBefore(function (payload) {
-    return (0, _assign2.default)(payload, sendBefore());
+    return (0, _assign2.default)(payload, sendBefore(payload));
   });
 
   return adapterMecha.init();

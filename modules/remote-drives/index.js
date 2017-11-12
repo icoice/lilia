@@ -134,26 +134,18 @@ var Remote = function () {
           var axiosSetting = _this.buildPayload({
             url: '' + domain + path,
             method: requestMethod,
-            params: {},
-            data: {},
+            params: (0, _assign2.default)({}, setting.params, requestData),
+            data: (0, _assign2.default)({}, setting.data, requestData),
             headers: headers
           });
 
           //  发送请求
           function send(setting) {
             if (fake === null) {
-              switch (requestMethod) {
-                case 'POST':
-                  setting.data = (0, _assign2.default)({}, setting.data, requestData);
-                  break;
-                default:
-                  setting.params = (0, _assign2.default)({}, setting.params, requestData);
-              }
               if (typeof _self.replaceSender === 'function') {
                 return _self.replaceSender(setting);
-              } else {
-                return (0, _axios2.default)(setting);
               }
+              return (0, _axios2.default)(setting);
             }
             return new _promise2.default(function (resolve) {
               return setTimeout(function () {
