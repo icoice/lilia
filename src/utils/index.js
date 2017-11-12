@@ -176,7 +176,7 @@ export const ScrollerPaging = function ScrollerPaging(scroller) {
   this.data = {};
   this.currentPage = null;
   this.onChange = function(scroller, callback) {
-   if (this.currentPage !== scroller.nextPage) {
+   if (this.currentPage !== scroller.nextPage || scroller.isRefresh) {
      this.currentPage = scroller.nextPage;
      if(callback) callback(params => this.getter(params), data => this.setter(this.currentPage, data), scroller);
    }

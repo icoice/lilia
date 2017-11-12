@@ -72,7 +72,7 @@ import Adapter from 'imagination-adapter';
             }
           }
           return new Promise(resolve => setTimeout(() => resolve(fake), fakeDelayTime));
-        }
+      }
 
        return axiosSetting instanceof Promise ? axiosSetting.then(setting => send(setting)) : send(axiosSetting);
       };

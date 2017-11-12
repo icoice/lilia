@@ -39,7 +39,7 @@
         scrollerTotal: this.total,
         currentTop: this.scrollTo,
         showAmount: this.amount,
-        beforeCode: 10,
+        beforeCode: 0,
         groups: [],
         spaceHeight: null,
         containerStyle: {
@@ -116,7 +116,7 @@
           }
           if (this.viewHeight === null) {
             this.mainStyle = {
-              height: `${height * scrollerTotal}px`,
+              height: `${height * (showAmount < scrollerTotal ? showAmount : scrollerTotal)}px`,
             }
           }
           this.spaceHeight = typeof height === 'number' ? height : this.spaceHeight;

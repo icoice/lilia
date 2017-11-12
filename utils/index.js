@@ -219,7 +219,7 @@ var ScrollerPaging = exports.ScrollerPaging = function ScrollerPaging(scroller) 
   this.onChange = function (scroller, callback) {
     var _this = this;
 
-    if (this.currentPage !== scroller.nextPage) {
+    if (this.currentPage !== scroller.nextPage || scroller.isRefresh) {
       this.currentPage = scroller.nextPage;
       if (callback) callback(function (params) {
         return _this.getter(params);

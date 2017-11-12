@@ -1,8 +1,13 @@
   .vp-date {
+    overflow: hidden;
     .vp-date-time {
+      position: relative;
+      z-index: 1;
       overflow: hidden;
 
       .vp-date-time-item {
+        position: relative;
+        z-index: 1;
         float: left;
         width: 33.33%;
 
