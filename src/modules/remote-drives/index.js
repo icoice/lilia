@@ -47,8 +47,8 @@ import Adapter from 'imagination-adapter';
         const axiosSetting = this.buildPayload({
           url: `${domain}${path}`,
           method: requestMethod,
-          params: {},
-          data: {},
+          params: requestData,
+          data: requestData,
           headers,
         });
 
