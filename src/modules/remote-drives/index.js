@@ -61,9 +61,8 @@ import Adapter from 'imagination-adapter';
           if (fake === null) {
             if (typeof _self.replaceSender === 'function') {
               return _self.replaceSender(setting);
-            } else {
-              return axios(setting);
             }
+            return axios(setting);
           }
           return new Promise(resolve => setTimeout(() => resolve(fake), fakeDelayTime));
       }

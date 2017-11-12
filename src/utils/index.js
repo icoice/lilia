@@ -165,7 +165,7 @@ export const  defineRemoteAdapter = function defineRemoteAdapter({
   // 可用于请求前，变更payload的内容。
   // 这里主要处理用户数据在各类API间的切入。
   adapterMecha.defineRequestBefore((payload) => {
-   return Object.assign(payload, sendBefore());
+   return Object.assign(payload, sendBefore(payload));
   });
 
   return adapterMecha.init();
