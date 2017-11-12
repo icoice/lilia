@@ -1,9 +1,9 @@
 <template>
   <div :class="['vp-button', disabledHappen]">
       <div :class="['vp-button-touch', hasTapped]"
-        @touchstart="onTouchStart"
-        @touchmove= "onTouchMove"
-        @touchend="onTouchEnd">
+        @touchstart.stop="onTouchStart"
+        @touchmove.stop= "onTouchMove"
+        @touchend.stop="onTouchEnd">
         <slot name="button-name"/>
       </div>
   </div>
@@ -59,7 +59,10 @@
         const spaceX = tapStartX - x;
         const spaceY = tapStartY - y;
 
-        if  (!this.isCanTap) return false;
+        if  (!this.isCanTap) {
+          clearTimeout(this.timeOutId);
+          return false;
+        }
         if  (spaceX  > 10 || spaceX < -10) return false;
         if  (spaceY > 10 || spaceY < -10) return false;
         return true;
@@ -69,7 +72,7 @@
         this.tapStartX = x;
         this.tapStartY = y;
         this.isCanTap = true;
-        this.timeOutId = setTimeout(() => this.isCanTap = false, 3000);
+        // this.timeOutId = setTimeout(() => this.isCanTap = false, 3000);
       },
       doTap(point, e) {
         if  (!this.hasCanTap(point) || this.btnDisabled) return;
@@ -92,6 +95,7 @@
         this.isTouched = false;
       },
       onTouchEnd(e) {
+        e.preventDefault();
         const fingers = e.changedTouches;
         if (this.isTouched) {
           this.isTouched = false;
