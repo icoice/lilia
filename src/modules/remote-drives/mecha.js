@@ -61,7 +61,7 @@ export default class Mecha {
         if (!(params instanceof FormData)) {
           payload = this.getRequestPayload(name, params);
           if (backRequestBefore) {
-            payload = Object.assign({}, backRequestBefore(payload));
+            payload = Object.assign({}, backRequestBefore(payload, method));
           }
         }
 
