@@ -93,7 +93,7 @@
           return realMimeType;
       },
       readFile(file) {
-        if (!(file instanceof File) && (!file instanceof Blob)) return;
+        if (file === null) return;
         const reader = new FileReader();
         const base64 = new FileReader();
 

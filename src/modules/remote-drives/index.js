@@ -53,20 +53,20 @@ import Adapter from 'imagination-adapter';
         });
 
         //  发送请求
-        function send(setting) {
+        function send(payload) {
           if (fake === null) {
             switch (requestMethod) {
               case 'POST':
-                setting.data = Object.assign({},
-                 setting.data,
+                payload.data = Object.assign({},
+                 payload.data,
                  requestData);
                 break;
-              default: setting.params = Object.assign({},
-               setting.params,
+              default: payload.params = Object.assign({},
+               payload.params,
                requestData);
             }
             if (typeof _self.replaceSender === 'function') {
-              return _self.replaceSender(setting);
+              return _self.replaceSender(payload);
             } else {
               return axios(setting);
             }
@@ -74,7 +74,11 @@ import Adapter from 'imagination-adapter';
           return new Promise(resolve => setTimeout(() => resolve(fake), fakeDelayTime));
       }
 
-       return axiosSetting instanceof Promise ? axiosSetting.then(setting => send(setting)) : send(axiosSetting);
+       if (axiosSetting && (axiosSetting instanceof Promise || typeof axiosSetting.then === 'function' )) {
+         return axiosSetting.then(setting => send(setting));
+       } else {
+         return send(axiosSetting);
+       }
       };
       return item;
     });

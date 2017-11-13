@@ -29,7 +29,7 @@
           <li v-for="week in weeks">{{week}}</li>
         </ul>
         <ul class="vp-date-time-scope">
-          <li class="animated fadeIn" v-for="(no, code) in selectNo" :class="{
+          <li v-for="(no, code) in selectNo" :class="{
             'vp-date-selected': no === base[selectType].selected,
             'vp-date-last-grid': (code + 1) % 7 === 0 || (code + 1) === selectNo.length,
           }">
