@@ -152,7 +152,7 @@ var Remote = function () {
               if (typeof _self.replaceSender === 'function') {
                 return _self.replaceSender(payload);
               } else {
-                return (0, _axios2.default)(setting);
+                return (0, _axios2.default)(payload);
               }
             }
             return new _promise2.default(function (resolve) {
