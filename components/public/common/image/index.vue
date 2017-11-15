@@ -60,6 +60,12 @@
         readFileReslut: this.file ? '#' : this.link,
       };
     },
+    mounted() {
+      this.readFile(this.imageFile);
+    },
+    activated() {
+      this.readFile(this.imageFile);
+    },
     methods: {
        getRealMimeType(reader) {
           const arr = (new Uint8Array(reader.result)).subarray(0, 4);
