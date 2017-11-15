@@ -1,6 +1,7 @@
 <template>
   <div class="vp-image">
-    <img :src="readFileReslut" @load="loadComplete" v-show="isLoad" class="animated fadeIn"/>
+    <img :src="readFileReslut" @load="loadComplete" v-show="isLoad" class="animated fadeIn" v-if="readFileReslut !== '' &&  readFileReslut !== null"/>
+    <div v-else>NO IMAGES</div>
     <div class="vp-image-load animated rotateIn infinite" v-show="!isLoad">
       <span class="psm-icon psm-loading"></span>
     </div>
@@ -22,25 +23,25 @@
       },
       link: {
         type: String,
-        default: '',
+        default: '#',
       },
       file: {
         type: File,
         default: null,
       }
     },
-    mounted() {
-      this.readFile(this.imageFile);
-    },
     watch: {
       file(data) {
-        this.imageFile = data;
-        this.readFileReslut = '#';
-        this.isLoad = false;
-        this.readFile(data);
+        if (data) {
+          this.imageFile = data;
+          this.readFileReslut = '#';
+          this.isLoad = false;
+          this.readFile(data);
+        }
       },
       link(link) {
-        this.imageLink = link;
+        this.imageLink = !link || link === '' ? '#' : link;
+        this.readFileReslut = this.imageLink;
       },
       width(width) {
         this.imageWidth = width;
@@ -52,7 +53,7 @@
     data() {
       return {
         isLoad: false,
-        imageLink: this.link,
+        imageLink: !this.link || this.link === '' ? '#' : this.link,
         imageFile: this.file,
         imageWidth: this.width,
         imageHeight: this.height,
