@@ -49,6 +49,10 @@ var Mecha = function () {
       alias: null
     };
     this.logger = [];
+    //  当前接口发送记录
+    this.adapterSendRecord = {};
+    // 发送id
+    this.sendId = 0;
     this.backRequestBefore = function (payload) {
       return payload;
     };
@@ -68,7 +72,8 @@ var Mecha = function () {
 
       var setting = this.setting,
           ERROR_MESSAGE = this.ERROR_MESSAGE,
-          backRequestBefore = this.backRequestBefore;
+          backRequestBefore = this.backRequestBefore,
+          adapterSendRecord = this.adapterSendRecord;
       var api = setting.api;
 
       var control = {
@@ -96,7 +101,18 @@ var Mecha = function () {
         control[name] = function () {
           var params = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
 
+          _this.sendId += 1;
+
           var payload = params;
+          var myId = _this.sendId;
+
+          if (!adapterSendRecord[name]) {
+            adapterSendRecord[name] = {};
+          }
+
+          adapterSendRecord[name][myId] = {
+            REJECT_RESPONSE: false
+          };
 
           if (!(params instanceof FormData)) {
             payload = _this.getRequestPayload(name, params);
@@ -109,15 +125,45 @@ var Mecha = function () {
             if (!response.data) {
               _this.log('exception', '未获得服务器的响应数据');
             } else {
+              response.data.HOW = (0, _assign2.default)({
+                id: myId
+              }, adapterSendRecord[name][myId]);
               _this.log('complete', '' + response.description, response.data);
             }
+            delete adapterSendRecord[name][myId];
+            // 用于replaceSender里面无法取消请求的请求对象，采用拒绝响应的措施
             return response;
           }).catch(function (e) {
-            return _this.requsetException(e);
+            delete adapterSendRecord[name][myId];
+            _this.requsetException(e);
           });
         };
+
         return access;
       });
+
+      // 拒绝响应
+      control.rejectResponse = function (name) {
+        var id = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : null;
+        var adapterSendRecord = _this.adapterSendRecord;
+
+        var ids = adapterSendRecord[name];
+
+        if (!ids) return;
+        if (ids[id]) {
+          ids[id].REJECT_RESPONSE = true;
+          return;
+        }
+
+        (0, _entries2.default)(ids).map(function (kv) {
+          var _kv = (0, _slicedToArray3.default)(kv, 2),
+              id = _kv[0],
+              config = _kv[1];
+
+          config.REJECT_RESPONSE = true;
+          return kv;
+        });
+      };
 
       return control;
     }
@@ -150,8 +196,8 @@ var Mecha = function () {
   }, {
     key: 'requsetException',
     value: function requsetException(e) {
-      var request = e.request,
-          message = e.message;
+      var message = typeof e === 'string' ? e : e.message;
+      var request = e.request;
       var READY_STATE_MESSAGE = this.READY_STATE_MESSAGE;
 
       var defaultMessage = !message ? '程序存在异常，无法完成请求' : message;

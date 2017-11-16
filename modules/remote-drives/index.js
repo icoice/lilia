@@ -41,6 +41,7 @@ exports.default = function (setting) {
       headers: {},
       request: {},
       status: 200,
+      how: {},
       statusText: 'ok',
       data: (0, _assign2.default)({}, api.fake)
     } : api.fake;

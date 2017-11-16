@@ -1,0 +1,9 @@
+.vp-falls {
+  font-size: 12px;
+  .vp-falls-lines {
+    overflow: hidden;
+    .vp-falls-item {
+      float: left;
+    }
+  }
+}

@@ -1,25 +1,25 @@
 {
-  "name": "vue-ui-drives",
-  "version": "0.0.1",
+  "name": "vue-moo",
+  "version": "0.0.33",
   "description": "vue ui",
   "author": "985611106@qq.com",
-  "private": true,
   "scripts": {
     "dev": "node build/dev-server.js",
     "start": "node build/dev-server.js",
     "build": "node build/build.js",
+    "copy-all": "babel src --out-dir ./ --copy-files",
     "encode-modules": "babel src/modules -d modules",
     "encode-utils": "babel src/utils -d utils",
-    "copy-css": "babel src/components/public/css --out-dir components/public/css --copy-files",
-    "encode": "npm-run-all encode-modules encode-utils copy-css encode-vue",
+    "encode": "npm-run-all copy-all encode-modules encode-utils",
     "lint": "eslint --ext .js,.vue src"
   },
   "dependencies": {
     "axios": "^0.16.2",
-    "planes": "0.0.2",
+    "imagination-adapter": "0.0.2",
+    "planes": "0.0.3",
     "vue": "^2.5.0",
-    "vuex": "^2.4.1",
-    "imagination-adapter": "file:../../modules/imagination-adapter"
+    "vue-router": "^3.0.1",
+    "vuex": "^2.4.1"
   },
   "devDependencies": {
     "autoprefixer": "^7.1.2",
