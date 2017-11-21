@@ -1,4 +1,4 @@
-# vuex-drives
+# drives/vuex
 
 vuex的二次封装。
 

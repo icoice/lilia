@@ -17,7 +17,7 @@
     
             
                 
-                <link rel="stylesheet" href="../../gitbook/gitbook-plugin-highlight/website.css">
+                <link rel="stylesheet" href="../../gitbook/gitbook-plugin-prism/prism-coy.css">
                 
             
                 
@@ -26,6 +26,10 @@
             
                 
                 <link rel="stylesheet" href="../../gitbook/gitbook-plugin-fontsettings/website.css">
+                
+            
+                
+                <link rel="stylesheet" href="../../gitbook/gitbook-plugin-theme-vuejs-2/vue.css">
                 
             
         
@@ -77,6 +81,7 @@
             
                 <nav role="navigation">
                 
+
 
 
 <ul class="summary">
@@ -199,9 +204,35 @@
             
         </li>
     
-        <li class="chapter " data-level="1.4" data-path="../drives/HOME.md">
+        <li class="chapter " data-level="1.4" data-path="../UTILS.md">
             
                 <span>
+            
+                    
+                    工具箱  - utils
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.5" data-path="../css/HOME.md">
+            
+                <span>
+            
+                    
+                    CSS
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.6" data-path="../drives/HOME.html">
+            
+                <a href="../drives/HOME.html">
             
                     
                     驱动器  - drives
@@ -213,9 +244,9 @@
             <ul class="articles">
                 
     
-        <li class="chapter " data-level="1.4.1" data-path="../drives/dom.md">
+        <li class="chapter " data-level="1.6.1" data-path="../drives/DOM.html">
             
-                <span>
+                <a href="../drives/DOM.html">
             
                     
                     dom
@@ -226,9 +257,9 @@
             
         </li>
     
-        <li class="chapter " data-level="1.4.2" data-path="../drives/http.md">
+        <li class="chapter " data-level="1.6.2" data-path="../drives/ROUTER.html">
             
-                <span>
+                <a href="../drives/ROUTER.html">
             
                     
                     router
@@ -239,9 +270,9 @@
             
         </li>
     
-        <li class="chapter " data-level="1.4.3" data-path="../drives/http.md">
+        <li class="chapter " data-level="1.6.3" data-path="../drives/HTTP.html">
             
-                <span>
+                <a href="../drives/HTTP.html">
             
                     
                     http
@@ -252,9 +283,9 @@
             
         </li>
     
-        <li class="chapter " data-level="1.4.4" data-path="../drives/vuex.md">
+        <li class="chapter " data-level="1.6.4" data-path="../drives/VUEX.html">
             
-                <span>
+                <a href="../drives/VUEX.html">
             
                     
                     vuex
@@ -267,32 +298,6 @@
     
 
             </ul>
-            
-        </li>
-    
-        <li class="chapter " data-level="1.5" data-path="../UTILS.md">
-            
-                <span>
-            
-                    
-                    基础模块与方法  - utils
-            
-                </a>
-            
-
-            
-        </li>
-    
-        <li class="chapter " data-level="1.6" data-path="../css/HOME.md">
-            
-                <span>
-            
-                    
-                    Css模块
-            
-                </a>
-            
-
             
         </li>
     
@@ -309,6 +314,7 @@
 </ul>
 
 
+
                 </nav>
             
         
@@ -318,6 +324,7 @@
         
             <div class="body-inner">
                 
+
                     
 
 <div class="book-header" role="navigation">
@@ -344,29 +351,29 @@
                                 <h1 id="vp-loading">vp-loading</h1>
 <p>&#x52A0;&#x8F7D;&#x7EC4;&#x4EF6;, &#x52A0;&#x8F7D;&#x7EC4;&#x4EF6;&#x7528;&#x4E8E;&#x5728;&#x5C55;&#x793A;&#x4E0A;&#x5207;&#x6362;&#x52A0;&#x8F7D;&#x6302;&#x4EF6;&#x6216;&#x52A0;&#x8F7D;&#x5185;&#x5BB9;&#xFF0C;&#x7EC4;&#x4EF6;&#x53EF;&#x4EE5;&#x72EC;&#x7ACB;&#x4F7F;&#x7528;&#xFF0C;&#x4E0D;&#x9700;&#x8981;&#x52A0;&#x8F7D;&#x5185;&#x5BB9;&#x3002;</p>
 <h2 id="&#x793A;&#x4F8B;&#x4EE3;&#x7801;">&#x793A;&#x4F8B;&#x4EE3;&#x7801;</h2>
-<pre><code>&lt;template&gt;
-  &lt;vp-loading :isComplete=&quot;hasComplete&quot; :description=&quot;description&quot;&gt;
-    &lt;div slot=&quot;load-content&quot;&gt;
+<pre class="language-"><code><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>template</span><span class="token punctuation">&gt;</span></span>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>vp-loading</span> <span class="token attr-name">:isComplete</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">&quot;</span>hasComplete<span class="token punctuation">&quot;</span></span> <span class="token attr-name">:description</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">&quot;</span>description<span class="token punctuation">&quot;</span></span><span class="token punctuation">&gt;</span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>div</span> <span class="token attr-name">slot</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">&quot;</span>load-content<span class="token punctuation">&quot;</span></span><span class="token punctuation">&gt;</span></span>
       &#x663E;&#x793A;&#x88AB;&#x52A0;&#x8F7D;&#x52A0;&#x8F7D;&#x5185;&#x5BB9;&#x3002;
-    &lt;/div&gt;
-  &lt;/vp-loading&gt;
-&lt;/template&gt;
-&lt;script&gt;
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>div</span><span class="token punctuation">&gt;</span></span>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>vp-loading</span><span class="token punctuation">&gt;</span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>template</span><span class="token punctuation">&gt;</span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>script</span><span class="token punctuation">&gt;</span></span>
   export default {
     data: {
       hasComplete: true,  // isComplete&#x8868;&#x793A;&#x662F;&#x5426;&#x5B8C;&#x6210;&#x52A0;&#x8F7D;&#xFF0C;&#x6240;&#x4EE5;&#x9ED8;&#x8BA4;&#x72B6;&#x6001;&#x662F;true
       desciption: &apos;&#x6B63;&#x5728;&#x52A0;&#x8F7D;&#x4E2D;...&apos;, // &#x52A0;&#x8F7D;&#x65F6;&#x7684;&#x63CF;&#x8FF0;&#x6587;&#x6848;
     },
   };
-&lt;/script&gt;
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>script</span><span class="token punctuation">&gt;</span></span>
 
-&lt;style lang=&quot;postcss&quot;&gt;
-  /* &#x53EF;&#x590D;&#x5199;&#x7684;css&#x5C5E;&#x6027; */
-  .vp-loading {...}
-  .vp-loading-mask {...}
-  .vp-loading-description {...}
-  .psm-icon {...}
-&lt;/style&gt;
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>style</span> <span class="token attr-name">lang</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">&quot;</span>postcss<span class="token punctuation">&quot;</span></span><span class="token punctuation">&gt;</span></span><span class="token style language-css">
+  <span class="token comment" spellcheck="true">/* &#x53EF;&#x590D;&#x5199;&#x7684;css&#x5C5E;&#x6027; */</span>
+  <span class="token selector">.vp-loading</span> <span class="token punctuation">{</span>...<span class="token punctuation">}</span>
+  <span class="token selector">.vp-loading-mask</span> <span class="token punctuation">{</span>...<span class="token punctuation">}</span>
+  <span class="token selector">.vp-loading-description</span> <span class="token punctuation">{</span>...<span class="token punctuation">}</span>
+  <span class="token selector">.psm-icon</span> <span class="token punctuation">{</span>...<span class="token punctuation">}</span>
+</span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>style</span><span class="token punctuation">&gt;</span></span>
 </code></pre>
                                 
                                 </section>
@@ -390,6 +397,7 @@
                         </div>
                     </div>
                 
+
             </div>
 
             
@@ -410,7 +418,7 @@
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"vp-loading","level":"1.2.3","depth":2,"next":{"title":"vp-file","level":"1.2.4","depth":2,"path":"documents/components/VP_FILE.md","ref":"documents/components/VP_FILE.md","articles":[]},"previous":{"title":"vp-input","level":"1.2.2","depth":2,"path":"documents/components/VP_INPUT.md","ref":"documents/components/VP_INPUT.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":["livereload"],"pluginsConfig":{"livereload":{},"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"documents/components/VP_LOADING.md","mtime":"2017-09-28T05:35:04.000Z","type":"markdown"},"gitbook":{"version":"3.2.2","time":"2017-11-17T05:59:40.761Z"},"basePath":"../..","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"vp-loading","level":"1.2.3","depth":2,"next":{"title":"vp-file","level":"1.2.4","depth":2,"path":"documents/components/VP_FILE.md","ref":"documents/components/VP_FILE.md","articles":[]},"previous":{"title":"vp-input","level":"1.2.2","depth":2,"path":"documents/components/VP_INPUT.md","ref":"documents/components/VP_INPUT.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":["prism","prism-themes","theme-vuejs-2","-highlight","livereload"],"pluginsConfig":{"prism":{"css":["prismjs/themes/prism-coy.css"],"lang":{"flow":"typescript"}},"livereload":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"theme-vuejs-2":{},"fontsettings":{"theme":"white","family":"sans","size":2},"prism-themes":{},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"documents/components/VP_LOADING.md","mtime":"2017-09-28T05:35:04.000Z","type":"markdown"},"gitbook":{"version":"3.2.2","time":"2017-11-20T06:12:30.116Z"},"basePath":"../..","book":{"language":""}});
         });
     </script>
 </div>
