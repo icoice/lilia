@@ -196,16 +196,53 @@ export const ScrollerPaging = function ScrollerPaging(scroller) {
   }
 }
 
+export const fileToBase64 = function fileToBase64(file, callback) {
+  const base64 = new FileReader();
+  base64.onloadend =  () => {
+    callback && callback(base64.result);
+  };
+  base64.readAsDataURL(file);
+};
+
+// 图片比例压缩
+export const imageScaleExpress = function imageScaleExpress(image, express, callback) {
+  function expressImage(image) {
+   const canvas = document.createElement('canvas');
+   const width = image.naturalWidth * express;
+   const height = image.naturalHeight * express;
+   canvas.setAttribute('width', width);
+   canvas.setAttribute('height', height);
+   const ctx = canvas.getContext('2d');
+   ctx.drawImage(image, 0, 0, width, height);
+   callback && callback(canvas.toDataURL());
+  }
+
+  function createImage(image) {
+    const img = new Image();
+    img.src = image;
+    img.onload = e => expressImage(img);
+  }
+
+  if (image instanceof File) {
+    fileToBase64(image, fileBase64 => createImage(fileBase64));
+  } else if (typeof image === 'string') {
+    createImage(image);
+  } else {
+    expressImage(image);
+  }
+}
 
 export default {
   animate,
   storage,
   clock,
   firstLetterUppercase,
+  fileToBase64,
   humpChangeTo,
   hasEmpty,
   objectValueString,
   remoteApdaterFormater,
   ScrollerPaging,
   defineRemoteAdapter,
+  imageScaleExpress,
 };

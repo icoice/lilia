@@ -3,7 +3,7 @@
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.ScrollerPaging = exports.defineRemoteAdapter = exports.remoteApdaterFormater = exports.humpChangeTo = exports.hasEmpty = exports.firstLetterUppercase = exports.objectValueString = exports.clock = exports.storage = exports.animate = undefined;
+exports.imageScaleExpress = exports.fileToBase64 = exports.ScrollerPaging = exports.defineRemoteAdapter = exports.remoteApdaterFormater = exports.humpChangeTo = exports.hasEmpty = exports.firstLetterUppercase = exports.objectValueString = exports.clock = exports.storage = exports.animate = undefined;
 
 var _assign = require('babel-runtime/core-js/object/assign');
 
@@ -245,15 +245,57 @@ var ScrollerPaging = exports.ScrollerPaging = function ScrollerPaging(scroller) 
   };
 };
 
+var fileToBase64 = exports.fileToBase64 = function fileToBase64(file, callback) {
+  var base64 = new FileReader();
+  base64.onloadend = function () {
+    callback && callback(base64.result);
+  };
+  base64.readAsDataURL(file);
+};
+
+// 图片比例压缩
+var imageScaleExpress = exports.imageScaleExpress = function imageScaleExpress(image, express, callback) {
+  function expressImage(image) {
+    var canvas = document.createElement('canvas');
+    var width = image.naturalWidth * express;
+    var height = image.naturalHeight * express;
+    canvas.setAttribute('width', width);
+    canvas.setAttribute('height', height);
+    var ctx = canvas.getContext('2d');
+    ctx.drawImage(image, 0, 0, width, height);
+    callback && callback(canvas.toDataURL());
+  }
+
+  function createImage(image) {
+    var img = new Image();
+    img.src = image;
+    img.onload = function (e) {
+      return expressImage(img);
+    };
+  }
+
+  if (image instanceof File) {
+    fileToBase64(image, function (fileBase64) {
+      return createImage(fileBase64);
+    });
+  } else if (typeof image === 'string') {
+    createImage(image);
+  } else {
+    expressImage(image);
+  }
+};
+
 exports.default = {
   animate: animate,
   storage: storage,
   clock: clock,
   firstLetterUppercase: firstLetterUppercase,
+  fileToBase64: fileToBase64,
   humpChangeTo: humpChangeTo,
   hasEmpty: hasEmpty,
   objectValueString: objectValueString,
   remoteApdaterFormater: remoteApdaterFormater,
   ScrollerPaging: ScrollerPaging,
-  defineRemoteAdapter: defineRemoteAdapter
+  defineRemoteAdapter: defineRemoteAdapter,
+  imageScaleExpress: imageScaleExpress
 };

@@ -1,6 +1,11 @@
 <template>
   <div class="vp-image">
-    <img :src="readFileReslut" @load="loadComplete" v-show="isLoad" class="animated fadeIn" v-if="readFileReslut !== '' &&  readFileReslut !== null"/>
+    <img :src="readFileReslut"
+    ref="img"
+    @load="loadComplete"
+    v-show="isLoad"
+    class="animated fadeIn"
+    v-if="readFileReslut !== '' &&  readFileReslut !== null"/>
     <div v-else>NO IMAGES</div>
     <div class="vp-image-load animated rotateIn infinite" v-show="!isLoad">
       <span class="psm-icon psm-loading"></span>
@@ -9,7 +14,7 @@
 </template>
 
 <script>
-  import vpButton from '.'
+  import { imageScaleExpress } from '../../../../utils';
 
   export default {
     props: {
@@ -28,7 +33,11 @@
       file: {
         type: File,
         default: null,
-      }
+      },
+      express: {
+        type: Number,
+        defualt: 0,
+      },
     },
     watch: {
       file(data) {
@@ -99,22 +108,28 @@
 
           return realMimeType;
       },
+      // 比例压缩
+      imgExpress(image) {
+        imageScaleExpress(image, this.express, (img64) => {
+          this.readFileReslut = img64;
+          this.$emit('express', this.readFileReslut);
+        });
+      },
+      // 上传文件预览
       readFile(file) {
         if (file === null) return;
-        const reader = new FileReader();
         const base64 = new FileReader();
-
-        reader.onload = () => {
-          base64.readAsDataURL(file);
-          base64.onloadend =  () => {
-              this.readFileReslut = base64.result;
-              this.$emit('onload', base64.result);
-              this.isLoad = true;
-          };
-        }
-        reader.readAsArrayBuffer(file);
+        base64.onloadend =  () => {
+            this.readFileReslut = base64.result;
+            this.$emit('onload', base64.result);
+            this.$emit('load', base64.result);
+        };
+        base64.readAsDataURL(file);
       },
       loadComplete() {
+        if (this.express && !this.isLoad) {
+          this.imgExpress(this.$refs.img);
+        }
         this.isLoad = true;
       },
     },
