@@ -1,5 +1,6 @@
 import _vpButton from './public/common/button';
 import _vpInput from './public/common/input';
+import _vpCheckbox from './public/common/checkbox';
 import _vpFile from './public/common/file';
 import _vpSelect from './public/common/select';
 import _vpLoading from './public/common/loading';
@@ -39,6 +40,7 @@ export const vpMultipleChoose = _vpMultipleChoose;
 export const vpFalls = _vpFalls;
 export const vpDate = _vpDate;
 export const vpImage = _vpImage;
+export const vpCheckbox = _vpCheckbox;
 
 const components = {
   vpButton,
@@ -57,6 +59,7 @@ const components = {
   vpConfirm,
   vpShowcase,
   vpCategory,
+  vpCheckbox,
   vpMultipleChoose,
   vpTree,
   vpFalls,

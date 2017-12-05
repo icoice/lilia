@@ -3,7 +3,7 @@
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.vpImage = exports.vpScroller = exports.vpMemo = exports.vpToast = exports.vpRadio = exports.vpLoading = exports.vpSelect = exports.vpFile = exports.vpInput = exports.vpButton = undefined;
+exports.vpCheckbox = exports.vpImage = exports.vpScroller = exports.vpMemo = exports.vpToast = exports.vpRadio = exports.vpLoading = exports.vpSelect = exports.vpFile = exports.vpInput = exports.vpButton = undefined;
 
 var _index = require('./button/index.vue');
 
@@ -45,6 +45,10 @@ var _index19 = require('./image/index.vue');
 
 var _index20 = _interopRequireDefault(_index19);
 
+var _index21 = require('./checkbox/index.vue');
+
+var _index22 = _interopRequireDefault(_index21);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 var vpButton = exports.vpButton = _index2.default;
@@ -57,6 +61,7 @@ var vpToast = exports.vpToast = _index14.default;
 var vpMemo = exports.vpMemo = _index16.default;
 var vpScroller = exports.vpScroller = _index18.default;
 var vpImage = exports.vpImage = _index20.default;
+var vpCheckbox = exports.vpCheckbox = _index22.default;
 
 exports.default = {
   vpButton: vpButton,
@@ -68,5 +73,6 @@ exports.default = {
   vpRadio: vpRadio,
   vpToast: vpToast,
   vpScroller: vpScroller,
-  vpImage: vpImage
+  vpImage: vpImage,
+  vpCheckbox: vpCheckbox
 };

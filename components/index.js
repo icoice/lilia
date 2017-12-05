@@ -3,7 +3,7 @@
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.focusEffectScroll = exports.register = exports.vpImage = exports.vpDate = exports.vpFalls = exports.vpMultipleChoose = exports.vpPaging = exports.vpCategory = exports.vpTree = exports.vpShowcase = exports.vpConfirm = exports.vpDataTable = exports.vpScroller = exports.vpMemo = exports.vpToast = exports.vpRadio = exports.vpLoading = exports.vpSelect = exports.vpFile = exports.vpInput = exports.vpButton = exports.vpLogin = undefined;
+exports.focusEffectScroll = exports.register = exports.vpCheckbox = exports.vpImage = exports.vpDate = exports.vpFalls = exports.vpMultipleChoose = exports.vpPaging = exports.vpCategory = exports.vpTree = exports.vpShowcase = exports.vpConfirm = exports.vpDataTable = exports.vpScroller = exports.vpMemo = exports.vpToast = exports.vpRadio = exports.vpLoading = exports.vpSelect = exports.vpFile = exports.vpInput = exports.vpButton = exports.vpLogin = undefined;
 
 var _slicedToArray2 = require('babel-runtime/helpers/slicedToArray');
 
@@ -20,6 +20,10 @@ var _button2 = _interopRequireDefault(_button);
 var _input = require('./public/common/input');
 
 var _input2 = _interopRequireDefault(_input);
+
+var _checkbox = require('./public/common/checkbox');
+
+var _checkbox2 = _interopRequireDefault(_checkbox);
 
 var _file = require('./public/common/file');
 
@@ -115,6 +119,7 @@ var vpMultipleChoose = exports.vpMultipleChoose = _multipleChoose2.default;
 var vpFalls = exports.vpFalls = _falls2.default;
 var vpDate = exports.vpDate = _date2.default;
 var vpImage = exports.vpImage = _image2.default;
+var vpCheckbox = exports.vpCheckbox = _checkbox2.default;
 
 var components = {
   vpButton: vpButton,
@@ -133,6 +138,7 @@ var components = {
   vpConfirm: vpConfirm,
   vpShowcase: vpShowcase,
   vpCategory: vpCategory,
+  vpCheckbox: vpCheckbox,
   vpMultipleChoose: vpMultipleChoose,
   vpTree: vpTree,
   vpFalls: vpFalls,
