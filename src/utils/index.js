@@ -5,18 +5,17 @@ import hasEmpty from './hasEmpty';
 import humpChangeTo from './humpChangeTo';
 import objectValueString from './objectValueString';
 import ScrollerPaging from './ScrollerPaging';
-import defineRemoteAdapter from './defineRemoteAdapter';
+import httpAdapter from './httpAdapter'; // http的桥接器
 import firstLetterUppercase from './firstLetterUppercase';
 
 export default {
   animate,
   storage,
-  clock: formatTime,
-  formatTime,
-  firstLetterUppercase,
+  httpAdapter,
   humpChangeTo,
   hasEmpty,
+  formatTime,
+  firstLetterUppercase,
   objectValueString,
   ScrollerPaging,
-  defineRemoteAdapter,
 };

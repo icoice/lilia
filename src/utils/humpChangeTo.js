@@ -1,4 +1,4 @@
-// 驼峰替换
+// 驼峰规则的替换
 export const humpChangeTo = function humpChangeTo(word, separator) {
   const newWord = [];
   for (let i = 0; i < word.length; i += 1) {
