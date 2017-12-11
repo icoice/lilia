@@ -55,9 +55,7 @@
         const spaceX = tapStartX - x;
         const spaceY = tapStartY - y;
 
-        if  (!this.isCanTap) {
-          return false;
-        }
+        if  (!this.isCanTap) return false;
         if  (spaceX  > 10 || spaceX < -10) return false;
         if  (spaceY > 10 || spaceY < -10) return false;
         return true;
@@ -66,7 +64,6 @@
         this.tapStartX = x;
         this.tapStartY = y;
         this.isCanTap = true;
-        // this.timeOutId = setTimeout(() => this.isCanTap = false, 3000);
       },
       doTap(point, e) {
         if  (!this.hasCanTap(point) || this.btnDisabled) return;
@@ -84,8 +81,8 @@
           y: fingers[0].pageY,
         });
       },
-      onTouchMove(e) {
-        e.preventDefault();
+      onTouchMove() {
+        this.isTouched = false;
       },
       onTouchEnd(e) {
         const fingers = e.changedTouches;
