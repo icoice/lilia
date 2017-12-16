@@ -16,7 +16,7 @@
 
 *   [Iconfont](documents/components/ICON_FONT.md)
 
-*   [工具箱  - utils](documents/UTILS.md)
+*   [工具箱  - utils](documents/utils/HOME.md)
 
 *   [CSS](documents/css/HOME.md)
 

@@ -1,5 +1,5 @@
 // scroller的分页用法支持
-export const ScrollerPaging = function ScrollerPaging(scroller) {
+export default function(scroller) {
   this.data = {};
   this.currentPage = null;
   this.onChange = function(scroller, callback) {

@@ -11,7 +11,7 @@ export default {
       const data = localStorage.getItem(name);
       return data !== null ? JSON.parse(data) : data;
     } catch(e) {
-     this.exception(e);
+      this.exception(e);
     }
   },
   exception: () => {},

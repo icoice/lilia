@@ -13,10 +13,12 @@ export const function animate(name, target, type) {
     dom.className = domClass.join(' ');
   } else {
     const newClass = [];
+
     domClass.map((cn) => {
       if (cn !== name) newClass.push(cn);
       return cn;
     });
+
     dom.className = newClass.join(' ');
     animate.sid = setTimeout(() => animate(name, target), 10);
   }

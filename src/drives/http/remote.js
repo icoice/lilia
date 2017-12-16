@@ -1,9 +1,9 @@
-export default class Remote {
+export default class Http {
   constructor(setting = {}) {
     return this.init(setting);
   }
 
-  // 配置Remote实例
+  // 配置Http实例
   init(setting = {}) {
     const {
      domain,
@@ -27,18 +27,16 @@ export default class Remote {
     this.buildPayload = !onBuildPayload ?  params => params :  onBuildPayload;
     //  替换请求发送模块
     this.sender = !sender ? (!replaceSender ? null : replaceSender) : sender;
+
     //  注册接口
     return this.register();
   }
 
   // 自动选择content-type
   autoContentType(data) {
-    if (data instanceof FormData) {
-      return 'multipart/form-data';
-    }
-    if (typeof data === 'Object' && data !== null) {
-      return 'application/json';
-    }
+    if (data instanceof FormData) return 'multipart/form-data';
+    if (typeof data === 'Object' && data !== null) return 'application/json';
+
     return 'text/plain';
   }
 

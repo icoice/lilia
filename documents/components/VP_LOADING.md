@@ -5,7 +5,7 @@
 ## 示例代码
 
     <template>
-      <vp-loading :isComplete="hasComplete" :description="description">
+      <vp-loading :isComplete="list !== null" :description="description">
         <div slot="load-content">
           显示被加载加载内容。
         </div>
@@ -14,7 +14,7 @@
     <script>
       export default {
         data: {
-          hasComplete: true,  // isComplete表示是否完成加载，所以默认状态是true
+          list: null,  // isComplete表示是否完成加载，所以默认状态是true
           desciption: '正在加载中...', // 加载时的描述文案
         },
       };
