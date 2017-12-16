@@ -257,8 +257,8 @@ var fileToBase64 = exports.fileToBase64 = function fileToBase64(file, callback) 
 var imageScaleExpress = exports.imageScaleExpress = function imageScaleExpress(image, express, callback) {
   function expressImage(image) {
     var canvas = document.createElement('canvas');
-    var width = image.naturalWidth * express;
-    var height = image.naturalHeight * express;
+    var width = image.naturalWidth * (image.naturalWidth > 1200 ? express : 1);
+    var height = image.naturalHeight * (image.naturalWidth > 1200 ? express : 1);
     canvas.setAttribute('width', width);
     canvas.setAttribute('height', height);
     var ctx = canvas.getContext('2d');
@@ -270,11 +270,11 @@ var imageScaleExpress = exports.imageScaleExpress = function imageScaleExpress(i
     var img = new Image();
     img.src = image;
     img.onload = function (e) {
-      return expressImage(img);
+      expressImage(img);
     };
   }
 
-  if (image instanceof File) {
+  if (image instanceof File || image.toString().indexOf('File') >= 0) {
     fileToBase64(image, function (fileBase64) {
       return createImage(fileBase64);
     });

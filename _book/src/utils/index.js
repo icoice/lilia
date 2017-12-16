@@ -208,8 +208,8 @@ export const fileToBase64 = function fileToBase64(file, callback) {
 export const imageScaleExpress = function imageScaleExpress(image, express, callback) {
   function expressImage(image) {
    const canvas = document.createElement('canvas');
-   const width = image.naturalWidth * express;
-   const height = image.naturalHeight * express;
+   const width = image.naturalWidth * (image.naturalWidth > 1200 ? express : 1);
+   const height = image.naturalHeight * (image.naturalWidth > 1200 ? express : 1);
    canvas.setAttribute('width', width);
    canvas.setAttribute('height', height);
    const ctx = canvas.getContext('2d');
@@ -220,10 +220,12 @@ export const imageScaleExpress = function imageScaleExpress(image, express, call
   function createImage(image) {
     const img = new Image();
     img.src = image;
-    img.onload = e => expressImage(img);
+    img.onload = e => {
+     expressImage(img);
+    }
   }
 
-  if (image instanceof File) {
+  if (image instanceof File || image.toString().indexOf('File') >= 0) {
     fileToBase64(image, fileBase64 => createImage(fileBase64));
   } else if (typeof image === 'string') {
     createImage(image);

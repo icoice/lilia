@@ -8,6 +8,7 @@ import _vpToast from './toast/index.vue';
 import _vpMemo from './memo/index.vue';
 import _vpScroller from './scroller/index.vue';
 import _vpImage from './image/index.vue';
+import _vpCheckbox from './checkbox/index.vue';
 
 export const vpButton = _vpButton;
 export const vpInput = _vpInput;
@@ -19,6 +20,7 @@ export const vpToast = _vpToast;
 export const vpMemo = _vpMemo;
 export const vpScroller = _vpScroller;
 export const vpImage = _vpImage;
+export const vpCheckbox  = _vpCheckbox;
 
 export default {
   vpButton,
@@ -31,4 +33,5 @@ export default {
   vpToast,
   vpScroller,
   vpImage,
+  vpCheckbox,
 };

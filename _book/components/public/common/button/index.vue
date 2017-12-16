@@ -29,7 +29,6 @@
         btnDisabled: this.disabled,
         isCanTap: true,
         isTouched: false,
-        timeOutId: null,
         tapStartX: 0,
         tapStartY: 0,
       };
@@ -50,29 +49,21 @@
         return this.isTouched ? 'vp-button-has-tapped' : '';
       },
     },
-    activated() {
-      clearTimeout(this.timeOutId);
-    },
     methods: {
       hasCanTap({x, y}) {
         const { tapStartX, tapStartY } = this;
         const spaceX = tapStartX - x;
         const spaceY = tapStartY - y;
 
-        if  (!this.isCanTap) {
-          clearTimeout(this.timeOutId);
-          return false;
-        }
+        if  (!this.isCanTap) return false;
         if  (spaceX  > 10 || spaceX < -10) return false;
         if  (spaceY > 10 || spaceY < -10) return false;
         return true;
       },
       initTap({x, y}) {
-        clearTimeout(this.timeOutId);
         this.tapStartX = x;
         this.tapStartY = y;
         this.isCanTap = true;
-        // this.timeOutId = setTimeout(() => this.isCanTap = false, 3000);
       },
       doTap(point, e) {
         if  (!this.hasCanTap(point) || this.btnDisabled) return;
@@ -91,11 +82,9 @@
         });
       },
       onTouchMove() {
-        clearTimeout(this.timeOutId);
         this.isTouched = false;
       },
       onTouchEnd(e) {
-        e.preventDefault();
         const fingers = e.changedTouches;
         if (this.isTouched) {
           this.isTouched = false;
@@ -104,8 +93,6 @@
             x: fingers[0].pageX,
             y: fingers[0].pageY,
           }, e);
-        } else {
-          clearTimeout(this.timeOutId);
         }
       },
     },
