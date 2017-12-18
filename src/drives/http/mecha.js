@@ -1,4 +1,5 @@
 export default class Mecha {
+
   constructor(adapter) {
     // 错误信息
     this.ERROR_MESSAGE = {
@@ -8,107 +9,104 @@ export default class Mecha {
       1003: '未设定该组接口的payload',
       1004: '未指定一组接口定义',
     };
-    // 请求状态描述
+    // http协议请求状态
     this.READY_STATE_MESSAGE = [
-      '未发送',
-      '已发送',
-      '等待响应',
-      '请求完成',
+     '未发送',
+     '已发送',
+     '等待响应',
+     '请求完成'
     ];
-    // request setting data
     this.setting = {
-      api: null,
-      origin: null,
-      alias: null,
+      api: null, // API映射存放
+      origin: null, // API payload的源定义
+      alias: null, // API payload的别名定义
     };
     this.logger = [];
-    //  当前接口发送记录
-    this.adapterSendRecord = {};
-    // 发送id
-    this.sendId = 0;
-    this.backRequestBefore = payload => payload;
-    this.requestErrorHandle = () => {};
-    this.requestHandle = () => {};
-    this.requestExceptionHandle = () => {};
-    this.defineRequest(adapter);
+    this.sendRecords = {}; // 当前接口发送记录
+    this.sendId = 0; // 发送id
+    this.requestErrorHandle = () => {}; // 请求时发生错误的后续处理
+    this.requestHandle = () => {}; // 请求完成的后续处理
+    this.requestExceptionHandle = () => {}; // 请求时发生异常的后续处理
+    this.requestBeforeProcess = payload => payload; // 请求前处理
+    this.defineRequest(adapter); // 定义请求内容
   }
 
   // 初始化
   init() {
     const {
-     setting,
      ERROR_MESSAGE,
-     backRequestBefore,
-     adapterSendRecord,
+     setting,
+     sendRecords,
+     requestBeforeProcess,
     } = this;
     const { api } = setting;
-    const control = {
-      // 请求内容发生错误时
-      ON_REQUEST_ERROR: (callback) => {
-        this.requestErrorHandle = callback;
-      },
-      // 请求完成后，发生异常时
-      ON_REQUEST_EXCEPTION: (callback) => {
-        this.requestExceptionHandle = callback;
-      },
-      // 一般请求时
-      ON_REQUEST: (callback) => {
-        this.requestHandle = callback;
-      },
-    };
+    const adapter = {};
 
     if (!api) return this.log('error', ERROR_MESSAGE[1004]);
 
-    Object.entries(api).map((access) => {
-      const [name, method] = access;
-      control[name] = (params = {}) => {
+    // 夹层的异常处理
+    adapter.ON_REQUEST_ERROR = (callback) => {
+      this.requestErrorHandle = callback;
+    };
+    adapter.ON_REQUEST_EXCEPTION = (callback) => {
+      this.requestErrorHandle = callback;
+    };
+    adapter.ON_REQUEST = (callback) => {
+      this.requestErrorHandle = callback;
+    };
+
+    // 接口列
+    const list = Object.entries(api);
+
+    // 方法请求
+    const request = (params) => {
+     const { n, id, method, payload } = params;
+     return method(payload).then((response) => {
+       const { description, data } = response;
+       if (!data) {
+         this.log('exception', '未获得服务器的响应数据');
+       } else {
+         data.HOW = Object.assign({ id }, sendRecords[n][id]);
+         this.log('complete', `${description}`, data);
+       }
+       delete sendRecords[n][id]; // 拒绝响应的措施, 解决无法abort的问题。
+       return response;
+     }).catch(e => {
+       delete sendRecords[n][id];
+       this.requsetException(e);
+     });
+    }
+
+    // 创建接口
+    list.map((access) => {
+      const [n, method] = access;
+
+      adapter[n] = (params = {}) => {
         this.sendId += 1;
-
+        const id = this.sendId;
         let payload = params;
-        const myId = this.sendId;
-
-        if (!adapterSendRecord[name]) {
-          adapterSendRecord[name] = {};
-        }
-
-        adapterSendRecord[name][myId] = {
-          REJECT_RESPONSE: false,
-        };
-
+        sendRecords[n] = !sendRecords[n] ? {} : sendRecords[n];
+        sendRecords[n][id] = { REJECT_RESPONSE: false };
         if (!(params instanceof FormData)) {
           payload = this.getRequestPayload(name, params);
-          if (backRequestBefore) {
-            payload = Object.assign({}, backRequestBefore(payload, method));
+          if (requestBeforeProcess) {
+            payload = Object.assign({},
+             requestBeforeProcess(payload, method));
           }
         }
-
-        return method(payload).then((response) => {
-          if (!response.data) {
-            this.log('exception', '未获得服务器的响应数据');
-          } else {
-            response.data.HOW = Object.assign({
-              id: myId,
-            }, adapterSendRecord[name][myId]);
-            this.log('complete', `${response.description}`, response.data);
-          }
-          delete adapterSendRecord[name][myId];
-          // 用于replaceSender里面无法取消请求的请求对象，采用拒绝响应的措施
-          return response;
-        }).catch(e => {
-          delete adapterSendRecord[name][myId];
-          this.requsetException(e);
-        });
-      };
+        dotMethod({ n, id, method, payload });
+      }
 
       return access;
     });
 
     // 拒绝响应
-    control.rejectResponse = (name, id = null) => {
-      const { adapterSendRecord } = this;
-      const ids = adapterSendRecord[name];
+    adapter.rejectResponse = (name, id = null) => {
+      const { sendRecords } = this;
+      const ids = sendRecords[name];
 
       if (!ids) return;
+
       if(ids[id]) {
         ids[id].REJECT_RESPONSE = true;
         return;
@@ -200,6 +198,6 @@ export default class Mecha {
 
   // 设置请求前的处理
   defineRequestBefore(callback) {
-    this.backRequestBefore = callback;
+    this.requestBeforeProcess = callback;
   }
 }

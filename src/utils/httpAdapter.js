@@ -26,16 +26,15 @@ export default (params)  => {
   }));
 
   const apiParams = {
+   fakeDelayTime: fakeDelay, // 模拟数据延迟时间
    domain, // 常规域名
    access, // 接入映射
-   fakeDelayTime: fakeDelay, // 模拟数据延迟时间
    onBuildPayload, // 当payload载入时
    onBuildHeaders, // 当headers载入时
    replaceSender, // 替换发送体
   };
 
-  const api = http(apiParams); // api映射
-  const mecha = new httpMecha(api); // 针对http协议的夹层
+  const mecha = new httpMecha(http(apiParams)); // 针对http协议的夹层
 
   // 定义夹层的payload校验
   payloads.map((payload) => {
@@ -45,7 +44,9 @@ export default (params)  => {
   });
 
   // 夹层发送请求前
-  mecha.defineRequestBefore((payload) => Object.assign(payload, params.sendBefore(payload)));
+  mecha.defineRequestBefore((payload) => {
+   Object.assign(payload, params.sendBefore(payload));
+  });
 
   // 初始化夹层
   return mecha.init();

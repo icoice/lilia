@@ -1,14 +1,15 @@
-export default class Remote {
+export default class Http {
+
   constructor(setting = {}) {
     return this.init(setting);
   }
 
-  // 配置Remote实例
+  // 配置Http实例
   init(setting = {}) {
     const {
      domain,
      access,
-     fakeDelayTime,
+     fakeDelay,
      onBuildHeaders,
      onBuildPayload,
      sender,
@@ -16,16 +17,16 @@ export default class Remote {
     } = setting;
 
     // 延迟时间
-    this.fakeDelayTime = fakeDelayTime ? fakeDelayTime : 1000;
+    this.fakeDelayTime = fakeDelay ? fakeDelay : 1000;
     // 域名
     this.domain = domain ? domain : '';
     // api的映射表
     this.access = access ? access : [];
     // 每次请求创建请求头前的钩子
     this.buildHeaders = !onBuildHeaders ?  params => params : onBuildHeaders;
-    //  每次请求创建请求参数前的钩子
+    // 每次请求创建请求参数前的钩子
     this.buildPayload = !onBuildPayload ?  params => params :  onBuildPayload;
-    //  替换请求发送模块
+    // 替换请求发送模块
     this.sender = !sender ? (!replaceSender ? null : replaceSender) : sender;
     //  注册接口
     return this.register();
@@ -33,12 +34,9 @@ export default class Remote {
 
   // 自动选择content-type
   autoContentType(data) {
-    if (data instanceof FormData) {
-      return 'multipart/form-data';
-    }
-    if (typeof data === 'Object' && data !== null) {
-      return 'application/json';
-    }
+    if (data instanceof FormData) return 'multipart/form-data';
+    if (typeof data === 'Object' && data !== null) return 'application/json';
+
     return 'text/plain';
   }
 

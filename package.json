@@ -19,6 +19,7 @@
     "gitbook-plugin-theme-vuejs-2": "^1.0.0",
     "imagination-adapter": "0.0.2",
     "planes": "0.0.3",
+    "prismjs-okaidia-theme": "0.0.1",
     "vue": "^2.5.0",
     "vue-router": "^3.0.1",
     "vuex": "^2.4.1"

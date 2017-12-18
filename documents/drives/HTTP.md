@@ -2,51 +2,33 @@
 
 发送请求。
 
-## 示例代码
+## http
 
-定义一个remote实例
+    import http from 'vue-moo/drives/http';
 
-    import remoteDrives from 'vue-ui-drives/modules/remote-drives';
-    import RemoteDrivesMecha from 'vue-ui-drives/modules/remote-drives/mecha';
-
-    const fakes = {
-      getOrders: [
-        {
-          id: 0,
-          name: 'product-0',
-        },
-        {
-          id: 1,
-          name: 'product-1',
-        },
-      ],
-    };
-
-    const apiMap = [
+    // 接口定义
+    const access = [
       {
-        name: 'getOrders',
-        path: '/get/orders',
-        fake: fakes.getOrders,
-      },
+        name: 'getYourName',
+        path: '/get/your-name',
+        fake: null,
+      }
     ];
 
-    const adapter = remoteDrives({
+    // 接口创建
+    const api = http({
       domain: 'http://localhost:3000',
-      access: apiMap,
-      fakeDelayTime: 1500,
+      fakeDelay: 1500,
+      access,
     });
 
-    // 用于置换数据，预定义请求体, 方法别名，增加Promise的支持等等。
-    const adapterMecha = new RemoteDrivesMecha(adapter);
-
-    // 可用于请求前，变更payload的内容。
-    adapterMecha.defineRequestBefore(payload => payload);
-
-    // 预定义请求体。
-    adapterMecha.definePayload('getOrders', {
-      uid: '', // 默认值
-    }, {
-      uid: 'userId',  //别名
+    // 接口应用
+    api.getYourName({
+      id: '00001',
+    })
+    .then((response) => {
+      //..success
+    })
+    .catch((err) => {
+      // fail..
     });
-
-    export default adapterMecha;
