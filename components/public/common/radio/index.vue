@@ -44,6 +44,9 @@
       selected(no) {
         this.radioSelected = no;
       },
+      disabled(has) {
+        this.radioDisabled = has;
+      },
     },
     mounted() {
       this.setSelect();
