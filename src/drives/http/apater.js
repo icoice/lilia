@@ -8,8 +8,19 @@ const formatMaps = (maps) => {
 
  Object.entries(maps).map((link) => {
    const [, desc] = link;
-   list.push(desc.info);
-   payloads.push(desc.payload);
+
+   list.push({
+     name: desc.name,
+     path: desc.path,
+     fake: desc.fake,
+   });
+
+   payloads.push({
+     name: desc.name,
+     origin: desc.origin,
+     alias: desc.origin,
+   });
+
    return link;
  });
 
@@ -18,11 +29,12 @@ const formatMaps = (maps) => {
 
 /* http、httpMecha的数据格式构造 */
 export default (params)  => {
-  const { domain, hasFake, fakeBaseDataStruct, fakeDelay } = params.config;
+  const { domain, hasFake, fakeDataStruct, fakeDelay } = params.config;
   const { onBuildPayload, onBuildHeaders, replaceSender, maps } = params;
   const { list, payloads } = formatMaps(maps);
   const access = list.map(api => Object.assign({ fake }, {
-    fake: !hasFake ? null : fakeBaseDataStruct(fake), // fakeBaseDataStruct 用于定义基础数据结构
+    // fakeDataStruct 用于定义基础数据结构
+    fake: !hasFake ? null : fakeDataStruct(fake),
   }));
 
   const apiParams = {
@@ -39,7 +51,7 @@ export default (params)  => {
   // 定义夹层的payload校验
   payloads.map((payload) => {
     const { name, origin, alias } = payload;
-    mecha.definePayload(name, origin, alias);
+    mecha.definePayload(name, origin, alias); //
     return payload;
   });
 

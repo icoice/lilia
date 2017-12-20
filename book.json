@@ -1,11 +1,11 @@
 {
   "plugins": [
    "prism",
+   "-highlight",
    "prism-themes",
-   "theme-vuejs-2",
-   "-highlight"
+   "theme-vuejs-2"
   ],
-  "pluginsConfig": {
+  "config": {
     "prism": {
        "css": [
          "prismjs/themes/prism-coy.css"

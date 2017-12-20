@@ -1,7 +1,6 @@
 <template>
   <div class="vp-multiple-choose">
-    <div class="vp-multiple-container" ref="container">
-    </div>
+    <div class="vp-multiple-container" ref="container"></div>
   </div>
 </template>
 

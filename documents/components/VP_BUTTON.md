@@ -6,7 +6,7 @@
 
 template
 
-      <vp-button name="btn1"  :disabled="false" @tap="onTap">
+      <vp-button name="btn1" :disabled="false" @tap="onTap">
         <span slot="button-name">按钮</span>
       </vp-button>
 

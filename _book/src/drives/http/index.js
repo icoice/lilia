@@ -1,8 +1,8 @@
 import axios from 'axios';
 import Adapter from 'imagination-adapter';
-import Remote from './remote';
+import Http from './Http';
 
-// 设置响应
+// 设置伪响应格式，对应axios
 const setAxiosResponse = (fake) => ({
   config: {},
   status: 200,
@@ -15,15 +15,15 @@ const setAxiosResponse = (fake) => ({
 
 export default function (setting) {
   const { access } = setting;
-
+  // adapter 全局执行前
   Adapter.accross('onExecuteBefore', next => next());
+  // adapter 全局执行完成后
   Adapter.accross('onExecuteAfter', next => next());
-
+  // 创建API的映射关系
   setting.access = access.map((api) => {
     const { fake } = api;
     api.fake = fake !== null ? setAxiosResponse(fake): fake;
     return Object.assign({}, api);
   });
-
-  return new Adapter(new Remote(setting));
+  return new Adapter(new Http(setting));
 }

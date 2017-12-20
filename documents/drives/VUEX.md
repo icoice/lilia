@@ -10,20 +10,10 @@ step.1、定义Store
 
     // 假设menus的数据需应用于home。
     function menus(store) {
-      // 设置全套行为，state, action, mutation, getter等所有行为。
-      // 只要不需要转换数据内容，输出单纯是提取state的场合，可以用setMeal。
-      // store还支持其他方法，setAction、setMutation、setState、setGetter。
-      // 当setState已设置state内容时，默认会设置getter内容，无特殊修改的情况下可以不定义setGetter。
-      // 当setState已设置state内容时，默认会设置mutation内容，无特殊修改的情况下可以不定义setMutation。
+      store.setMeal('title', null);
       store.setMeal('list', [
-        {
-          key: 0,
-          name: 'item-0',
-        },
-        {
-          key: 1,
-          name: 'item-1',
-        }
+        { key: 0, name: 'item-0' },
+        { key: 1, name: 'item-1' },
       ]);
     }
 
@@ -35,8 +25,9 @@ step.2、装载Getters，Actions
 
     <template>
       <div class="home">
+        <h4>{{ home.title }}</h4>
         <ul>
-          <li v-for="item in homeMenus" @click="onMenusClick(item.key)">
+          <li v-for="item in home.list" @click="onMenusClick(item.key)">
             {{ item.name }}
           </li>
         </ul>
@@ -48,14 +39,12 @@ step.2、装载Getters，Actions
 
       export default {
         computed: {
-          // 会把home下面定义的getter全部获得，不需要逐个声明
           ...vxGetters('home'),
         },
         methods: {
-          // 通过setMeal定义的一组store行为，注意actions的命名是会多一个set前缀，比如Getter为'homeList'、那么Action则为'setHomeList'。
           ...vxActions('home'),
           onMenusClick(id) {
-            // ...
+            this.home.setTitle();
           },
         },
       };
