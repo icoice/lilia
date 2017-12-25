@@ -3,13 +3,14 @@
   "version": "0.0.33",
   "description": "vue ui",
   "author": "985611106@qq.com",
+  "main": "./lib",
   "scripts": {
     "dev": "node build/dev-server.js",
     "start": "node build/dev-server.js",
     "build": "node build/build.js",
     "copy-all": "babel src --out-dir ./lib --copy-files",
-    "encode-drives": "babel src/drives -d drives",
-    "encode-utils": "babel src/utils -d utils",
+    "encode-drives": "babel src/drives -d ./lib/drives",
+    "encode-utils": "babel src/utils -d ./lib/utils",
     "encode": "npm-run-all copy-all encode-drives encode-utils",
     "lint": "eslint --ext .js,.vue src"
   },

@@ -18,5 +18,5 @@ export const focusEffectScroll = function focusEffectScroll() {
 }
 
 export default {
-  focusEffectScroll
-},
+  focusEffectScroll,
+};

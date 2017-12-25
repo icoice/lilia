@@ -1,0 +1,107 @@
+.vm {
+  .table {
+    font-size: 12px;
+    border-radius: 5px;
+    background: -webkit-gradient(linear, 0 1, 0 55, from(#fff), to(#eaeaea));
+    background: gradient(linear, 0 1, 0 55, from(#fff), to(#eaeaea));
+
+    .button {
+      min-width: 1.5em;
+      font-size: 13px;
+      .button-touch {
+        font-size: 13px;
+      }
+    }
+
+    .tips {
+      padding: 1em;
+      text-align: center;
+    }
+
+    .container {
+      overflow: hidden;
+      width: 100%;
+      border-radius: 5px;
+      border-collapse: collapse;
+
+      thead {
+        background: -webkit-gradient(linear, 0 1, 0 55, from(#fff), to(#eaeaea));
+        background: gradient(linear, 0 1, 0 55, from(#fff), to(#eaeaea));
+        border-top-left-radius: 5px;
+        border-top-right-radius: 5px;
+      }
+
+      thead td {
+        padding: 1em;
+        font-size: 14px;
+        text-align: center;
+        border-bottom: 1px solid #dfdfdf;
+        strong {
+          display: block;
+          font-weight: 500;
+        }
+        .sub-title {
+          margin-top: .8em;
+          font-size: 12px;
+          color: #999;
+        }
+      }
+
+      tr:hover {
+        background-color: #b1b9bb;
+        td {
+          color: #fff;
+        }
+      }
+
+      tr td.table-operate {
+        width: 14.25%;
+        padding: .25em;
+        .psm-icon {
+          font-size: 13px;
+        }
+        ul {
+          overflow: hidden;
+          li {
+            float: left;
+            margin-top: .25em;
+            margin-bottom: .25em;
+            margin-left: .35em;
+            list-style-type: none;
+            .button {
+              min-width: 3em;
+            }
+          }
+        }
+      }
+
+      tr td {
+        padding: .35em;
+        height: 3em;
+        line-height: 3em;
+        text-align: center;
+        font-size: 13px;
+        color: #444;
+      }
+
+      .operate-btn {
+        margin: 0 auto;
+        min-width: 3em;
+        height: 3em;
+        line-height: 3em;
+        text-align: center;
+        border-radius: 5px;
+        span {
+          font-size: 20px;
+          color: #f90;
+        }
+      }
+
+      .operate-btn:hover {
+        span {
+          text-shadow: 0 0 1px #a60;
+        }
+      }
+    }
+  }
+}

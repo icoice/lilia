@@ -1,0 +1,27 @@
+.vm {
+  .condition {
+    padding: .5em;
+    background: -webkit-gradient(linear, 0 1, 0 55, from(#fff), to(#eaeaea));
+    background: gradient(linear, 0 1, 0 55, from(#fff), to(#eaeaea));
+    border-radius: 5px;
+  }
+  .condition-container {
+    overflow: hidden;
+    margin-bottom: 1em;
+  }
+  .condition-container:last-child {
+    margin-bottom: auto;
+  }
+  .condition-item {
+    float: left;
+  }
+  .condition-name {
+    float: left;
+    width: 30%;
+    height: 2.2em;
+    line-height: 2.2em;
+    font-size: 14px;
+    text-align: right;
+    color: #666;
+  }
+}

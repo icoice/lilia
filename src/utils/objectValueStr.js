@@ -8,4 +8,4 @@ export default function objectValueStr(obj) {
     return kv;
   });
   return target;
-};
+}

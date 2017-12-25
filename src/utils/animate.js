@@ -1,5 +1,5 @@
 // animate.css的控制
-export const function animate(name, target, type) {
+export default function animate(name, target, type) {
   clearTimeout(animate.sid);
 
   const dom = target;
