@@ -1,24 +1,26 @@
 <template>
-  <div class="vp-showcase animated zoomIn" v-if="isShowcaseClose">
-    <slot name="showcase-content"/>
+  <div class="vm">
+    <div class="showcase animated zoomIn" v-if="isShowcaseClose">
+      <slot name="showcase-content"/>
+    </div>
   </div>
 </template>
 
 <script>
   export default {
     props: {
-      isClose: {
+      show: {
         type: Boolean,
         default: false,
       },
     },
     data() {
       return {
-        isShowcaseClose: this.isClose,
+        isShowcaseClose: this.show,
       };
     },
     watch: {
-      isClose(status) {
+      show(status) {
         this.isShowcaseClose = status;
       },
     },

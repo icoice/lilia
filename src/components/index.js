@@ -30,15 +30,16 @@ export const vpConfirm = confirm;
 export const vpShowcase = showcase;
 export const vpTree = tree;
 export const vpCategory = category;
-export const vpPaging = paging;
 export const vpMultipleChoose = multipleChoose;
 export const vpImage = image;
+export const vmPaging = paging;
 export const vmButton = button;
 export const vmTable = table;
 export const vmLouver = louver;
 export const vmInput = input;
 export const vmSelect = select;
 export const vmCondition = condition;
+export const vmShowcase = showcase;
 
 const components = {
   vmInput,
@@ -47,13 +48,14 @@ const components = {
   vmTable,
   vmCondition,
   vmButton,
+  vmPaging,
+  vmShowcase,
   vpMemo,
   vpFile,
   vpImage,
   vpLoading,
   vpRadio,
   vpToast,
-  vpPaging,
   vpScroller,
   vpConfirm,
   vpShowcase,

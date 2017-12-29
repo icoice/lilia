@@ -2,22 +2,22 @@
   <div class="vm">
     <div class="table animated fadeIn">
       <table class="container" v-if="tbData && tbData.length > 0">
-        <thead v-for="thread in otherThreads" v-if="otherThreads && otherThreads.length > 0">
-          <td v-for="item in thread" :colspan="!item.cols ? 1 : item.cols" @click="onThreadClick(item.key)">
+        <thead v-for="thead in otherTheads" v-if="otherTheads && otherTheads.length > 0">
+          <td v-for="item in thead" :colspan="!item.cols ? 1 : item.cols" @click="onTheadClick(item.key)">
             <strong>{{item.name}}</strong>
             <strong  class="sub-title" v-if="tbSubTitle && item.subTitle">{{item.subTitle}}</strong>
           </td>
           <td v-if="tbOperator.length > 0"></td>
         </thead>
-        <thead v-if="tbThreads && tbThreads.length > 0">
-          <td v-for="item in tbThreads" :colspan="!item.cols ? 1 : item.cols" @click="onThreadClick(item.key)">
+        <thead v-if="tbTheads && tbTheads.length > 0">
+          <td v-for="item in tbTheads" :colspan="!item.cols ? 1 : item.cols" @click="onTheadClick(item.key)">
             <strong>{{item.name}}</strong>
             <strong  class="sub-title" v-if="tbSubTitle && item.subTitle">{{item.subTitle}}</strong>
           </td>
           <td v-if="tbOperator.length > 0"></td>
         </thead>
         <tr v-for="(item, code) in tbData">
-          <td v-for="th in tbThreads"
+          <td v-for="th in tbTheads"
               :cols="!th.cols ? 1 : th.cols"
               @click="onGridClick(th.key, item[th.key], item)"
               @mouseover="onGridOver(th.key, item[th.key], item)">
@@ -49,11 +49,11 @@
 
   export default {
     props: {
-      threads: {
+      theads: {
         type: Array,
         default: () => [],
       },
-      otherThreads: {
+      otherTheads: {
         type: Array,
         default: () => [],
       },
@@ -90,7 +90,7 @@
     data() {
       return {
         tbSubTitle: this.showSubTitle,
-        tbThreads: this.threads,
+        tbTheads: this.theads,
         tbOperator: this.operators,
         tbData: this.data,
       };
@@ -99,8 +99,8 @@
       filterData(field, val) {
         return this.filter(field, val);
       },
-      onThreadClick(field) {
-        this.$emit('thread', field);
+      onTheadClick(field) {
+        this.$emit('thead', field);
       },
       onRecordClick(action, data) {
         this.$emit('record', { action, data });

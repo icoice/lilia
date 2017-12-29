@@ -1,47 +1,49 @@
 <template>
-  <div class="vp-paging" v-if="pageTotal > 0">
-    <ul>
-      <li class="vp-paging-operate vp-paging-first">
-        <vp-button @click="firstPageNo()">
-          <span class="psm-icon psm-first" slot="button-name"></span>
-        </vp-button>
-      </li>
-      <li class="vp-paging-operate vp-paging-prev">
-        <vp-button @click="clickPageNo(currentPageNo - 1)">
-          <span class="psm-icon psm-arrow-left" slot="button-name"></span>
-        </vp-button>
-      </li>
-      <li v-for="pageNo in pageNoList" class="vp-page-no" :class="{
-          'vp-page-no-selected': currentPageNo === pageNo,
-          'vp-page-no-disabled': maxPage(pageNo),
-        }">
-        <vp-button @click="clickPageNo(pageNo)" :disabled="maxPage(pageNo)">
-          <span slot="button-name">{{format(pageNo)}}</span>
-        </vp-button>
-      </li>
-      <li class="vp-paging-operate vp-paging-next">
-        <vp-button @click="clickPageNo(currentPageNo + 1)">
-          <span  class="psm-icon psm-arrow-right" slot="button-name"></span>
-        </vp-button>
-      </li>
-      <li class="vp-paging-operate vp-paging-last">
-        <vp-button @click="clickPageNo(getTotalPage())">
-          <span class="psm-icon psm-last" slot="button-name"></span>
-        </vp-button>
-      </li>
-      <li class="vp-paging-tips">
-        共{{pageTotal}}条记录，全{{getTotalPage()}}页，每页限{{pageSize}}条记录
-      </li>
-    </ul>
+  <div class="vm">
+    <div class="paging" v-if="pageTotal > 0">
+      <ul>
+        <li class="paging-operate paging-first">
+          <vm-button @tap="firstPageNo()">
+            <span class="psm-icon psm-first" slot="button-content"></span>
+          </vm-button>
+        </li>
+        <li class="paging-operate paging-prev">
+          <vm-button @tap="tapPageNo(currentPageNo - 1)">
+            <span class="psm-icon psm-arrow-left" slot="button-content"></span>
+          </vm-button>
+        </li>
+        <li v-for="pageNo in pageNoList" class="page-no" :class="{
+            'page-no-selected': currentPageNo === pageNo,
+            'page-no-disabled': maxPage(pageNo),
+          }">
+          <vm-button @tap="tapPageNo(pageNo)" :disabled="maxPage(pageNo)">
+            <span slot="button-content">{{format(pageNo)}}</span>
+          </vm-button>
+        </li>
+        <li class="paging-operate paging-next">
+          <vm-button @tap="tapPageNo(currentPageNo + 1)">
+            <span  class="psm-icon psm-arrow-right" slot="button-content"></span>
+          </vm-button>
+        </li>
+        <li class="paging-operate paging-last">
+          <vm-button @tap="tapPageNo(getTotalPage())">
+            <span class="psm-icon psm-last" slot="button-content"></span>
+          </vm-button>
+        </li>
+        <li class="paging-tips">
+          共{{pageTotal}}条记录，全{{getTotalPage()}}页，每页限{{pageSize}}条记录
+        </li>
+      </ul>
+    </div>
   </div>
 </template>
 
 <script>
-  import vpButton from '../../common/button';
+  import vmButton from '../../common/button';
 
   export default {
     components: {
-      vpButton,
+      vmButton,
     },
     props: {
       pageNo: {
@@ -93,12 +95,12 @@
         return Math.ceil(pageTotal / pageSize);
       },
       // 触发选择
-      clickPageNo(no) {
+      tapPageNo(no) {
         const maxPg = this.getTotalPage();
         this.currentPageNo = no <= 0 ? 1 : no;
         this.currentPageNo = no >= maxPg ? maxPg : this.currentPageNo;
         this.reset();
-        this.$emit('selected', this.currentPageNo);
+        this.$emit('change', this.currentPageNo);
       },
       // 重置
       reset() {
@@ -120,7 +122,7 @@
         this.amountStart = 0;
         this.amountEnd = 0;
         this.reset();
-        this.$emit('selected', this.currentPageNo);
+        this.$emit('change', this.currentPageNo);
       },
       // 计算页面显示记录数量
       setRecordAmount() {

@@ -47,6 +47,10 @@
         }
       }
 
+      tr {
+        border-bottom: 1px solid #dfdfdf;
+      }
+
       tr:hover {
         background-color: #b1b9bb;
         td {
@@ -55,8 +59,8 @@
       }
 
       tr td.table-operate {
+        padding: .2em;
         width: 14.25%;
-        padding: .25em;
         .psm-icon {
           font-size: 13px;
         }
@@ -76,9 +80,7 @@
       }
 
       tr td {
-        padding: .35em;
-        height: 3em;
-        line-height: 3em;
+        padding: .2em;
         text-align: center;
         font-size: 13px;
         color: #444;
@@ -87,8 +89,6 @@
       .operate-btn {
         margin: 0 auto;
         min-width: 3em;
-        height: 3em;
-        line-height: 3em;
         text-align: center;
         border-radius: 5px;
         span {
