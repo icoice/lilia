@@ -16,6 +16,8 @@
     .tips {
       padding: 1em;
       text-align: center;
+      font-size: 14px;
+      color: #666;
     }
 
     .container {
@@ -58,6 +60,38 @@
         }
       }
 
+      thead td.table-all-checkbox {
+        .vm {
+          .button {
+            .button-touch {
+              width: 5em;
+              background-color: transparent;
+
+              span {
+                color: #c00;
+              }
+            }
+          }
+        }
+      }
+
+      tr td.table-checkbox {
+        .vm {
+          .button {
+            margin: 0 auto;
+            width: 3em;
+            .button-touch {
+              border: 1px solid #dfdfdf;
+              background-color: transparent;
+
+              span {
+                color: #c00;
+              }
+            }
+          }
+        }
+      }
+
       tr td.table-operate {
         padding: .2em;
         width: 14.25%;
@@ -80,7 +114,8 @@
       }
 
       tr td {
-        padding: .2em;
+        padding-top: 1em;
+        padding-bottom: 1em;
         text-align: center;
         font-size: 13px;
         color: #444;

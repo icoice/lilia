@@ -10,6 +10,14 @@
           <td v-if="tbOperator.length > 0"></td>
         </thead>
         <thead v-if="tbTheads && tbTheads.length > 0">
+          <td class="table-all-checkbox" v-if="hasDuplicate">
+            <vm-button @tap="onAllDuplicate">
+              <div slot="button-content">
+                <span v-if="!tbAllCheck">全选</span>
+                <span v-else>取消全选</span>
+              </div>
+            </vm-button>
+          </td>
           <td v-for="item in tbTheads" :colspan="!item.cols ? 1 : item.cols" @click="onTheadClick(item.key)">
             <strong>{{item.name}}</strong>
             <strong  class="sub-title" v-if="tbSubTitle && item.subTitle">{{item.subTitle}}</strong>
@@ -17,6 +25,13 @@
           <td v-if="tbOperator.length > 0"></td>
         </thead>
         <tr v-for="(item, code) in tbData">
+          <td class="table-checkbox" v-if="hasDuplicate">
+            <vm-button @tap="onDuplicate(item, code)">
+              <div slot="button-content">
+                <span :class="['psm-icon', !tbDuplicate[code] ? '' : 'psm-right']"></span>
+              </div>
+            </vm-button>
+          </td>
           <td v-for="th in tbTheads"
               :cols="!th.cols ? 1 : th.cols"
               @click="onGridClick(th.key, item[th.key], item)"
@@ -77,6 +92,10 @@
         type: Function,
         default: () => true,
       },
+      hasDuplicate: {
+        type: Boolean,
+        default: false,
+      },
       showSubTitle: {
         type: Boolean,
         default: true,
@@ -85,6 +104,8 @@
     watch: {
       data(data) {
         this.tbData = data;
+        this.tbAllCheck = false;
+        this.tbDuplicate = {};
       },
     },
     data() {
@@ -93,6 +114,8 @@
         tbTheads: this.theads,
         tbOperator: this.operators,
         tbData: this.data,
+        tbDuplicate: {},
+        tbAllCheck: false,
       };
     },
     methods: {
@@ -107,6 +130,33 @@
       },
       onGridClick(field, value, record) {
         this.$emit('grid', { field, value, record });
+      },
+      onAllDuplicate() {
+        this.tbData.map((item, code) => {
+          if (!this.tbAllCheck) {
+            this.tbDuplicate[code] = item;
+          } else {
+            delete this.tbDuplicate[code];
+          }
+        });
+        this.tbAllCheck = !this.tbAllCheck;
+        this.$emit('checked', this.tbDuplicate);
+      },
+      onDuplicate(item, code) {
+        const { tbDuplicate, tbData } = this;
+        let hasAllCheck = true;
+        if (typeof tbDuplicate[code] !== 'undefined') {
+          this.tbAllCheck = false;
+          delete tbDuplicate[code];
+        } else {
+          tbDuplicate[code] = item;
+          tbData.map((item, code) => {
+            if (!tbDuplicate[code]) hasAllCheck = false;
+          });
+          this.tbAllCheck = hasAllCheck;
+        }
+        this.tbDuplicate = Object.assign({}, tbDuplicate);
+        this.$emit('checked', tbDuplicate);
       },
     },
     components: {

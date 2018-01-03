@@ -1,0 +1,105 @@
+@mixin border-top .date-selector, #c3c3c3;
+
+.vm {
+  .date-selector {
+    background-color: #eaeaea;
+    background: -webkit-gradient(linear,0 1,0 55,from(#fff),to(#eaeaea));
+    background: gradient(linear,0 1,0 55,from(#fff),to(#eaeaea));
+    box-shadow: 0 5px 10px #dfdfdf;
+    font-size: 12px;
+
+    .date-setting {
+      overflow: hidden;
+
+      .button {
+        width: 4.5em;
+        float: left;
+        border-left: 1px solid #dfdfdf;
+
+        .button-touch {
+          height: 3.3em;
+          line-height: 3.3em;
+          background-color: transparent;
+          border-radius: 0;
+
+          span {
+            font-size: 12px;
+            color: #333;
+          }
+        }
+
+        .button-has-tapped {
+          background: -webkit-gradient(linear,0 1,0 55,from(#eaeaea),to(#fff));
+          background: gradient(linear,0 1,0 55,from(#eaeaea),to(#fff));
+        }
+      }
+    }
+
+    .date-selector-scope {
+      overflow: hidden;
+      float: left;
+      width: 33.33%;
+      border-bottom: 1px dashed #dfdfdf;
+
+      .date-operator {
+        overflow: hidden;
+        .button {
+          float: left;
+          width: 33.33%;
+        }
+      }
+
+      .button {
+        .button-touch {
+          background-color: transparent;
+          .psm-icon {
+            font-size: 45px;
+            color: #999;
+          }
+        }
+
+        .button-has-tapped {
+          .psm-icon {
+            color: #666;
+          }
+        }
+      }
+
+      .date-grid {
+        padding-top: 1em;
+        height: 3.33em;
+        line-height: 3.33em;
+        font-size: 20px;
+        text-align: center;
+        border-bottom: 1px solid #dfdfdf;
+      }
+
+      .date-unit {
+        font-size: 16px;
+        color: #666;
+      }
+    }
+
+    .date-time-show {
+      overflow: hidden;
+    }
+
+    .date-control {
+      .button {
+        .button-touch {
+          background-color: transparent;
+
+          span {
+            font-size: 14px;
+            color: #333;
+          }
+        }
+        .button-has-tapped {
+          span {
+            color: #333;
+          }
+        }
+      }
+    }
+  }
+}

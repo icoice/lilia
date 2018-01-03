@@ -1,4 +1,7 @@
-import { def, hasPromise } from '../../utils';
+import axios from 'axios';
+import utils from '../../utils';
+
+const { def, hasPromise } = utils;
 
 export default class Http {
 
@@ -17,7 +20,6 @@ export default class Http {
     this.METHOD = '_HRM';
     this.QUERY = '_HRQ';
     this.BODY = '_HRB';
-
     return this.register();
   }
 
@@ -26,7 +28,7 @@ export default class Http {
     const { access } = this;
     const list = {};
     access.map((item) => {
-      list[name] = this.request(item);
+      list[item.name] = this.request(item);
       return item;
     });
     return list;
@@ -44,7 +46,7 @@ export default class Http {
     const headers = {
       'Content-Type': this.autoContentType(data),
     };
-    this.setPayload({
+    return this.setPayload({
       url: `${this.domain}${path}`,
       method,
       headers: this.setHeaders(headers),
@@ -71,8 +73,10 @@ export default class Http {
      fake
     } = item;
 
+    console.log(item);
+
     return (params = {}) => {
-      const reqMethods = params[METHOD] || method;
+      const reqMethod = params[METHOD] || method;
       delete params[METHOD];
       const reqQuery = params[QUERY] || {};
       delete params[QUERY];
@@ -80,7 +84,7 @@ export default class Http {
       delete params[BODY];
       const payload = this.createPayload(
        path,
-       reqMethods,
+       reqMethod,
        reqQuery,
        reqBody,
        params);
@@ -91,7 +95,7 @@ export default class Http {
           setTimeout(() => resolve(fake), fakeDelay);
         });
        }
-       return sender ?  axios(pl) : sender(pl);
+       return !sender ?  axios(pl) : sender(pl);
      }
 
      // 假设payload返回的是一个promise

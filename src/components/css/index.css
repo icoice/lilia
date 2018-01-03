@@ -1,2 +1,4 @@
+@import 'planes/border.css';
+@import './iconfont.css';
 @import './*.css';
 @import '../parts/**/**/*.css';

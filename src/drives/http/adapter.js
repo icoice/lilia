@@ -1,5 +1,5 @@
-import http from '../drives/http';
-import httpMecha from '../drives/http/mecha';
+import http from './';
+import httpMecha from './mecha';
 
 /* http、httpMecha的数据格式构造 */
 const formatMaps = (maps) => {
@@ -11,6 +11,7 @@ const formatMaps = (maps) => {
 
    list.push({
      name: desc.name,
+     method: desc.method,
      path: desc.path,
      fake: desc.fake,
    });
@@ -18,7 +19,7 @@ const formatMaps = (maps) => {
    payloads.push({
      name: desc.name,
      origin: desc.origin,
-     alias: desc.origin,
+     alias: desc.alias,
    });
 
    return link;
@@ -32,9 +33,9 @@ export default (params)  => {
   const { domain, hasFake, fakeDataStruct, fakeDelay } = params.config;
   const { onBuildPayload, onBuildHeaders, replaceSender, maps } = params;
   const { list, payloads } = formatMaps(maps);
-  const access = list.map(api => Object.assign({ fake }, {
+  const access = list.map(api => Object.assign({ ...api }, {
     // fakeDataStruct 用于定义基础数据结构
-    fake: !hasFake ? null : fakeDataStruct(fake),
+    fake: !hasFake ? null : fakeDataStruct(api.fake),
   }));
 
   const apiParams = {
@@ -51,13 +52,13 @@ export default (params)  => {
   // 定义夹层的payload校验
   payloads.map((payload) => {
     const { name, origin, alias } = payload;
-    mecha.definePayload(name, origin, alias); //
+    mecha.definePayload(name, origin, alias);
     return payload;
   });
 
   // 夹层发送请求前
   mecha.defineRequestBefore((payload) => {
-   Object.assign(payload, params.sendBefore(payload));
+    Object.assign(payload, params.sendBefore(payload));
   });
 
   // 初始化夹层

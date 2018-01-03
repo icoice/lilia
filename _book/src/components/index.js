@@ -1,75 +1,76 @@
-import _vpButton from './public/common/button';
-import _vpInput from './public/common/input';
-import _vpFile from './public/common/file';
-import _vpSelect from './public/common/select';
-import _vpLoading from './public/common/loading';
-import _vpRadio from './public/common/radio';
-import _vpToast from './public/common/toast';
-import _vpMemo from './public/common/memo';
-import _vpScroller from './public/common/scroller';
-import _vpImage from './public/common/image';
-import _vpDataTable from './public/dataTable';
-import _vpConfirm from './public/confirm';
-import _vpShowcase from './public/showcase';
-import _vpTree from './public/tree';
-import _vpCategory from './public/category';
-import _vpPaging from './public/paging';
-import _vpMultipleChoose from './public/multipleChoose';
-import _vpFalls from './public/falls';
-import _vpDate from './public/date';
-import _vpLogin from './instance/login';
+// 基础组件
+import button from './parts/common/button';
+import file from './parts/common/file';
+import loading from './parts/common/loading';
+import radio from './parts/common/radio';
+import toast from './parts/common/toast';
+import memo from './parts/common/memo';
+import scoller from './parts/common/scroller';
+import image from './parts/common/image';
+import select from './parts/common/select';
+import input from './parts/common/input';
+// 特例组件
+import table from './parts/instance/table';
+import confirm from './parts/instance/confirm';
+import condition from './parts/instance/condition';
+import showcase from './parts/instance/showcase';
+import tree from './parts/instance/tree';
+import category from './parts/instance/category';
+import paging from './parts/instance/paging';
+import multipleChoose from './parts/instance/multipleChoose';
+import louver from './parts/instance/louver';
 
-export const vpLogin = _vpLogin;
-export const vpButton = _vpButton;
-export const vpInput = _vpInput;
-export const vpFile = _vpFile;
-export const vpSelect = _vpSelect;
-export const vpLoading = _vpLoading;
-export const vpRadio = _vpRadio;
-export const vpToast = _vpToast;
-export const vpMemo = _vpMemo;
-export const vpScroller= _vpScroller;
-export const vpDataTable = _vpDataTable;
-export const vpConfirm = _vpConfirm;
-export const vpShowcase = _vpShowcase;
-export const vpTree = _vpTree;
-export const vpCategory = _vpCategory;
-export const vpPaging = _vpPaging;
-export const vpMultipleChoose = _vpMultipleChoose;
-export const vpFalls = _vpFalls;
-export const vpDate = _vpDate;
-export const vpImage = _vpImage;
+export const vpFile = file;
+export const vpLoading = loading;
+export const vpRadio = radio;
+export const vpToast = toast;
+export const vpMemo = memo;
+export const vpScroller = scoller;
+export const vpConfirm = confirm;
+export const vpShowcase = showcase;
+export const vpTree = tree;
+export const vpCategory = category;
+export const vpMultipleChoose = multipleChoose;
+export const vpImage = image;
+export const vmPaging = paging;
+export const vmButton = button;
+export const vmTable = table;
+export const vmLouver = louver;
+export const vmInput = input;
+export const vmSelect = select;
+export const vmCondition = condition;
+export const vmShowcase = showcase;
 
 const components = {
-  vpButton,
+  vmInput,
+  vmSelect,
+  vmLouver,
+  vmTable,
+  vmCondition,
+  vmButton,
+  vmPaging,
+  vmShowcase,
   vpMemo,
   vpFile,
-  vpInput,
   vpImage,
-  vpSelect,
   vpLoading,
   vpRadio,
   vpToast,
-  vpPaging,
   vpScroller,
-  vpDataTable,
-  vpDate,
   vpConfirm,
   vpShowcase,
   vpCategory,
   vpMultipleChoose,
   vpTree,
-  vpFalls,
-  vpLogin,
-}
+};
 
 export const register = function register(Vue) {
- Object.entries(components).map((kv) => {
-   const [name, component] = kv;
-   Vue.component(name, component);
-   return kv;
- });
-}
+  Object.entries(components).map((kv) => {
+    const [name, component] = kv;
+    Vue.component(name, component);
+    return kv;
+  });
+};
 
 export default {
   components,

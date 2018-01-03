@@ -1,24 +1,27 @@
 // scroller的分页用法支持
-export default function(scroller) {
+export default function ScrollerPaging(scroller) {
   this.data = {};
   this.currentPage = null;
-  this.onChange = function(scroller, callback) {
-   if (this.currentPage !== scroller.nextPage || scroller.isRefresh) {
-     this.currentPage = scroller.nextPage;
-     if(callback) callback(params => this.getter(params), data => this.setter(this.currentPage, data), scroller);
-   }
-  },
-  this.setter = function(page, data) {
-   this.data[page] = typeof data === 'object' && data instanceof Array ? data : [] ;
-  }
-  this.getter = function(scroller) {
-   const { data } = this;
-   let allData = [];
-   Object.entries(data).map((kv) => {
-     const [, v] = kv;
-     allData = allData.concat(v);
-     return kv;
-   });
-   return !scroller ? allData : data[scroller.page];
-  }
+  this.onChange = function onChange(me, callback) {
+    if (this.currentPage !== me.nextPage || me.isRefresh) {
+      this.currentPage = me.nextPage;
+      if (callback) {
+        callback(params => this.getter(params),
+        data => this.setter(this.currentPage, data), me);
+      }
+    }
+  };
+  this.setter = function setter(page, data) {
+    this.data[page] = typeof data === 'object' && data instanceof Array ? data : [];
+  };
+  this.getter = function getter(me) {
+    const { data } = this;
+    let allData = [];
+    Object.entries(data).map((kv) => {
+      const [, v] = kv;
+      allData = allData.concat(v);
+      return kv;
+    });
+    return !me ? allData : data[scroller.page];
+  };
 }
