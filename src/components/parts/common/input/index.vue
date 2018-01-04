@@ -4,7 +4,7 @@
       <div class="input-container">
         <input
           ref="input"
-          v-model="myVal"
+          :value="myVal"
           :type="category"
           :maxlength="maxLimit"
           :placeholder="tips"
