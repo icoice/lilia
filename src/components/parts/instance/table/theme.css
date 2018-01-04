@@ -61,10 +61,12 @@
       }
 
       thead td.table-all-checkbox {
+        width: 5em;
+
         .vm {
           .button {
             .button-touch {
-              width: 5em;
+              margin: 0 auto;
               background-color: transparent;
 
               span {
@@ -76,13 +78,19 @@
       }
 
       tr td.table-checkbox {
+        width: 5em;
+
         .vm {
           .button {
             margin: 0 auto;
             width: 3em;
+            height: 2.5em;
+            line-height: 2.5em;
+
             .button-touch {
               border: 1px solid #dfdfdf;
               background-color: transparent;
+              text-align: center;
 
               span {
                 color: #c00;
