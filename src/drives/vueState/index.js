@@ -1,4 +1,4 @@
-import firstUppercase from './firstUppercase';
+import firstUppercase from '../../utils/firstUppercase';
 
 export default function vueState(name, state, patch = {}) {
   const $props = {};
