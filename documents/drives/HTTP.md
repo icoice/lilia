@@ -9,59 +9,37 @@ http驱动器由两部分组成:
 
 ## Sample Use
 
-maps/getYourName/index.js
+    import { vmDrives } from 'vue-moo';
 
-    const name = 'getYourName';
-
-    const info = {
-      name,
-    }
-
-    const payload = {
-      name,
-      path: '/get/your-name',
-      fake: {
-        name: 'myName',
-      },
-      origin: {
-        userId: null,
-      },
-      alias: {
-        userId: 'id',
-      },
-    }
-
-    export default {
-      info,
-      payload,
-    }
-
-
-apater/index.js
-
-    import httpApater from 'vue-moo/drives/http/apater';
-    import maps from './maps';
-
-    export default httpApater({
+    export default vmDrives.httpApater({
       // api接口及其payload的预定义
-      maps，
+      maps: {
+        getDemoData: {
+          name: 'getDemoData',
+          method: 'GET',
+          path: '/get/demo',
+          origin: {},
+          alias: {},
+          fake: {
+            list: [],
+          },
+        },
+      },
       // 服务配置
       config: {
-        domain: 'http://localhost:9000',
-        hasFake: false,
+        domain: '',
+        hasFake: true,
         fakeDelay: 1500,
-        fakeDataStruct: data => ({ code: 0, data }),
+        fakeDataStruct: data => ({
+          code: '999999',
+          msg: '',
+          data,
+        }),
       },
-      // 发送请求前，这里可重置payload，且参数不受预定义约束。
-      sendBefore: () => ({
-        token: window.token,
-      }),
-      // 重置请求体, 受payload的预定义约束
-      setPayload(payload) { //... },
-      // 重置请求头
-      setHeaders(headers) { //... },
-      // 替换发送装置
-      sender(payload) { //... },
+      sendBefore: () => ({}),
+      setPayload: payload => payload,
+      setHeaders: headers => headers,
+      sender: payload => payload,
     });
 
 

@@ -34,7 +34,7 @@
       }
 
       thead td {
-        padding: 1em;
+        padding: .5em;
         font-size: 14px;
         text-align: center;
         border-bottom: 1px solid #dfdfdf;
@@ -67,10 +67,13 @@
           .button {
             .button-touch {
               margin: 0 auto;
+              height: auto;
+              line-height: normal;
               background-color: transparent;
 
               span {
-                color: #c00;
+                font-size: 13px;
+                color: #f90;
               }
             }
           }
@@ -82,18 +85,17 @@
 
         .vm {
           .button {
-            margin: 0 auto;
-            width: 3em;
-            height: 2.5em;
-            line-height: 2.5em;
-
             .button-touch {
+              margin: 0 auto;
+              height: 2em;
+              width: 2em;
+              line-height: 2em;
               border: 1px solid #dfdfdf;
               background-color: transparent;
               text-align: center;
 
               span {
-                color: #c00;
+                color: #f90;
               }
             }
           }

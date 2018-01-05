@@ -140,7 +140,7 @@
           }
         });
         this.tbAllCheck = !this.tbAllCheck;
-        this.$emit('checked', this.tbDuplicate);
+        this.$emit('checked', Object.assign({}, this.tbDuplicate));
       },
       onDuplicate(item, code) {
         const { tbDuplicate, tbData } = this;

@@ -1,9 +1,14 @@
-# UI 组件
+# 组件
 
 适用于PC、Mobile的UI组件库，默认尺寸单位为em。
 
 ## 全局注册
 
-    import vueMooComponent from 'vue-moo/components';
+    import Vue from 'vue';
+    import { vmComponents } from 'vue-moo';
 
-    vueMooComponent.register(Vue);
+    vmComponents.register(Vue);
+
+## 演示
+
+[DEMO](https://icoice.github.io/vue-moo-demo/dist/)

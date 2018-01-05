@@ -1,54 +1,76 @@
 # drives/vuex
 
-vuex的二次封装。
+处理store内部关系。
 
 ## 示例代码
 
-step.1、定义Store
+step 1、定义Store
 
-    import { vxStore } from 'vue-ui-drives/modules/vuex-drives';
+    export default function demo(store) {
+      const { http } = store;
 
-    // 假设menus的数据需应用于home。
-    function menus(store) {
-      store.setMeal('title', null);
-      store.setMeal('list', [
-        { key: 0, name: 'item-0' },
-        { key: 1, name: 'item-1' },
-      ]);
+      store.state({
+        list: null,
+        total: 0,
+      });
+
+      store.action('get', ({ dispatch }, params) => {
+        http.getDemoData(params).then((res) => {
+          dispatch({
+            list: res.data.list,
+            total: res.data.total,
+          });
+        });
+      });
     }
 
-    export default vxStore((Processor) => {
-      menus(new Processor('home'));
+step 2、创建Store
+
+    import { vmDrives } from 'vue-moo';
+    import Vue from 'vue';
+    import demo from './demo/store';
+    import http from '../adapter/http';
+
+    const { vxStore } = vmDrives.vuex;
+
+    export default vxStore(Vue, (Store) => {
+      Store.use('http', http);
+      [ demo ].map(set => set(new Store('demo')));
     });
 
-step.2、装载Getters，Actions
+
+step 3、装载Getters，Actions
 
     <template>
-      <div class="home">
-        <h4>{{ home.title }}</h4>
-        <ul>
-          <li v-for="item in home.list" @click="onMenusClick(item.key)">
-            {{ item.name }}
-          </li>
-        </ul>
+      <div :class="name">
+        <h4>demo</h4>
+        <vm-table :theads="vmTable.theads" :data="demo.list">
+          <p slot="no-data-mess">{{ vmTable.tips }}</p>
+        </vm-table>
+        <vm-paging :total="demo.total"/>
       </div>
     </template>
 
     <script>
-      import { vxActions, vxGetters } from 'vue-ui-drives/modules/vuex-drives';
+      import { vmDrives } from 'vue-moo';
+      import vmConfig from './vm.config';
+
+      const name = 'demo';
+      const { vxGettersNS, vxActions } = vmDrives.vuex;
 
       export default {
         computed: {
-          ...vxGetters('home'),
+          ...vxGettersNS(name),
         },
         methods: {
-          ...vxActions('home'),
-          onMenusClick(id) {
-            this.home.setTitle();
-          },
+          ...vxActions(cpName),
         },
+        name,
+        mounted() {
+          this.demoGet();
+        },
+        data: () => ({
+          ...vmConfig,
+        }),
       };
     </script>
-
-    <style :lang="postcss">
-    </style>

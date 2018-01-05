@@ -127,12 +127,13 @@
         const { inputKey, myVal } = this;
         return !inputKey ? myVal : { [inputKey]: myVal };
       },
-      verifyVal() {
+      verifyVal(e = {}) {
         const { verifyInput, valFilter, myVal } = this;
         const { regExp } = verifyInput;
 
+        if (e.target) this.myVal = e.target.value;
         if (valFilter !== null) {
-          this.myVal = myVal.replace(valFilter, '');
+          this.myVal = this.myVal.replace(valFilter, '');
         }
 
         if (this.checkEmptry && this.value === '') {
@@ -166,7 +167,7 @@
           this.$emit('blur', this.getVal());
         } else {
           this.hasClearNow = false;
-          e.target.focus();
+          if(e.target) e.target.focus();
         }
       },
       showClear(val) {

@@ -21,7 +21,6 @@ import multipleChoose from './parts/instance/multipleChoose';
 import louver from './parts/instance/louver';
 
 export const vpFile = file;
-export const vpLoading = loading;
 export const vpRadio = radio;
 export const vpToast = toast;
 export const vpMemo = memo;
@@ -32,6 +31,7 @@ export const vpTree = tree;
 export const vpCategory = category;
 export const vpMultipleChoose = multipleChoose;
 export const vpImage = image;
+export const vmLoading = loading;
 export const vmPaging = paging;
 export const vmButton = button;
 export const vmTable = table;
@@ -50,10 +50,10 @@ const components = {
   vmButton,
   vmPaging,
   vmShowcase,
+  vmLoading,
   vpMemo,
   vpFile,
   vpImage,
-  vpLoading,
   vpRadio,
   vpToast,
   vpScroller,

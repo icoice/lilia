@@ -1,11 +1,11 @@
 import http from './http';
 import httpApater from './http/adapter';
-import router from './router';
 import vuex from './vuex';
+import vueState from './vueState';
 
 export default {
   vuex,
+  vueState,
   http,
-  router,
   httpApater,
 };

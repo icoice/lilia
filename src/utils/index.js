@@ -1,6 +1,6 @@
 import animate from './animate';
 import arrayGroups from './arrayGroups';
-import vueState from './vueState';
+import vueComponentState from './vueComponentState';
 import def from './def';
 import hasEmpty from './hasEmpty';
 import humpChange from './humpChange';
@@ -21,7 +21,7 @@ export default {
   formatTime, // 格式化时间
   firstUppercase, // 首字母大写
   objectValueStr, // 对象参数转字符
-  vueState, // vue的state快速创建
+  vueComponentState, // vue的state快速创建
   ScrollerPaging, // 滚动分页
   storage, // 本地存储
 };

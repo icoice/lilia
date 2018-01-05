@@ -1,10 +1,11 @@
 import Vuex, { Store, mapGetters, mapActions } from 'vuex';
-import { firstLetterUppercase } from '../../utils';
+import utlis from '../../utils';
 
 const storeGetters = {};
 const storeActions = {};
 const storeMutations = {};
 const storeStates = {};
+const stateNamespaces = [];
 
 // vxStore的构造函数
 export const vxStore = function vxStore(Vue, process) {
@@ -27,20 +28,20 @@ export const vxStore = function vxStore(Vue, process) {
     };
 
     this.namespace = function setNamespace(name) {
-      return `${namespace}${firstLetterUppercase(name)}`;
+      return `${namespace}${utlis.firstUppercase(name)}`;
     };
 
     this.mealActionName = function mealActionName(name) {
-      return `set${firstLetterUppercase(namespace)}${firstLetterUppercase(name)}`;
+      return `set${utlis.firstUppercase(namespace)}${utlis.firstUppercase(name)}`;
     };
 
     this.getState = function getState(state, name) {
      return state[this.namespace(name)];
     };
 
-    this.setMeal = function setMeal(name, params) {
+    this.meal = function setMeal(name, params) {
       const storeName = this.namespace(name);
-      const actionName = `set${firstLetterUppercase(storeName)}`;
+      const actionName = `set${utlis.firstUppercase(storeName)}`;
       store.state[storeName]  = params;
       store.actions[actionName]  =  ({ state }, params) => {
         state[storeName] = params;
@@ -55,34 +56,57 @@ export const vxStore = function vxStore(Vue, process) {
       storeGetters[namespace].push(storeName);
     };
 
-    this.setMutation = function setMutation(name, callback) {
+    this.mutation = function setMutation(name, callback) {
      const storeName = this.namespace(name);
      store.mutations[storeName] = callback;
      storeMutations[namespace].push(storeName);
     };
 
-   this.setGetter = function setGetter(name, callback = null) {
+   this.getter = function setGetter(name, callback = null) {
      const storeName = this.namespace(name);
      store.getters[storeName] = callback !== null ? callback : state =>  state[storeName];
      storeGetters[namespace].push(storeName);
     };
 
-    this.setAction = function setAction(name, callback) {
+    this.action = function setAction(name, callback) {
       const storeName = this.namespace(name);
-      store.actions[storeName] = callback;
+      store.actions[storeName] = (item, params) => {
+        callback({
+         ...item,
+         dispatch: (nameList) => {
+           Object.entries(nameList).map((kv) => {
+             const [name, val] = kv;
+             item.commit(this.namespace(name), val);
+             return kv;
+           });
+         },
+        }, params);
+      };
       storeActions[namespace].push(storeName);
     };
 
-   this.setState = function setState(name, params) {
-     const storeName = this.namespace(name);
-     store.state[storeName] = params;
-     store.getters[storeName] = state => state[storeName];
-     store.mutations[storeName]  =  (state,  payload) => {
-       state[storeName] = payload;
-     };
-     storeMutations[namespace].push(storeName);
-     storeStates[namespace].push(storeName);
-     storeGetters[namespace].push(storeName);
+   this.state = function setState(maps) {
+     if (stateNamespaces.indexOf(namespace) < 0) {
+      stateNamespaces.push(namespace);
+      store.state[namespace] = {};
+      store.getters[namespace] = state => state[namespace];
+     }
+     Object.entries(maps).map((kv) => {
+      const [name, params] = kv;
+      const stateSpace = store.state[namespace];
+      const storeName = this.namespace(name);
+      stateSpace[name] = params;
+      store.state[storeName] = params;
+      store.getters[storeName] = state => state[storeName];
+      store.mutations[storeName]  = (state,  payload) => {
+        state[storeName] = payload;
+        stateSpace[name] = payload;
+      };
+      storeMutations[namespace].push(storeName);
+      storeStates[namespace].push(storeName);
+      storeGetters[namespace].push(storeName);
+      return kv;
+     });
    };
   };
 
@@ -98,13 +122,18 @@ export const vxStore = function vxStore(Vue, process) {
 
 const maps = function(namespace, nameList, category) {
   return nameList !== null ? nameList.map((name) => {
-    return  `${namespace}${firstLetterUppercase(name)}`;
+    return  `${namespace}${utlis.firstUppercase(name)}`;
   }) : category[namespace];
 }
 
 export const vxGetters = function vxGetters(namespace, nameList = null) {
   if (!storeGetters[namespace]) return {};
   return mapGetters(maps(namespace, nameList, storeGetters));
+}
+
+export const vxGettersNS = function vxGetters(namespace) {
+  if (stateNamespaces.indexOf(namespace) < 0) return {};
+  return mapGetters(stateNamespaces);
 }
 
 export const vxActions = function vxActions(namespace, nameList = null) {
@@ -114,6 +143,7 @@ export const vxActions = function vxActions(namespace, nameList = null) {
 
 export default {
   vxStore,
+  vxGettersNS,
   vxGetters,
   vxActions,
 };

@@ -1,10 +1,12 @@
 <template >
-  <div class="vp-loading">
-    <div class="vp-loading-mark" v-if="!isLoadComplete">
-      <div class="psm-icon psm-police-mark animated infinite flip"></div>
-      <p class="vp-load-descrption" v-if="description !== ''">{{description}}</p>
+  <div class="vm">
+    <div class="loading">
+      <div class="loading-mark" v-if="!isLoadComplete">
+        <div class="psm-icon psm-police-mark animated infinite flip"></div>
+        <p class="load-descrption" v-if="description !== ''">{{description}}</p>
+      </div>
+      <slot name="load-content" v-else/>
     </div>
-    <slot name="load-content" v-else/>
   </div>
 </template>
 
@@ -13,7 +15,7 @@
 
   export default {
     props: {
-      isComplete: {
+      hasComplete: {
         type: Boolean,
         default: true,
       },
@@ -24,11 +26,11 @@
     },
     data() {
       return {
-        isLoadComplete: this.isComplete,
+        isLoadComplete: this.hasComplete,
       };
     },
     watch: {
-      isComplete(status) {
+      hasComplete(status) {
         this.isLoadComplete = status;
       },
     },

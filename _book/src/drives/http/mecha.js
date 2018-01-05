@@ -62,11 +62,12 @@ export default class Mecha {
     const request = (params) => {
      const { n, id, method, payload } = params;
      return method(payload).then((response) => {
+       console.log(response);
        const { description, data } = response;
        if (!data) {
          this.log('exception', '未获得服务器的响应数据');
        } else {
-         data.HOW = Object.assign({ id }, sendRecords[n][id]);
+         if (typeof data === 'object' && data !== null) data.HOW = Object.assign({ id }, sendRecords[n][id]);
          this.log('complete', `${description}`, data);
        }
        delete sendRecords[n][id]; // 拒绝响应的措施, 解决无法abort的问题。
@@ -80,23 +81,21 @@ export default class Mecha {
     // 创建接口
     list.map((access) => {
       const [n, method] = access;
-
-      adapter[n] = (params = {}) => {
+      adapter[n] = typeof method === 'function' ? (params = {}) => {
         this.sendId += 1;
         const id = this.sendId;
         let payload = params;
         sendRecords[n] = !sendRecords[n] ? {} : sendRecords[n];
         sendRecords[n][id] = { REJECT_RESPONSE: false };
         if (!(params instanceof FormData)) {
-          payload = this.getRequestPayload(name, params);
+          payload = this.getRequestPayload(n, params);
           if (requestBeforeProcess) {
             payload = Object.assign({},
              requestBeforeProcess(payload, method));
           }
         }
-        dotMethod({ n, id, method, payload });
-      }
-
+        return request({ n, id, method, payload });
+      } : method ;
       return access;
     });
 
@@ -119,7 +118,7 @@ export default class Mecha {
       });
     }
 
-    return control;
+    return adapter;
   }
 
   // 日志
@@ -186,8 +185,8 @@ export default class Mecha {
     const { setting, ERROR_MESSAGE } = this;
     const { origin, alias } = setting;
     if (!setting.origin && !setting.alias) return this.log('error', ERROR_MESSAGE[1003]);
-    if (!origin[key]) return this.log('error', ERROR_MESSAGE[1001]);
-    if (!alias[key]) return this.log('error', ERROR_MESSAGE[1002]);
+    if (!origin[key]) return this.log('error', ERROR_MESSAGE[1002]);
+    if (!alias[key]) return this.log('error', ERROR_MESSAGE[1001]);
     return this.recoverPayload('origin', origin[key], alias[key], params);
   }
 
