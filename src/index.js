@@ -1,13 +1,13 @@
-import components from './components';
-import drives from './drives';
-import utils from './utils';
+import _vue from './component/vue';
+import _drive from './drive';
+import _util from './util';
 
-export const vmComponents = components;
-export const vmDrives = drives;
-export const vmUtils = utils;
+export const component = _vue;
+export const drive = _drive;
+export const util = _util;
 
 export default {
-  components,
-  drives,
-  utils,
+  component,
+  drive,
+  util,
 };
