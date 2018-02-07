@@ -1,0 +1,61 @@
+.vm {
+  .condition {
+    padding: .5em;
+    background: -webkit-gradient(linear, 0 1, 0 55, from(#fff), to(#eaeaea));
+    background: gradient(linear, 0 1, 0 55, from(#fff), to(#eaeaea));
+    border-radius: 5px;
+  }
+
+  .date-selector {
+    position: fixed;
+    z-index: 999;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+  }
+
+  .condition-container {
+    position: relative;
+    overflow: hidden;
+    margin-bottom: 1em;
+
+    .condition-date-input {
+      border-radius: 5px;
+      cursor: pointer;
+
+      input {
+        text-align: center;
+      }
+
+      .psm-close {
+        position: absolute;
+        z-index: 1;
+        top: 50%;
+        right: 0;
+        margin-top: -11px;
+        margin-right: 2px;
+        font-size: 20px;
+        color: #666;
+      }
+    }
+
+    .condition-date-checked {
+      box-shadow: 10px 10px 1px #000 inset;
+    }
+  }
+  .condition-container:last-child {
+    margin-bottom: auto;
+  }
+  .condition-item {
+    float: left;
+  }
+  .condition-name {
+    float: left;
+    width: 30%;
+    height: 2.2em;
+    line-height: 2.2em;
+    font-size: 14px;
+    text-align: right;
+    color: #666;
+  }
+}

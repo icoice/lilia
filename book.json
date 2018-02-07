@@ -1,0 +1,18 @@
+{
+  "plugins": [
+   "prism",
+   "-highlight",
+   "prism-themes",
+   "theme-vuejs-2"
+  ],
+  "config": {
+    "prism": {
+       "css": [
+         "prismjs/themes/prism-coy.css"
+       ],
+       "lang": {
+         "flow": "typescript"
+       }
+    }
+  }
+}

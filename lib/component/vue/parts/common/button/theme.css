@@ -1,0 +1,43 @@
+.vm {
+  .button {
+    -webkit-tap-highlight-color: transparent;
+    -moz-tap-highlight-color: transparent;
+    -o-tap-highlight-color: transparent;
+    tap-highlight-color: transparent;
+    -moz-user-select: none;
+    -khtml-user-select: none;
+    -webkit-user-select: none;
+    user-select: none;
+
+    .button-touch {
+      height: 3em;
+      line-height: 3em;
+      background-color: #f90;
+      border-radius: 5px;
+      text-align: center;
+      font-size: 16px;
+      color: #fff;
+      cursor: pointer;
+    }
+
+    .button-hover {
+      background-color: #f52;
+    }
+
+    .button-has-tapped {
+      background-color: #613f0b;
+    }
+  }
+
+  .button-disabled {
+    .button-touch {
+      background-color: #ccc;
+    }
+    .button-hover {
+      background-color: #ccc;
+    }
+    .button-has-tapped {
+      background-color: #ccc;
+    }
+  }
+}

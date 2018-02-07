@@ -3,20 +3,24 @@
   "version": "0.0.37",
   "description": "vue ui",
   "author": "985611106@qq.com",
+  "main": "./lib",
   "scripts": {
     "dev": "node build/dev-server.js",
     "start": "node build/dev-server.js",
     "build": "node build/build.js",
-    "copy-all": "babel src --out-dir ./ --copy-files",
-    "encode-modules": "babel src/modules -d modules",
-    "encode-utils": "babel src/utils -d utils",
-    "encode": "npm-run-all copy-all encode-modules encode-utils",
+    "copy-all": "babel src --out-dir ./lib --copy-files",
+    "encode-drive": "babel src/drive -d ./lib/drive",
+    "encode-util": "babel src/util -d ./lib/util",
+    "encode": "npm-run-all copy-all encode-drive encode-util",
     "lint": "eslint --ext .js,.vue src"
   },
   "dependencies": {
     "axios": "^0.16.2",
+    "gitbook-plugin-prism": "^2.3.0",
+    "gitbook-plugin-theme-vuejs-2": "^1.0.0",
     "imagination-adapter": "0.0.2",
     "planes": "0.0.3",
+    "prismjs-okaidia-theme": "0.0.1",
     "vue": "^2.5.0",
     "vue-router": "^3.0.1",
     "vuex": "^2.4.1"
