@@ -1,5 +1,5 @@
 <template>
-<<<<<<< HEAD:_book/components/public/common/image/index.vue
+<<<<<<< HEAD:components/public/common/image/index.vue
   <div class="vp-image">
     <img :src="readFileReslut"
     ref="img"
@@ -23,17 +23,17 @@
       <div class="image-load animated rotateIn infinite" v-show="!isLoad">
         <span class="psm-icon psm-loading"></span>
       </div>
->>>>>>> newVersion:lib/component/vue/parts/common/image/index.vue
+>>>>>>> newVersion:src/component/vue/parts/common/image/index.vue
     </div>
   </div>
 </template>
 
 <script>
-<<<<<<< HEAD:_book/components/public/common/image/index.vue
+<<<<<<< HEAD:components/public/common/image/index.vue
   import { imageScaleExpress } from '../../../../utils';
 
 =======
->>>>>>> newVersion:lib/component/vue/parts/common/image/index.vue
+>>>>>>> newVersion:src/component/vue/parts/common/image/index.vue
   export default {
     props: {
       width: {
