@@ -1,17 +1,19 @@
+import Assert from '../Assert';
+
 export default (start, end = new Date()) => {
   let t, e;
 
-  if (typeof start === 'string') {
+  if (Assert.hasStr(start)) {
     t = new Date(start);
-  } else if (start instanceof Date) {
+  } else if (Assert.hasDate(start)) {
     t = start;
   } else {
     return null;
   }
 
-  if (typeof end === 'string') {
+  if (Assert.hasStr(end)) {
     e = new Date(end);
-  } else if (end instanceof Date) {
+  } else if (Assert.hasDate(end)) {
     e = end;
   } else {
     return null;

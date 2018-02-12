@@ -1,16 +1,4 @@
 <template>
-<<<<<<< HEAD:components/public/common/image/index.vue
-  <div class="vp-image">
-    <img :src="readFileReslut"
-    ref="img"
-    @load="loadComplete"
-    v-show="isLoad"
-    class="animated fadeIn"
-    v-if="readFileReslut !== '' &&  readFileReslut !== null"/>
-    <div v-else>NO IMAGES</div>
-    <div class="vp-image-load animated rotateIn infinite" v-show="!isLoad">
-      <span class="psm-icon psm-loading"></span>
-=======
   <div class="vm">
     <div class="image">
       <img
@@ -23,17 +11,13 @@
       <div class="image-load animated rotateIn infinite" v-show="!isLoad">
         <span class="psm-icon psm-loading"></span>
       </div>
->>>>>>> newVersion:src/component/vue/parts/common/image/index.vue
     </div>
   </div>
 </template>
 
 <script>
-<<<<<<< HEAD:components/public/common/image/index.vue
-  import { imageScaleExpress } from '../../../../utils';
+  import util from '../../../../../util';
 
-=======
->>>>>>> newVersion:src/component/vue/parts/common/image/index.vue
   export default {
     props: {
       width: {
@@ -128,7 +112,7 @@
       },
       // 比例压缩
       imgExpress(image) {
-        imageScaleExpress(image, this.express, (img64) => {
+        util.Image.zoom(image, this.express, (img64) => {
           this.readFileReslut = img64;
           this.$emit('express', this.readFileReslut);
         });

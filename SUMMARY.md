@@ -14,6 +14,8 @@
 
     -   [Date](documents/util/Date.md)
 
+    -   [Dom](documents/util/Dom.md)
+
     -   [Http](documents/util/Http.md)
 
     -   [String](documents/util/String.md)

@@ -30,8 +30,6 @@
 </template>
 
 <script>
-  /* import css */;
-
   export default {
     props: {
       hasClear: {

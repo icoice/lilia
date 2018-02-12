@@ -45,8 +45,9 @@
 媒体适配
 
     <style>
-      import 'planes/default-media.css'; /* 默认媒体适配 */
-      import 'planes/media.css'; /* 载入媒体方法 */
+      @import 'planes/media-mobile.css'; /* 默认的Mobile适配 */
+      @import 'planes/media-pc.css'; /* 默认的PC适配 */
+      @import 'planes/media.css'; /* 载入媒体方法 */
       @mixin mediaRoot 560px; /* 依据planes的基准设定计算，基准单位为20px, 基准设备宽度414px */
       @mixin mediaResizeScope 900, 1000, 20; /* 设置新的媒体逻辑尺寸范围 */
 

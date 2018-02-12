@@ -13,6 +13,5 @@
 
     // result: feature-box
     util.String.replaceHump('featureBox', '-');
-
     // result: feature.box
     util.String.replaceHump('featureBox', '.');

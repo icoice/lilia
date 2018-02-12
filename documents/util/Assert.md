@@ -13,18 +13,57 @@
 
     // result: true
     util.Assert.hasEmtpy({});
-
     // result: true
     util.Assert.hasEmtpy([]);
-
     // result: true
     util.Assert.hasEmtpy('');
-
     // result: true
     util.Assert.hasEmtpy(null);
-
     // result: true
     util.Assert.hasEmtpy(undefined);
+
+## util.Assert.has
+
+判断对象是否为其中一个类型
+
+    util.Assert.has('number,string', obj);
+
+
+## util.Assert.hasDate
+
+是否为日期对象。
+
+    // result: true
+    util.Assert.hasDate(new Date());    
+
+## util.Assert.hasStr
+
+是否为字符串。
+
+    // result: true
+    util.Assert.hasStr('');
+
+## util.Assert.hasFile
+
+是否为文件。
+
+    // result: true
+    util.Assert.hasFile(new File());  
+
+## util.Assert.hasFunc
+
+是否为函数。
+
+    // result: true
+    util.Assert.hasFunc(new Function());   
+
+## util.Assert.hasObj
+
+是否为对象。
+
+    // result: true
+    util.Assert.hasObj(new Object());
+
 
 ## util.Assert.hasPromise
 

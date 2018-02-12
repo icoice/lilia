@@ -6,10 +6,8 @@
 
     // result: 2017-10-01
     util.Date.format('YYYY-MM-DD', new Date());
-
     // result: 2017-10-01
     util.Date.format('YYYY-MM-DD', {year: 2017, month: 10, day: 1});
-
     // result: 17-1-1
     util.Date.format('YY-M-D', '2017/01/01');
 

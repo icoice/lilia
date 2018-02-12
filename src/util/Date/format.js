@@ -1,15 +1,17 @@
+import Assert from '../Assert';
+
 export default (express, d = null) => {
   let z, t, e;
 
-  if (typeof d === 'object' && d !== null && !(d instanceof Date)) {
+  if (Assert.hasObj(d) && !Assert.hasDate(d)) {
     z = `${d.year}/${d.month}/${d.day}`;
   } else {
     z = d;
   }
 
-  if (z instanceof Date) {
+  if (Assert.hasDate(z)) {
     t = d;
-  } else if (typeof z === 'number' || typeof z === 'string') {
+  } else if (Assert.has('number,string', z)) {
     t = new Date(z);
   } else {
     t = new Date();

@@ -40,7 +40,7 @@
 
     const serve = drive.Http($.config); // 创建服务
 
-    $.bindPublicEvent([api]); // 使多个服务绑定相同的公共事件
+    $.bindPublicEvent([serve]); // 使多个服务绑定相同的公共事件
 
     serve.getUserInfo({
       userId: '00001',
