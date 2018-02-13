@@ -5,9 +5,9 @@
 ## 全局注册
 
     import Vue from 'vue';
-    import VueMoo from 'vue-moo';
+    import { component } from 'vue-moo';
 
-    VueMoo.component.register(Vue);
+    component.register(Vue);
 
 ## 演示
 

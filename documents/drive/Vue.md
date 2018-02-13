@@ -42,8 +42,8 @@ step 1
         total: 0,
       });
 
-      store.action('get', ({ dispatch }, params = {}) => {
-        dispatch({
+      store.action('get', ({ publish }, params = {}) => {
+        publish({
           list: [1, 2, 3, 4],
           total: 3
         });

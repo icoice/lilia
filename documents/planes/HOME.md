@@ -55,3 +55,12 @@
         @mixin pixelToRem 10, padding-bottom; /* 尺寸值为像素值，自动计算媒体适配的REM值 */
       }
     </style>
+
+自定义单位
+
+    <style>
+      div {
+        padding-bottom: 10pxr; /* 相当于pixelToRem */
+        width: 3per; /* 相当于30% */
+      }
+    </style>
