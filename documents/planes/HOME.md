@@ -57,8 +57,9 @@
     </style>
 
 自定义单位
-
     <style>
+      @import 'planes/unit.css'; /* 载入单位 */
+
       div {
         padding-bottom: 10pxr; /* 相当于pixelToRem */
         width: 3per; /* 相当于30% */

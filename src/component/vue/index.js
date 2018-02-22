@@ -22,12 +22,15 @@ import paging from './parts/instance/paging';
 import multipleChoose from './parts/instance/multipleChoose';
 import louver from './parts/instance/louver';
 
+export const mooBtn = button;
+export const mooInput = input;
+export const mooRadio = radio;
+
 export const vpFile = file;
-export const vpRadio = radio;
 export const vpToast = toast;
 export const vpMemo = memo;
 export const vpScroller = scoller;
-export const vpConfirm = confirm;
+export const vpConfirm = confirm;``
 export const vpShowcase = showcase;
 export const vpTree = tree;
 export const vpCategory = category;
@@ -36,23 +39,22 @@ export const vmMeasure = measure;
 export const vmImage = image;
 export const vmLoading = loading;
 export const vmPaging = paging;
-export const vmButton = button;
 export const vmBtn = button;
 export const vmTable = table;
 export const vmLouver = louver;
-export const vmInput = input;
 export const vmSelect = select;
 export const vmCondition = condition;
 export const vmShowcase = showcase;
 
 const component = {
-  vmInput,
+  mooBtn,
+  mooInput,
+  mooRadio,
+
   vmSelect,
   vmLouver,
   vmTable,
   vmCondition,
-  vmButton,
-  vmBtn,
   vmPaging,
   vmShowcase,
   vmLoading,
@@ -60,7 +62,6 @@ const component = {
   vmMeasure,
   vpMemo,
   vpFile,
-  vpRadio,
   vpToast,
   vpScroller,
   vpConfirm,

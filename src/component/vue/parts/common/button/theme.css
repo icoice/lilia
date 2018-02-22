@@ -1,43 +1,39 @@
-.vm {
-  .btn {
-    -webkit-tap-highlight-color: transparent;
-    -moz-tap-highlight-color: transparent;
-    -o-tap-highlight-color: transparent;
-    tap-highlight-color: transparent;
-    -moz-user-select: none;
-    -khtml-user-select: none;
-    -webkit-user-select: none;
-    user-select: none;
+@import 'planes/base.css';
+@import 'planes/unit.css';
 
-    .btn-touch {
-      height: 3em;
-      line-height: 3em;
-      background-color: #f90;
-      border-radius: 5px;
-      text-align: center;
-      font-size: 16px;
-      color: #fff;
-      cursor: pointer;
-    }
+$btnColor: #00619c;
+$pressColor: #0d3046;
 
-    .btn-hover {
-      background-color: #f52;
-    }
+.moo-btn {
+  @mixin clear-select;
+}
 
-    .btn-has-tapped {
-      background-color: #613f0b;
-    }
-  }
+.moo-btn .btn-touch {
+  height: 2em;
+  line-height: 2em;
+  background-color: $btnColor;
+  border-radius: 5px;
+  text-align: center;
+  font-size: 14px;
+  color: #fff;
+  cursor: pointer;
+}
 
-  .btn-disabled {
-    .btn-touch {
-      background-color: #ccc;
-    }
-    .btn-hover {
-      background-color: #ccc;
-    }
-    .btn-has-tapped {
-      background-color: #ccc;
-    }
+.moo-btn .btn-tap {
+  background-color: $pressColor;
+}
+
+.moo-btn-disabled .btn-touch {
+  background-color: #ccc;
+}
+
+.moo-btn-disabled .btn-tap {
+  background-color: #ccc;
+}
+
+@media (width <= 600px) {
+  .moo-btn .btn-touch {
+    height: 28pxr;
+    line-height: 28pxr;
   }
 }

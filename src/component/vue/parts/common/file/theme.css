@@ -10,7 +10,7 @@
     line-height: 2.2em;
     border-radius: 5px;
     text-decoration: none;
-    background-color: #f90;
+    background-color: #00619c;
     color: #fff;
     input {
       position: absolute;
@@ -34,7 +34,7 @@
 
   .vp-file-limit {
     padding: .25em;
-    color: #f90;
+    color: #00619c;
   }
 
   .vp-select-file:hover {

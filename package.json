@@ -9,9 +9,10 @@
     "start": "node build/dev-server.js",
     "build": "node build/build.js",
     "copy-all": "babel src --out-dir ./lib --copy-files",
+    "copy-theme": "babel src/css --out-dir ./theme --copy-files",
     "encode-drive": "babel src/drive -d ./lib/drive",
     "encode-util": "babel src/util -d ./lib/util",
-    "encode": "npm-run-all copy-all encode-drive encode-util",
+    "encode": "npm-run-all copy-all copy-theme encode-drive encode-util",
     "lint": "eslint --ext .js,.vue src"
   },
   "dependencies": {
@@ -19,7 +20,7 @@
     "gitbook-plugin-prism": "^2.3.0",
     "gitbook-plugin-theme-vuejs-2": "^1.0.0",
     "imagination-adapter": "0.0.2",
-    "planes": "0.0.3",
+    "planes": "file:../planes",
     "prismjs-okaidia-theme": "0.0.1",
     "vue": "^2.5.0",
     "vue-router": "^3.0.1",
