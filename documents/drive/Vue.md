@@ -81,9 +81,8 @@ step 3、装载Getters，Actions
       const { store } = drive.Vue;
 
       export default {
-        name,
         computed: {
-          ...store.getterNS(name),
+          ...store.getters(name),
         },
         methods: {
           ...store.actions(name),
@@ -92,6 +91,7 @@ step 3、装载Getters，Actions
           this.demoGet();
         },
         data: () => ({
+          name,
           theads: [],
         }),
       };

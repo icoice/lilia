@@ -25,8 +25,8 @@ import louver from './parts/instance/louver';
 export const mooBtn = button;
 export const mooInput = input;
 export const mooRadio = radio;
+export const mooFile = file;
 
-export const vpFile = file;
 export const vpToast = toast;
 export const vpMemo = memo;
 export const vpScroller = scoller;
@@ -50,6 +50,7 @@ const component = {
   mooBtn,
   mooInput,
   mooRadio,
+  mooFile,
 
   vmSelect,
   vmLouver,
@@ -61,7 +62,6 @@ const component = {
   vmImage,
   vmMeasure,
   vpMemo,
-  vpFile,
   vpToast,
   vpScroller,
   vpConfirm,

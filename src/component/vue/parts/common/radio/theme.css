@@ -1,21 +1,24 @@
+@import 'planes/base.css';
+@import 'planes/unit.css';
+
 .moo-radio {
+  @mixin clear-select;
   overflow: hidden;
   position: relative;
-  font-size: 12px;
 }
 
 .moo-radio .radio-item {
   float: left;
-  margin-right: .5em;
-  height: 3em;
+  height: 36pxr;
+  cursor: pointer;
 }
 
 .moo-radio .radio-item .radio-check {
   float: left;
-  margin-top: .95em;
-  width: 1em;
-  height: 1em;
-  border: 1px solid #efefef;
+  margin-top: 3pxr;
+  width: 24pxr;
+  height: 24pxr;
+  border: 1px solid #00619c;
   border-radius: 50%;
 }
 
@@ -29,18 +32,18 @@
 
 .moo-radio .radio-checked .radio-checked-box {
   margin: 0 auto;
-  margin-top: .25em;
-  width: .5em;
-  height: .5em;
+  margin-top: 4pxr;
+  width: 16pxr;
+  height: 16pxr;
   background-color: #00619c;
   border-radius: 50%;
 }
 
 .moo-radio .radio-name {
   float: left;
-  margin: 0 .5em;
-  height: 3em;
-  line-height: 3em;
+  margin: 0 6pxr;
+  height: 36pxr;
+  line-height: 36pxr;
 }
 
 .moo-radio .radio-mask {

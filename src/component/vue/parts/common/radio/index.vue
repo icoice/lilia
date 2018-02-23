@@ -1,7 +1,7 @@
 <template>
   <div class="moo-radio" :class="{ 'moo-radio-disabled': radioDisabled, }">
-    <div v-for="(item, itemCode) in radioItems">
-      <div class="radio-item" @click="selectRadio(itemCode, item)">
+    <div class="radio-item" v-for="(item, itemCode) in radioItems">
+      <div @click="selectRadio(itemCode, item)">
         <div :class="{'radio-check': true, 'radio-checked': hasSelected(itemCode)}">
           <div class="radio-checked-box"></div>
         </div>
@@ -61,8 +61,7 @@
       setSelect() {
         const { radioSelected, radioItems } = this;
         if (radioSelected !== null) {
-          this.radioSelected = code;
-          this.$emit('updated', { code, data: radioItems[radioSelected] });
+          this.$emit('updated', { code: radioSelected, data: radioItems[radioSelected] });
         }
       },
       selectRadio(code, data) {

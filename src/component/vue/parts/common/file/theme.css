@@ -1,73 +1,74 @@
-.vp-file {
-  font-size: 12px;
+@import 'planes/base.css';
+@import 'planes/unit.css';
 
-  .vp-select-file {
-    overflow: hidden;
-    position: relative;
-    display: inline-block;
-    padding: 0 .5em;
-    height: 2.2em;
-    line-height: 2.2em;
-    border-radius: 5px;
-    text-decoration: none;
-    background-color: #00619c;
-    color: #fff;
-    input {
-      position: absolute;
-      top: 0;
-      left: 0;
-      opacity: 0;
-      width: 100%;
-      height: 100%;
-    }
-  }
+.moo-file {
+  @mixin clear-select;
+}
 
-  .psm-icon {
-    position: relative;
-    top: 1px;
-    font-size: 14px;
-  }
+.moo-file .select-file {
+  overflow: hidden;
+  position: relative;
+  display: inline-block;
+  padding: 0 3pxr;
+  height: 26.4pxr;
+  line-height: 26.4pxr;
+  border-radius: 5px;
+  text-decoration: none;
+  background-color: #00619c;
+  color: #fff;
+}
 
-  .vp-file-button-name {
-    font-size: 14px;
-  }
+.moo-file .select-file input {
+  position: absolute;
+  top: 0;
+  left: 0;
+  opacity: 0;
+  width: 100%;
+  height: 100%;
+}
 
-  .vp-file-limit {
-    padding: .25em;
-    color: #00619c;
-  }
+.moo-file .moo-icon {
+  position: relative;
+  top: 1px;
+}
 
-  .vp-select-file:hover {
-    background-color: #f52;
-    input {
-      cursor: pointer;
-    }
-  }
+.moo-file .file-button-name {
+  font-size: 14pxr;
+}
 
-  .vp-file-tips {
-    padding-bottom: .5em;
-    font-size: 14px;
-    color: #dfdfdf;
-  }
+.moo-file .file-limit {
+  padding: 3pxr;
+  color: #00619c;
+}
 
-  .vp-files {
-    li.vp-file-item {
-      padding : 1em;
-      border: 1px solid #efefef;
-      border-radius: 5px;
-      margin-top: .5em;
-      background-color: #dfdfdf;
-      color: #666;
-      p {
-        margin-bottom: .25em;
-      }
-      p:last-child {
-        margin-bottom: 0;
-      }
-    }
-    li.vp-file-extend-error {
-      background-color: #f52;
-      color: #fff;
-    }
-  }
+.moo-file .select-file:hover {
+  background-color: #f52;
+}
+
+.moo-file .file-tips {
+  padding-bottom: 6pxr;
+  font-size: 14pxr;
+  color: #dfdfdf;
+}
+
+.moo-file .files li.file-item {
+  padding: 12pxr;
+  border: 1px solid #efefef;
+  border-radius: 5px;
+  margin-top: .5em;
+  background-color: #dfdfdf;
+  color: #666;
+}
+
+.moo-file .files li.file-item p {
+  margin-bottom: 3pxr;
+}
+
+.moo-file .files li.file-item p:last-child {
+  margin-bottom: 0;
+}
+
+.moo-file .files li.file-extend-error {
+  background-color: #f52;
+  color: #fff;
 }
