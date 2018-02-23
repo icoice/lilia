@@ -45,7 +45,7 @@
         color: #efefef;
       }
       .select-option:hover {
-        color: #f90;
+        color: #00619c;
       }
       .select-default {
         z-index: 0;
@@ -54,11 +54,11 @@
     }
 
     .select-default:hover {
-      border: 1px solid #f90;
-      color: #f90;
+      border: 1px solid #00619c;
+      color: #00619c;
 
       .psm-icon {
-        color: #f90;
+        color: #00619c;
       }
     }
 

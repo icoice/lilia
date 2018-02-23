@@ -1,30 +1,28 @@
 <template>
-  <div class="vm">
-    <div class="input" :class="{'input-error': hasVerifyFail || hasEmptry, 'input-disabled': hasDisabled, }">
-      <div class="input-container">
-        <input
-          ref="input"
-          :value="myVal"
-          :type="category"
-          :maxlength="maxLimit"
-          :placeholder="tips"
-          @input = "onInput"
-          @change = "onChange"
-          @focus = "onFocus"
-          @blur ="onBlur"
-          @keyup="verifyVal"/>
-        <div class="input-clear" v-if="showClear(myVal)">
-          <span class="psm-icon psm-clear" @click.stop="clear" @touchend.stop="clear">
-          </span>
-        </div>
-        <div class="input-mask" v-if="hasDisabled"></div>
+  <div class="moo moo-input" :class="{'moo-input-error': hasVerifyFail || hasEmptry, 'moo-input-disabled': hasDisabled, }">
+    <div class="input-container">
+      <input
+        ref="input"
+        :value="myVal"
+        :type="category"
+        :maxlength="maxLimit"
+        :placeholder="tips"
+        @input = "onInput"
+        @change = "onChange"
+        @focus = "onFocus"
+        @blur ="onBlur"
+        @keyup="verifyVal"/>
+      <div class="input-clear" v-if="showClear(myVal)">
+        <span class="psm-icon psm-clear" @click.stop="clear" @touchend.stop="clear">
+        </span>
       </div>
-      <div class="input-verify-fail-tips animated fadeInDown" v-if="hasEmptry">
-        该项内容必填
-      </div>
-      <div class="input-verify-fail-tips animated fadeInDown" v-if="hasVerifyFail">
-        {{verifyInput.message}}
-      </div>
+      <div class="input-mask" v-if="hasDisabled"></div>
+    </div>
+    <div class="input-verify-fail-tips animated fadeInDown" v-if="hasEmptry">
+      该项内容必填
+    </div>
+    <div class="input-verify-fail-tips animated fadeInDown" v-if="hasVerifyFail">
+      {{verifyInput.message}}
     </div>
   </div>
 </template>

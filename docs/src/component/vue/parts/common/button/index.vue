@@ -1,23 +1,25 @@
 <template>
-  <div class="vm">
-    <div :class="['btn', disabledHappen]">
-      <div :class="['btn-touch', hasTapped]"
-        @touchstart.stop="onTouchStart"
-        @touchmove.stop= "onTouchMove"
-        @touchend.stop="onTouchEnd" v-if="hasMobile">
-        <slot name="btn"/>
-      </div>
-      <div :class="['btn-touch', hasTapped]"
-        @mousedown.stop="onMouseStart"
-        @mousemove.stop= "onMouseMove"
-        @mouseup.stop="onMouseEnd" v-else>
-        <slot name="btn"/>
-      </div>
+  <div :class="['moo', 'moo-btn', disabledHappen]">
+    <div v-if="hasMobile"
+      :class="['btn-touch', hasTapped]"
+      @touchstart.stop="onTouchStart"
+      @touchmove.stop= "onTouchMove"
+      @touchend.stop="onTouchEnd">
+      <slot name="btn"/>
+    </div>
+    <div v-else
+      :class="['btn-touch', hasTapped]"
+      @mousedown.stop="onMouseStart"
+      @mousemove.stop= "onMouseMove"
+      @mouseup.stop="onMouseEnd">
+      <slot name="btn"/>
     </div>
   </div>
 </template>
 
 <script>
+  import util from '../../../../../util';
+
   export default {
     props: {
       name: {
@@ -37,6 +39,7 @@
         isTouched: false,
         tapStartX: 0,
         tapStartY: 0,
+        hasMobile: this.isMobile(),
       };
     },
     watch: {
@@ -49,16 +52,21 @@
     },
     computed: {
       disabledHappen() {
-        return this.btnDisabled ? 'btn-disabled' : 'btn-normal';
+        return this.btnDisabled ? 'moo-btn-disabled' : '';
       },
       hasTapped() {
-        return this.isTouched ? 'btn-has-tapped' : '';
-      },
-      hasMobile() {
-        return /ios|ipod|ipad|iphone|android/i.test(navigator.userAgent);
+        return this.isTouched ? 'btn-tap' : '';
       },
     },
+    mounted() {
+      util.Dom.base.resize(() => {
+        this.hasMobile = this.isMobile();
+      });
+    },
     methods: {
+      isMobile() {
+        return /ios|ipod|ipad|iphone|android/i.test(navigator.userAgent);
+      },
       hasCanTap({x, y}) {
         const { tapStartX, tapStartY } = this;
         const spaceX = tapStartX - x;

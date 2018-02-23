@@ -14,4 +14,7 @@ export default {
       return this.getOffsetLeft(dom.offsetParent, left + dom.offsetLeft);
     });
   },
+  resize(cb) {
+    window.addEventListener('resize', cb);
+  },
 };

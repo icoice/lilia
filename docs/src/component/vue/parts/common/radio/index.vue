@@ -1,14 +1,14 @@
 <template>
-  <div class="vp-radio" :class="{ 'vp-radio-disabled': radioDisabled, }">
-    <div v-for="(item, itemCode) in radioItems">
-      <div class="vp-radio-item" @click="selectRadio(itemCode, item)">
-        <div :class="{'vp-radio-check': true, 'vp-radio-checked': hasSelected(itemCode)}">
-          <div class="vp-radio-checked-box"></div>
+  <div class="moo-radio" :class="{ 'moo-radio-disabled': radioDisabled, }">
+    <div class="radio-item" v-for="(item, itemCode) in radioItems">
+      <div @click="selectRadio(itemCode, item)">
+        <div :class="{'radio-check': true, 'radio-checked': hasSelected(itemCode)}">
+          <div class="radio-checked-box"></div>
         </div>
-        <div class="vp-radio-name">{{item.name}}</div>
+        <div class="radio-name">{{item.name}}</div>
       </div>
     </div>
-    <div class="vp-radio-mask" v-if="radioDisabled"></div>
+    <div class="radio-mask" v-if="radioDisabled"></div>
   </div>
 </template>
 
@@ -61,14 +61,12 @@
       setSelect() {
         const { radioSelected, radioItems } = this;
         if (radioSelected !== null) {
-          this.selectRadio(radioSelected, radioItems[radioSelected], () => {
-            this.$emit('updated', { code, selected: data });
-          });
+          this.$emit('updated', { code: radioSelected, data: radioItems[radioSelected] });
         }
       },
       selectRadio(code, data) {
         this.radioSelected = code;
-        this.$emit('selected', { code, selected: data });
+        this.$emit('selected', { code, data });
       },
     },
   };

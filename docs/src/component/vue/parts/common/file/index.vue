@@ -1,21 +1,23 @@
 <template>
-  <div class="vp-file" :class="{ 'vp-file-disabled': hasDisabled }">
-    <a href="javascript:void(0)" class="vp-select-file" v-if="!hasDisabled">
+  <div class="moo moo-file" :class="{ 'moo-file-disabled': hasDisabled }">
+    <a href="javascript:void(0)" class="select-file" v-if="!hasDisabled">
       <div v-if="!hasShowSlotContent">
-        <span class="psm-icon psm-upload-file"></span>
-        <span class="vp-file-button-name">{{componentName}}</span>
+        <span class="moo-icon"></span>
+        <span class="file-button-name">{{componentName}}</span>
       </div>
       <slot name="file-button-content" v-else/>
       <input type="file" value="componetName" :multiple="hasMultipleUpload" ref="fileUpload" @change="getFiles"/>
     </a>
     <div v-if="hasShowDefaultFileList">
-      <p class="vp-file-limit" v-if="fileExtendLimit && !hasDisabled">允许上传的文件格式：{{fileExtendLimit}}</p>
-      <ul class="vp-files">
-        <li class="vp-file-item" v-for="file in fileCollect" :class="verifyFileExtend(file.name) ? '' : 'vp-file-extend-error'">
-          <p class="vp-file-tips" v-if="!verifyFileExtend(file.name)">文件格式错误，请更换上传文件。</tips>
-          <p class="vp-file-name">文件名称：{{file.name}}</p>
-          <p class="vp-file-size">文件大小：{{(file.size / 1024 / 1024).toFixed(2)}}MB</p>
-          <p class="vp-file-last-modified">修改日期：{{file.lastModifiedDate}}</p>
+      <p class="moo-file-limit" v-if="fileExtendLimit && !hasDisabled">
+        允许上传的文件格式：{{fileExtendLimit}}
+      </p>
+      <ul class="files">
+        <li class="file-item" v-for="file in fileCollect" :class="verifyFileExtend(file.name) ? '' : 'file-extend-error'">
+          <p class="file-tips" v-if="!verifyFileExtend(file.name)">文件格式错误，请更换上传文件。</p>
+          <p class="file-name">文件名称：{{file.name}}</p>
+          <p class="file-size">文件大小：{{mb(file.size)}}MB</p>
+          <p class="file-last-modified">修改日期：{{file.lastModifiedDate}}</p>
         </li>
       </ul>
     </div>
@@ -27,7 +29,7 @@
     props: {
       name: {
         type: String,
-        default: '选择上传文件',
+        default: '选择文件',
       },
       limit: {
         type: String,
@@ -55,6 +57,9 @@
       },
     },
     watch: {
+      name(name) {
+        this.componetName = name;
+      },
       files(files) {
         this.fileCollect = files;
       },
@@ -74,6 +79,9 @@
       };
     },
     methods: {
+      mb(size) {
+        return (size / 1024 / 1024).toFixed(2);
+      },
       getFiles() {
         const { fileUpload } = this.$refs;
         const files = [];

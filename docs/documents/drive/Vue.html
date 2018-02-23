@@ -417,9 +417,8 @@ export default drive.Vue.store(vue, (Store) =&gt; {
   const { store } = drive.Vue;
 
   export default {
-    name,
     computed: {
-      ...store.getterNS(name),
+      ...store.getters(name),
     },
     methods: {
       ...store.actions(name),
@@ -428,6 +427,7 @@ export default drive.Vue.store(vue, (Store) =&gt; {
       this.demoGet();
     },
     data: () =&gt; ({
+      name,
       theads: [],
     }),
   };
@@ -476,7 +476,7 @@ export default drive.Vue.store(vue, (Store) =&gt; {
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"Vue","level":"1.4.2","depth":2,"next":{"title":"Planes","level":"1.5","depth":1,"path":"documents/planes/HOME.md","ref":"documents/planes/HOME.md","articles":[]},"previous":{"title":"Http","level":"1.4.1","depth":2,"path":"documents/drive/Http.md","ref":"documents/drive/Http.md","articles":[]},"dir":"ltr"},"config":{"plugins":["prism","-highlight","prism-themes","theme-vuejs-2"],"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"prism":{},"prism-themes":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-vuejs-2":{},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"config":{"prism":{"css":["prismjs/themes/prism-coy.css"],"lang":{"flow":"typescript"}}},"theme":"default","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"gitbook":"*"},"file":{"path":"documents/drive/Vue.md","mtime":"2018-02-13T07:21:59.660Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2018-02-13T07:47:12.934Z"},"basePath":"../..","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"Vue","level":"1.4.2","depth":2,"next":{"title":"Planes","level":"1.5","depth":1,"path":"documents/planes/HOME.md","ref":"documents/planes/HOME.md","articles":[]},"previous":{"title":"Http","level":"1.4.1","depth":2,"path":"documents/drive/Http.md","ref":"documents/drive/Http.md","articles":[]},"dir":"ltr"},"config":{"plugins":["prism","-highlight","prism-themes","theme-vuejs-2"],"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"prism":{},"prism-themes":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-vuejs-2":{},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"config":{"prism":{"css":["prismjs/themes/prism-coy.css"],"lang":{"flow":"typescript"}}},"theme":"default","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"gitbook":"*"},"file":{"path":"documents/drive/Vue.md","mtime":"2018-02-23T06:17:34.280Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2018-02-23T06:59:45.706Z"},"basePath":"../..","book":{"language":""}});
         });
     </script>
 </div>
