@@ -1,0 +1,51 @@
+@import 'planes/base.css';
+@import 'planes/unit.css';
+
+.moo-checkbox {
+  @mixin clear-select;
+  overflow: hidden;
+  /* reset */
+  .moo-btn {
+    .btn-touch {
+      height: auto;
+      line-height: normal;
+    }
+  }
+}
+
+.moo-checkbox .box-item {
+  float: left;
+}
+
+.moo-checkbox .box-item {
+  .moo-btn .btn-touch{
+    overflow: hidden;
+    background-color: transparent;
+  }
+  .moo-btn .btn-touch .box-mark {
+    position: relative;
+    float: left;
+    width: 60pxr;
+    height: 60pxr;
+  }
+  .moo-btn .btn-touch .box-mark span {
+    position: absolute;
+    display: block;
+    margin-top: 15pxr;
+    margin-left: 15pxr;
+    width: 30pxr;
+    height: 30pxr;
+    border: 1px solid #03609b;
+    border-radius: 5pxr;
+  }
+  .moo-btn .btn-touch .box-selected span{
+    background-color: #03609b;
+  }
+  .moo-btn .btn-touch .box-name {
+    float: left;
+    height: 60pxr;
+    line-height: 60pxr;
+    font-size: 14pxr;
+    color: #333;
+  }
+}

@@ -2,16 +2,16 @@
   <div :class="['moo', 'moo-btn', disabledHappen]">
     <div v-if="hasMobile"
       :class="['btn-touch', hasTapped]"
-      @touchstart.stop="onTouchStart"
-      @touchmove.stop= "onTouchMove"
-      @touchend.stop="onTouchEnd">
+      @touchstart="onTouchStart"
+      @touchmove= "onTouchMove"
+      @touchend="onTouchEnd">
       <slot name="btn"/>
     </div>
     <div v-else
       :class="['btn-touch', hasTapped]"
-      @mousedown.stop="onMouseStart"
-      @mousemove.stop= "onMouseMove"
-      @mouseup.stop="onMouseEnd">
+      @mousedown="onMouseStart"
+      @mouseleave= "onMouseMove"
+      @mouseup="onMouseEnd">
       <slot name="btn"/>
     </div>
   </div>

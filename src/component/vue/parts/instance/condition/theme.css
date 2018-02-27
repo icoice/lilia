@@ -1,61 +1,70 @@
-.vm {
-  .condition {
-    padding: .5em;
-    background: -webkit-gradient(linear, 0 1, 0 55, from(#fff), to(#eaeaea));
-    background: gradient(linear, 0 1, 0 55, from(#fff), to(#eaeaea));
-    border-radius: 5px;
+@import 'planes/base.css';
+@import 'planes/unit.css';
+
+.moo-condition {
+  padding: 6pxr;
+  background: -webkit-gradient(linear, 0 1, 0 55, from(#fff), to(#eaeaea));
+  background: gradient(linear, 0 1, 0 55, from(#fff), to(#eaeaea));
+  border-radius: 5pxr;
+  border: 1px solid #dfdfdf;
+}
+
+.moo-condition .condition-container {
+  position: relative;
+  overflow: hidden;
+  margin-bottom: 12pxr;
+}
+
+.moo-condition .condition-date-input {
+  border-radius: 5pxr;
+  cursor: pointer;
+
+  input {
+    text-align: center;
   }
 
-  .date-selector {
-    position: fixed;
-    z-index: 999;
-    left: 0;
-    bottom: 0;
-    width: 100%;
-  }
-
-  .condition-container {
-    position: relative;
-    overflow: hidden;
-    margin-bottom: 1em;
-
-    .condition-date-input {
-      border-radius: 5px;
-      cursor: pointer;
-
-      input {
-        text-align: center;
-      }
-
-      .psm-close {
-        position: absolute;
-        z-index: 1;
-        top: 50%;
-        right: 0;
-        margin-top: -11px;
-        margin-right: 2px;
-        font-size: 20px;
-        color: #666;
-      }
-    }
-
-    .condition-date-checked {
-      box-shadow: 10px 10px 1px #000 inset;
-    }
-  }
-  .condition-container:last-child {
-    margin-bottom: auto;
-  }
-  .condition-item {
-    float: left;
-  }
-  .condition-name {
-    float: left;
-    width: 30%;
-    height: 2.2em;
-    line-height: 2.2em;
-    font-size: 14px;
-    text-align: right;
+  .moo-close {
+    position: absolute;
+    z-index: 1;
+    top: 50%;
+    right: 0;
+    margin-top: -11pxr;
+    margin-right: 2pxr;
+    font-size: 20pxr;
     color: #666;
   }
+}
+
+.moo-condition .condition-date-checked {
+  box-shadow: 10pxr 10pxr 1pxr #000 inset;
+}
+
+.moo-condition .condition-container:last-child {
+  margin-bottom: auto;
+}
+
+.moo-condition .condition-item {
+  float: left;
+}
+
+.moo-condition .condition-type-input {
+  overflow: hidden;
+  margin: 0 auto;
+  width: 95%;
+}
+
+.moo-condition .condition-container-half {
+  float: left;
+  width: 50%;
+}
+
+.moo-condition .condition-name {
+  float: left;
+  padding: 1px;
+  width: 30%;
+  height: 25pxr;
+  line-height: 25pxr;
+  font-size: 16pxr;
+  text-align: right;
+  color: #666;
 }

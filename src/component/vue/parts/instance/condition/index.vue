@@ -1,37 +1,64 @@
 <template>
-  <div class="vm">
-    <div class="condition">
-      <vm-date :open="hasDateOpen" @change="val => changeDate(val)"/>
-      <div class="condition-container" v-for="(line, code) in items" v-if="hasNoEmptry(items)">
-        <div class="condition-item" v-for="item in line" :style="width(cols)">
-          <!-- 标题 -->
-          <div class="condition-name">{{ item.name }}</div>
-          <!-- 输入组件 -->
-          <div class="condition-container" v-if="item.component === 'input'">
-            <vm-input :val="item.value" :placeholder="item.tips" @updated="val => change(item, val)"/>
+<div class="moo moo-condition">
+  <div class="condition-container" v-for="(line, code) in items" v-if="hasNoEmptry(items)">
+    <div class="condition-item" v-for="item in line" :style="width(cols)">
+      <!-- 标题 -->
+      <div class="condition-name">{{ item.name }}</div>
+      <!-- 输入组件 -->
+      <div class="condition-container" v-if="item.component === 'input'">
+        <moo-input :val="item.value" :placeholder="item.tips" @updated="val => change(item, val)"/>
+      </div>
+      <div class="condition-container" v-if="item.component === 'select'">
+        <moo-select
+        :val="typeof item.value !== 'object' ? null : item.value.key"
+        :list="item.list"
+        :placeholder="item.tips"
+        @change="val => change(item, val)"/>
+      </div>
+      <div class="condition-container" v-if="item.component === 'typeInput'">
+        <div class="condition-type-input">
+          <div class="condition-container-half">
+            <moo-input
+              v-if="item.input"
+              :val="item.input.value"
+              :placeholder="item.input.tips"
+              @updated="val => change(item.input, val)"/>
           </div>
-          <div class="condition-container" v-if="item.component === 'select'">
-            <vm-select :val="item.value.key" :list="item.list" :placeholder="item.tips" @change="val => change(item, val)"/>
-          </div>
-          <div class="condition-container" v-if="item.component === 'date'">
-            <div class="condition-date-input" @click="e => changeDateStatus(item)">
-              <vm-input :disabled="true" :val="formatDate(item.value)" :placeholder="item.tips" @updated="val => change(item, val)"/>
-              <span class="psm-icon psm-close" @click="clearDate" v-if="hasDateOpen && item.key === dateTarget.key"></span>
-            </div>
+          <div class="condition-container-half">
+            <moo-select
+              v-if="item.select"
+              :val="typeof item.select.value !== 'object' ? null : item.select.value.key"
+              :list="item.select.list"
+              :placeholder="item.select.tips"
+              @change="val => change(item.select, val)"/>
           </div>
         </div>
       </div>
-      <div class="condition-tips" v-else>
-        未设置查询条件内容
+      <div class="condition-container" v-if="item.component === 'date'">
+        <div class="condition-date-input" @click="e => changeDateStatus(item)">
+          <moo-input
+          :disabled="true"
+          :val="formatDate(item.value)"
+          :placeholder="item.tips" @updated="val => change(item, val)"/>
+          <span
+          v-if="hasDateOpen && item.key === dateTarget.key"
+          class="moo-icon moo-close"
+          @click="clearDate"></span>
+        </div>
       </div>
     </div>
   </div>
+  <div class="condition-tips" v-else>
+    未设置查询条件内容
+  </div>
+  <moo-date :open="hasDateOpen" @change="val => changeDate(val)"/>
+</div>
 </template>
 
 <script>
-  import vmDate from '../date';
-  import vmInput from '../../common/input';
-  import vmSelect from '../../common/select';
+  import mooDate from '../date';
+  import mooInput from '../../common/input';
+  import mooSelect from '../../common/select';
   import drive from '../../../../../drive';
   import util from '../../../../../util';
 
@@ -47,9 +74,9 @@
       },
     }),
     components: {
-      vmInput,
-      vmSelect,
-      vmDate,
+      mooInput,
+      mooSelect,
+      mooDate,
     },
     computed: {
       items() {

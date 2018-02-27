@@ -8,13 +8,12 @@
 .moo-file .select-file {
   overflow: hidden;
   position: relative;
-  display: inline-block;
   padding: 0 3pxr;
   height: 26.4pxr;
   line-height: 26.4pxr;
   border-radius: 5px;
-  text-decoration: none;
   background-color: #00619c;
+  text-align: center;
   color: #fff;
 }
 
@@ -52,11 +51,11 @@
 }
 
 .moo-file .files li.file-item {
-  padding: 12pxr;
-  border: 1px solid #efefef;
+  padding: 8pxr;
   border-radius: 5px;
   margin-top: .5em;
   background-color: #dfdfdf;
+  font-size: 14pxr;
   color: #666;
 }
 

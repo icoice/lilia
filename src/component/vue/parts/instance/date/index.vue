@@ -1,127 +1,125 @@
 <template>
   <!-- 滑动的效果在H5体验不管怎么弄都不太好，所以制作一个以年代为基准的日期插件 -->
-  <div class="vm" v-if="hasOpen">
-    <div class="date-selector">
-      <div class="date-setting">
-        <vm-button @tap="setToday">
-          <span slot="button-content">今天</span>
-        </vm-button>
-        <vm-button @tap="setDate({ year: 2000 })">
-          <span slot="button-content">00年代</span>
-        </vm-button>
-        <vm-button @tap="setDate({ year: 1990 })">
-          <span slot="button-content">90年代</span>
-        </vm-button>
-        <vm-button @tap="setDate({ year: 1980 })">
-          <span slot="button-content">80年代</span>
-        </vm-button>
-        <vm-button @tap="setDate({ year: 1970 })">
-          <span slot="button-content">70年代</span>
-        </vm-button>
-        <vm-button @tap="setDate({ year: 1960 })">
-          <span slot="button-content">60年代</span>
-        </vm-button>
-      </div>
+  <div class="moo moo-date" v-if="hasOpen">
+    <div class="date-control">
+      <btn @tap="closeDate">
+        <span slot="btn">
+          关闭
+        </span>
+      </btn>
+    </div>
 
-      <div class="date-time-show">
-        <div class="date-selector-scope" v-for="(date, unit) in current">
-          <!-- 日期 -->
-          <div class="date-grid animated fadeIn">
-            <span>{{ date }}</span>
-          </div>
-          <div class="date-operator">
-            <!-- 递增 -->
-            <vm-button>
-              <div slot="button-content"
-                class="psm-icon psm-arrow-left"
-                @mousedown="e => upBegin(unit)"
-                @mousemove="e => e.preventDefault()"
-                @mouseup="upOver">
-              </div>
-            </vm-button>
-            <!-- 单位 -->
-            <vm-button>
-              <div slot="button-content">
-                <span class="date-unit">{{ dictionary[unit] }}</span>
-              </div>
-            </vm-button>
-            <!-- 递减 -->
-            <vm-button>
-              <div slot="button-content"
-                class="psm-icon psm-arrow-right"
-                @mousedown="e => downBegin(unit)"
-                @mousemove="e => e.preventDefault()"
-                @mouseup="downOver">
-              </div>
-            </vm-button>
-          </div>
+    <div class="date-setting">
+      <btn @tap="setToday">
+        <span slot="btn">今天</span>
+      </btn>
+      <btn @tap="setDate({ year: 2000 })">
+        <span slot="btn">00年代</span>
+      </btn>
+      <btn @tap="setDate({ year: 1990 })">
+        <span slot="btn">90年代</span>
+      </btn>
+      <btn @tap="setDate({ year: 1980 })">
+        <span slot="btn">80年代</span>
+      </btn>
+      <btn @tap="setDate({ year: 1970 })">
+        <span slot="btn">70年代</span>
+      </btn>
+      <btn @tap="setDate({ year: 1960 })">
+        <span slot="btn">60年代</span>
+      </btn>
+    </div>
+
+    <div class="date-time-show">
+      <div class="date-selector-scope" v-for="(date, unit) in current">
+        <!-- 日期 -->
+        <div class="date-grid animated fadeIn">
+          <span>{{ date }}</span>
         </div>
-
-        <div class="date-selector-scope date-time-selector"
-          v-for="(date, unit) in currentTime"
-          v-if="showItems.indexOf('time') >= 0">
-          <!-- 时间 -->
-          <div class="date-grid animated fadeIn">
-            <span>{{ date }}</span>
+        <div class="date-operator">
+          <!-- 递增 -->
+          <div class='btn'>
+            <div class="moo-icon moo-arrow-left"
+              @mousedown="e => upBegin(unit)"
+              @mousemove="e => e.preventDefault()"
+              @mouseup="upOver">
+              -
+            </div>
           </div>
-          <div class="date-operator">
-            <!-- 递增 -->
-            <vm-button>
-              <div slot="button-content"
-                class="psm-icon psm-arrow-left"
-                @mousedown="e => upTimeBegin(unit)"
-                @mousemove="e => e.preventDefault()"
-                @mouseup="upTimeOver">
-              </div>
-            </vm-button>
-            <!-- 单位 -->
-            <vm-button>
-              <div slot="button-content">
-                <span class="date-unit">{{ dictionary[unit] }}</span>
-              </div>
-            </vm-button>
-            <!-- 递减 -->
-            <vm-button>
-              <div slot="button-content"
-                class="psm-icon psm-arrow-right"
-                @mousedown="e => downTimeBegin(unit)"
-                @mousemove="e => e.preventDefault()"
-                @mouseup="downTimeOver">
-              </div>
-            </vm-button>
+          <!-- 单位 -->
+          <div class='btn'>
+            <span class="date-unit">
+              {{ dictionary[unit] }}
+            </span>
+          </div>
+          <!-- 递减 -->
+          <div class='btn'>
+            <div class="moo-icon moo-arrow-right"
+              @mousedown="e => downBegin(unit)"
+              @mousemove="e => e.preventDefault()"
+              @mouseup="downOver">
+              +
+            </div>
           </div>
         </div>
       </div>
 
-      <div class="date-control">
-        <vm-button @tap="closeDate">
-          <span slot="button-content">
-            关闭
-          </span>
-        </vm-button>
+      <div class="date-selector-scope date-time-selector"
+        v-for="(date, unit) in currentTime"
+        v-if="showItems.indexOf('time') >= 0">
+        <!-- 时间 -->
+        <div class="date-grid animated fadeIn">
+          <span>{{ date }}</span>
+        </div>
+        <div class="date-operator">
+          <!-- 递增 -->
+          <div class="btn">
+            <div class="moo-icon moo-arrow-left"
+              @mousedown="e => upTimeBegin(unit)"
+              @mousemove="e => e.preventDefault()"
+              @mouseup="upTimeOver">
+              -
+            </div>
+          </div>
+          <!-- 单位 -->
+          <div class="btn">
+            <span class="date-unit">
+              {{ dictionary[unit] }}
+            </span>
+          </div>
+          <!-- 递减 -->
+          <div class="btn">
+            <div class="moo-icon moo-arrow-right"
+              @mousedown="e => downTimeBegin(unit)"
+              @mousemove="e => e.preventDefault()"
+              @mouseup="downTimeOver">
+              +
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   </div>
 </template>
 
 <script>
-  import vmButton from '../../common/button';
+  import btn from '../../common/button';
 
   const getToday = () => {
-    const dt = new Date();
+    const d = new Date();
     return {
-      year: dt.getFullYear(),
-      month: dt.getMonth() + 1,
-      day: dt.getDate(),
+      year: d.getFullYear(),
+      month: d.getMonth() + 1,
+      day: d.getDate(),
     };
   };
 
   const getTime = () => {
-    const dt = new Date();
+    const d = new Date();
     return {
-      hour: dt.getHours(),
-      minute: dt.getMinutes(),
-      second: dt.getSeconds(),
+      hour: d.getHours(),
+      minute: d.getMinutes(),
+      second: d.getSeconds(),
     };
   };
 
@@ -177,6 +175,9 @@
         hasStop: false,
         timeId: null,
       };
+    },
+    components: {
+      btn,
     },
     activated() {
       this.upComplete = false;

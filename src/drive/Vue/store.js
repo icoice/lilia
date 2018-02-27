@@ -73,6 +73,9 @@ export const create = function create(Vue, process) {
       store.actions[storeName] = (item, params) => {
         callback({
          ...item,
+         push: (name, val) => {
+           item.commit(this.namespace(name), val);
+         },
          publish: (nameList) => {
            Object.entries(nameList).map((kv) => {
              const [name, val] = kv;

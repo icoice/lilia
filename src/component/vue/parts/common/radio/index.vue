@@ -13,8 +13,6 @@
 </template>
 
 <script>
-  /* import css */;
-
   export default {
     props: {
       items: {
@@ -66,7 +64,7 @@
       },
       selectRadio(code, data) {
         this.radioSelected = code;
-        this.$emit('selected', { code, data });
+        this.$emit('tap', { code, data });
       },
     },
   };

@@ -9,12 +9,11 @@ $pressColor: #0d3046;
 }
 
 .moo-btn .btn-touch {
-  height: 2em;
-  line-height: 2em;
+  height: 24pxr;
+  line-height: 24pxr;
   background-color: $btnColor;
   border-radius: 5px;
   text-align: center;
-  font-size: 14px;
   color: #fff;
   cursor: pointer;
 }

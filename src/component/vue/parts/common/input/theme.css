@@ -1,8 +1,9 @@
+@import 'planes/base.css';
+@import 'planes/unit.css';
+
 .moo-input {
+  @mixin clear-select;
   overflow: hidden;
-  border: 1px solid #dfdfdf;
-  border-radius: 5px;
-  box-sizing: border-box;
 
   input {
     padding-top: 0;
@@ -10,12 +11,14 @@
     padding-bottom: 0;
     padding-right: 10%;
     width: 90%;
-    height: 2.2em;
-    line-height: 2.2em;
-    text-indent: 5px;
+    height: 25pxr;
+    line-height: 25pxr;
+    text-indent: 5pxr;
     outline: none;
-    font-size: 14px;
-    border: 0;
+    font-size: 14pxr;
+    border: 1px solid #dfdfdf;
+    border-radius: 5pxr;
+    box-sizing: border-box;
   }
 }
 

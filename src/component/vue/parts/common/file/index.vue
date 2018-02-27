@@ -1,13 +1,13 @@
 <template>
   <div class="moo moo-file" :class="{ 'moo-file-disabled': hasDisabled }">
-    <a href="javascript:void(0)" class="select-file" v-if="!hasDisabled">
+    <div class="select-file" v-if="!hasDisabled">
       <div v-if="!hasShowSlotContent">
         <span class="moo-icon"></span>
         <span class="file-button-name">{{componentName}}</span>
       </div>
       <slot name="file-button-content" v-else/>
       <input type="file" value="componetName" :multiple="hasMultipleUpload" ref="fileUpload" @change="getFiles"/>
-    </a>
+    </div>
     <div v-if="hasShowDefaultFileList">
       <p class="moo-file-limit" v-if="fileExtendLimit && !hasDisabled">
         允许上传的文件格式：{{fileExtendLimit}}

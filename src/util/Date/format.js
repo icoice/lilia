@@ -21,7 +21,7 @@ export default (express, d = null) => {
   const M = t.getMonth() + 1;
   const D = t.getDate();
   const H = t.getHours();
-  const I = t.getMinuters();
+  const I = t.getMinutes();
   const S = t.getSeconds();
 
   // YYYY-MM-DD, YY-MM-DD

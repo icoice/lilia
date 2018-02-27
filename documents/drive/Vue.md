@@ -40,9 +40,11 @@ step 1
       store.state({
         list: null,
         total: 0,
+        current: 0,
       });
 
-      store.action('get', ({ publish }, params = {}) => {
+      store.action('get', ({ publish, push }, params = {}) => {
+        push('current', 1);
         publish({
           list: [1, 2, 3, 4],
           total: 3

@@ -1,105 +1,95 @@
-@mixin border-top .date-selector, #c3c3c3;
+@import 'planes/base.css';
+@import 'planes/unit.css';
 
-.vm {
-  .date-selector {
-    background-color: #eaeaea;
-    background: -webkit-gradient(linear,0 1,0 55,from(#fff),to(#eaeaea));
-    background: gradient(linear,0 1,0 55,from(#fff),to(#eaeaea));
-    box-shadow: 0 5px 10px #dfdfdf;
-    font-size: 12px;
+@mixin border-top .moo-date, #c3c3c3;
 
-    .date-setting {
-      overflow: hidden;
+.moo-date {
+  background-color: #eaeaea;
+  background: -webkit-gradient(linear,0 1,0 55,from(#fff),to(#eaeaea));
+  background: gradient(linear,0 1,0 55,from(#fff),to(#eaeaea));
+  box-shadow: 0 5pxr 10pxr #dfdfdf;
+}
 
-      .button {
-        width: 4.5em;
-        float: left;
-        border-left: 1px solid #dfdfdf;
+.moo-date .date-setting {
+  overflow: hidden;
+  .moo-btn {
+    float: left;
+  }
+  .moo-btn .btn-touch {
+    padding: 0 5pxr;
+    height: 40pxr;
+    line-height: 40pxr;
+    background-color: transparent;
+    border-radius: 0;
 
-        .button-touch {
-          height: 3.3em;
-          line-height: 3.3em;
-          background-color: transparent;
-          border-radius: 0;
-
-          span {
-            font-size: 12px;
-            color: #333;
-          }
-        }
-
-        .button-has-tapped {
-          background: -webkit-gradient(linear,0 1,0 55,from(#eaeaea),to(#fff));
-          background: gradient(linear,0 1,0 55,from(#eaeaea),to(#fff));
-        }
-      }
+    span {
+      font-size: 14pxr;
+      color: #333;
     }
-
-    .date-selector-scope {
-      overflow: hidden;
-      float: left;
-      width: 33.33%;
-      border-bottom: 1px dashed #dfdfdf;
-
-      .date-operator {
-        overflow: hidden;
-        .button {
-          float: left;
-          width: 33.33%;
-        }
-      }
-
-      .button {
-        .button-touch {
-          background-color: transparent;
-          .psm-icon {
-            font-size: 45px;
-            color: #999;
-          }
-        }
-
-        .button-has-tapped {
-          .psm-icon {
-            color: #666;
-          }
-        }
-      }
-
-      .date-grid {
-        padding-top: 1em;
-        height: 3.33em;
-        line-height: 3.33em;
-        font-size: 20px;
-        text-align: center;
-        border-bottom: 1px solid #dfdfdf;
-      }
-
-      .date-unit {
-        font-size: 16px;
-        color: #666;
-      }
+  }
+  .moo-btn .btn-tap {
+    span {
+      color: #333;
     }
+  }
+}
 
-    .date-time-show {
-      overflow: hidden;
+.date-selector-scope {
+  overflow: hidden;
+  float: left;
+  width: 33.33%;
+  .btn {
+    text-align: center;
+  }
+  .btn .moo-icon {
+    background-color: transparent;
+    font-size: 24pxr;
+    color: #999;
+  }
+}
+
+.date-selector-scope .date-operator {
+  overflow: hidden;
+  .btn {
+    float: left;
+    text-align: center;
+    width: 33.33%;
+  }
+}
+
+.date-selector-scope .date-grid {
+  padding-top: 12pxr;
+  height: 40pxr;
+  line-height: 40pxr;
+  font-size: 36pxr;
+  font-weight: bold;
+  text-align: center;
+  border-bottom: 1px solid #dfdfdf;
+}
+
+.date-selector-scope .date-unit {
+  padding: 10pxr;
+  font-size: 14pxr;
+  color: #666;
+}
+
+.date-time-show {
+  overflow: hidden;
+}
+
+.date-control {
+  .moo-btn .btn-touch {
+    padding: 10pxr;
+    background-color: transparent;
+    text-align: right;
+    span {
+      font-size: 14pxr;
+      color: #333;
     }
-
-    .date-control {
-      .button {
-        .button-touch {
-          background-color: transparent;
-
-          span {
-            font-size: 14px;
-            color: #333;
-          }
-        }
-        .button-has-tapped {
-          span {
-            color: #333;
-          }
-        }
-      }
+  }
+  .moo-btn .btn-tap {
+    span {
+      color: #333;
     }
   }
 }

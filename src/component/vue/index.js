@@ -1,5 +1,6 @@
 // 基础组件
 import button from './parts/common/button';
+import checkbox from './parts/common/checkbox';
 import file from './parts/common/file';
 import loading from './parts/common/loading';
 import radio from './parts/common/radio';
@@ -12,6 +13,7 @@ import input from './parts/common/input';
 
 // 特例组件
 import measure from './parts/instance/measure';
+import date from './parts/instance/date';
 import table from './parts/instance/table';
 import confirm from './parts/instance/confirm';
 import condition from './parts/instance/condition';
@@ -23,9 +25,13 @@ import multipleChoose from './parts/instance/multipleChoose';
 import louver from './parts/instance/louver';
 
 export const mooBtn = button;
+export const mooCheckbox = checkbox;
 export const mooInput = input;
 export const mooRadio = radio;
 export const mooFile = file;
+export const mooCondition = condition;
+export const mooSelect = select;
+export const mooDate = date;
 
 export const vpToast = toast;
 export const vpMemo = memo;
@@ -42,20 +48,20 @@ export const vmPaging = paging;
 export const vmBtn = button;
 export const vmTable = table;
 export const vmLouver = louver;
-export const vmSelect = select;
-export const vmCondition = condition;
 export const vmShowcase = showcase;
 
 const component = {
   mooBtn,
-  mooInput,
-  mooRadio,
+  mooCheckbox,
+  mooCondition,
   mooFile,
+  mooRadio,
+  mooInput,
+  mooSelect,
+  mooDate,
 
-  vmSelect,
   vmLouver,
   vmTable,
-  vmCondition,
   vmPaging,
   vmShowcase,
   vmLoading,
