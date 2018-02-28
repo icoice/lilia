@@ -139,6 +139,14 @@ export const getterNS = function getterNS(namespace) {
   return mapGetters(stateNamespaces);
 }
 
+export const getterAll = function getterAll(namespace, nameList = null) {
+  if (stateNamespaces.indexOf(namespace) < 0 && !storeGetters[namespace]) return {};
+  const a = maps(namespace, nameList, storeGetters);
+  const b = stateNamespaces;
+  const c = [];
+  return mapGetters(c.concat(a).concat(b));
+}
+
 export const actions = function actions(namespace, nameList = null) {
   if (!storeActions[namespace]) return {};
   return mapActions(maps(namespace, nameList, storeActions));
@@ -146,6 +154,7 @@ export const actions = function actions(namespace, nameList = null) {
 
 export default {
   create,
+  getterAll,
   getterNS,
   getters,
   actions,

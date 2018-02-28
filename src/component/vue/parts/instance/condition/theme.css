@@ -7,6 +7,7 @@
   background: gradient(linear, 0 1, 0 55, from(#fff), to(#eaeaea));
   border-radius: 5pxr;
   border: 1px solid #dfdfdf;
+  font-size: 14pxr;
 }
 
 .moo-condition .condition-container {
@@ -20,6 +21,7 @@
   cursor: pointer;
 
   input {
+    font-size: 14pxr;
     text-align: center;
   }
 
@@ -30,7 +32,7 @@
     right: 0;
     margin-top: -11pxr;
     margin-right: 2pxr;
-    font-size: 20pxr;
+    font-size: 14pxr;
     color: #666;
   }
 }
@@ -59,12 +61,11 @@
 }
 
 .moo-condition .condition-name {
+  @mixin clear-select;
   float: left;
-  padding: 1px;
+  padding: 7pxr;
   width: 30%;
-  height: 25pxr;
-  line-height: 25pxr;
-  font-size: 16pxr;
+  font-size: 14pxr;
   text-align: right;
   color: #666;
 }

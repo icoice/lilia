@@ -1,49 +1,47 @@
 <template>
-  <div class="vm">
-    <div class="paging" v-if="pageTotal > 0">
-      <ul>
-        <li class="paging-operate paging-first">
-          <vm-button @tap="firstPageNo()">
-            <span class="psm-icon psm-first" slot="button-content"></span>
-          </vm-button>
-        </li>
-        <li class="paging-operate paging-prev">
-          <vm-button @tap="tapPageNo(currentPageNo - 1)">
-            <span class="psm-icon psm-arrow-left" slot="button-content"></span>
-          </vm-button>
-        </li>
-        <li v-for="pageNo in pageNoList" class="page-no" :class="{
-            'page-no-selected': currentPageNo === pageNo,
-            'page-no-disabled': maxPage(pageNo),
-          }">
-          <vm-button @tap="tapPageNo(pageNo)" :disabled="maxPage(pageNo)">
-            <span slot="button-content">{{format(pageNo)}}</span>
-          </vm-button>
-        </li>
-        <li class="paging-operate paging-next">
-          <vm-button @tap="tapPageNo(currentPageNo + 1)">
-            <span  class="psm-icon psm-arrow-right" slot="button-content"></span>
-          </vm-button>
-        </li>
-        <li class="paging-operate paging-last">
-          <vm-button @tap="tapPageNo(getTotalPage())">
-            <span class="psm-icon psm-last" slot="button-content"></span>
-          </vm-button>
-        </li>
-        <li class="paging-tips">
-          共{{pageTotal}}条记录，全{{getTotalPage()}}页，每页限{{pageSize}}条记录
-        </li>
-      </ul>
-    </div>
+  <div class="moo moo-paging" v-if="pageTotal > 0">
+    <ul>
+      <li class="paging-operate paging-first">
+        <btn @tap="firstPageNo()">
+          <span slot="btn">首页</span>
+        </btn>
+      </li>
+      <li class="paging-operate paging-prev">
+        <btn @tap="tapPageNo(currentPageNo - 1)">
+          <span slot="btn">上一页</span>
+        </btn>
+      </li>
+      <li v-for="pageNo in pageNoList" class="page-no" :class="{
+          'page-no-selected': currentPageNo === pageNo,
+          'page-no-disabled': maxPage(pageNo),
+        }">
+        <btn @tap="tapPageNo(pageNo)" :disabled="maxPage(pageNo)">
+          <span slot="btn">{{format(pageNo)}}</span>
+        </btn>
+      </li>
+      <li class="paging-operate paging-next">
+        <btn @tap="tapPageNo(currentPageNo + 1)">
+          <span slot="btn">下一页</span>
+        </btn>
+      </li>
+      <li class="paging-operate paging-last">
+        <btn @tap="tapPageNo(getTotalPage())">
+          <span slot="btn">尾页</span>
+        </btn>
+      </li>
+      <li class="paging-tips">
+        共{{pageTotal}}条记录，全{{getTotalPage()}}页，每页限{{pageSize}}条记录
+      </li>
+    </ul>
   </div>
 </template>
 
 <script>
-  import vmButton from '../../common/button';
+  import btn from '../../common/button';
 
   export default {
     components: {
-      vmButton,
+      btn,
     },
     props: {
       pageNo: {

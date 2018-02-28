@@ -32,6 +32,7 @@ export const mooFile = file;
 export const mooCondition = condition;
 export const mooSelect = select;
 export const mooDate = date;
+export const mooPaging = paging;
 
 export const vpToast = toast;
 export const vpMemo = memo;
@@ -44,7 +45,6 @@ export const vpMultipleChoose = multipleChoose;
 export const vmMeasure = measure;
 export const vmImage = image;
 export const vmLoading = loading;
-export const vmPaging = paging;
 export const vmBtn = button;
 export const vmTable = table;
 export const vmLouver = louver;
@@ -59,10 +59,10 @@ const component = {
   mooInput,
   mooSelect,
   mooDate,
+  mooPaging,
 
   vmLouver,
   vmTable,
-  vmPaging,
   vmShowcase,
   vmLoading,
   vmImage,

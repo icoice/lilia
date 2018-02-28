@@ -9,13 +9,13 @@ $pressColor: #0d3046;
 }
 
 .moo-btn .btn-touch {
-  height: 24pxr;
-  line-height: 24pxr;
-  background-color: $btnColor;
-  border-radius: 5px;
+  padding: 5pxr;
   text-align: center;
+  font-size: 14pxr;
   color: #fff;
   cursor: pointer;
+  background-color: $btnColor;
+  border-radius: 5px;
 }
 
 .moo-btn .btn-tap {
@@ -28,11 +28,4 @@ $pressColor: #0d3046;
 
 .moo-btn-disabled .btn-tap {
   background-color: #ccc;
-}
-
-@media (width <= 600px) {
-  .moo-btn .btn-touch {
-    height: 28pxr;
-    line-height: 28pxr;
-  }
 }

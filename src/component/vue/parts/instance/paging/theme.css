@@ -1,56 +1,59 @@
-.vm {
-  .paging {
-    overflow: hidden;
-    font-size: 12px;
-    padding-top: .5em;
-    padding-bottom: .5em;
-    background-color: #dfdfdf;
+@import 'planes/base.css';
+@import 'planes/unit.css';
 
-    .paging-tips {
-      font-size: 15px;
-      height: 2em;
-      line-height: 2em;
-      text-align: center;
+.moo-paging {
+  @mixin clear-select;
+  overflow: hidden;
+  padding-top: 6pxr;
+  padding-bottom: 6pxr;
+  background-color: #dfdfdf;
+}
+
+.moo-paging .paging-tips {
+  padding-top: 8pxr;
+  padding-bottom: 8pxr;
+  font-size: 14pxr;
+  text-align: center;
+}
+
+.moo-paging ul {
+  overflow: hidden;
+  margin: 0;
+  padding: 0;
+}
+
+.moo-paging ul li {
+  float: left;
+  padding: 2.4pxr;
+  list-style-type: none;
+  border-radius: 5pxr;
+  .moo-btn {
+    .btn-touch {
+      width: 30pxr;
+      border-radius: 0;
+      font-size: 14pxr;
     }
+  }
+}
 
-    ul {
-      overflow: hidden;
-      margin: 0;
-      padding: 0;
+.moo-paging ul li.page-no-selected {
+  .moo-btn {
+    .btn-touch {
+      background-color: #f52;
+    }
+  }
+}
 
-      li {
-        float: left;
-        margin: 0 .25em;
-        padding: .2em;
-        list-style-type: none;
-        border-radius: 5px;
-
-        .button {
-          .button-touch {
-            height: 2em;
-            line-height: 2em;
-            padding: 0 .5em;
-          }
-        }
-      }
-      li.page-no-selected {
-        .button {
-          .button-touch {
-            background-color: #f52;
-          }
-        }
-      }
-      li.paging-operate {
-        .button {
-          .button-touch {
-            background-color: transparent;
-            color: #666;
-          }
-          .button-touch:hover {
-            color: #333;
-          }
-        }
-      }
+.moo-paging ul li.paging-operate {
+  .moo-btn {
+    .btn-touch {
+      width: auto;
+      background-color: transparent;
+      font-size: 14pxr;
+      color: #666;
+    }
+    .btn-touch:hover {
+      color: #333;
     }
   }
 }

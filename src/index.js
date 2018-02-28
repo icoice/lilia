@@ -10,7 +10,7 @@ export const util = _util;
 export const $vue = {
   state: (n, d) => drive.Vue.state(n, d),
   store: (v, c) => drive.Vue.store.create(v, c),
-  getters: (n) => drive.Vue.store.getterNS(n),
+  getters: (n) => drive.Vue.store.getterAll(n),
   actions: (n) => drive.Vue.store.actions(n),
 }
 

@@ -6,13 +6,11 @@
   overflow: hidden;
 
   input {
-    padding-top: 0;
     padding-left: 0;
-    padding-bottom: 0;
     padding-right: 10%;
+    padding-top: 8pxr;
+    padding-bottom: 8pxr;
     width: 90%;
-    height: 25pxr;
-    line-height: 25pxr;
     text-indent: 5pxr;
     outline: none;
     font-size: 14pxr;

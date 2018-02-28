@@ -2,6 +2,7 @@
 @import 'planes/unit.css';
 
 .moo-select {
+  @mixin clear-select;
   position: relative;
   margin: 0 auto;
   width: 90%;
@@ -21,9 +22,10 @@
 }
 
 .moo-select .select-pull-down, .select-default {
+  @mixin clear-select;
   border: 1px solid #dfdfdf;
-  outline: none;
   font-size: 14pxr;
+  outline: none;
   .moo-icon {
     position: absolute;
     right: 0;
@@ -33,17 +35,18 @@
 }
 
 .moo-select .select-pull-down {
+  @mixin clear-select;
   position: relative;
   top: 0;
   z-index: 1;
-  margin-top: -25pxr;
+  margin-top: -16pxr;
   border-top: none;
   border-radius: 5pxr;
   background-color: #fff;
 
   .select-option {
-    height: 25pxr;
-    line-height: 25pxr;
+    padding-top: 8pxr;
+    padding-bottom: 8pxr;
     font-size: 14pxr;
   }
   .select-clear-option {
@@ -69,8 +72,8 @@
 .moo-select .select-default {
   position: relative;
   z-index: 2;
-  height: 25pxr;
-  line-height: 25pxr;
+  padding-top: 8pxr;
+  padding-bottom: 8pxr;
   font-size: 14pxr;
   border-radius: 5pxr;
   box-sizing: border-box;
