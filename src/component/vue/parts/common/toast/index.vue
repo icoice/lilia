@@ -1,8 +1,8 @@
 <template>
-  <div class="vp-toast animated bounce" v-if="this.toastShow">
-    <div class="vp-toast-showcase">
-      <p class="vp-toast-content">{{toastMessage}}</p>
-      <div class="vp-toast-bg"></div>
+  <div class="moo moo-toast" v-if="this.toastShow">
+    <div class="toast-showcase">
+      <p class="toast-content">{{toastMessage}}</p>
+      <div class="toast-bg"></div>
     </div>
   </div>
 </template>

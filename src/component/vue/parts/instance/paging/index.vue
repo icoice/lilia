@@ -11,7 +11,7 @@
           <span slot="btn">上一页</span>
         </btn>
       </li>
-      <li v-for="pageNo in pageNoList" class="page-no" :class="{
+      <li v-for="pageNo in pageNoList" class="page-no" v-if="!maxPage(pageNo)" :class="{
           'page-no-selected': currentPageNo === pageNo,
           'page-no-disabled': maxPage(pageNo),
         }">
@@ -44,7 +44,7 @@
       btn,
     },
     props: {
-      pageNo: {
+      page: {
         type: Number,
         default: 1,
       },
@@ -64,7 +64,7 @@
         pageNoEnd: 1,
         amountStart: 0,
         amountEnd: 0,
-        currentPageNo: this.pageNo,
+        currentPageNo: this.page,
         pageNoList: [],
         pageTotal: this.total,
       };
@@ -73,7 +73,7 @@
       this.reset();
     },
     watch: {
-      pageNo(no) {
+      no(no) {
         this.currentPageNo = no;
         if (no === 1) this.firstPageNo();
         this.reset();
@@ -133,8 +133,8 @@
       // 计算可显示的页码
       setPageNoScope() {
         const { currentPageNo, pageSize, pageNoStart } = this;
-        const nextPageNoStart = (currentPageNo + 1) - (pageSize / 2);
-        const nextPageNoEnd = currentPageNo + (pageSize / 2);
+        const nextPageNoStart = (currentPageNo + 1) - Math.ceil(pageSize / 2);
+        const nextPageNoEnd = currentPageNo + Math.ceil(pageSize / 2);
         this.pageNoStart = nextPageNoStart >= 1 ? nextPageNoStart : pageNoStart;
         this.pageNoStart = currentPageNo <= 5 || this.pageNoStart <= 0 ? 1 : this.pageNoStart;
         this.pageNoEnd = nextPageNoEnd < pageSize ? pageSize : nextPageNoEnd;

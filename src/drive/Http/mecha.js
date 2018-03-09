@@ -49,10 +49,10 @@ export default class Mecha {
       this.requestErrorHandle = callback;
     };
     adapter.ON_REQUEST_EXCEPTION = (callback) => {
-      this.requestErrorHandle = callback;
+      this.requestExceptionHandle = callback;
     };
     adapter.ON_REQUEST = (callback) => {
-      this.requestErrorHandle = callback;
+      this.requestHandle = callback;
     };
 
     // 接口列
@@ -62,7 +62,6 @@ export default class Mecha {
     const request = (params) => {
      const { n, id, method, payload } = params;
      return method(payload).then((response) => {
-       console.log(response);
        const { description, data } = response;
        if (!data) {
          this.log('exception', '未获得服务器的响应数据');
@@ -150,10 +149,10 @@ export default class Mecha {
     const defaultMessage = !message ? '程序存在异常，无法完成请求' : message;
     const infos = {
       description: !request ? '' : READY_STATE_MESSAGE[request.readyState - 1],
-      statusText: !request ? defaultMessage : request.statusText,
+      statusText: !request || request.statusText === '' ? defaultMessage : request.statusText,
       status: !request ? '' : request.status,
     };
-    const logInfo = `${infos.description !== '' ? `${infos.description},` : infos.description}${infos.statusText}`;
+    const logInfo = `[${infos.status}] ${infos.statusText !== '' ? `${infos.description},` : infos.description}${infos.statusText}`;
     this.log('exception', logInfo);
     return infos;
   }

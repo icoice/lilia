@@ -1,19 +1,22 @@
-.vm {
-  .loading {
-    overflow: hidden;
-    font-size: 12px;
-    .psm-police-mark {
-      margin: 0 auto;
-      padding: .5em;
-      width: 1em;
-      height: 1em;
-      font-size: 40px;
-      color: #00619c;
-    }
-    p.load-descrption {
-      padding-bottom: 1em;
-      text-align: center;
-      color: #00619c;
-    }
-  }
+@import 'planes/base.css';
+@import 'planes/unit.css';
+
+.moo-loading {
+  @mixin clear-select;
+  overflow: hidden;
+  margin: 10pxr;
+}
+
+.moo-loading .moo-icon {
+  margin: 0 auto;
+  padding: 14pxr;
+  border: 1px dashed #00619c;
+  font-size: 12pxr;
+  color: #00619c;
+  text-align: center;
+}
+
+.moo-loading p.load-descrption {
+  text-align: center;
+  color: #eaeaea;
 }

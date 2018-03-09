@@ -3,9 +3,9 @@ import createApi from './createApi';
 const httpMethods = ['GET', 'POST', 'DELETE', 'PUT', 'UPDATE', 'HEADER'];
 const httpMethodCreator = {};
 
-httpMethods.map((name) => {
-  httpMethodCreator[name] = (n) => {
-    const api = createApi('GET', n);
+httpMethods.map((method) => {
+  httpMethodCreator[method] = function(name) {
+    const api = createApi(method, name);
     this.config.access[name] = api.config;
     return api;
   }
@@ -39,9 +39,9 @@ export default {
   },
   bindPublicEvent(serves) {
     serves.map((serve) => {
-      serves.ON_REQUEST_ERROR(this.ORERR);
-      serves.ON_REQUEST_EXCEPTION(this.ORERR);
-      serves.ON_REQUEST(this.OR);
+      serve.ON_REQUEST_ERROR(this.ORERR);
+      serve.ON_REQUEST_EXCEPTION(this.ORERR);
+      serve.ON_REQUEST(this.OR);
     });
   },
   domain(host) {
@@ -57,15 +57,16 @@ export default {
     this.config.setHeaders = callback;
   },
   fake(has) {
-    this.config.fake.open = has;
-
+    const { config } = this;
+    config.fake.open = has;
     return {
       delay(msec) {
-        this.config.fake.delay = msec;
+        config.fake.delay = msec;
         return this;
       },
       pack(callback) {
-        this.config.fake.pack = callback;
+        config.fake.pack = callback;
+        return this;
       },
     };
   },

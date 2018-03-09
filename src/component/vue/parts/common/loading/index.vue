@@ -1,12 +1,14 @@
 <template >
-  <div class="vm">
-    <div class="loading">
-      <div class="loading-mark" v-if="!isLoadComplete">
-        <div class="psm-icon psm-police-mark animated infinite flip"></div>
-        <p class="load-descrption" v-if="description !== ''">{{description}}</p>
+  <div class="moo moo-loading">
+    <div class="load-mark" v-if="!isLoadComplete">
+      <div class="moo-icon">
+        <p>NOW LOADING</p>
+        <p class="load-descrption" v-if="description !== ''">
+          {{description}}
+        </p>
       </div>
-      <slot name="load-content" v-else/>
     </div>
+    <slot name="load" v-else/>
   </div>
 </template>
 

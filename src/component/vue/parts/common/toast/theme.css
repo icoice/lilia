@@ -1,39 +1,45 @@
-.vp-toast {
+@import 'planes/base.css';
+@import 'planes/unit.css';
+
+.moo-toast {
+  @mixin clear-select;
   overflow: hidden;
   position: fixed;
   z-index: 100;
   bottom: 10%;
-  padding: 1em;
+  padding: 12pxr;
   width: 100%;
-  font-size: 12px;
-  border-radius: 5px;
-  .vp-toast-showcase {
-    overflow: hidden;
-    position: relative;
-    margin: 0 auto;
-    width: 30em;
-    font-size: 14px;
-    border-radius: 5px;
-    color: #fff;
-    .vp-toast-content {
-      position: relative;
-      z-index: 1;
-      margin: 0;
-      padding: 1em;
-      min-height: 2em;
-      line-height: 2em;
-      text-align: center;
-      color: #fff;
-    }
-    .vp-toast-bg {
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background-color: #000;
-      opacity: .85;
-      border-radius: 5px;
-    }
-  }
+  border-radius: 5pxr;
+}
+
+.moo-toast .toast-showcase {
+  overflow: hidden;
+  position: relative;
+  margin: 0 auto;
+  width: 360pxr;
+  font-size: 12pxr;
+  border-radius: 5pxr;
+  color: #fff;
+}
+
+.moo-toast .toast-content {
+  position: relative;
+  z-index: 1;
+  margin: 0;
+  padding: 12pxr;
+  min-height: 24pxr;
+  line-height: 24pxr;
+  text-align: center;
+  color: #fff;
+}
+
+.moo-toast .toast-bg {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  border-radius: 5pxr;
+  height: 100%;
+  background-color: #000;
+  opacity: .85;
 }

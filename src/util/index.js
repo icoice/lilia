@@ -1,21 +1,25 @@
-import Array from './Array';
-import Assert from './Assert';
-import Chain from './Chain';
-import Date from './Date';
-import Device from './Device';
-import Dom from './Dom';
-import File from './File';
-import String from './String';
-import Storage from './Storage';
+import _Array from './Array';
+import _Assert from './Assert';
+import _Chain from './Chain';
+import _Date from './Date';
+import _Device from './Device';
+import _Dom from './Dom';
+import _File from './File';
+import _Http from './Http';
+import _String from './String';
+import _Storage from './Storage';
+import _Object from './Object';
 
 export default {
-  Array,
-  Assert,
-  Chain,
-  Date,
-  Device,
-  Dom,
-  File,
-  String,
-  Storage,
+  Array: _Array,
+  Assert: _Assert,
+  Chain: _Chain,
+  Date: _Date,
+  Device: _Device,
+  Dom: _Dom,
+  File: _File,
+  Http: _Http,
+  String: _String,
+  Storage: _Storage,
+  Object: _Object,
 };

@@ -1,6 +1,14 @@
-export default (cols, list) => {
+export default (cols, obj) => {
+  const list = [];
   const lines = [];
   let lineItems = [];
+
+  Object.entries(obj).map(kv => {
+    list.push({
+      [kv[0]]: kv[1],
+    });
+    return kv;
+  });
 
   if (list && list.map) {
     list.map((item, code) => {

@@ -1,7 +1,7 @@
 import axios from 'axios';
 import util from '../../util';
 
-const { def, hasPromise } = util;
+const { def, hasPromise } = util.Assert;
 
 export default class Http {
 
@@ -12,7 +12,7 @@ export default class Http {
   // 配置Http实例
   init(set) {
     this.access = def(set.access, []);
-    this.domain = def(set.domian, '');
+    this.domain = def(set.domain, '');
     this.fakeDelay = def(set.fakeDelay, 1000);
     this.setHeaders = def(set.setHeaders, params => params);
     this.setPayload = def(set.setPayload, params => params);

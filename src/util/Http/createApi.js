@@ -3,7 +3,6 @@ export default (method, name) => {
     name,
     method,
     path: '',
-    method: 'GET',
     origin: {},
     alias: {},
     fake: null,
@@ -11,6 +10,10 @@ export default (method, name) => {
 
   return {
     config: conf,
+    fake(data) {
+      conf.fake = !data[conf.name] ? data : data[conf.name];
+      return this;
+    },
     path(link) {
       conf.path = link;
       return this;

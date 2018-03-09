@@ -31,6 +31,7 @@ const formatMaps = (maps) => {
 /* http、httpMecha的数据格式构造 */
 export default (params)  => {
   const { domain, fake } = params;
+  const hasFake = fake.open;
   const fakeDataStruct = fake.pack;
   const fakeDelay = fake.delay;
   const onBuildPayload = params.setPayload;

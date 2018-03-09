@@ -8,13 +8,11 @@
     "dev": "node build/dev-server.js",
     "start": "node build/dev-server.js",
     "build": "node build/build.js",
-    "rm-lib": "rm -rf ./lib/*",
-    "rm-theme": "rm -rf ./theme/*",
-    "copy-all": "babel src --out-dir ./lib --copy-files",
-    "copy-theme": "babel src/css --out-dir ./theme --copy-files",
-    "encode-drive": "babel src/drive -d ./lib/drive",
-    "encode-util": "babel src/util -d ./lib/util",
-    "encode": "npm-run-all rm-lib rm-theme copy-all copy-theme encode-drive encode-util",
+    "copy-all": "babel src -w --out-dir ./lib --copy-files",
+    "copy-theme": "babel src/css -w --out-dir ./theme --copy-files",
+    "encode-drive": "babel src/drive -w -d ./lib/drive",
+    "encode-util": "babel src/util -w -d ./lib/util",
+    "encode": "npm-run-all copy-all copy-theme encode-drive encode-util",
     "lint": "eslint --ext .js,.vue src"
   },
   "dependencies": {

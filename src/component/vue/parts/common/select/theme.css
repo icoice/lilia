@@ -4,8 +4,6 @@
 .moo-select {
   @mixin clear-select;
   position: relative;
-  margin: 0 auto;
-  width: 90%;
   text-align: center;
   cursor: pointer;
   border-radius: 5pxr;

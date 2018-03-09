@@ -11,7 +11,7 @@
   <div class="select-pull-down"
     v-if="listOpen && menus.length > 0 && !hasDisabled">
     <div class="select-default"></div>
-    <div class="select-option select-clear-option" 
+    <div class="select-option select-clear-option"
       @click="selectOption(emptySelected)"> 清除 </div>
     <div class="select-option" v-for="item in menus" @click="selectOption(item)">
       {{item.name}}

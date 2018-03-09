@@ -1,8 +1,6 @@
 <template>
-  <div class="vm">
-    <div class="showcase animated zoomIn" v-if="isShowcaseClose">
-      <slot name="showcase-content"/>
-    </div>
+  <div class="moo moo-showcase animated zoomIn" v-if="isShowcaseClose">
+    <slot name="showcase"/>
   </div>
 </template>
 
