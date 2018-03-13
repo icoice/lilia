@@ -1,0 +1,38 @@
+@import 'planes/base.css';
+@import 'planes/unit.css';
+
+.moo-table {
+  /* reset */
+  .moo-btn {
+    .btn-touch {
+      background-color: transparent;
+      color: #333;
+    }
+  }
+}
+
+.moo-table table {
+  width: 100%;
+}
+
+.moo-table thead {
+  background-color: #dfdfdf;
+  td {
+    border: 1px solid #dfdfdf;
+  }
+}
+
+.moo-table tr {
+  background-color: #efefef;
+  td {
+    border: 1px solid #dfdfdf;
+  }
+}
+
+.moo-table .no-table-data {
+  padding: 20pxr;
+  font-size: 12pxr;
+  background-color: #efefef;
+  text-align: center;
+  color: #666;
+}

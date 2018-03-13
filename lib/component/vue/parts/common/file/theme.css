@@ -1,0 +1,73 @@
+@import 'planes/base.css';
+@import 'planes/unit.css';
+
+.moo-file {
+  @mixin clear-select;
+}
+
+.moo-file .select-file {
+  overflow: hidden;
+  position: relative;
+  padding: 0 3pxr;
+  height: 26.4pxr;
+  line-height: 26.4pxr;
+  border-radius: 5px;
+  background-color: #00619c;
+  text-align: center;
+  color: #fff;
+}
+
+.moo-file .select-file input {
+  position: absolute;
+  top: 0;
+  left: 0;
+  opacity: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.moo-file .moo-icon {
+  position: relative;
+  top: 1px;
+}
+
+.moo-file .file-button-name {
+  font-size: 14pxr;
+}
+
+.moo-file .file-limit {
+  padding: 3pxr;
+  color: #00619c;
+}
+
+.moo-file .select-file:hover {
+  background-color: #f52;
+}
+
+.moo-file .file-tips {
+  padding-bottom: 6pxr;
+  font-size: 14pxr;
+  color: #dfdfdf;
+}
+
+.moo-file .files li.file-item {
+  padding: 8pxr;
+  border-radius: 5px;
+  margin-top: .5em;
+  background-color: #dfdfdf;
+  font-size: 14pxr;
+  color: #666;
+}
+
+.moo-file .files li.file-item p {
+  margin-bottom: 3pxr;
+}
+
+.moo-file .files li.file-item p:last-child {
+  margin-bottom: 0;
+}
+
+.moo-file .files li.file-extend-error {
+  background-color: #f52;
+  color: #fff;
+}

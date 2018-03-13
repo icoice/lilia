@@ -1,7 +1,6 @@
 .DS_Store
 node_modules/
 dist/
-lib/
 theme/
 _book/
 npm-debug.log*

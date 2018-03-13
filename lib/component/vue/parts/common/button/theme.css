@@ -1,0 +1,31 @@
+@import 'planes/base.css';
+@import 'planes/unit.css';
+
+$btnColor: #00619c;
+$pressColor: #0d3046;
+
+.moo-btn {
+  @mixin clear-select;
+}
+
+.moo-btn .btn-touch {
+  padding: 5pxr;
+  text-align: center;
+  font-size: 14pxr;
+  color: #fff;
+  cursor: pointer;
+  background-color: $btnColor;
+  border-radius: 5px;
+}
+
+.moo-btn .btn-tap {
+  background-color: $pressColor;
+}
+
+.moo-btn-disabled .btn-touch {
+  background-color: #ccc;
+}
+
+.moo-btn-disabled .btn-tap {
+  background-color: #ccc;
+}

@@ -1,0 +1,30 @@
+@import 'planes/border.css';
+
+.vm {
+  .measure {
+    position: fixed;
+    right: 0;
+    bottom: 0;
+    margin-right: 5em;
+    margin-bottom: 5em;
+    width: 15em;
+  }
+  .measure .button {
+    @mixin border .button-touch, #cfcfcf, 15px;
+    float: left;
+    margin-right: .5em;
+
+    .button-touch {
+      padding: .5em;
+      height: auto;
+      line-height: normal;
+      background-color: #fff;
+
+      span {
+        text-align: center;
+        font-size: 13px;
+        color: #999;
+      }
+    }
+  }
+}

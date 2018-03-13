@@ -1,0 +1,95 @@
+@import 'planes/base.css';
+@import 'planes/unit.css';
+
+@mixin border-top .moo-date, #c3c3c3;
+
+.moo-date {
+  background-color: #eaeaea;
+  background: -webkit-gradient(linear,0 1,0 55,from(#fff),to(#eaeaea));
+  background: gradient(linear,0 1,0 55,from(#fff),to(#eaeaea));
+  box-shadow: 0 5pxr 10pxr #dfdfdf;
+}
+
+.moo-date .date-setting {
+  overflow: hidden;
+  .moo-btn {
+    float: left;
+  }
+  .moo-btn .btn-touch {
+    padding: 0 5pxr;
+    height: 40pxr;
+    line-height: 40pxr;
+    background-color: transparent;
+    border-radius: 0;
+
+    span {
+      font-size: 14pxr;
+      color: #333;
+    }
+  }
+  .moo-btn .btn-tap {
+    span {
+      color: #333;
+    }
+  }
+}
+
+.date-selector-scope {
+  overflow: hidden;
+  float: left;
+  width: 33.33%;
+  .btn {
+    text-align: center;
+  }
+  .btn .moo-icon {
+    background-color: transparent;
+    font-size: 24pxr;
+    color: #999;
+  }
+}
+
+.date-selector-scope .date-operator {
+  overflow: hidden;
+  .btn {
+    float: left;
+    text-align: center;
+    width: 33.33%;
+  }
+}
+
+.date-selector-scope .date-grid {
+  padding-top: 12pxr;
+  height: 40pxr;
+  line-height: 40pxr;
+  font-size: 36pxr;
+  font-weight: bold;
+  text-align: center;
+  border-bottom: 1px solid #dfdfdf;
+}
+
+.date-selector-scope .date-unit {
+  padding: 10pxr;
+  font-size: 14pxr;
+  color: #666;
+}
+
+.date-time-show {
+  overflow: hidden;
+}
+
+.date-control {
+  .moo-btn .btn-touch {
+    padding: 10pxr;
+    background-color: transparent;
+    text-align: right;
+    span {
+      font-size: 14pxr;
+      color: #333;
+    }
+  }
+  .moo-btn .btn-tap {
+    span {
+      color: #333;
+    }
+  }
+}

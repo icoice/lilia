@@ -1,0 +1,33 @@
+.vp-confirm {
+  position: fixed;
+  z-index: 100;
+  top: 50%;
+  left: 50%;
+  width: 75%;
+  min-height: 5em;
+  .vp-confirm-content {
+      font-size: 25px;
+      text-align: center;
+  }
+  .vp-confirm-view {
+      font-size: 20px;
+      padding: .5em;
+      background-color: #f2f2f2;
+      box-shadow: 5px 3px 0 #ddd;
+      border: 1px solid #dfdfdf;
+      text-align: center;
+  }
+  .vp-confirm-operate {
+    overflow: hidden;
+    margin: 0 auto;
+    width: 50%;
+    .vp-button {
+      float: left;
+      width: 50%;
+      .vp-button-touch {
+        margin: 0 auto;
+        width: 85%;
+      }
+    }
+  }
+}
