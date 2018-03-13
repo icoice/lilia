@@ -68,25 +68,28 @@ export const create = function create(Vue, process) {
      storeGetters[namespace].push(storeName);
     };
 
-    this.action = function setAction(name, callback) {
-      const storeName = this.namespace(name);
-      store.actions[storeName] = (item, params) => {
-        callback({
-         ...item,
-         push: (name, val) => {
+   this.action = function setAction(name, callback) {
+     const storeName = this.namespace(name);
+     store.actions[storeName] = (item, params) => {
+      callback({
+       ...item,
+       doth: (name, params) => {
+         item.dispatch(this.namespace(name), params);
+       },
+       push: (name, val) => {
+         item.commit(this.namespace(name), val);
+       },
+       publish: (nameList) => {
+         Object.entries(nameList).map((kv) => {
+           const [name, val] = kv;
            item.commit(this.namespace(name), val);
-         },
-         publish: (nameList) => {
-           Object.entries(nameList).map((kv) => {
-             const [name, val] = kv;
-             item.commit(this.namespace(name), val);
-             return kv;
-           });
-         },
-        }, params);
-      };
-      storeActions[namespace].push(storeName);
-    };
+           return kv;
+         });
+       },
+      }, params);
+     };
+     storeActions[namespace].push(storeName);
+   };
 
    this.state = function setState(maps) {
      if (stateNamespaces.indexOf(namespace) < 0) {

@@ -3,8 +3,7 @@
 
 .moo-condition {
   padding: 6pxr;
-  background: -webkit-gradient(linear, 0 1, 0 55, from(#fff), to(#eaeaea));
-  background: gradient(linear, 0 1, 0 55, from(#fff), to(#eaeaea));
+  background-color: #efefef;
   border-radius: 5pxr;
   border: 1px solid #dfdfdf;
   font-size: 14pxr;

@@ -4,9 +4,9 @@ import checkbox from './parts/common/checkbox';
 import file from './parts/common/file';
 import loading from './parts/common/loading';
 import memo from './parts/common/memo';
-import radio from './parts/common/radio';
 import image from './parts/common/image';
 import input from './parts/common/input';
+import radio from './parts/common/radio';
 import scoller from './parts/common/scroller';
 import select from './parts/common/select';
 import toast from './parts/common/toast';
@@ -29,6 +29,7 @@ export const mooBtn = button;
 export const mooCheckbox = checkbox;
 export const mooCondition = condition;
 export const mooDate = date;
+export const mooDatepicker = datepicker;
 export const mooFile = file;
 export const mooLoading = loading;
 export const mooInput = input;
@@ -37,7 +38,7 @@ export const mooRadio = radio;
 export const mooSelect = select;
 export const mooShowcase = showcase;
 export const mooToast = toast;
-export const mooDatepicker = datepicker;
+export const mooTable = table;
 
 export const vpMemo = memo;
 export const vpScroller = scoller;
@@ -48,7 +49,6 @@ export const vpMultipleChoose = multipleChoose;
 export const vmMeasure = measure;
 export const vmImage = image;
 export const vmBtn = button;
-export const vmTable = table;
 export const vmLouver = louver;
 
 const component = {
@@ -64,10 +64,10 @@ const component = {
   mooRadio,
   mooSelect,
   mooShowcase,
+  mooTable,
   mooToast,
 
   vmLouver,
-  vmTable,
   vmImage,
   vmMeasure,
   vpMemo,

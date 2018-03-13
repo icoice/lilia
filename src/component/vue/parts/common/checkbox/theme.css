@@ -25,16 +25,16 @@
   .moo-btn .btn-touch .box-mark {
     position: relative;
     float: left;
-    width: 60pxr;
-    height: 60pxr;
+    width: 30pxr;
+    height: 30pxr;
   }
   .moo-btn .btn-touch .box-mark span {
     position: absolute;
     display: block;
-    margin-top: 15pxr;
-    margin-left: 15pxr;
-    width: 30pxr;
-    height: 30pxr;
+    margin-top: 5pxr;
+    margin-left: 7.5pxr;
+    width: 15pxr;
+    height: 15pxr;
     border: 1px solid #03609b;
     border-radius: 5pxr;
   }
@@ -43,8 +43,8 @@
   }
   .moo-btn .btn-touch .box-name {
     float: left;
-    height: 60pxr;
-    line-height: 60pxr;
+    height: 30pxr;
+    line-height: 30pxr;
     font-size: 14pxr;
     color: #333;
   }
