@@ -37,7 +37,7 @@ export default class Http {
   // 自动文本协议
   autoContentType(data) {
     if (data instanceof FormData) return 'multipart/form-data';
-    if (typeof data === 'Object' && data !== null) return 'application/json';
+    if (typeof data === 'object' && data !== null) return 'application/json';
     return 'text/plain';
   }
 

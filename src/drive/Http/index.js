@@ -34,8 +34,8 @@ export default (params)  => {
   const hasFake = fake.open;
   const fakeDataStruct = fake.pack;
   const fakeDelay = fake.delay;
-  const onBuildPayload = params.setPayload;
-  const onBuildHeaders = params.setHeaders;
+  const setPayload = params.setPayload;
+  const setHeaders = params.setHeaders;
   const replaceSender = params.sender;
   const { list, payloads } = formatMaps(params.access);
   const access = list.map(api => Object.assign({ ...api }, {
@@ -45,8 +45,8 @@ export default (params)  => {
   const apiParams = {
    domain, // 常规域名
    access, // 接入映射
-   onBuildPayload, // 当payload载入时
-   onBuildHeaders, // 当headers载入时
+   setPayload, // 当payload载入时
+   setHeaders, // 当headers载入时
    replaceSender, // 替换发送体
    fakeDelayTime: fakeDelay, // 模拟数据延迟时间
   };
@@ -64,8 +64,9 @@ export default (params)  => {
   // 夹层发送请求前
   mecha.defineRequestBefore((payload) => {
     if (typeof params.sendBefore === 'function') {
-      Object.assign(payload, params.sendBefore(payload));
+      return Object.assign(payload, params.sendBefore(payload));
     }
+    return payload;
   });
 
   // 初始化夹层

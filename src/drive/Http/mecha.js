@@ -88,10 +88,11 @@ export default class Mecha {
         sendRecords[n][id] = { REJECT_RESPONSE: false };
         if (!(params instanceof FormData)) {
           payload = this.getRequestPayload(n, params);
+          console.log(JSON.stringify(payload));
           if (requestBeforeProcess) {
-            payload = Object.assign({},
-             requestBeforeProcess(payload, method));
+            payload = Object.assign({}, requestBeforeProcess(payload, method));
           }
+          console.log(requestBeforeProcess);
         }
         return request({ n, id, method, payload });
       } : method ;

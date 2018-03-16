@@ -19,7 +19,6 @@
   width: 24pxr;
   height: 24pxr;
   border: 1px solid #00619c;
-  border-radius: 50%;
 }
 
 .moo-radio .radio-item .radio-check:hover {
@@ -36,7 +35,6 @@
   width: 16pxr;
   height: 16pxr;
   background-color: #00619c;
-  border-radius: 50%;
 }
 
 .moo-radio .radio-name {
