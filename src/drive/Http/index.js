@@ -36,8 +36,9 @@ export default (params)  => {
   const fakeDelay = fake.delay;
   const setPayload = params.setPayload;
   const setHeaders = params.setHeaders;
-  const replaceSender = params.sender;
+  const sender = params.sender;
   const { list, payloads } = formatMaps(params.access);
+
   const access = list.map(api => Object.assign({ ...api }, {
     fake: !hasFake ? null : fakeDataStruct(api.fake),
   }));
@@ -47,7 +48,7 @@ export default (params)  => {
    access, // 接入映射
    setPayload, // 当payload载入时
    setHeaders, // 当headers载入时
-   replaceSender, // 替换发送体
+   sender, // 替换发送体
    fakeDelayTime: fakeDelay, // 模拟数据延迟时间
   };
 
