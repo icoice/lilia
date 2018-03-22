@@ -1,33 +1,41 @@
-import createApi from './createApi';
+import api from './api';
 
 const httpMethods = ['GET', 'POST', 'DELETE', 'PUT', 'UPDATE', 'HEADER'];
 const httpMethodCreator = {};
 
 httpMethods.map((method) => {
-  httpMethodCreator[method] = function(name) {
-    const api = createApi(method, name);
-    this.config.access[name] = api.config;
-    return api;
+  httpMethodCreator[method] = function (name) {
+    const { config } = this;
+    const i = api(method, name);
+    config.access[name] = i.config;
+    return i;
   }
 });
 
 export default {
-  config: {
-    domain: '', // 服务地址
-    access: {}, // api、payload的预定义
-    fake: {
-      open: false, // 是否开启伪数据
-      delay: 300, // 获得数据延迟
-      pack: data => data, // 包装伪数据
-    },
-    sendBefore: () => ({}), // 请求前
-    setPayload: payload => payload, // 重置payload
-    setHeaders: headers => headers, // 重置headers
-    sender: payload => payload, // 替换请求对象
-  },
   ORERR: () => {},
   OREXCEP: () => {},
   OR: () => {},
+  config: {
+    fake: {
+      delay: 300, // 获得数据延迟
+      open: false, // 是否开启伪数据
+      pack: data => data, // 包装伪数据
+    },
+    access: {}, // api、payload的预定义
+    domain: '', // 服务地址
+    sendBefore: () => ({}), // 请求前
+    setPayload: payload => payload, // 重置payload
+    setHeaders: headers => headers, // 重置headers
+    sender: null, // 替换请求对象
+  },
+  bindPublicEvent(serves) {
+    serves.map((serve) => {
+      serve.ON_REQUEST_ERROR(this.ORERR);
+      serve.ON_REQUEST_EXCEPTION(this.ORERR);
+      serve.ON_REQUEST(this.OR);
+    });
+  },
   onRequestError(callback) {
     this.ORERR = callback;
   },
@@ -37,41 +45,38 @@ export default {
   onRequest(callback) {
     this.OR = callback;
   },
-  bindPublicEvent(serves) {
-    serves.map((serve) => {
-      serve.ON_REQUEST_ERROR(this.ORERR);
-      serve.ON_REQUEST_EXCEPTION(this.ORERR);
-      serve.ON_REQUEST(this.OR);
-    });
-  },
   domain(host) {
-    this.config.domain = host;
+    const { config } = this;
+    config.domain = host;
   },
   before(callback) {
-    this.config.sendBefore = callback;
+    const { config } = this;
+    config.sendBefore = callback;
   },
   payload(callback) {
-    this.config.setPayload = callback;
+    const { config } = this;
+    config.setPayload = callback;
   },
   header(callback) {
-    this.config.setHeaders = callback;
+    const { config } = this;
+    config.setHeaders = callback;
+  },
+  sender(callback) {
+    const { config } = this;
+    config.sender = callback;
   },
   fake(has) {
-    const { config } = this;
-    config.fake.open = has;
+    const { fake } = this.config;
     return {
       delay(msec) {
-        config.fake.delay = msec;
+        fake.delay = msec;
         return this;
       },
       pack(callback) {
-        config.fake.pack = callback;
+        fake.pack = callback;
         return this;
       },
     };
-  },
-  sender(callback) {
-    this.config.setHeaders = callback;
   },
   ...httpMethodCreator,
 }

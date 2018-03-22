@@ -61,6 +61,7 @@ export default class Mecha {
     // 方法请求
     const request = (params) => {
      const { n, id, method, payload } = params;
+
      return method(payload).then((response) => {
        const { description, data } = response;
        if (!data) {
@@ -80,6 +81,7 @@ export default class Mecha {
     // 创建接口
     list.map((access) => {
       const [n, method] = access;
+
       adapter[n] = typeof method === 'function' ? (params = {}) => {
         this.sendId += 1;
         const id = this.sendId;
@@ -151,7 +153,9 @@ export default class Mecha {
       statusText: !request || request.statusText === '' ? defaultMessage : request.statusText,
       status: !request ? '' : request.status,
     };
-    const logInfo = `[${infos.status}] ${infos.statusText !== '' ? `${infos.description},` : infos.description}${infos.statusText}`;
+    const status = typeof infos.status === 'undefined' ? '' : `[${infos.status}] `;
+    const statusTxt = infos.statusText !== '' && typeof infos.statusText === 'string' ? `${infos.description},` : infos.description;
+    const logInfo = `${status}${statusTxt}${infos.statusText}`;
     this.log('exception', logInfo);
     return infos;
   }

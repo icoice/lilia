@@ -65,15 +65,16 @@ export default class Http {
       delete params[BODY];
 
       const payload = this.createPayload(path, rm, rq, rb, params);
+
       const req = (pl) => {
-       if (fake !== null) {
-        return new Promise(resolve => {
-          setTimeout(() => resolve(fake), fakeDelay);
-        });
-       }
-       console.log(sender);
-       return !sender ? axios(pl) : sender(pl);
-     }
+        if (fake !== null) {
+          return new Promise(resolve => {
+            setTimeout(() => resolve(fake), fakeDelay);
+          });
+        }
+        return !sender ? axios(pl) : sender(pl);
+      }
+
      // 假设payload返回的是一个promise
      return payload && hasPromise(payload) ? payload.then(set => req(set)) : req(payload);
     };
