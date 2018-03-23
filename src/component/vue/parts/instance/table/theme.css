@@ -29,6 +29,14 @@
   }
 }
 
+.moo-table .tb-opt {
+  .moo-btn {
+    .btn-touch {
+      color: #03609b;
+    }
+  }
+}
+
 .moo-table .no-table-data {
   padding: 20pxr;
   font-size: 12pxr;

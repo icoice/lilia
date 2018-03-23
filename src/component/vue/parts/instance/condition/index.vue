@@ -37,11 +37,22 @@
           <moo-input
           :disabled="true"
           :val="formatDate(item.value)"
-          :placeholder="item.tips" @updated="val => change(item, val)"/>
-          <span
-          v-if="hasDateOpen && item.key === dateTarget.key"
-          class="moo-icon moo-close"
-          @click="clearDate"></span>
+          :placeholder="item.tips"/>
+        </div>
+      </div>
+      <div class="condition-container" v-if="item.component === 'dateScope'">
+        <div class="condition-date-scope" @click="e => changeDateStatus(item.items.start)">
+          <moo-input
+          :disabled="true"
+          :val="formatDate(item.items.start.value)"
+          :placeholder="item.items.start.tips"/>
+        </div>
+        <div class="condition-date-split">-</div>
+        <div class="condition-date-scope" @click="e => changeDateStatus(item.items.end)">
+          <moo-input
+          :disabled="true"
+          :val="formatDate(item.items.end.value)"
+          :placeholder="item.items.end.tips"/>
         </div>
       </div>
       <div class="condition-container" v-if="item.component === 'checkbox'">

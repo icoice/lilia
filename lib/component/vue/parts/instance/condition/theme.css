@@ -15,6 +15,26 @@
   margin-bottom: 12pxr;
 }
 
+.moo-condition .condition-date-split {
+  float: left;
+  padding: 8pxr 0;
+  width: 20%;
+  text-align: center;
+}
+
+.moo-condition .condition-date-scope {
+  float: left;
+  width: 40%;
+  border-radius: 5pxr;
+  cursor: pointer;
+
+  input {
+    font-size: 14pxr;
+    text-align: center;
+  }
+}
+
+
 .moo-condition .condition-date-input {
   border-radius: 5pxr;
   cursor: pointer;

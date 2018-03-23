@@ -2,7 +2,7 @@
   <div class="moo moo-loading">
     <div class="load-mark" v-if="!isLoadComplete">
       <div class="moo-icon">
-        <p>NOW LOADING</p>
+        <p>Now Loading</p>
         <p class="load-descrption" v-if="description !== ''">
           {{description}}
         </p>

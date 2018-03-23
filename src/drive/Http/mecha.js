@@ -48,9 +48,11 @@ export default class Mecha {
     adapter.ON_REQUEST_ERROR = (callback) => {
       this.requestErrorHandle = callback;
     };
+
     adapter.ON_REQUEST_EXCEPTION = (callback) => {
       this.requestExceptionHandle = callback;
     };
+
     adapter.ON_REQUEST = (callback) => {
       this.requestHandle = callback;
     };
@@ -61,15 +63,16 @@ export default class Mecha {
     // 方法请求
     const request = (params) => {
      const { n, id, method, payload } = params;
-
      return method(payload).then((response) => {
        const { description, data } = response;
+
        if (!data) {
          this.log('exception', '未获得服务器的响应数据');
        } else {
          if (typeof data === 'object' && data !== null) data.HOW = Object.assign({ id }, sendRecords[n][id]);
          this.log('complete', `${description}`, data);
        }
+
        delete sendRecords[n][id]; // 拒绝响应的措施, 解决无法abort的问题。
        return response;
      }).catch(e => {
@@ -84,16 +87,20 @@ export default class Mecha {
 
       adapter[n] = typeof method === 'function' ? (params = {}) => {
         this.sendId += 1;
+
         const id = this.sendId;
         let payload = params;
+
         sendRecords[n] = !sendRecords[n] ? {} : sendRecords[n];
         sendRecords[n][id] = { REJECT_RESPONSE: false };
+
         if (!(params instanceof FormData)) {
           payload = this.getRequestPayload(n, params);
           if (requestBeforeProcess) {
             payload = Object.assign({}, requestBeforeProcess(payload, method));
           }
         }
+
         return request({ n, id, method, payload });
       } : method ;
       return access;

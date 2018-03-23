@@ -7,12 +7,18 @@
             <span slot="btn">{{ item.name }}</span>
           </btn>
         </td>
+        <td v-if='tbOpts && tbOpts.length > 0' :colspan='tbOpts.length'></td>
       </thead>
       <tbody>
         <tr v-for="item in tbData">
           <td v-for="m in keyMap">
             <btn @tap="e => tap({ key: m.key, value: item[m.key], data: item })">
               <span slot="btn">{{ item[m.key] }}</span>
+            </btn>
+          </td>
+          <td class='tb-opt' v-if='tbOpts && tbOpts.length > 0' v-for="(opt, code) in tbOpts">
+            <btn @tap='e => tap({ key: opt.key, name: opt.name, data: item, code })'>
+              <span slot="btn">{{ opt.name }}</span>
             </btn>
           </td>
         </tr>
@@ -37,11 +43,16 @@ export default {
       type: Array,
       default: [],
     },
+    operate: {
+      type: Array,
+      default: [],
+    },
   },
   data() {
     return {
       tbHead: this.head,
       tbData: this.list,
+      tbOpts: this.operate,
     };
   },
   computed: {
@@ -56,6 +67,9 @@ export default {
     },
     list(data) {
       this.tbData = data;
+    },
+    operate(data) {
+      this.tbOpts = data;
     },
   },
   components: {

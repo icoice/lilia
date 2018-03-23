@@ -65,7 +65,6 @@ export default class Http {
       delete params[BODY];
 
       const payload = this.createPayload(path, rm, rq, rb, params);
-
       const req = (pl) => {
         if (fake !== null) {
           return new Promise(resolve => {

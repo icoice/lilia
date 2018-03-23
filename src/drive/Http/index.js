@@ -30,6 +30,7 @@ const formatMaps = (maps) => {
 
 /* http、httpMecha的数据格式构造 */
 export default (params)  => {
+  console.log(params);
   const { domain, fake } = params;
   const hasFake = fake.open;
   const fakeDataStruct = fake.pack;
@@ -38,11 +39,9 @@ export default (params)  => {
   const setHeaders = params.setHeaders;
   const sender = params.sender;
   const { list, payloads } = formatMaps(params.access);
-
   const access = list.map(api => Object.assign({ ...api }, {
     fake: !hasFake ? null : fakeDataStruct(api.fake),
   }));
-
   const apiParams = {
    domain, // 常规域名
    access, // 接入映射
@@ -51,7 +50,6 @@ export default (params)  => {
    sender, // 替换发送体
    fakeDelayTime: fakeDelay, // 模拟数据延迟时间
   };
-
   const serve = http(apiParams);
   const mecha = new httpMecha(serve); // 针对http协议的夹层
 

@@ -67,6 +67,7 @@ export default {
   },
   fake(has) {
     const { fake } = this.config;
+    fake.open = has;
     return {
       delay(msec) {
         fake.delay = msec;
