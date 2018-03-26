@@ -108,7 +108,7 @@
         <div class="row datepicker-day">
           <ul v-for="line in dayList">
             <li v-for="day in line" :class="{'select': day === nowDay}">
-              <btn @tap="e => choose('day', day)">
+              <btn @tap="e => (day && choose('day', day))">
                 <span slot="btn">
                   {{ day === null ? '&nbsp;' : day }}
                 </span>
