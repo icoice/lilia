@@ -15,7 +15,7 @@
   width: 100%;
 }
 
-.moo-table thead {
+.moo-table .tb-head {
   background-color: #dfdfdf;
   td {
     border: 1px solid #dfdfdf;

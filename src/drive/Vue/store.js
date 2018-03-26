@@ -45,9 +45,11 @@ export const create = function create(Vue, process) {
       store.state[storeName]  = params;
       store.actions[actionName]  =  ({ state }, params) => {
         state[storeName] = params;
+        state[namespace][name] = params;
       };
       store.mutations[storeName]  =  (state,  payload) => {
         state[storeName] = payload;
+        state[namespace][name] = payload;
       };
       store.getters[storeName]  =  state => state[storeName];
       storeStates[namespace].push(storeName);
@@ -101,6 +103,7 @@ export const create = function create(Vue, process) {
       const [name, params] = kv;
       const stateSpace = store.state[namespace];
       const storeName = this.namespace(name);
+      this.meal(name, params);
       stateSpace[name] = params;
       store.state[storeName] = params;
       store.getters[storeName] = state => state[storeName];

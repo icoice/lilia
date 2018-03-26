@@ -1,15 +1,17 @@
 <template>
   <div class="moo moo-table">
     <table v-if='tbData && tbData.length > 0'>
-      <thead v-for="th in tbHead">
-        <td v-for="item in th" :colspan="!item.cols ? 1 : item.cols">
+      <tr v-for="th in tbHead" class='tb-head'>
+        <td v-for="item in th"
+          :colspan="!item.cols ? 1 : item.cols"
+          :rowspan="!item.rows ? 1 : item.rows"
+          v-if='!item.hasHidden'>
           <btn @tap="e => headTap(item)">
             <span slot="btn">{{ item.name }}</span>
           </btn>
         </td>
         <td v-if='tbOpts && tbOpts.length > 0' :colspan='tbOpts.length'></td>
-      </thead>
-      <tbody>
+      </tr>
         <tr v-for="item in tbData">
           <td v-for="m in keyMap">
             <btn @tap="e => tap({ key: m.key, value: item[m.key], data: item })">
@@ -22,7 +24,6 @@
             </btn>
           </td>
         </tr>
-      </tbody>
     </table>
     <div class="no-table-data" v-else>
       <slot name='no-data'></slot>
@@ -50,7 +51,7 @@ export default {
   },
   data() {
     return {
-      tbHead: this.head,
+      tbHead: this.autoRows(this.head),
       tbData: this.list,
       tbOpts: this.operate,
     };
@@ -63,7 +64,7 @@ export default {
   },
   watch: {
     head(head) {
-      this.tbHead = head;
+      this.tbHead = this.autoRows(head);
     },
     list(data) {
       this.tbData = data;
@@ -76,6 +77,20 @@ export default {
     btn,
   },
   methods: {
+    autoRows(head) {
+      let auto = null;
+      head.map((tr, row) => {
+        tr.map((item, col) => {
+          if (item.rows > 0 && !auto) auto = { row, effNum: item.rows, col };
+          if (auto && auto.row < row && auto.effNum > row && auto.col === col) {
+            item.hasHidden = true;
+          }
+          return item;
+        });
+        return tr;
+      });
+      return head;
+    },
     headTap(data) {
       this.$emit('headTap', data);
     },
