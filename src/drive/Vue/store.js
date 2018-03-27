@@ -70,25 +70,27 @@ export const create = function create(Vue, process) {
      storeGetters[namespace].push(storeName);
     };
 
-   this.action = function setAction(name, callback) {
-     const storeName = this.namespace(name);
-     store.actions[storeName] = (item, params) => {
-      callback({
-       ...item,
-       doth: (name, params) => {
-         item.dispatch(this.namespace(name), params);
-       },
-       push: (name, val) => {
-         item.commit(this.namespace(name), val);
-       },
-       publish: (nameList) => {
+   this.action = function setAction(name, cb) {
+     const ns = this.namespace;
+     const storeName = ns(name);
+     store.actions[storeName] = function (item, params) {
+      const conf = {
+        ...item,
+        doth: (name, params) => {
+         item.dispatch(ns(name), params);
+        },
+        push: (name, val) => {
+         item.commit(ns(name), val);
+        },
+        publish: (nameList) => {
          Object.entries(nameList).map((kv) => {
            const [name, val] = kv;
-           item.commit(this.namespace(name), val);
+           item.commit(ns(name), val);
            return kv;
          });
-       },
-      }, params);
+        },
+      };
+      return cb(conf, params);
      };
      storeActions[namespace].push(storeName);
    };

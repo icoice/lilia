@@ -45,8 +45,8 @@ export default class Http {
       url: `${this.domain}${path}`,
       method,
       headers: this.setHeaders(headers),
-      params: Object.assign({}, query, method === 'POST' ? {} : data),
-      data: Object.assign({}, body, method !== 'POST' ? {} : data),
+      params: data instanceof FormData ? data : Object.assign({}, query, method === 'POST' ? {} : data),
+      data: data instanceof FormData ? data : Object.assign({}, body, method !== 'POST' ? {} : data),
     });
   }
   // 请求
@@ -73,7 +73,6 @@ export default class Http {
         }
         return !sender ? axios(pl) : sender(pl);
       }
-
      // 假设payload返回的是一个promise
      return payload && hasPromise(payload) ? payload.then(set => req(set)) : req(payload);
     };

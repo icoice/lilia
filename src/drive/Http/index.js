@@ -8,20 +8,17 @@ const formatMaps = (maps) => {
 
  Object.entries(maps).map((link) => {
    const [, desc] = link;
-
    list.push({
      name: desc.name,
      method: desc.method,
      path: desc.path,
      fake: desc.fake,
    });
-
    payloads.push({
      name: desc.name,
      origin: desc.origin,
      alias: desc.alias,
    });
-
    return link;
  });
 

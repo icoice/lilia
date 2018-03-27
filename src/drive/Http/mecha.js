@@ -65,7 +65,6 @@ export default class Mecha {
      const { n, id, method, payload } = params;
      return method(payload).then((response) => {
        const { description, data } = response;
-
        if (!data) {
          this.log('exception', '未获得服务器的响应数据');
        } else {
@@ -78,29 +77,25 @@ export default class Mecha {
      }).catch(e => {
        delete sendRecords[n][id];
        this.requsetException(e);
+       return e;
      });
     }
 
     // 创建接口
     list.map((access) => {
       const [n, method] = access;
-
       adapter[n] = typeof method === 'function' ? (params = {}) => {
         this.sendId += 1;
-
         const id = this.sendId;
         let payload = params;
-
         sendRecords[n] = !sendRecords[n] ? {} : sendRecords[n];
         sendRecords[n][id] = { REJECT_RESPONSE: false };
-
         if (!(params instanceof FormData)) {
           payload = this.getRequestPayload(n, params);
           if (requestBeforeProcess) {
             payload = Object.assign({}, requestBeforeProcess(payload, method));
           }
         }
-
         return request({ n, id, method, payload });
       } : method ;
       return access;
