@@ -44,7 +44,7 @@
       btn,
     },
     props: {
-      page: {
+      no: {
         type: Number,
         default: 1,
       },
@@ -64,7 +64,7 @@
         pageNoEnd: 1,
         amountStart: 0,
         amountEnd: 0,
-        currentPageNo: this.page,
+        currentPageNo: this.no,
         pageNoList: [],
         pageTotal: this.total,
       };
