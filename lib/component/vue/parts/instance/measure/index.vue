@@ -1,30 +1,30 @@
 <template>
-  <div class="vm" ref="measure">
+  <div class="moo-menuse moo" ref="measure">
     <div class="measure-content" ref="measureContent">
       <slot name="measure-content"/>
     </div>
     <div class="measure">
-      <vm-button @tap="hasMeasure">
+      <btn @tap="hasMeasure">
         <span slot="button-content">
           {{ !measure ? '开启标尺' : '关闭标尺' }}
         </span>
-      </vm-button>
-      <vm-button @tap="hasAllMeasure">
+      </btn>
+      <btn @tap="hasAllMeasure">
         <span slot="button-content">
           {{ !measureAll ? '开启全屏标尺' : '关闭全屏标尺' }}
         </span>
-      </vm-button>
+      </btn>
     </div>
   </div>
 </template>
 
 <script>
-  import vmButton from '../../common/button';
+  import btn from '../../common/button';
   import util from '../../../../../util';
 
   export default {
     components: {
-      vmButton,
+      btn,
     },
     data: () => ({
       measure: false,

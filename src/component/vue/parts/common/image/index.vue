@@ -1,5 +1,5 @@
 <template>
-  <div class="vm">
+  <div class="moo-image moo">
     <div class="image">
       <img
         :src="readFileReslut"
@@ -122,9 +122,9 @@
         if (file === null) return;
         const base64 = new FileReader();
         base64.onloadend =  () => {
-            this.readFileReslut = base64.result;
-            this.$emit('onload', base64.result);
-            this.$emit('load', base64.result);
+          this.readFileReslut = base64.result;
+          this.$emit('onload', base64.result);
+          this.$emit('load', base64.result);
         };
         base64.readAsDataURL(file);
       },

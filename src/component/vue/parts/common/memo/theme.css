@@ -1,4 +1,4 @@
-.vp-memo {
+.moo-memo {
   font-size: 14px;
   overflow-x: hidden;
   overflow-y: auto;
@@ -12,7 +12,8 @@
   background-color: #fff;
   border-radius: 5px;
   opacity: .7;
-  .vp-memo-content {
+
+  .memo-content {
     padding: .5em;
     ul {
       margin: 0;
@@ -28,7 +29,8 @@
       border-bottom: none;
     }
   }
-  .vp-memo-title {
+
+  .memo-title {
     font-size: 18px;
     padding: 1em;
     text-align: center;

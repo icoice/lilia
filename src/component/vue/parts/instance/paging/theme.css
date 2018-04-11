@@ -52,8 +52,8 @@
 .moo-paging ul li.page-no-selected {
   .moo-btn {
     .btn-touch {
-      background-color: #03609b;
-      color: #fff;
+      font-weight: bold;
+      color: #03609b;
     }
   }
 }

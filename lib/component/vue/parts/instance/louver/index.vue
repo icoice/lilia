@@ -1,6 +1,6 @@
 <template>
-  <div class="vm">
-    <ul class="louver" v-for="item in items">
+  <div class="moo-louver moo">
+    <ul v-for="item in items">
       <li class="louver-lines">
         <div class="louver-item" v-for="slotName in item">
           <slot :name="slotName"/>

@@ -44,3 +44,18 @@
   text-align: center;
   color: #666;
 }
+
+.moo-table .tb-select {
+  width: 40pxr;
+  span {
+    margin: 0 auto;
+    display: block;
+    width: 30pxr;
+    height: 30pxr;
+    border-radius: 50%;
+  }
+}
+
+.moo-table .tb-selected {
+  background-color: #055f9a;
+}

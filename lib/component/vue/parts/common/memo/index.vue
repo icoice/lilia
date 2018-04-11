@@ -1,11 +1,11 @@
 <template>
-<div class="vp-memo" v-if="memoShow">
-  <div class="vp-memo-header">
-    <div class="vp-memo-title">
+<div class="moo-memo moo" v-if="memoShow">
+  <div class="memo-header">
+    <div class="memo-title">
       {{memoTitle}}
     </div>
   </div>
-  <div class="vp-memo-content">
+  <div class="memo-content">
     <ul>
       <li v-for="description in memoMesage">
         {{description}}

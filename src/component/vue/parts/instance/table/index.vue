@@ -2,6 +2,8 @@
   <div class="moo moo-table">
     <table v-if='tbData && tbData.length > 0'>
       <tr v-for="th in tbHead" class='tb-head'>
+        <td class="tb-head-select" v-if='hasMulti'>
+        </td>
         <td v-for="item in th"
           :colspan="!item.cols ? 1 : item.cols"
           :rowspan="!item.rows ? 1 : item.rows"
@@ -12,10 +14,21 @@
         </td>
         <td v-if='tbOpts && tbOpts.length > 0' :colspan='tbOpts.length'></td>
       </tr>
-        <tr v-for="item in tbData">
+        <tr v-for="(item, code) in tbData">
+          <td class="tb-select" v-if='hasMulti'>
+            <btn @tap="e => multiSelect(code)">
+              <span slot="btn" :class="{ 'tb-selected': tbSel.indexOf(code) >= 0 }">
+              </span>
+            </btn>
+          </td>
           <td v-for="m in keyMap">
-            <btn @tap="e => tap({ key: m.key, value: item[m.key], data: item })">
-              <span slot="btn">{{ item[m.key] }}</span>
+            <btn @tap="e => tap({
+              key: m.key,
+              value: item[m.key],
+              data: item,
+              filter: filter(item[m.key]),
+            })">
+              <span slot="btn">{{ filter(item[m.key]) }}</span>
             </btn>
           </td>
           <td class='tb-opt' v-if='tbOpts && tbOpts.length > 0' v-for="(opt, code) in tbOpts">
@@ -44,9 +57,17 @@ export default {
       type: Array,
       default: [],
     },
+    hasMulti: {
+      type: Boolean,
+      default: false,
+    },
     operate: {
       type: Array,
       default: [],
+    },
+    filter: {
+      type: Function,
+      default: params => params,
     },
   },
   data() {
@@ -54,6 +75,7 @@ export default {
       tbHead: this.autoRows(this.head),
       tbData: this.list,
       tbOpts: this.operate,
+      tbSel: [],
     };
   },
   computed: {
@@ -90,6 +112,19 @@ export default {
         return tr;
       });
       return head;
+    },
+    multiSelect(code) {
+      const { tbSel } = this;
+      const newSel = [];
+      if (tbSel.indexOf(code) >= 0) {
+        tbSel.map((c) => {
+          if (c !== code) newSel.push(c);
+        });
+        this.tbSel = newSel;
+      } else {
+        tbSel.push(code);
+        this.tbSel = newSel.concat(tbSel);
+      }
     },
     headTap(data) {
       this.$emit('headTap', data);

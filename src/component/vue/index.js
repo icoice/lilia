@@ -7,20 +7,16 @@ import memo from './parts/common/memo';
 import image from './parts/common/image';
 import input from './parts/common/input';
 import radio from './parts/common/radio';
-import scoller from './parts/common/scroller';
 import select from './parts/common/select';
 import toast from './parts/common/toast';
-
 // 特例组件
 import measure from './parts/instance/measure';
 import date from './parts/instance/date';
 import datepicker from './parts/instance/datepicker';
 import table from './parts/instance/table';
-import confirm from './parts/instance/confirm';
+import tree from './parts/instance/tree';
 import condition from './parts/instance/condition';
 import showcase from './parts/instance/showcase';
-import tree from './parts/instance/tree';
-import category from './parts/instance/category';
 import paging from './parts/instance/paging';
 import multipleChoose from './parts/instance/multipleChoose';
 import louver from './parts/instance/louver';
@@ -39,17 +35,12 @@ export const mooSelect = select;
 export const mooShowcase = showcase;
 export const mooToast = toast;
 export const mooTable = table;
-
-export const vpMemo = memo;
-export const vpScroller = scoller;
-export const vpConfirm = confirm;
-export const vpTree = tree;
-export const vpCategory = category;
-export const vpMultipleChoose = multipleChoose;
-export const vmMeasure = measure;
-export const vmImage = image;
-export const vmBtn = button;
-export const vmLouver = louver;
+export const mooMemo = memo;
+export const mooLouver = louver;
+export const mooMultipleChoose = multipleChoose;
+export const mooMeasure = measure;
+export const mooImg = image;
+export const mooTree = tree;
 
 const component = {
   mooBtn,
@@ -66,16 +57,13 @@ const component = {
   mooShowcase,
   mooTable,
   mooToast,
-
-  vmLouver,
-  vmImage,
-  vmMeasure,
-  vpMemo,
-  vpScroller,
-  vpConfirm,
-  vpCategory,
-  vpMultipleChoose,
-  vpTree,
+  mooTree,
+  mooMemo,
+  mooMeasure,
+  mooMultipleChoose,
+  mooImg,
+  mooMeasure,
+  mooLouver,
 };
 
 export const register = function register(Vue) {
