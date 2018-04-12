@@ -45,14 +45,22 @@
   color: #666;
 }
 
+.moo-table .tb-head-select {
+  width: 60pxr;
+  .moo-btn .btn-touch span{
+    color: #03609b;
+  }
+}
+
 .moo-table .tb-select {
-  width: 40pxr;
+  width: 60pxr;
   span {
-    margin: 0 auto;
     display: block;
+    margin: 0 auto;
     width: 30pxr;
     height: 30pxr;
     border-radius: 50%;
+    border: 1px solid #dfdfdf;
   }
 }
 

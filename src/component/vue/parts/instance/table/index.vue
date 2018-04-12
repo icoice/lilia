@@ -3,6 +3,16 @@
     <table v-if='tbData && tbData.length > 0'>
       <tr v-for="th in tbHead" class='tb-head'>
         <td class="tb-head-select" v-if='hasMulti'>
+          <div v-if='tbSel.length === 0'>
+            <btn @tap="allCheck">
+              <span slot="btn">全选</span>
+            </btn>
+          </div>
+          <div v-else>
+            <btn @tap="backCheck">
+              <span slot="btn">反选</span>
+            </btn>
+          </div>
         </td>
         <td v-for="item in th"
           :colspan="!item.cols ? 1 : item.cols"
@@ -90,6 +100,7 @@ export default {
     },
     list(data) {
       this.tbData = data;
+      this.tbSel = [];
     },
     operate(data) {
       this.tbOpts = data;
@@ -113,6 +124,27 @@ export default {
       });
       return head;
     },
+    allCheck() {
+      const { tbData } = this;
+      const newSel = [];
+      tbData.map((v, c) => {
+        newSel.push(c);
+      });
+      this.tbSel = newSel;
+      this.$emit('check', Object.assign([], this.tbSel));
+    },
+    backCheck() {
+      const { tbData } = this;
+      const tbSel = Object.assign([], this.tbSel);
+      const newSel = [];
+      tbData.map((v, code) => {
+        if (tbSel.indexOf(code) < 0) {
+          newSel.push(code);
+        }
+      });
+      this.tbSel = newSel;
+      this.$emit('check', Object.assign([], this.tbSel));
+    },
     multiSelect(code) {
       const { tbSel } = this;
       const newSel = [];
@@ -125,6 +157,7 @@ export default {
         tbSel.push(code);
         this.tbSel = newSel.concat(tbSel);
       }
+      this.$emit('check', Object.assign([], this.tbSel));
     },
     headTap(data) {
       this.$emit('headTap', data);

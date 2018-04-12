@@ -104,7 +104,8 @@ export default {
       tree.innerHTML = '';
       tree.appendChild(node);
     },
-    createTreeLine(node = null, name) {
+    createTreeLine(node = null, item) {
+      const { name } = item;
       const n = document.createElement('div');
       n.className = !node ? 'tree-line tree-root' : 'tree-line';
       n.innerHTML = `<span>${name}</span><span class='tree-middle-line'></span>`;
@@ -117,6 +118,12 @@ export default {
             c.style.display = c.style.display === 'block' ? 'none' : 'block';
           }
         }
+        this.$emit('click', {
+          name: item.name,
+          parentId: item.parentId,
+          id: item.id,
+          child: item.child,
+        });
       }
       return n;
     },
@@ -132,17 +139,17 @@ export default {
           r.className = 'tree-block';
           r.style.marginLeft = `${layer}rem`;
           r.style.display = !node ? 'block' : 'none';
-          r.appendChild(this.createTreeLine(node, item.name));
+          r.appendChild(this.createTreeLine(node, item));
           item.selfNode = r;
           if (item && item.child) {
             item.child.map((nid) => {
               const c = document.createElement('div');
-              const item = maps[nid];
+              const im = maps[nid];
               c.className = 'tree-block';
               c.style.marginLeft = `${layer + 1}rem`;
-              c.appendChild(this.createTreeLine(item.child, item.name));
+              c.appendChild(this.createTreeLine(im.child, im));
               r.appendChild(c);
-              this.createNode(item.child, layer, c);
+              this.createNode(im.child, layer, c);
             });
           }
           n.appendChild(r);
