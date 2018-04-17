@@ -51,6 +51,14 @@ export default {
       type: Array,
       default: [],
     },
+    hasMulti: {
+      type: Boolean,
+      default: false,
+    },
+    selected: {
+      type: Object,
+      default: () => ({}),
+    },
   },
   mounted() {
     this.build();
@@ -64,11 +72,17 @@ export default {
   data() {
     return {
       ...this.createTree(this.list),
+      selectList: this.selected,
+      nodeGroup: [],
     }
   },
   watch: {
     list(items) {
       this.createTree(items);
+    },
+    selected(list) {
+      this.selectList = list;
+      this.build();
     },
   },
   methods: {
@@ -89,12 +103,10 @@ export default {
         if (maps[item.parentId] && item.parentId !== nid) maps[item.parentId].child.push(nid);
       });
 
-      return {
-        root,
-        maps,
-      };
+      return { root, maps };
     },
     build() {
+      this.nodeGroup = [];
       const tree = this.createNode(this.root);
       this.insertNode(tree);
     },
@@ -104,21 +116,69 @@ export default {
       tree.innerHTML = '';
       tree.appendChild(node);
     },
+    // 选择
+    nodeSelect(node, n, item) {
+      const sel = Object.assign({}, this.hasMulti ? this.selectList : {});
+      if (!sel[item.id]) {
+        sel[item.id] = item;
+      } else {
+        delete sel[item.id];
+      }
+      this.selectList = sel;
+      if (!this.hasMulti) {
+        this.nodeGroup.map((nd) => {
+          nd.className = nd.className.replace('tree-selected', '');
+        });
+      }
+      n.className = !node ?
+        `tree-line tree-root ${!sel[item.id] ? '' : 'tree-selected'}`
+        : `tree-line ${!sel[item.id] ? '' : 'tree-selected'}`;
+    },
     createTreeLine(node = null, item) {
       const { name } = item;
       const n = document.createElement('div');
+      const nName = document.createElement('div');
+      const mline = document.createElement('span');
+      const open = document.createElement('span');
+      this.nodeGroup.push(n);
       n.className = !node ? 'tree-line tree-root' : 'tree-line';
-      n.innerHTML = `<span>${name}</span><span class='tree-middle-line'></span>`;
-      n.onclick = (e) => {
+      open.className = 'tree-open';
+      nName.innerHTML = name;
+      mline.innerHTML = '';
+      if (item.child && item.child.length > 0) {
+        open.innerHTML = node === null ? '-' : '+';
+      }
+      n.appendChild(nName);
+      n.appendChild(mline);
+      nName.appendChild(open);
+      nName.onclick = (e) => {
+        this.nodeSelect(node, n, {
+          name: item.name,
+          parentId: item.parentId,
+          id: item.id,
+          child: item.child,
+        });
+        this.$emit('click', {
+          name: item.name,
+          parentId: item.parentId,
+          id: item.id,
+          child: item.child,
+          selectList: this.selectList,
+        });
+      }
+      open.onclick = (e) => {
         const p = n.parentNode;
         e.stopPropagation();
         for (let i = 0; i < p.children.length; i++) {
           const c = p.children[i];
           if (c.className.indexOf('tree-line') < 0) {
             c.style.display = c.style.display === 'block' ? 'none' : 'block';
+            if (item.child && item.child.length > 0) {
+              open.innerHTML = c.style.display === 'block' ? '-' : '+';
+            }
           }
         }
-        this.$emit('click', {
+        this.$emit('open', {
           name: item.name,
           parentId: item.parentId,
           id: item.id,

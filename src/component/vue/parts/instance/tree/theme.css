@@ -14,6 +14,7 @@
   font-size: 12pxr;
   color: #666;
   cursor: pointer;
+  border-bottom: 1px solid #fff;
 }
 
 .moo-tree .tree-line span {
@@ -22,7 +23,6 @@
   z-index: 1;
   margin-left: 10pxr;
   width: 80%;
-  background-color: #fff;
 }
 
 .moo-tree span.tree-middle-line {
@@ -36,7 +36,23 @@
 }
 
 .moo-tree .tree-root {
-  border: none;
+  border-top: none;
+  border-left: none;
+  border-right: none;
   font-weight: bold;
   color: #333;
+  border-bottom: 1px solid #fff;
+}
+
+.moo-tree span.tree-open {
+  display: inline;
+  position: relative;
+  z-index: 1;
+  top: 0;
+}
+
+.moo-tree .tree-selected {
+  border-bottom: 1px solid #1c4056;
+  background-color: #22506e;
+  color: #fff;
 }
