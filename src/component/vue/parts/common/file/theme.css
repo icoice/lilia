@@ -5,6 +5,12 @@
   @mixin clear-select;
 }
 
+.moo-file .moo-file-limit {
+  padding: 5pxr;
+  font-size: 12pxr;
+  color: #333;
+}
+
 .moo-file .select-file {
   overflow: hidden;
   position: relative;

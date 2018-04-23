@@ -87,7 +87,6 @@
         const files = [];
         for (let i = 0; i < fileUpload.files.length; i += 1) {
           const file = fileUpload.files[i];
-          if (!this.verifyFileExtend(file.name)) continue;
           files.push(file);
         }
         this.fileCollect = files;

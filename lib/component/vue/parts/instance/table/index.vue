@@ -1,6 +1,7 @@
 <template>
   <div class="moo moo-table">
     <table v-if='tbData && tbData.length > 0'>
+      <!-- tb-head -->
       <tr v-for="th in tbHead" class='tb-head'>
         <td class="tb-head-select" v-if='hasMulti'>
           <div v-if='tbSel.length === 0'>
@@ -24,30 +25,27 @@
         </td>
         <td v-if='tbOpts && tbOpts.length > 0' :colspan='tbOpts.length'></td>
       </tr>
-        <tr v-for="(item, code) in tbData">
-          <td class="tb-select" v-if='hasMulti'>
-            <btn @tap="e => multiSelect(code)">
-              <span slot="btn" :class="{ 'tb-selected': tbSel.indexOf(code) >= 0 }">
-              </span>
-            </btn>
-          </td>
-          <td v-for="m in keyMap">
-            <btn @tap="e => tap({
-              key: m.key,
-              value: item[m.key],
-              data: item,
-              filter: filter(item[m.key]),
-            })">
-              <span slot="btn">{{ filter(item[m.key]) }}</span>
-            </btn>
-          </td>
-          <td class='tb-opt' v-if='tbOpts && tbOpts.length > 0' v-for="(opt, code) in tbOpts">
-            <btn @tap='e => tap({ key: opt.key, name: opt.name, data: item, code })'>
-              <span slot="btn">{{ opt.name }}</span>
-            </btn>
-          </td>
-        </tr>
+      <!-- tb-body -->
+      <tr v-for="(item, code) in tbData">
+        <td class="tb-select" v-if='hasMulti'>
+          <btn @tap="e => multiSelect(code)">
+            <span slot="btn" :class="{ 'tb-selected': tbSel.indexOf(code) >= 0 }">
+            </span>
+          </btn>
+        </td>
+        <td v-for="m in keyMap">
+          <btn @tap="e => tap({ key: m.key, value: item[m.key], data: item, filter: filter(m.key, item[m.key]) })">
+            <span slot="btn">{{ filter(m.key, item[m.key]) }}</span>
+          </btn>
+        </td>
+        <td class='tb-opt' v-if='tbOpts && tbOpts.length > 0' v-for="(opt, code) in tbOpts">
+          <btn @tap='e => tap({ key: opt.key, name: opt.name, data: item, code })'>
+            <span slot="btn">{{ opt.name }}</span>
+          </btn>
+        </td>
+      </tr>
     </table>
+    <!-- no-data -->
     <div class="no-table-data" v-else>
       <slot name='no-data'></slot>
     </div>
@@ -77,7 +75,7 @@ export default {
     },
     filter: {
       type: Function,
-      default: params => params,
+      default: (key, value) => value,
     },
   },
   data() {
