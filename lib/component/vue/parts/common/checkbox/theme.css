@@ -21,29 +21,25 @@
   .moo-btn .btn-touch{
     overflow: hidden;
     background-color: transparent;
+    border-radius: 0;
   }
   .moo-btn .btn-touch .box-mark {
     position: relative;
     float: left;
-    width: 30pxr;
-    height: 30pxr;
   }
   .moo-btn .btn-touch .box-mark span {
-    position: absolute;
     display: block;
-    margin-top: 5pxr;
-    margin-left: 7.5pxr;
-    width: 15pxr;
-    height: 15pxr;
     border: 1px solid #03609b;
   }
   .moo-btn .btn-touch .box-selected span{
-    background-color: #03609b;
+    color: #03609b;
   }
   .moo-btn .btn-touch .box-name {
     float: left;
+    margin-left: 10pxr;
     height: 30pxr;
     line-height: 30pxr;
+    border: 1px solid transparent;
     font-size: 14pxr;
     color: #333;
   }

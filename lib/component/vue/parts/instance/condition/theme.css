@@ -2,6 +2,7 @@
 @import 'planes/unit.css';
 
 .moo-condition {
+  position: relative;
   padding: 6pxr;
   background-color: #efefef;
   border-radius: 5pxr;
@@ -9,9 +10,36 @@
   font-size: 14pxr;
 }
 
+.moo-condition .moo-select .select-pull-down {
+  z-index: 5;
+}
+
 .moo-condition .condition-container {
   position: relative;
-  overflow: hidden;
+  margin-bottom: 12pxr;
+}
+
+.moo-condition .condition-container::after {
+  content: '';
+  display: block;
+  height: 0;
+  clear: both;
+  visibility: hidden;
+}
+
+.moo-condition .condition-item::after {
+  content: '';
+  display: block;
+  height: 0;
+  clear: both;
+  visibility: hidden;
+}
+
+.moo-condition .condition-container:last-child {
+  margin-bottom: auto;
+}
+
+.moo-condition>.condition-container:last-child {
   margin-bottom: 12pxr;
 }
 
@@ -33,7 +61,13 @@
     text-align: center;
   }
 }
-
+.moo-condition .moo.moo-datepicker {
+  position: absolute;
+  left: 50%;
+  top: 100%;
+  transform: translateX(-50%);
+  z-index: 99;
+}
 
 .moo-condition .condition-date-input {
   border-radius: 5pxr;
@@ -60,18 +94,17 @@
   box-shadow: 10pxr 10pxr 1pxr #000 inset;
 }
 
-.moo-condition .condition-container:last-child {
-  margin-bottom: auto;
-}
-
 .moo-condition .condition-item {
   float: left;
 }
 
-.moo-condition .condition-type-input {
-  overflow: hidden;
-  margin: 0 auto;
+.moo-condition .condition-item .condition-container{
+  float: left;
+  width: 60%;
+}
 
+.moo-condition .condition-type-input {
+  margin: 0 auto;
   .moo-select {
     float: right;
     width: 95%;
@@ -79,7 +112,6 @@
 }
 
 .moo-condition .condition-container-half {
-  overflow: hidden;
   float: left;
   width: 50%;
 }
@@ -95,18 +127,23 @@
 }
 
 .moo-condition .condition-checkbox-list {
-  overflow-y: auto;
-  position: relative;
-  z-index: 1;
+  position: absolute;
+  z-index: 5;
+  top: 100%;
   margin-top: -2px;
-  height: 200pxr;
-  border: 1px solid #dfdfdf;
+  width: 100%;
   background-color: #fff;
   .moo-btn {
     .btn-touch {
-      padding: 0;
+      padding: 5pxr;
     }
   }
+}
+
+.moo-condition .condition-checkbox-con {
+  overflow-y: auto;
+  height: 200pxr;
+  border: 1px solid #dfdfdf;
 }
 
 .moo-condition .condition-checkbox-list .moo-checkbox {
@@ -142,29 +179,136 @@
     float: left;
     width: 50%;
     input {
+      position: relative;
+      top: 1px;
+      padding: 8pxr;
       font-size: 14pxr;
       border-radius: 0;
       border: 0;
     }
   }
   .condition-checkbox-operator {
+    background-color: #fff;
     overflow: hidden;
     float: left;
     width: 50%;
     .moo-btn {
-      float: left;
+      float: right;
       width: 33.33%;
     }
     .moo-btn .btn-touch {
       padding: 8pxr 0;
-      background-color: #fff;
       border-radius: 0;
+      background-color: #fff;
       border: 0;
       font-size: 14pxr;
-      color: #e2e2e2;
+      color: #8c8c8c;
     }
-    .moo-btn:last-child .btn-touch {
+    .moo-btn:first-child .btn-touch {
       color: #c00;
     }
+  }
+}
+
+.moo-condition .condition-selectScroll-result {
+  .moo-btn {
+    .btn-touch {
+      padding: 8pxr;
+      background-color: #fff;
+      border: 1px solid #dfdfdf;
+      color: #333;
+    }
+  }
+}
+
+.moo-condition .condition-selectScroll-search {
+  overflow: hidden;
+  border: 1px solid #dfdfdf;
+  border-radius: 5pxr;
+  .moo-input {
+    float: left;
+    width: 50%;
+    input {
+      font-size: 14pxr;
+      border-radius: 0;
+      border: 0;
+    }
+  }
+  .condition-selectScroll-operator {
+    background-color: #fff;
+    overflow: hidden;
+    float: left;
+    width: 50%;
+    .moo-btn {
+      float: right;
+      width: 33.33%;
+    }
+    .moo-btn .btn-touch {
+      padding: 8pxr 0;
+      border-radius: 0;
+      background-color: #fff;
+      border: 0;
+      font-size: 14pxr;
+      color: #8c8c8c;
+    }
+    .moo-btn:first-child .btn-touch {
+      color: #c00;
+    }
+  }
+}
+
+.moo-condition .condition-selectScroll-list {
+  overflow-y: auto;
+  position: absolute;
+  z-index: 99;
+  top: 100%;
+  width: 100%;
+  height: 200pxr;
+  border: 1px solid #dfdfdf;
+  background-color: #fff;
+  .radio-item {
+    position: relative;
+    float: none;
+    padding-left: 30pxr;
+    .radio-check {
+      position: absolute;
+      left: 6pxr;
+      top: 50%;
+      transform: translateY(-50%);
+      border-radius: 50%;
+      border-color: #00619c;
+      margin-top: 0;
+      width: 18pxr;
+      height: 18pxr;
+    }
+    .radio-check.radio-checked {
+      .radio-checked-box {
+        margin-top: 3pxr;
+        width: 12pxr;
+        height: 12pxr;
+        background-color: #00619c;
+        border-radius: 50%;
+      }
+    }
+  }
+}
+
+.moo-condition .condition-selectScroll-list .moo-checkbox {
+  background-color: #fff;
+}
+
+.moo-condition .condition-date-input,
+.moo-condition .condition-date-scope {
+  position: relative;
+  .iconfont {
+    position: absolute;
+    top: 50%;
+    left: 0;
+    margin-left: 5pxr;
+    z-index: 4;
+    margin-top: -13pxr;
+    font-size: 26pxr;
+    color: #dfdfdf;
+    background-color: #fff;
   }
 }

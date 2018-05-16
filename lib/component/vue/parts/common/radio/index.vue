@@ -1,12 +1,10 @@
 <template>
   <div class="moo-radio" :class="{ 'moo-radio-disabled': radioDisabled, }">
-    <div class="radio-item" v-for="(item, itemCode) in radioItems">
-      <div @click="selectRadio(itemCode, item)">
-        <div :class="{'radio-check': true, 'radio-checked': hasSelected(itemCode)}">
-          <div class="radio-checked-box"></div>
-        </div>
-        <div class="radio-name">{{item.name}}</div>
+    <div class="radio-item" v-for="(item, itemCode) in radioItems" @click="selectRadio(itemCode, item)">
+      <div :class="{'radio-check': true, 'radio-checked': hasSelected(itemCode)}">
+        <div class="radio-checked-box iconfont icon-right"></div>
       </div>
+      <div class="radio-name">{{item.name}}</div>
     </div>
     <div class="radio-mask" v-if="radioDisabled"></div>
   </div>

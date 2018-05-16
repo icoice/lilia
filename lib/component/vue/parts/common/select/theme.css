@@ -24,22 +24,29 @@
   border: 1px solid #dfdfdf;
   font-size: 14pxr;
   outline: none;
-  .moo-icon {
+  .iconfont {
     position: absolute;
+    top: 50%;
     right: 0;
-    font-size: 14pxr;
+    margin-top: -13pxr;
+    font-size: 26pxr;
     color: #dfdfdf;
   }
 }
 
 .moo-select .select-pull-down {
   @mixin clear-select;
-  position: relative;
-  top: 0;
-  z-index: 1;
-  margin-top: -16pxr;
+  position: absolute;
+  top: 100%;
+  margin-top: -1px;
+  width: 100%;
+  z-index: 2;
+  box-sizing: border-box;
   border-top: none;
-  border-radius: 5pxr;
+  border-top-left-radius: 0;
+  border-top-right-radius: 0;
+  border-bottom-left-radius: 5pxr;
+  border-bottom-right-radius: 5pxr;
   background-color: #fff;
 
   .select-option {
@@ -48,21 +55,20 @@
     font-size: 14pxr;
   }
   .select-clear-option {
-    color: #efefef;
+    color: #c5c5c5;
   }
   .select-option:hover {
     color: #00619c;
   }
   .select-default {
     z-index: 0;
-    border: none;
   }
 }
 
 .moo-select .select-default:hover {
   border: 1px solid #00619c;
   color: #00619c;
-  .moo-icon {
+  .iconfont {
     color: #00619c;
   }
 }
@@ -78,7 +84,6 @@
 }
 
 .moo-select .list-open {
-  border-bottom: none;
   border-bottom-left-radius: 0;
   border-bottom-right-radius: 0;
 }
@@ -87,5 +92,4 @@
   border-top: 1px solid #dfdfdf;
   border-left: 1px solid #dfdfdf;
   border-right: 1px solid #dfdfdf;
-  border-bottom: none;
 }

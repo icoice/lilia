@@ -13,7 +13,7 @@
         @blur ="onBlur"
         @keyup="verifyVal"/>
       <div class="input-clear" v-if="showClear(myVal)">
-        <span class="psm-icon psm-clear" @click.stop="clear" @touchend.stop="clear">
+        <span class="iconfont icon-delete" @click.stop="clear" @touchend.stop="clear">
         </span>
       </div>
       <div class="input-mask" v-if="hasDisabled"></div>

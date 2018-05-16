@@ -35,12 +35,12 @@
         </td>
         <td v-for="m in keyMap">
           <btn @tap="e => tap({ key: m.key, value: item[m.key], data: item, filter: filter(m.key, item[m.key]) })">
-            <span slot="btn">{{ filter(m.key, item[m.key]) }}</span>
+            <span slot="btn" v-html="filter(m.key, item[m.key])"></span>
           </btn>
         </td>
         <td class='tb-opt' v-if='tbOpts && tbOpts.length > 0' v-for="(opt, code) in tbOpts">
           <btn @tap='e => tap({ key: opt.key, name: opt.name, data: item, code })'>
-            <span slot="btn">{{ opt.name }}</span>
+            <span slot="btn" v-html="opt.name"></span>
           </btn>
         </td>
       </tr>

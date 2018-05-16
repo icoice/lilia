@@ -2,17 +2,20 @@
   <div v-if="open" class="moo moo-datepicker">
     <div class="datepicker-nav">
       <btn @tap="today">
-        <span slot="btn">Today</span>
+        <span slot="btn">今天</span>
       </btn>
       <btn @tap='close'>
-        <span slot="btn">Close</span>
+        <span class="iconfont icon-close" slot="btn"></span>
+      </btn>
+      <btn @tap='clearDate()'>
+        <span class="iconfont icon-brush" slot="btn"></span>
       </btn>
     </div>
     <div class="datepicker-area">
       <div class="area-title" :class="{'area-hidden': !showYear}">
         <div class="left">
           <moo-btn @tap="e => showArea('year')">
-            <span slot="btn">Choose Year</span>
+            <span slot="btn">点击展开年份</span>
           </moo-btn>
         </div>
         <div class="right">
@@ -41,17 +44,17 @@
         </div>
         <div class="datepicker-items-operator">
           <btn @tap="PrevYear">
-            <span slot="btn">PREV</span>
+            <span slot="btn">上一页</span>
           </btn>
           <btn @tap="NextYear">
-            <span slot="btn">NEXT</span>
+            <span slot="btn">下一页</span>
           </btn>
         </div>
       </div>
       <div class="area-title" :class="{'area-hidden': !showMonth}">
         <div class="left">
           <moo-btn @tap="e => showArea('month')">
-            <span slot="btn">Choose Month</span>
+            <span slot="btn">点击展开月份</span>
           </moo-btn>
         </div>
         <div class="right">
@@ -82,7 +85,7 @@
       <div class="area-title">
         <div class="left">
           <moo-btn>
-            <span slot="btn">Choose Day</span>
+            <span slot="btn">&nbsp;</span>
           </moo-btn>
         </div>
         <div class="right">
@@ -143,11 +146,16 @@
       now: {
         type: Number,
         default: Date.now(),
-      }
+      },
     },
     watch: {
       show(has) {
         this.open = has;
+        // 重置 年 月选择框
+        if (has === true) {
+          this.showYear = false;
+          this.showMonth = false;
+        }
       },
       now() {
         this.current = this.now;
@@ -279,6 +287,9 @@
         this.current = util.Date.timestamp(`${td.year}/${td.month}/${td.day}`);
         this.init();
         this.$emit('change', this.current);
+      },
+      clearDate() {
+        this.$emit('clear', null);
       },
       choose(type, number) {
         const y = type === 'year' ? number : this.nowYear;

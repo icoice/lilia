@@ -34,6 +34,7 @@
       </div>
       <div class="condition-container" v-if="item.component === 'date'">
         <div class="condition-date-input" @click="e => changeDateStatus(item)">
+          <span class="iconfont icon-activity"></span>
           <moo-input
           :disabled="true"
           :val="formatDate(item.value)"
@@ -42,6 +43,7 @@
       </div>
       <div class="condition-container" v-if="item.component === 'dateScope'">
         <div class="condition-date-scope" @click="e => changeDateStatus(item.items.start)">
+          <span class="iconfont icon-activity"></span>
           <moo-input
           :disabled="true"
           :val="formatDate(item.items.start.value)"
@@ -49,6 +51,7 @@
         </div>
         <div class="condition-date-split">-</div>
         <div class="condition-date-scope" @click="e => changeDateStatus(item.items.end)">
+          <span class="iconfont icon-activity"></span>
           <moo-input
           :disabled="true"
           :val="formatDate(item.items.end.value)"
@@ -56,8 +59,8 @@
         </div>
       </div>
       <div class="condition-container" v-if="item.component === 'checkbox'">
-        <div class="condition-checkbox-result" v-if="!hasCheckboxSearch">
-          <btn @tap="changeSearchCheckbox">
+        <div class="condition-checkbox-result" v-if="!item.show">
+          <btn @tap="changeSearchCheckbox(true, item)">
             <div slot="btn">
               {{ checkBoxSelected(item) }}
             </div>
@@ -66,28 +69,53 @@
         <div class="condition-checkbox-search" v-else>
           <moo-input :val="checkboxSearchKey" placeholder="请输入关键词搜索" @updated="updateSearchCheckbox"/>
           <div class="condition-checkbox-operator">
-            <btn @tap="e => allSelect(item)">
-              <span slot="btn">全选</span>
+            <btn @tap="changeSearchCheckbox(false, item)">
+              <span class="iconfont icon-close" slot="btn"></span>
             </btn>
             <btn @tap="e => reverse(item)">
               <span slot="btn">反选</span>
             </btn>
-            <btn @tap="changeSearchCheckbox">
-              <span slot="btn">关闭</span>
+            <btn @tap="e => allSelect(item)">
+              <span slot="btn">全选</span>
             </btn>
           </div>
         </div>
-        <div class="condition-checkbox-list" v-if="hasCheckboxSearch">
-          <moo-checkbox
-          :items="searchCheckbox(item)"
-          :selected="item.value"
+        <div class="condition-checkbox-list" v-if="item.show">
+          <div class="condition-checkbox-con">
+            <moo-checkbox :items="searchCheckbox(item)" :selected="item.value" @tap="val => change(item, val)"/>
+          </div>
+        </div>
+      </div>
+      <div class="condition-container" v-if="item.component === 'selectScroll'">
+        <div class="condition-selectScroll-result" v-if="!item.show">
+          <btn @tap="changeSearchCheckbox(true, item)">
+            <div slot="btn">
+              {{ item.value.code || item.value.code === 0 ? item.value.data.name : (item.tips || '请选择') }}
+            </div>
+          </btn>
+        </div>
+        <div class="condition-selectScroll-search" v-else>
+          <moo-input :val="checkboxSearchKey" placeholder="请输入关键词搜索" @updated="updateSearchCheckbox"/>
+          <div class="condition-selectScroll-operator">
+            <btn @tap="changeSearchCheckbox(false, item)">
+              <span slot="btn">关闭</span>
+            </btn>
+            <btn @tap="change(item, {})">
+              <span slot="btn">清除</span>
+            </btn>
+          </div>
+        </div>
+        <div class="condition-selectScroll-list" v-if="item.show">
+          <moo-radio
+          :items="item.items"
+          :selected="item.value.code"
           @tap="val => change(item, val)" />
         </div>
       </div>
     </div>
   </div>
   <div class="condition-tips" v-else>未设置查询条件内容</div>
-  <moo-datepicker :show="hasDateOpen" @close="closeDate" @change="val => changeDate(val)"/>
+  <moo-datepicker :show="hasDateOpen" :hasClear="true" @close="closeDate" @change="val => changeDate(val)" @clear="val => clearDate()"/>
 </div>
 </template>
 
@@ -95,6 +123,7 @@
   import mooDatepicker from '../datepicker';
   import mooInput from '../../common/input';
   import mooSelect from '../../common/select';
+  import mooRadio from '../../common/radio';
   import mooCheckbox from '../../common/checkbox';
   import btn from '../../common/button';
   import drive from '../../../../../drive';
@@ -102,22 +131,31 @@
 
 
   export default {
-    ...drive.Vue.state('cond', {
-      list: [Array, []],
-      cols: [Number, 4],
-    }, {
-      data: {
+    props: {
+      list: {
+        type: Array,
+        default: () => [],
+      },
+      cols: {
+        type: Number,
+        default: () => 4,
+      },
+    },
+    data() {
+      return {
         hasDateOpen: false,
-        hasCheckboxSearch: false,
         dateTarget: null,
         checkboxSearchKey: '',
-      },
-    }),
+        condList: this.list,
+        condCols: this.cols,
+      };
+    },
     components: {
       mooInput,
       mooSelect,
       mooDatepicker,
       mooCheckbox,
+      mooRadio,
       btn,
     },
     computed: {
@@ -126,13 +164,20 @@
         return util.Array.pile(condCols, condList);
       },
     },
+    watch: {
+      cols(cols) {
+        this.condCols = cols;
+      },
+      list(list) {
+        this.condList = list;
+      },
+      condShow() {
+        this.hasDateOpen = false;
+      },
+    },
     methods: {
       hasNoEmptry: items => items && items.length > 0,
       width: cols => ({ width: `${100 / cols}%` }),
-      changeSearchCheckbox() {
-        this.hasCheckboxSearch = !this.hasCheckboxSearch;
-        this.checkboxSearchKey = '';
-      },
       updateSearchCheckbox(val) {
         this.checkboxSearchKey = val;
       },
@@ -148,6 +193,11 @@
         } else {
           return item.items;
         }
+      },
+      changeSearchCheckbox(show, item) {
+        item.show = !item.show;
+        if (show) this.checkboxSearchKey = '';
+        this.$forceUpdate();
       },
       checkBoxSelected(item) {
         if (util.Assert.hasArr(item.value) && item.value.length > 0) {

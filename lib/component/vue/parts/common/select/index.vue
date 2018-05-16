@@ -4,17 +4,14 @@
   @mouseover="hasMoveOnSelect" @mouseleave="hasMouseLeave">
   <!-- 所选 -->
   <div :class="['select-default' , selectDefaultChange()]" @click="openlist">
-    <div :class="['psm-icon', iconChange()]" v-if="!hasDisabled"></div>
+    <div :class="['iconfont', iconChange()]" v-if="!hasDisabled"></div>
     <span>{{selected.name}}</span>
   </div>
   <!-- 下拉菜单 -->
-  <div class="select-pull-down"
-    v-if="listOpen && menus.length > 0 && !hasDisabled">
-    <div class="select-default"></div>
-    <div class="select-option select-clear-option"
-      @click="selectOption(emptySelected)"> 清除 </div>
+  <div class="select-pull-down" v-if="listOpen && menus.length > 0 && !hasDisabled">
+    <div class="select-option select-clear-option" @click="selectOption(emptySelected)">清除</div>
     <div class="select-option" v-for="item in menus" @click="selectOption(item)">
-      {{item.name}}
+      {{ item.name }}
     </div>
   </div>
   <div class="select-mask" v-if="hasDisabled"></div>
@@ -30,11 +27,11 @@ export default {
     },
     list: {
       type: Array,
-      default: [],
+      default: () => [],
     },
     val: {
       type: [String, Number],
-      default: '',
+      default: () => '',
     },
     placeholder: {
       type: String,
@@ -91,7 +88,7 @@ export default {
   },
   methods: {
     iconChange() {
-      return this.listOpen ? 'psm-arrow-up' : 'psm-arrow-down';
+      return this.listOpen ? 'icon-packup' : 'icon-unfold';
     },
     selectDefaultChange() {
       return this.listOpen ? 'list-open' : 'list-close';

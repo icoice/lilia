@@ -6,7 +6,7 @@
   margin: 0 auto;
   padding: 5pxr;
   width: 550pxr;
-  border: 1px solid #03609b;
+  border: 1px solid #d2d2d2;
   background-color: #f4f4f4;
   .moo-btn {
     .btn-touch {
@@ -37,6 +37,8 @@
   .area-title .left {
     float: left;
     width: 60%;
+    box-sizing: border-box;
+    padding-left: 10pxr;
     .moo-btn {
       .btn-touch {
         text-align: left;
@@ -70,12 +72,12 @@
   padding: 10pxr 0;
   border-bottom: 1px solid #efefef;
   .moo-btn {
-    float: left;
+    float: right;
   }
-  .moo-btn:last-child {
+  .moo-btn:first-child {
     float: none;
     position: absolute;
-    right: 0;
+    left: 0;
   }
 }
 

@@ -3,12 +3,12 @@
     <ul>
       <li class="paging-operate paging-first">
         <btn @tap="firstPageNo()">
-          <span slot="btn">首页</span>
+          <span class="iconfont2 icon2-first-page-o" slot="btn"></span>
         </btn>
       </li>
       <li class="paging-operate paging-prev">
         <btn @tap="tapPageNo(currentPageNo - 1)">
-          <span slot="btn">上一页</span>
+          <span class="iconfont icon-return" slot="btn"></span>
         </btn>
       </li>
       <li v-for="pageNo in pageNoList" class="page-no" v-if="!maxPage(pageNo)" :class="{
@@ -21,16 +21,13 @@
       </li>
       <li class="paging-operate paging-next">
         <btn @tap="tapPageNo(currentPageNo + 1)">
-          <span slot="btn">下一页</span>
+          <span class="iconfont icon-enter" slot="btn"></span>
         </btn>
       </li>
       <li class="paging-operate paging-last">
         <btn @tap="tapPageNo(getTotalPage())">
-          <span slot="btn">尾页</span>
+          <span class="iconfont2 icon2-last-page-o" slot="btn"></span>
         </btn>
-      </li>
-      <li class="paging-tips">
-        共{{pageTotal}}条记录，全{{getTotalPage()}}页，每页限{{pageSize}}条记录
       </li>
     </ul>
   </div>

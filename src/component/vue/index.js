@@ -13,6 +13,7 @@ import toast from './parts/common/toast';
 import measure from './parts/instance/measure';
 import date from './parts/instance/date';
 import datepicker from './parts/instance/datepicker';
+import sheet from './parts/instance/sheet';
 import table from './parts/instance/table';
 import tree from './parts/instance/tree';
 import condition from './parts/instance/condition';

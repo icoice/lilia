@@ -2,7 +2,7 @@
   <div class="moo moo-file" :class="{ 'moo-file-disabled': hasDisabled }">
     <div class="select-file" v-if="!hasDisabled">
       <div v-if="!hasShowSlotContent">
-        <span class="moo-icon"></span>
+        <span class="iconfont icon-document"></span>
         <span class="file-button-name">{{componentName}}</span>
       </div>
       <slot name="file-button-content" v-else/>

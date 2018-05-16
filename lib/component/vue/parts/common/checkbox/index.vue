@@ -6,7 +6,7 @@
         <div
         class="box-mark"
         :class="{'box-selected': boxSelected.indexOf(code) >= 0 || boxSelected.indexOf(item.key) >= 0}">
-          <span></span>
+          <span class="iconfont icon-right"></span>
         </div>
         <div class="box-name">{{ item.name }}</div>
       </div>

@@ -2,4 +2,6 @@
 @import 'planes/base.css';
 @import 'planes/border.css';
 @import 'planes/unit.css';
+@import './icons/iconfont.css'; /* iconfont */
+@import './icons2/iconfont.css'; /* iconfont */
 @import '../lib/component/vue/parts/**/**/*.css'; /* moo component */
