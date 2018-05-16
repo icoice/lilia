@@ -21,6 +21,7 @@ import showcase from './parts/instance/showcase';
 import paging from './parts/instance/paging';
 import multipleChoose from './parts/instance/multipleChoose';
 import louver from './parts/instance/louver';
+import pop from './parts/instance/pop';
 
 export const mooBtn = button;
 export const mooCheckbox = checkbox;
@@ -42,6 +43,7 @@ export const mooMultipleChoose = multipleChoose;
 export const mooMeasure = measure;
 export const mooImg = image;
 export const mooTree = tree;
+export const mooPop = pop;
 
 const component = {
   mooBtn,
@@ -65,6 +67,7 @@ const component = {
   mooImg,
   mooMeasure,
   mooLouver,
+  mooPop,
 };
 
 export const register = function register(Vue) {

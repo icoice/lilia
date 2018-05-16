@@ -1,39 +1,53 @@
 <template>
-<div class="moo-pop moo" v-if="memoShow">
+  <div class="moo-pop moo">
+    <div class="moo-pop-control" :class="{'moo-pop-open': popShow }">
+      <btn @tap='showPop'>
+        <div slot="btn">
+          <slot name="pop-btn"></slot>
+        </div>
+      </btn>
+    </div>
+    <div class="moo-pop-content" v-if="popShow">
+      <slot name="pop"></slot>
+    </div>
+  </div>
 </template>
 
 <script>
+import btn from '../../common/button';
+
 export default {
   props: {
-    title: {
+    name: {
       type: String,
-      default: 'MEMO',
+      default: 'POP',
     },
     show: {
       type: Boolean,
       default: false,
     },
-    message: {
-      type: Array,
-      default: () => ([]),
-    },
+  },
+  components: {
+    btn,
   },
   data() {
     return {
-      memoTitle: this.title,
-      memoShow: this.show,
-      memoMesage: this.message,
+      popName: this.name,
+      popShow: this.show,
     };
   },
   watch: {
-    title(title) {
-      this.memoTitle = title;
+    name(name) {
+      this.popName = name;
     },
-    show(status) {
-      this.memoShow = status;
+    show(show) {
+      this.popShow = show;
     },
-    message(data) {
-      this.memoMesage = data;
+  },
+  methods: {
+    showPop() {
+      this.popShow = !this.popShow;
+      this.$emit('change');
     },
   },
 };
