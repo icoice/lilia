@@ -12,22 +12,116 @@
       </btn>
     </div>
     <div class="datepicker-area">
-      <div class="area-title" :class="{'area-hidden': !showYear}">
-        <div class="left">
-          <moo-btn @tap="e => showArea('year')">
-            <span slot="btn">点击展开年份</span>
-          </moo-btn>
+      <div class="area-list">
+        <div class="area-title">
+          <div class="left">
+            <moo-btn>
+              <span slot="btn">&nbsp;</span>
+            </moo-btn>
+          </div>
+          <div class="right">
+            <moo-btn @tap="e => prevTime('year')">
+              <span slot="btn" class="iconfont2 icon2-arrow-left1"></span>
+            </moo-btn>
+            <moo-btn @tap="showArea('year')">
+              <span slot="btn">{{ nowYear }}年</span>
+            </moo-btn>
+            <moo-btn @tap="e => nextTime('year')">
+              <span slot="btn" class="iconfont2 icon2-arrow-right1"></span>
+            </moo-btn>
+          </div>
         </div>
-        <div class="right">
-          <moo-btn @tap="e => prevTime('year')">
-            <span slot="btn">-</span>
-          </moo-btn>
-          <moo-btn>
-            <span slot="btn">{{ nowYear }}年</span>
-          </moo-btn>
-          <moo-btn @tap="e => nextTime('year')">
-            <span slot="btn">+</span>
-          </moo-btn>
+        <div class="area-title" :class="{'area-hidden': !showMonth}">
+          <div class="left">
+            <moo-btn>
+              <span slot="btn">&nbsp;</span>
+            </moo-btn>
+          </div>
+          <div class="right">
+            <moo-btn @tap="e => prevTime('month')">
+              <span slot="btn" class="iconfont2 icon2-arrow-left1"></span>
+            </moo-btn>
+            <moo-btn @tap="showArea('month')">
+              <span slot="btn">{{ nowMonth }}月</span>
+            </moo-btn>
+            <moo-btn @tap="e => nextTime('month')">
+              <span slot="btn" class="iconfont2 icon2-arrow-right1"></span>
+            </moo-btn>
+          </div>
+        </div>
+        <div class="area-title">
+          <div class="left">
+            <moo-btn>
+              <span slot="btn">&nbsp;</span>
+            </moo-btn>
+          </div>
+          <div class="right">
+            <moo-btn @tap="e => prevTime('day')">
+              <span slot="btn" class="iconfont2 icon2-arrow-left1"></span>
+            </moo-btn>
+            <moo-btn>
+              <span slot="btn">{{ nowDay }}日</span>
+            </moo-btn>
+            <moo-btn @tap="e => nextTime('day')">
+              <span slot="btn" class="iconfont2 icon2-arrow-right1"></span>
+            </moo-btn>
+          </div>
+        </div>
+      </div>
+      <div class="area-list" v-if="hasCloseTime">
+        <div class="area-title">
+          <div class="left">
+            <moo-btn>
+              <span slot="btn">&nbsp;</span>
+            </moo-btn>
+          </div>
+          <div class="right">
+            <moo-btn @tap="e => prevTime('hour')">
+              <span slot="btn" class="iconfont2 icon2-arrow-left1"></span>
+            </moo-btn>
+            <moo-btn>
+              <span slot="btn">{{ nowHour }}时</span>
+            </moo-btn>
+            <moo-btn @tap="e => nextTime('hour')">
+              <span slot="btn" class="iconfont2 icon2-arrow-right1"></span>
+            </moo-btn>
+          </div>
+        </div>
+        <div class="area-title">
+          <div class="left">
+            <moo-btn>
+              <span slot="btn">&nbsp;</span>
+            </moo-btn>
+          </div>
+          <div class="right">
+            <moo-btn @tap="e => prevTime('minute')">
+              <span slot="btn" class="iconfont2 icon2-arrow-left1"></span>
+            </moo-btn>
+            <moo-btn>
+              <span slot="btn">{{ nowMinute }}分</span>
+            </moo-btn>
+            <moo-btn @tap="e => nextTime('minute')">
+              <span slot="btn" class="iconfont2 icon2-arrow-right1"></span>
+            </moo-btn>
+          </div>
+        </div>
+        <div class="area-title">
+          <div class="left">
+            <moo-btn>
+              <span slot="btn">&nbsp;</span>
+            </moo-btn>
+          </div>
+          <div class="right">
+            <moo-btn @tap="e => prevTime('second')">
+              <span slot="btn" class="iconfont2 icon2-arrow-left1"></span>
+            </moo-btn>
+            <moo-btn>
+              <span slot="btn">{{ nowSecond }}秒</span>
+            </moo-btn>
+            <moo-btn @tap="e => nextTime('second')">
+              <span slot="btn" class="iconfont2 icon2-arrow-right1"></span>
+            </moo-btn>
+          </div>
         </div>
       </div>
       <div class="datepicker-items" v-if="showYear">
@@ -51,24 +145,6 @@
           </btn>
         </div>
       </div>
-      <div class="area-title" :class="{'area-hidden': !showMonth}">
-        <div class="left">
-          <moo-btn @tap="e => showArea('month')">
-            <span slot="btn">点击展开月份</span>
-          </moo-btn>
-        </div>
-        <div class="right">
-          <moo-btn @tap="e => prevTime('month')">
-            <span slot="btn">-</span>
-          </moo-btn>
-          <moo-btn>
-            <span slot="btn">{{ nowMonth }}月</span>
-          </moo-btn>
-          <moo-btn @tap="e => nextTime('month')">
-            <span slot="btn">+</span>
-          </moo-btn>
-        </div>
-      </div>
       <div class="datepicker-items" v-if="showMonth">
         <div class="row">
           <ul v-for="line in monthList">
@@ -80,24 +156,6 @@
               </btn>
             </li>
           </ul>
-        </div>
-      </div>
-      <div class="area-title">
-        <div class="left">
-          <moo-btn>
-            <span slot="btn">&nbsp;</span>
-          </moo-btn>
-        </div>
-        <div class="right">
-          <moo-btn @tap="e => prevTime('day')">
-            <span slot="btn">-</span>
-          </moo-btn>
-          <moo-btn>
-            <span slot="btn">{{ nowDay }}日</span>
-          </moo-btn>
-          <moo-btn @tap="e => nextTime('day')">
-            <span slot="btn">+</span>
-          </moo-btn>
         </div>
       </div>
       <div class="datepicker-items">
@@ -143,6 +201,10 @@
         type: Boolean,
         default: false,
       },
+      closeTime: {
+        type: Boolean,
+        default: false,
+      },
       now: {
         type: Number,
         default: Date.now(),
@@ -161,6 +223,9 @@
         this.current = this.now;
         this.init();
       },
+      closeTime(time) {
+        this.hasCloseTime = time;
+      },
     },
     data() {
       return {
@@ -175,8 +240,12 @@
         nowYear: null,
         nowMonth: null,
         nowDay: null,
+        nowHour: null,
+        nowMinute: null,
+        nowSecond: null,
         showYear: false,
         showMonth: false,
+        hasCloseTime: this.closeTime,
         selectYearScope: [null, null],
         yearList: [],
         monthList: [],
@@ -197,6 +266,9 @@
         this.yearScope();
         this.monthScope();
         this.dayScope();
+        this.hourScope();
+        this.minuteScope();
+        this.secondScope();
       },
       showArea(type) {
         switch (type) {
@@ -211,6 +283,9 @@
         let y = type === 'year' ? this.nowYear - 1 : this.nowYear;
         let m = type === 'month' ? this.nowMonth - 1 : this.nowMonth;
         let d = type === 'day' ? this.nowDay - 1 : this.nowDay;
+        let h = type === 'hour' ? this.nowHour - 1 : this.nowHour;
+        let i = type === 'minute' ? this.nowMinute - 1 : this.nowMinute;
+        let s = type === 'second' ? this.nowSecond - 1 : this.nowSecond;
         const { months, selectYearScope, days, years } = this;
         if (d <= 0) {
           m = m - 1;
@@ -227,7 +302,10 @@
           this.selectYearScope = [y - 20, y];
         }
         if (y < years[0]) y = years[0];
-        this.current = util.Date.timestamp(`${y}/${m}/${d}`);
+        if (h <= 0) h = 23;
+        if (i <= 1) i = 59;
+        if (s <= 1) s = 59;
+        this.current = util.Date.timestamp(`${y}/${m}/${d} ${h}:${i}:${s}`);
         this.init();
         this.$emit('change', this.current);
       },
@@ -235,6 +313,9 @@
         let y = type === 'year' ? this.nowYear + 1 : this.nowYear;
         let m = type === 'month' ? this.nowMonth + 1 : this.nowMonth;
         let d = type === 'day' ? this.nowDay + 1 : this.nowDay;
+        let h = type === 'hour' ? this.nowHour + 1 : this.nowHour;
+        let i = type === 'minute' ? this.nowMinute + 1 : this.nowMinute;
+        let s = type === 'second' ? this.nowSecond + 1 : this.nowSecond;
         const { months, selectYearScope, days, years } = this;
         if (d > days[m - 1]) {
           m = m + 1;
@@ -254,7 +335,10 @@
           this.yearList = [];
           this.selectYearScope = [y + 20, y];
         }
-        this.current = util.Date.timestamp(`${y}/${m}/${d}`);
+        if (h >= 24) h = 0;
+        if (i >= 59) i = 1;
+        if (s >= 59) s = 1;
+        this.current = util.Date.timestamp(`${y}/${m}/${d} ${h}:${i}:${s}`);
         this.init();
         this.$emit('change', this.current);
       },
@@ -262,7 +346,10 @@
         const y = this.nowYear - 21;
         const m = this.nowMonth;
         const d = this.nowDay;
-        this.current = util.Date.timestamp(`${y}/${m}/${d}`);
+        const h = this.nowHour;
+        const i = this.nowMinute;
+        const s = this.nowSecond;
+        this.current = util.Date.timestamp(`${y}/${m}/${d} ${h}:${i}:${s}`);
         this.selectYearScope = [null, null];
         this.yearList = [];
         this.init();
@@ -272,7 +359,10 @@
         const y = this.nowYear + 21;
         const m = this.nowMonth;
         const d = this.nowDay;
-        this.current = util.Date.timestamp(`${y}/${m}/${d}`);
+        const h = this.nowHour;
+        const i = this.nowMinute;
+        const s = this.nowSecond;
+        this.current = util.Date.timestamp(`${y}/${m}/${d} ${h}:${i}:${s}`);
         this.selectYearScope = [null, null];
         this.yearList = [];
         this.init();
@@ -284,7 +374,13 @@
       },
       today() {
         const td = util.Date.now();
-        this.current = util.Date.timestamp(`${td.year}/${td.month}/${td.day}`);
+        const y = td.year;
+        const m = td.month;
+        const d = td.day;
+        const h = td.hour;
+        const i = td.minute;
+        const s = td.second;
+        this.current = util.Date.timestamp(`${y}/${m}/${d} ${h}:${i}:${s}`);
         this.init();
         this.$emit('change', this.current);
       },
@@ -295,9 +391,27 @@
         const y = type === 'year' ? number : this.nowYear;
         const m = type === 'month' ? number : this.nowMonth;
         const d = type === 'day' ? number : this.nowDay;
-        this.current = util.Date.timestamp(`${y}/${m}/${d}`);
+        const h = type === 'year' ? number : this.nowHour;
+        const i = type === 'month' ? number : this.nowMinute;
+        const s = type === 'second' ? number : this.nowSecond;
+        this.current = util.Date.timestamp(`${y}/${m}/${d} ${h}:${i}:${s}`);
         this.init();
         this.$emit('change', this.current);
+      },
+      hourScope() {
+        const { current, hasCloseTime } = this;
+        const hour = (new Date(current)).getHours();
+        this.nowHour = !hasCloseTime ? 0 : hour;
+      },
+      minuteScope() {
+        const { current, hasCloseTime } = this;
+        const minute = (new Date(current)).getMinutes();
+        this.nowMinute = !hasCloseTime ? 0 : minute;
+      },
+      secondScope() {
+        const { current, hasCloseTime } = this;
+        const second = (new Date(current)).getSeconds();
+        this.nowSecond = !hasCloseTime ? 0 : second;
       },
       yearScope() {
         const { years, yearScope, current, selectYearScope } = this;

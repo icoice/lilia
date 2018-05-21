@@ -142,7 +142,7 @@ export default {
       const open = document.createElement('span');
       this.nodeGroup.push(n);
       n.className = !node ? 'tree-line tree-root' : 'tree-line';
-      open.className = 'tree-open';
+      open.className = 'tree-open iconfont icon-right';
       nName.innerHTML = name;
       mline.innerHTML = '';
       if (item.child && item.child.length > 0) {
@@ -153,12 +153,14 @@ export default {
       nName.appendChild(open);
       nName.onclick = (e) => {
         this.nodeSelect(node, n, {
+          origin: item,
           name: item.name,
           parentId: item.parentId,
           id: item.id,
           child: item.child,
         });
         this.$emit('click', {
+          origin: item,
           name: item.name,
           parentId: item.parentId,
           id: item.id,
@@ -179,6 +181,7 @@ export default {
           }
         }
         this.$emit('open', {
+          origin: item,
           name: item.name,
           parentId: item.parentId,
           id: item.id,

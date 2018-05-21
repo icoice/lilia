@@ -1,7 +1,7 @@
 <template>
-  <div class="moo-pop moo">
+  <div class="moo-pop moo" @mouseleave='inner' >
     <div class="moo-pop-control" :class="{'moo-pop-open': popShow }">
-      <btn @tap='showPop'>
+      <btn @tap='showPop'@mousemove='clearInner'>
         <div slot="btn">
           <slot name="pop-btn"></slot>
         </div>
@@ -27,6 +27,14 @@ export default {
       default: false,
     },
   },
+  mounted() {
+    window.addEventListener('click', (e) => {
+      if (this.hasInner) {
+        this.popShow = false;
+        this.hasInner = false;
+      }
+    }, true);
+  },
   components: {
     btn,
   },
@@ -34,6 +42,7 @@ export default {
     return {
       popName: this.name,
       popShow: this.show,
+      hasInner: false,
     };
   },
   watch: {
@@ -45,8 +54,19 @@ export default {
     },
   },
   methods: {
+    inner() {
+      console.log(this.hasInner);
+      this.hasInner = true;
+    },
+    clearInner() {
+      console.log(this.hasInner);
+      this.hasInner = false;
+    },
     showPop() {
+      console.log(this.popShow);
       this.popShow = !this.popShow;
+      console.log(this.popShow);
+      console.log('\n');
       this.$emit('change');
     },
   },

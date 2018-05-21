@@ -25,18 +25,20 @@
     }
   }
 
-  .area-title {
+  .area-list {
     overflow: hidden;
-    padding: 15pxr 5pxr;
+    margin-bottom: 15
+    pxr;
   }
 
-  .area-hidden {
-    border-bottom: 1px solid #efefef;
+  .area-title {
+    overflow: hidden;
+    float: left;
+    width: 33.33%;
   }
 
   .area-title .left {
     float: left;
-    width: 60%;
     box-sizing: border-box;
     padding-left: 10pxr;
     .moo-btn {
@@ -48,7 +50,7 @@
   }
   .area-title .right {
     float: left;
-    width: 40%;
+    width: 100%;
 
     .moo-btn {
       float: left;
@@ -109,7 +111,6 @@
 }
 
 .moo-datepicker .datepicker-week {
-  padding: 10pxr 0;
   font-size: 12pxr;
   color: #999;
 }
@@ -143,6 +144,10 @@
       font-weight: bold;
     }
   }
+}
+
+.moo-datepicker .datepicker-items {
+  margin-top: 15pxr;
 }
 
 .moo-datepicker .datepicker-items-operator {

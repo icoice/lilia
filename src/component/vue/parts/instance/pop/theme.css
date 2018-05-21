@@ -1,5 +1,6 @@
 .moo-pop {
-
+  position: relative;
+  z-index: 1;
 }
 
 .moo-pop .moo-pop-control {
