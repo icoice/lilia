@@ -55,18 +55,13 @@ export default {
   },
   methods: {
     inner() {
-      console.log(this.hasInner);
       this.hasInner = true;
     },
     clearInner() {
-      console.log(this.hasInner);
       this.hasInner = false;
     },
     showPop() {
-      console.log(this.popShow);
       this.popShow = !this.popShow;
-      console.log(this.popShow);
-      console.log('\n');
       this.$emit('change');
     },
   },

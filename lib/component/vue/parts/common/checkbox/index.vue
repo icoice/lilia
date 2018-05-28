@@ -1,16 +1,18 @@
 <template>
 <div class="moo moo-checkbox">
   <div class="box-item" v-for="(item, code) in boxItems">
-    <btn @tap="tap(code, item)">
-      <div slot="btn">
-        <div
-        class="box-mark"
-        :class="{'box-selected': boxSelected.indexOf(code) >= 0 || boxSelected.indexOf(item.key) >= 0}">
-          <span class="iconfont icon-right"></span>
+    <div v-if='item'>
+      <btn @tap="tap(code, item)">
+        <div slot="btn">
+          <div
+          class="box-mark"
+          :class="{'box-selected': boxSelected.indexOf(code) >= 0 || boxSelected.indexOf(item.key) >= 0}">
+            <span class="iconfont icon-right"></span>
+          </div>
+          <div class="box-name">{{ item.name }}</div>
         </div>
-        <div class="box-name">{{ item.name }}</div>
-      </div>
-    </btn>
+      </btn>
+    </div>
   </div>
 </div>
 </template>

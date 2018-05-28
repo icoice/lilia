@@ -173,7 +173,9 @@
 
 .moo-condition .condition-checkbox-search {
   overflow: hidden;
-  border: 1px solid #dfdfdf;
+  border-left: 1px solid #dfdfdf;
+  border-right: 1px solid #dfdfdf;
+  border-top: 1px solid #dfdfdf;
   border-radius: 5pxr;
   .moo-input {
     float: left;
@@ -221,9 +223,12 @@
   }
 }
 
-.moo-condition .condition-selectScroll-search {
+.moo-condition .condition-radio-search {
   overflow: hidden;
-  border: 1px solid #dfdfdf;
+  background-color: #fff;
+  border-left: 1px solid #dfdfdf;
+  border-right: 1px solid #dfdfdf;
+  border-top: 1px solid #dfdfdf;
   border-radius: 5pxr;
   .moo-input {
     float: left;
@@ -234,7 +239,7 @@
       border: 0;
     }
   }
-  .condition-selectScroll-operator {
+  .condition-radio-operator {
     background-color: #fff;
     overflow: hidden;
     float: left;
@@ -257,7 +262,7 @@
   }
 }
 
-.moo-condition .condition-selectScroll-list {
+.moo-condition .condition-radio-list {
   overflow-y: auto;
   position: absolute;
   z-index: 99;
@@ -266,34 +271,23 @@
   height: 200pxr;
   border: 1px solid #dfdfdf;
   background-color: #fff;
-  .radio-item {
+  .moo-radio .radio-item {
+    overflow: hidden;
     position: relative;
     float: none;
     padding-left: 30pxr;
     .radio-check {
       position: absolute;
       left: 6pxr;
-      top: 50%;
-      transform: translateY(-50%);
+      margin-top: 0;
       border-radius: 50%;
       border-color: #00619c;
-      margin-top: 0;
-      width: 18pxr;
-      height: 18pxr;
-    }
-    .radio-check.radio-checked {
-      .radio-checked-box {
-        margin-top: 3pxr;
-        width: 12pxr;
-        height: 12pxr;
-        background-color: #00619c;
-        border-radius: 50%;
-      }
+      font-size: 14pxr;
     }
   }
 }
 
-.moo-condition .condition-selectScroll-list .moo-checkbox {
+.moo-condition .condition-radio-list .moo-checkbox {
   background-color: #fff;
 }
 
@@ -311,4 +305,8 @@
     color: #dfdfdf;
     background-color: #fff;
   }
+}
+
+.moo-condition .moo-checkbox .box-item .moo-btn .btn-touch {
+  font-size: 22pxr;
 }

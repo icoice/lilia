@@ -1,7 +1,7 @@
 <template>
 <div class="moo moo-condition">
   <div class="condition-container" v-for="(line, code) in items" v-if="hasNoEmptry(items)">
-    <div class="condition-item" v-for="item in line" :style="width(cols)">
+    <div class="condition-item" v-for="(item, no) in line" :style="width(cols)">
       <div class="condition-name">{{ item.name }}</div>
       <div class="condition-container" v-if="item.component === 'input'">
         <moo-input :val="item.value" :placeholder="item.tips" @updated="val => change(item, val)"/>
@@ -67,7 +67,10 @@
           </btn>
         </div>
         <div class="condition-checkbox-search" v-else>
-          <moo-input :val="checkboxSearchKey" placeholder="请输入关键词搜索" @updated="updateSearchCheckbox"/>
+          <moo-input
+          :val="!checkboxSearchKey[code * cols + no] ? '' : checkboxSearchKey[code * cols + no]"
+          placeholder="请输入关键词搜索"
+          @updated="val => updateSearchCheckbox(code * cols + no, val)"/>
           <div class="condition-checkbox-operator">
             <btn @tap="changeSearchCheckbox(false, item)">
               <span class="iconfont icon-close" slot="btn"></span>
@@ -82,21 +85,27 @@
         </div>
         <div class="condition-checkbox-list" v-if="item.show">
           <div class="condition-checkbox-con">
-            <moo-checkbox :items="searchCheckbox(item)" :selected="item.value" @tap="val => change(item, val)"/>
+            <moo-checkbox
+              :items="searchCheckbox(code * cols + no, item)"
+              :selected="item.value"
+              @tap="val => change(item, val)"/>
           </div>
         </div>
       </div>
-      <div class="condition-container" v-if="item.component === 'selectScroll'">
-        <div class="condition-selectScroll-result" v-if="!item.show">
+      <div class="condition-container" v-if="item.component === 'radio'">
+        <div class="condition-checkbox-result" v-if="!item.show">
           <btn @tap="changeSearchCheckbox(true, item)">
             <div slot="btn">
-              {{ item.value.code || item.value.code === 0 ? item.value.data.name : (item.tips || '请选择') }}
+              {{ checkBoxSelected(item) }}
             </div>
           </btn>
         </div>
-        <div class="condition-selectScroll-search" v-else>
-          <moo-input :val="checkboxSearchKey" placeholder="请输入关键词搜索" @updated="updateSearchCheckbox"/>
-          <div class="condition-selectScroll-operator">
+        <div class="condition-radio-search" v-else>
+          <moo-input
+            :val="!checkboxSearchKey[code * cols + no] ? '' : checkboxSearchKey[code * cols + no]"
+            placeholder="请输入关键词搜索"
+            @updated="val => updateSearchCheckbox(code * cols + no, val)"/>
+          <div class="condition-radio-operator">
             <btn @tap="changeSearchCheckbox(false, item)">
               <span slot="btn">关闭</span>
             </btn>
@@ -105,9 +114,9 @@
             </btn>
           </div>
         </div>
-        <div class="condition-selectScroll-list" v-if="item.show">
+        <div class="condition-radio-list" v-if="item.show">
           <moo-radio
-          :items="item.items"
+          :items="searchCheckbox(code * cols + no, item)"
           :selected="item.value.code"
           @tap="val => change(item, val)" />
         </div>
@@ -145,7 +154,7 @@
       return {
         hasDateOpen: false,
         dateTarget: null,
-        checkboxSearchKey: '',
+        checkboxSearchKey: {},
         condList: this.list,
         condCols: this.cols,
       };
@@ -178,15 +187,19 @@
     methods: {
       hasNoEmptry: items => items && items.length > 0,
       width: cols => ({ width: `${100 / cols}%` }),
-      updateSearchCheckbox(val) {
-        this.checkboxSearchKey = val;
+      updateSearchCheckbox(no, val) {
+        this.checkboxSearchKey = Object.assign({},
+          this.checkboxSearchKey,
+          { [no]: val });
       },
-      searchCheckbox(item) {
+      searchCheckbox(no, item) {
         let newItems = [];
-        if(!util.Assert.hasEmpty(this.checkboxSearchKey)) {
+        if(this.checkboxSearchKey[no]) {
           item.items.map((data) => {
-            if (data.name.indexOf(this.checkboxSearchKey) >= 0) {
+            if (data.name.indexOf(this.checkboxSearchKey[no]) >= 0) {
               newItems.push(data);
+            } else {
+              newItems.push(null);
             }
           });
           return newItems;

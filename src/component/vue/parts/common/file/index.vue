@@ -6,7 +6,7 @@
         <span class="file-button-name">{{componentName}}</span>
       </div>
       <slot name="file-button-content" v-else/>
-      <input type="file" value="componetName" :multiple="hasMultipleUpload" ref="fileUpload" @change="getFiles"/>
+      <input type="file" value="componentName" :multiple="hasMultipleUpload" ref="fileUpload" @change="getFiles"/>
     </div>
     <div v-if="hasShowDefaultFileList">
       <p class="moo-file-limit" v-if="fileExtendLimit && !hasDisabled">
@@ -58,7 +58,7 @@
     },
     watch: {
       name(name) {
-        this.componetName = name;
+        this.componentName = name;
       },
       files(files) {
         this.fileCollect = files;

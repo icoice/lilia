@@ -4,6 +4,8 @@
 .moo-tree {
   @mixin clear-select;
   padding-bottom: 10pxr;
+  border: 1px solid #dfdfdf;
+  background-color: #fff;
 }
 
 .moo-tree .tree-line {
@@ -14,24 +16,16 @@
   color: #666;
   cursor: pointer;
   border-bottom: 1px solid #fff;
-
-  > div {
-    position: relative;
-    z-index: 2;
-    padding-left: 5pxr;
-    background-color: #fff;
-  }
 }
 
 .moo-tree .tree-line span {
   display: block;
   position: absolute;
-  left: 0;
-  top: 50%;
   z-index: 1;
-  margin-top: -1px;
-  margin-left: 0.5rem;
-  width: 15pxr;
+  left: 0;
+  margin-top: -15pxr;
+  margin-left: 0;
+  width: 80%;
   border-bottom: 1px solid #dfdfdf;
 }
 
@@ -54,16 +48,34 @@
   border-bottom: 1px solid #fff;
 }
 
+.moo-tree .tree-line .tree-btn {
+  position: relative;
+  z-index: 2;
+  padding-left: 5pxr;
+  background-color: #fff;
+}
+
 .moo-tree span.tree-open {
   display: inline;
   position: relative;
   z-index: 1;
   top: 0;
+  margin: 0;
+  font-size: 22pxr;
+  font-weight: bold;
   border: none;
 }
 
 .moo-tree .tree-selected {
-  border-bottom: 1px solid #1c4056;
-  background-color: transparent;
-  color: #22506e;
+  border-bottom: 1px solid #fff;
+  background-color: #f5f5f5;
+  color: #03609b;
+
+  .tree-btn {
+    background-color: #f5f5f5;
+  }
+
+  .tree-open {
+    border: none;
+  }
 }

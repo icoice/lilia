@@ -78,7 +78,10 @@ export default {
   },
   watch: {
     list(items) {
-      this.createTree(items);
+      const tree = this.createTree(Object.assign([], items));
+      this.root = tree.root;
+      this.maps = tree.maps;
+      this.build();
     },
     selected(list) {
       this.selectList = list;
@@ -134,26 +137,30 @@ export default {
         `tree-line tree-root ${!sel[item.id] ? '' : 'tree-selected'}`
         : `tree-line ${!sel[item.id] ? '' : 'tree-selected'}`;
     },
-    createTreeLine(node = null, item) {
+    createTreeLine(node = null, item, list) {
       const { name } = item;
+      const sel = this.selectList;
       const n = document.createElement('div');
       const nName = document.createElement('div');
       const mline = document.createElement('span');
       const open = document.createElement('span');
       this.nodeGroup.push(n);
-      n.className = !node ? 'tree-line tree-root' : 'tree-line';
-      open.className = 'tree-open iconfont icon-right';
+      n.className = !node ?
+        `tree-line tree-root ${!sel[item.id] ? '' : 'tree-selected'}`
+        : `tree-line ${!sel[item.id] ? '' : 'tree-selected'}`;
+      open.className = 'tree-open';
+      nName.className = 'tree-btn';
       nName.innerHTML = name;
       mline.innerHTML = '';
-      if (item.child && item.child.length > 0) {
-        open.innerHTML = node === null ? '-' : '+';
-      }
+      open.innerHTML = '&nbsp;';
       n.appendChild(nName);
       n.appendChild(mline);
       nName.appendChild(open);
+      if (item.child && item.child.length > 0) {
+        open.className = `tree-open iconfont2 ${!list || list.style.display === 'block' ? 'icon2-volumeopen-o' : 'icon2-volume-o'}`;
+      }
       nName.onclick = (e) => {
         this.nodeSelect(node, n, {
-          origin: item,
           name: item.name,
           parentId: item.parentId,
           id: item.id,
@@ -176,12 +183,11 @@ export default {
           if (c.className.indexOf('tree-line') < 0) {
             c.style.display = c.style.display === 'block' ? 'none' : 'block';
             if (item.child && item.child.length > 0) {
-              open.innerHTML = c.style.display === 'block' ? '-' : '+';
+              open.className = `tree-open iconfont2 ${c.style.display === 'block' ? 'icon2-volumeopen-o' : 'icon2-volume-o'}`;
             }
           }
         }
         this.$emit('open', {
-          origin: item,
           name: item.name,
           parentId: item.parentId,
           id: item.id,
@@ -210,7 +216,7 @@ export default {
               const im = maps[nid];
               c.className = 'tree-block';
               c.style.marginLeft = `${layer + 1}rem`;
-              c.appendChild(this.createTreeLine(im.child, im));
+              c.appendChild(this.createTreeLine(im.child, im, c));
               r.appendChild(c);
               this.createNode(im.child, layer, c);
             });

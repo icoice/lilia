@@ -1,7 +1,4 @@
-.moo-pop {
-  position: relative;
-  z-index: 1;
-}
+.moo-pop {}
 
 .moo-pop .moo-pop-control {
   .moo-btn .btn-touch {

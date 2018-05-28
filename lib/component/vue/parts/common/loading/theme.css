@@ -7,10 +7,14 @@
   margin: 10pxr;
 }
 
+.moo-loading svg path,
+.moo-loading svg rect{
+  fill: #03609b;
+}
+
 .moo-loading .moo-icon {
   margin: 0 auto;
   padding: 14pxr;
-  border: 1px dashed #00619c;
   font-size: 12pxr;
   color: #00619c;
   text-align: center;
