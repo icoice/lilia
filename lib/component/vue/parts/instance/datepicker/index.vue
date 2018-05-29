@@ -1,5 +1,5 @@
 <template>
-  <div v-if="open" class="moo moo-datepicker">
+  <div v-if="open" class="moo moo-datepicker" @mouseover="hasMoveOnSelect" @mouseleave="hasMouseLeave">
     <div class="datepicker-nav">
       <btn @tap="today">
         <span slot="btn">今天</span>
@@ -253,6 +253,8 @@
         days: [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31],
         weekList: ['星期日', '星期一', '星期二', '星期三', '星期四', '星期五', '星期六'],
         cols: 7,
+        isMoveOver: 0,
+        isBindMouseMenus: false,
       };
     },
     components: {
@@ -269,6 +271,21 @@
         this.hourScope();
         this.minuteScope();
         this.secondScope();
+        this.bindMouseMenus();
+      },
+      bindMouseMenus() {
+        if (!this.isBindMouseMenus) {
+          window.addEventListener('click', () => {
+            if (!this.isMoveOver) this.open = false;
+          }, true);
+          this.isBindMouseMenus = true;
+        }
+      },
+      hasMoveOnSelect() {
+        this.isMoveOver = 1;
+      },
+      hasMouseLeave() {
+        this.isMoveOver = 0;
       },
       showArea(type) {
         switch (type) {
@@ -391,7 +408,7 @@
         const y = type === 'year' ? number : this.nowYear;
         const m = type === 'month' ? number : this.nowMonth;
         const d = type === 'day' ? number : this.nowDay;
-        const h = type === 'year' ? number : this.nowHour;
+        const h = type === 'hour' ? number : this.nowHour;
         const i = type === 'month' ? number : this.nowMinute;
         const s = type === 'second' ? number : this.nowSecond;
         this.current = util.Date.timestamp(`${y}/${m}/${d} ${h}:${i}:${s}`);

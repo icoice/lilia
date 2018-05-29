@@ -101,7 +101,7 @@ export default {
     },
     bindMouseMenus() {
       if (!this.isBindMouseMenus) {
-        document.body.addEventListener('click', () => {
+        window.addEventListener('click', () => {
           if (!this.isMoveOver) this.listOpen = false;
         }, true);
         this.isBindMouseMenus = true;

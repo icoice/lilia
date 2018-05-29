@@ -3,7 +3,7 @@
   <div class="condition-container" v-for="(line, code) in items" v-if="hasNoEmptry(items)">
     <div class="condition-item" v-for="(item, no) in line" :style="width(cols)">
       <div class="condition-name">{{ item.name }}</div>
-      <div class="condition-container" v-if="item.component === 'input'">
+      <div class="condition-container" v-if="item.component === 'input'" @click='closeComponents'>
         <moo-input :val="item.value" :placeholder="item.tips" @updated="val => change(item, val)"/>
       </div>
       <div class="condition-container" v-if="item.component === 'select'">
@@ -58,7 +58,8 @@
           :placeholder="item.items.end.tips"/>
         </div>
       </div>
-      <div class="condition-container" v-if="item.component === 'checkbox'">
+      <div class="condition-container" v-if="item.component === 'checkbox'"
+        @mouseover="hasMoveOnSelect" @mouseleave="hasMouseLeave">
         <div class="condition-checkbox-result" v-if="!item.show">
           <btn @tap="changeSearchCheckbox(true, item)">
             <div slot="btn">
@@ -92,7 +93,8 @@
           </div>
         </div>
       </div>
-      <div class="condition-container" v-if="item.component === 'radio'">
+      <div class="condition-container" v-if="item.component === 'radio'"
+        @mouseover="hasMoveOnSelect" @mouseleave="hasMouseLeave">
         <div class="condition-checkbox-result" v-if="!item.show">
           <btn @tap="changeSearchCheckbox(true, item)">
             <div slot="btn">
@@ -124,7 +126,11 @@
     </div>
   </div>
   <div class="condition-tips" v-else>未设置查询条件内容</div>
-  <moo-datepicker :show="hasDateOpen" :hasClear="true" @close="closeDate" @change="val => changeDate(val)" @clear="val => clearDate()"/>
+  <moo-datepicker
+    :show="hasDateOpen"
+    :hasClear="true"
+    @close="closeDate"
+    @change="val => changeDate(val)" @clear="val => clearDate()"/>
 </div>
 </template>
 
@@ -153,6 +159,8 @@
     data() {
       return {
         hasDateOpen: false,
+        isBindMouseMenus: false,
+        isMoveOver: 0,
         dateTarget: null,
         checkboxSearchKey: {},
         condList: this.list,
@@ -184,7 +192,28 @@
         this.hasDateOpen = false;
       },
     },
+    mounted() {
+      this.bindMouseMenus();
+    },
     methods: {
+      closeComponents() {
+        const { condList } = this
+        const list = [];
+        condList.map((item) => {
+          item.show = false;
+          list.push(Object.assign({}, item));
+          return item;
+        });
+        this.condList = list;
+      },
+      bindMouseMenus() {
+        if (!this.isBindMouseMenus) {
+          window.addEventListener('click', () => {
+            if (!this.isMoveOver) this.closeComponents();
+          }, true);
+          this.isBindMouseMenus = true;
+        }
+      },
       hasNoEmptry: items => items && items.length > 0,
       width: cols => ({ width: `${100 / cols}%` }),
       updateSearchCheckbox(no, val) {
@@ -206,6 +235,12 @@
         } else {
           return item.items;
         }
+      },
+      hasMoveOnSelect() {
+        this.isMoveOver = 1;
+      },
+      hasMouseLeave() {
+        this.isMoveOver = 0;
       },
       changeSearchCheckbox(show, item) {
         item.show = !item.show;
