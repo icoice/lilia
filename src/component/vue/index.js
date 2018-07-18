@@ -1,27 +1,26 @@
 // 基础组件
-import button from './parts/common/button';
-import checkbox from './parts/common/checkbox';
-import file from './parts/common/file';
-import loading from './parts/common/loading';
-import memo from './parts/common/memo';
-import image from './parts/common/image';
-import input from './parts/common/input';
-import radio from './parts/common/radio';
-import select from './parts/common/select';
-import toast from './parts/common/toast';
+import button from './common/button';
+import checkbox from './common/checkbox';
+import file from './common/file';
+import loading from './common/loading';
+import memo from './common/memo';
+import image from './common/image';
+import input from './common/input';
+import radio from './common/radio';
+import select from './common/select';
+import toast from './common/toast';
 // 特例组件
-import measure from './parts/instance/measure';
-import date from './parts/instance/date';
-import datepicker from './parts/instance/datepicker';
-import sheet from './parts/instance/sheet';
-import table from './parts/instance/table';
-import tree from './parts/instance/tree';
-import condition from './parts/instance/condition';
-import showcase from './parts/instance/showcase';
-import paging from './parts/instance/paging';
-import multipleChoose from './parts/instance/multipleChoose';
-import louver from './parts/instance/louver';
-import pop from './parts/instance/pop';
+import condition from './instance/condition';
+import date from './instance/date';
+import datepicker from './instance/datepicker';
+import table from './instance/table';
+import tree from './instance/tree';
+import pop from './instance/pop';
+import paging from './instance/paging';
+import multipleChoose from './instance/multipleChoose';
+import measure from './instance/measure';
+import louver from './instance/louver';
+import showcase from './instance/showcase';
 
 export const mooBtn = button;
 export const mooCheckbox = checkbox;

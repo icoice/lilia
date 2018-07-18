@@ -2,6 +2,14 @@
 @import 'planes/base.css';
 @import 'planes/border.css';
 @import 'planes/unit.css';
-@import './icons/iconfont.css'; /* iconfont */
-@import './icons2/iconfont.css'; /* iconfont */
-@import '../lib/component/vue/parts/**/**/*.css'; /* moo component */
+@import './icon/iconfont.css';
+@import '../lib/component/vue/common/**/**/*.css'; /* moo component */
+@import '../lib/component/vue/instance/**/**/*.css'; /* moo component */
+
+* {
+  font-family: Microsoft YaHei;
+}
+
+.iconfont {
+  font-size: 12pxr;
+}

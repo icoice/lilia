@@ -1,0 +1,57 @@
+@import 'planes/base.css';
+@import 'planes/unit.css';
+
+.moo-radio {
+  @mixin clear-select;
+  overflow: hidden;
+  position: relative;
+
+  .radio-item {
+    float: left;
+    padding: 0 10pxr;
+    cursor: pointer;
+    font-size: 12pxr;
+  }
+
+  .radio-item .radio-check {
+    float: left;
+    height: 30pxr;
+    line-height: 30pxr;
+    color: #00a611;
+  }
+
+  .radio-item .radio-checked {
+    color: #004006;
+  }
+
+  .radio-checked .radio-checked-box {
+    margin: 0 auto;
+  }
+
+  .radio-name {
+    float: left;
+    margin-left: 10pxr;
+    height: 30pxr;
+    line-height: 30pxr;
+    font-size: 12pxr;
+    border: 1px solid transparent;
+  }
+
+  .radio-mask {
+    position: absolute;
+    z-index: 1;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+  }
+}
+
+.moo-radio-disabled {
+  .radio-item .radio-checked {
+    border-color: #efefef;
+  }
+  .radio-item .radio-checked .radio-checked-box {
+    background-color: #efefef;
+  }
+}

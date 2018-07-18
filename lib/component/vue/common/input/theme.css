@@ -1,0 +1,73 @@
+@import 'planes/base.css';
+@import 'planes/unit.css';
+
+.moo-input {
+  @mixin clear-select;
+  overflow: hidden;
+
+  input {
+    padding-left: 0;
+    padding-top: 8pxr;
+    padding-bottom: 8pxr;
+    width: 100%;
+    text-indent: 5pxr;
+    outline: none;
+    font-size: 14pxr;
+    border: 1px solid #03a320;
+    border-radius: 5pxr;
+    box-sizing: border-box;
+    box-shadow: 0 0 5px #cddbcf inset;
+  }
+
+  .input-container {
+    position: relative;
+    text-align: center;
+  }
+
+  .input-mask {
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 1;
+    width: 100%;
+    height: 100%;
+  }
+
+  .input-clear {
+    overflow: hidden;
+    position: absolute;
+    top: 0;
+    right: 0;
+    height: 100%;
+    line-height: normal;
+    color: #0d462c;
+
+    span {
+      display: block;
+      position: relative;
+      top: 50%;
+      left: 0;
+      margin-top: -7px;
+      margin-right: 1px;
+      padding: 0 2px;
+      font-size: 14px;
+      background-color: #fff;
+    }
+  }
+
+  .input-clear:hover {
+    color: #00619c;
+  }
+}
+
+.moo-input-disabled {
+  input {
+    border-color: #b2cbb4;
+  }
+}
+
+.moo-input-error {
+  input {
+    border: 1px solid #c00;
+  }
+}

@@ -1,0 +1,82 @@
+@import 'planes/base.css';
+@import 'planes/unit.css';
+
+.moo-file {
+  @mixin clear-select;
+
+  .select-file {
+    overflow: hidden;
+    position: relative;
+    padding: 10pxr;
+    background-color: #35cb43;
+    background: -webkit-linear-gradient(to left, #35cb44, #00a41f);
+    background: -moz-linear-gradient(to left, #35cb44, #00a41f);
+    background: -o-linear-gradient(to left, #35cb44, #00a41f);
+    background: linear-gradient(to left, #35cb44, #00a41f);
+    border: 2px solid #008d1b;
+    border-radius: 5px;
+    text-align: center;
+    text-shadow: 0 0 2px #004006;
+    color: #cdffd2;
+  }
+
+  .select-file input {
+    position: absolute;
+    top: 0;
+    left: 0;
+    opacity: 0;
+    width: 100%;
+    height: 100%;
+    border: none;
+  }
+
+  .iconfont {
+    position: relative;
+    right: 5pxr;
+  }
+
+  .file-button-name {
+    font-size: 14pxr;
+  }
+
+  .file-limit {
+    padding: 3pxr;
+    color: #00619c;
+  }
+
+  .select-file:hover {
+    background-color: #35f249;
+    background: -webkit-linear-gradient(to right, #35cb44, #00a41f);
+    background: -moz-linear-gradient(to right, #35cb44, #00a41f);
+    background: -o-linear-gradient(to right, #35cb44, #00a41f);
+    background: linear-gradient(to right, #35cb44, #00a41f);
+  }
+
+  .file-tips {
+    padding-bottom: 6pxr;
+    font-size: 14pxr;
+    color: #dfdfdf;
+  }
+
+  .files li.file-item {
+    padding: 10pxr;
+    border-radius: 5pxr;
+    margin-top: .5em;
+    background-color: #ecffee;
+    font-size: 14pxr;
+    color: #333;
+  }
+
+  .files li.file-item p {
+    margin-bottom: 3pxr;
+  }
+
+  .files li.file-item p:last-child {
+    margin-bottom: 0;
+  }
+
+  .files li.file-extend-error {
+    background-color: #a30303;
+    color: #ffd1d1;
+  }
+}

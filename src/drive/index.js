@@ -1,7 +1,9 @@
 import Http from './Http';
-import Vue from './Vue';
+import _Vue from './Vue';
 
-export default {
+window.$drive = {
   Http,
-  Vue,
+  Vue: _Vue,
 };
+
+export default window.$drive;

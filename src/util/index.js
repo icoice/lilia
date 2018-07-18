@@ -10,7 +10,7 @@ import _String from './String';
 import _Storage from './Storage';
 import _Object from './Object';
 
-export default {
+window.$util = {
   Array: _Array,
   Assert: _Assert,
   Chain: _Chain,
@@ -23,3 +23,5 @@ export default {
   Storage: _Storage,
   Object: _Object,
 };
+
+export default window.$util;
