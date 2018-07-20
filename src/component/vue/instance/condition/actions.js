@@ -26,20 +26,16 @@ export const methods = {
   closeDate(has) {
     this.hasDateOpen = has;
   },
-  clearDate() {
-    const { condList, dateTarget } = this;
-    if (dateTarget) dateTarget.value = '';
-    this.$emit('change', Object.assign([], condList));
-  },
   changeDate(val) {
     const { condList, dateTarget } = this;
     const date = util.Date.toJSON(val);
     if (dateTarget) dateTarget.value = date;
-    this.$emit('change', Object.assign([], condList));
+    this.condList = Object.assign([], condList);
+    console.log(this.condList);
+    this.$emit('change', this.condList);
   },
   changeDateStatus(item) {
     this.dateTarget = item;
-    this.hasDateOpen = !this.hasDateOpen;
   },
   closeComponents() {
     const { condList } = this

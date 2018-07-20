@@ -89,7 +89,7 @@ const methods = {
   },
   // 绑定移离事件
   bindMouseMenus() {
-    if (!this.isBindMouseMenus && this.hasAutoHidden) {
+    if (!this.isBindMouseMenus && !this.hasNoAutoHide) {
       window.addEventListener('click', () => {
         if (!this.isMoveOver) this.open = false;
       }, true);

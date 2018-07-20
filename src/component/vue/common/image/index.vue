@@ -1,18 +1,13 @@
-<template>
-  <div class="moo-image moo">
-    <div class="image">
-      <img
-        :src="readFileReslut"
-        class="animated fadeIn"
-        v-show="isLoad"
-        v-if="readFileReslut !== '' &&  readFileReslut !== null"
-        @load="loadComplete"/>
-      <div v-else>NO IMAGES</div>
-      <div class="image-load animated rotateIn infinite" v-show="!isLoad">
-        <span class="psm-icon psm-loading"></span>
-      </div>
-    </div>
-  </div>
+<template lang='pug'>
+  div.moo-img(moo)
+    div(class='image')
+      img(:src='readFileReslut'
+        v-show='isLoad'
+        v-if='readFileReslut !== "" && readFileReslut !== null'
+        @load='loadComplete')
+      div(v-else) NO IMAGES
+      div.image-load(v-show='!isLoad')
+        span(class='psm-icon psm-loading')
 </template>
 
 <script>

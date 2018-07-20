@@ -11,7 +11,7 @@ div.moo-datepicker(v-if='open'
         @keyup='editCurrent'
         @blur='editOver')
     div.nav-item
-      btn(@tap='close')
+      btn(@tap='close' v-if='!hasNoClose')
         span.iconfont(class='icon-cross' slot='btn')
       btn(@tap='today')
         span.iconfont(class='icon-refresh' slot='btn')
@@ -69,9 +69,13 @@ export default {
       type: Number,
       default: Date.now(),
     },
-    hasAutoHidden: {
+    noClose: {
       type: Boolean,
-      default: true,
+      default: false,
+    },
+    noAutoHide: {
+      type: Boolean,
+      default: false,
     },
   },
   watch: {
@@ -96,6 +100,8 @@ export default {
       hours: [0, 23],
       hourList: [],
       hasShowTime: this.showTime,
+      hasNoClose: this.noClose,
+      hasNoAutoHide: this.noAutoHide,
       months: [0, 11],
       monthList: [],
       minutes: [0, 59],

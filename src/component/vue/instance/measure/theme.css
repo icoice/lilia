@@ -1,16 +1,16 @@
 @import 'planes/border.css';
 
 .moo-measure {
-  .measure {
-    position: fixed;
-    right: 0;
-    bottom: 0;
-    margin-right: 5em;
-    margin-bottom: 5em;
-    width: 15em;
+  overflow: hidden;
+
+  .measure-content {
+    overflow: hidden;
+    margin-bottom: 10pxr;
+    padding: 10pxr;
+    border: 2px solid #008d1b;
   }
+
   .measure .moo-btn {
-    @mixin border .btn-touch, #cfcfcf, 15px;
     float: left;
     margin-right: .5em;
 
@@ -18,12 +18,10 @@
       padding: .5em;
       height: auto;
       line-height: normal;
-      background-color: #fff;
 
       span {
         text-align: center;
-        font-size: 13px;
-        color: #999;
+        font-size: 13pxr;
       }
     }
   }

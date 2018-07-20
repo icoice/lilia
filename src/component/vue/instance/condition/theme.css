@@ -11,6 +11,14 @@
   border-radius: 5pxr;
   border: 1px solid #07a220;
   font-size: 14pxr;
+
+  .moo-pop {
+    width: auto;
+  }
+
+  .moo-pop .moo-pop-content {
+    min-width: auto;
+  }
 }
 
 .moo-condition .moo-select .select-pull-down {
@@ -59,13 +67,6 @@
     font-size: 14pxr;
     text-align: center;
   }
-}
-
-.moo-condition .moo.moo-datepicker {
-  position: absolute;
-  top: 0;
-  left: 0;
-  z-index: 99;
 }
 
 .moo-condition .condition-date-input {
@@ -305,7 +306,7 @@
 .moo-condition .condition-date-input,
 .moo-condition .condition-date-scope {
   position: relative;
-  .iconfont {
+  >.iconfont {
     position: absolute;
     top: 50%;
     left: 0;

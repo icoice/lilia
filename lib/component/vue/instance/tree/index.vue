@@ -1,7 +1,6 @@
-<template>
-  <div class="moo moo-tree">
-    <div class='tree-container' ref='tree'></div>
-  </div>
+<template lang='pug'>
+  div.moo-tree(class='moo')
+    div.tree-container(ref='tree')
 </template>
 
 <script>

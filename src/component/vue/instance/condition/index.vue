@@ -1,12 +1,5 @@
 <template lang="pug">
 div.moo-condition(class='moo')
-  // 日期组件
-  moo-datepicker(
-    :show='hasDateOpen'
-    :hasClear='true'
-    @close='closeDate'
-    @change='val => changeDate(val)'
-    @clear='clearDate')
   // 组件内容
   div.condition-container(v-for='(line, code) in items' v-if='hasNoEmptry(items)')
     div.condition-item(v-for='(item, no) in line' :style='width(cols)')
@@ -39,24 +32,41 @@ div.moo-condition(class='moo')
               @change='val => change(item.items.select, val)')
       // date
       div.condition-container(v-if='item.component === "date"')
-        div.condition-date-input(@click='e => changeDateStatus(item)')
-          moo-input(
-            :disabled='true'
-            :val='formatDate(item.value)'
-            :placeholder='item.tips')
+        div.condition-date-input
+          moo-pop(@change='e => changeDateStatus(item)')
+            div(slot='pop-btn')
+              span {{ item.value !== '' ? formatDate(item.value) : item.tips }}
+            div(slot='pop')
+              moo-datepicker(
+                :show='true'
+                :noClose='true'
+                :noAutoHide='true'
+                @close='closeDate'
+                @change='val => changeDate(val)')
       // dateScope
       div.condition-container(v-if='item.component === "dateScope"')
-        div.condition-date-scope(@click='e => changeDateStatus(item.items.start)')
-          moo-input(
-            :disabled='true'
-            :val='formatDate(item.items.start.value)'
-            :placeholder='item.items.start.tips')
+        div.condition-date-scope
+          moo-pop(@change='e => changeDateStatus(item.items.start)')
+            div(slot='pop-btn')
+              span {{ item.items.start.value !== '' ? formatDate(item.items.start.value) : item.items.start.tips }}
+            div(slot='pop')
+              moo-datepicker(
+                :show='true'
+                :noClose='true'
+                :noAutoHide='true'
+                @close='closeDate'
+                @change='val => changeDate(val)')
         div.condition-date-split -
-        div.condition-date-scope(@click='e => changeDateStatus(item.items.end)')
-          moo-input(
-            :disabled='true'
-            :val='formatDate(item.items.end.value)'
-            :placeholder='item.items.end.tips')
+        div.condition-date-scope
+          moo-pop(@change='e => changeDateStatus(item.items.end)')
+            div(slot='pop-btn') {{ item.items.end.value !== '' ? formatDate(item.items.end.value) : item.items.end.tips }}
+            div(slot='pop')
+              moo-datepicker(
+                :show='true'
+                :noClose='true'
+                :noAutoHide='false'
+                @close='closeDate'
+                @change='val => changeDate(val)')
       // checkbox
       div.condition-container(v-if='item.component === "checkbox"'
         @mouseover='hasMoveOnSelect'
@@ -134,7 +144,6 @@ export default {
   },
   data() {
     return {
-      hasDateOpen: false,
       isBindMouseMenus: false,
       isMoveOver: 0,
       dateTarget: null,
@@ -163,9 +172,6 @@ export default {
     },
     list(list) {
       this.condList = list;
-    },
-    condShow() {
-      this.hasDateOpen = false;
     },
   },
   mounted() {

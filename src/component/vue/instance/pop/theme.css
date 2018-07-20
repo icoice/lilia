@@ -1,4 +1,6 @@
 .moo-pop {
+  width: 160pxr;
+
   .moo-pop-control {
     .moo-btn .btn-touch {
       min-width: 120pxr;
@@ -12,8 +14,8 @@
   .moo-pop-open {
     position: relative;
     z-index: 11;
+
     .moo-btn .btn-touch {
-      min-width: 120pxr;
       border-bottom: 1px solid transparent;
       border-bottom-left-radius: 0;
       border-bottom-right-radius: 0;
