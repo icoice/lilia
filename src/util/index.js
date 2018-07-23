@@ -8,7 +8,7 @@ import _File from './File';
 import _Http from './Http';
 import _String from './String';
 import _Storage from './Storage';
-import _Object from './Object';''
+import _Object from './Object';
 
 window.$lilia_util = {
   Array: _Array,

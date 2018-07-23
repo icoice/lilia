@@ -10,7 +10,7 @@
 </template>
 
 <script>
-import btn from '../../common/button';
+import btn from '../../base/button';
 import actions from './actions';
 
 export default {

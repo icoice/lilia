@@ -1,13 +1,13 @@
 // 基础组件
-import button from './common/button';
-import checkbox from './common/checkbox';
-import file from './common/file';
-import loading from './common/loading';
-import image from './common/image';
-import input from './common/input';
-import radio from './common/radio';
-import select from './common/select';
-import toast from './common/toast';
+import button from './base/button';
+import checkbox from './base/checkbox';
+import file from './base/file';
+import loading from './base/loading';
+import image from './base/image';
+import input from './base/input';
+import radio from './base/radio';
+import select from './base/select';
+import toast from './base/toast';
 
 // 特例组件
 import choose from './instance/choose';

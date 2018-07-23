@@ -19,7 +19,7 @@
 </template>
 
 <script>
-  import btn from '../../common/button';
+  import btn from '../../base/button';
 
   export default {
     components: {

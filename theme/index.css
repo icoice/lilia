@@ -3,8 +3,8 @@
 @import 'planes/border.css';
 @import 'planes/unit.css';
 @import './icon/iconfont.css';
-@import '../lib/component/vue/common/**/**/*.css'; /* moo component */
-@import '../lib/component/vue/instance/**/**/*.css'; /* moo component */
+@import '../lib/component/vue/common/**/**/*.css'; /* lilia component */
+@import '../lib/component/vue/instance/**/**/*.css'; /* lilia component */
 
 * {
   font-family: Microsoft YaHei;

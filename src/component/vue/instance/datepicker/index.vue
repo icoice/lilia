@@ -38,9 +38,9 @@ div.lilia-datepicker(v-if='open'
 </template>
 
 <script>
-import btn from '../../common/button';
-import liliaInput from '../../common/input';
-import liliaSelect from '../../common/select';
+import btn from '../../base/button';
+import liliaInput from '../../base/input';
+import liliaSelect from '../../base/select';
 import pop from '../../instance/pop';
 import actions from './actions';
 

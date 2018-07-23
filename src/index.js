@@ -1,3 +1,4 @@
+import Router from 'vue-router';
 import _drive from './drive';
 import _util from './util';
 import _vue from './component/vue';
@@ -14,7 +15,27 @@ export const $vue = {
   actions: (n) => drive.Vue.store.actions(n),
 }
 
+export const start = (Vue, state) => {
+  const store = $vue.store(Vue, (Store) => {
+    Object.entries(state).map(([name, build]) => build(new Store(name)));
+  });
+
+  return (App, router) => {
+    Vue.use(Router);
+    const components = component.register(Vue);
+    util.Storage.memory('LILIA_VUE_COMPONENTS', components);
+    return new Vue({
+      el: '#app',
+      router: new Router(router),
+      store,
+      components: { App },
+      template: '<App/>',
+    });
+  };
+}
+
 export default {
+  start,
   component,
   drive,
   util,

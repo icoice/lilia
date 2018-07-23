@@ -103,7 +103,7 @@
 </template>
 
 <script>
-  import btn from '../../common/button';
+  import btn from '../../base/button';
 
   const getToday = () => {
     const d = new Date();

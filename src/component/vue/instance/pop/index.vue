@@ -9,7 +9,7 @@
 </template>
 
 <script>
-import btn from '../../common/button';
+import btn from '../../base/button';
 import actions from './actions';
 
 const drive = window.$lilia_drive;

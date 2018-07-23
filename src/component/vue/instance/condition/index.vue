@@ -121,11 +121,11 @@ div.lilia-condition(class='lilia')
 </template>
 
 <script>
-import liliaInput from '../../common/input';
-import liliaSelect from '../../common/select';
-import liliaRadio from '../../common/radio';
-import liliaCheckbox from '../../common/checkbox';
-import btn from '../../common/button';
+import liliaInput from '../../base/input';
+import liliaSelect from '../../base/select';
+import liliaRadio from '../../base/radio';
+import liliaCheckbox from '../../base/checkbox';
+import btn from '../../base/button';
 import liliaDatepicker from '../datepicker';
 import actions from './actions';
 
