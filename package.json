@@ -2,7 +2,7 @@
   "name": "moo",
   "version": "0.0.1",
   "description": "moo",
-  "author": "985611106@qq.com",
+  "author": "icoice",
   "main": "./lib",
   "scripts": {
     "start": "npm run encode",
