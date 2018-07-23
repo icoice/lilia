@@ -1,7 +1,7 @@
 @import 'planes/base.css';
 @import 'planes/unit.css';
 
-.moo-toast {
+.lilia-toast {
   @mixin clear-select;
   overflow: hidden;
   position: fixed;

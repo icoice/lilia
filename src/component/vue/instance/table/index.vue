@@ -1,5 +1,5 @@
 <template lang='pug'>
-div.moo(class='moo-table')
+div.lilia(class='lilia-table')
   div.no-table-data(v-if='!tbData || tbData.length === 0' )
     slot(name='no-data')
   table(v-else)

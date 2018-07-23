@@ -1,21 +1,21 @@
-  .moo-multiple-choose {
+  .lilia-multiple-choose {
     font-size: 12px;
     .psm-icon {
       margin-right: .5em;
       font-size: 12px;
       cursor: pointer;
     }
-    .moo-multiple-container {
+    .lilia-multiple-container {
       padding: 1em;
       background-color: #efefef;
-      .moo-multiple-node {
+      .lilia-multiple-node {
         overflow: hidden;
         width: 100%;
-        .moo-multiple-node {
+        .lilia-multiple-node {
           margin-left: 1em;
           padding: .5em;
         }
-        .moo-multiple-node-content {
+        .lilia-multiple-node-content {
           padding-top: 1em;
           padding-left: .8em;
           padding-bottom: 1em;
@@ -24,11 +24,11 @@
           color: #00619c;
         }
       }
-      .moo-multiple-house-container {
+      .lilia-multiple-house-container {
         overflow: hidden;
-        .moo-multiple-house-node {
+        .lilia-multiple-house-node {
           float: left;
-          .moo-multiple-node-content {
+          .lilia-multiple-node-content {
             margin-top: .5em;
             margin-right: .5em;
             margin-bottom: .5em;
@@ -39,7 +39,7 @@
             font-weight: 200;
             color: #333;
           }
-          .moo-multiple-node-content:hover {
+          .lilia-multiple-node-content:hover {
             background-color: #00619c;
             color: #fff;
           }

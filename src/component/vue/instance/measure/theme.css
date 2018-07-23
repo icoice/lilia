@@ -1,6 +1,6 @@
 @import 'planes/border.css';
 
-.moo-measure {
+.lilia-measure {
   overflow: hidden;
 
   .measure-content {
@@ -10,7 +10,7 @@
     border: 2px solid #008d1b;
   }
 
-  .measure .moo-btn {
+  .measure .lilia-btn {
     float: left;
     margin-right: .5em;
 

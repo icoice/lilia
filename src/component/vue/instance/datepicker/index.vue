@@ -1,12 +1,12 @@
 <template lang='pug'>
-div.moo-datepicker(v-if='open'
-  class='moo'
+div.lilia-datepicker(v-if='open'
+  class='lilia'
   @mouseover='e => mousePos(1)'
   @mouseleave='e => mousePos(0)')
   // 组件头
   div.datepicker-nav
     div.nav-item
-      moo-input(
+      lilia-input(
         :val='currentInput || getCurrent'
         @keyup='editCurrent'
         @blur='editOver')
@@ -17,8 +17,8 @@ div.moo-datepicker(v-if='open'
         span.iconfont(class='icon-refresh' slot='btn')
   // 日期选择
   div.datepicker-selector(class='speed-select')
-    moo-select(:list='yearList' :val='nowYear' @change='item => choose("year", item.key)')
-    moo-select(:list='monthList' :val='nowMonth' @change='item => choose("month", item.key)')
+    lilia-select(:list='yearList' :val='nowYear' @change='item => choose("year", item.key)')
+    lilia-select(:list='monthList' :val='nowMonth' @change='item => choose("month", item.key)')
   // 选择区域
   div.datepicker-area
     // 日份
@@ -32,19 +32,19 @@ div.moo-datepicker(v-if='open'
               span(slot='btn') {{ day === null ? '&nbsp;' : day }}
   // 时间选择
   div.datepicker-selector(class='speed-select' v-if='hasShowTime')
-    moo-select(:list='hourList' :val='nowHour' @change='item => choose("hour", item.key)')
-    moo-select(:list='minuteList' :val='nowMinute' @change='item => choose("minute", item.key)')
-    moo-select(:list='secondList' :val='nowSecond' @change='item => choose("second", item.key)')
+    lilia-select(:list='hourList' :val='nowHour' @change='item => choose("hour", item.key)')
+    lilia-select(:list='minuteList' :val='nowMinute' @change='item => choose("minute", item.key)')
+    lilia-select(:list='secondList' :val='nowSecond' @change='item => choose("second", item.key)')
 </template>
 
 <script>
 import btn from '../../common/button';
-import mooInput from '../../common/input';
-import mooSelect from '../../common/select';
+import liliaInput from '../../common/input';
+import liliaSelect from '../../common/select';
 import pop from '../../instance/pop';
 import actions from './actions';
 
-const util = window.$moo_util;
+const util = window.$lilia_util;
 
 const keyMap = {
   year: '年',
@@ -129,8 +129,8 @@ export default {
   components: {
     btn,
     pop,
-    mooInput,
-    mooSelect,
+    liliaInput,
+    liliaSelect,
   },
   mounted() {
     this.init();

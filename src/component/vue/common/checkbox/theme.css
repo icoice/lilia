@@ -1,20 +1,20 @@
 @import 'planes/base.css';
 @import 'planes/unit.css';
 
-.moo-checkbox {
+.lilia-checkbox {
   @mixin clear-select;
   overflow: hidden;
   /* reset */
-  .moo-btn .btn-touch {
+  .lilia-btn .btn-touch {
     height: auto;
     line-height: normal;
   }
 }
 
-.moo-checkbox .box-item {
+.lilia-checkbox .box-item {
   float: left;
 
-  .moo-btn {
+  .lilia-btn {
     .btn-touch{
       overflow: hidden;
       background: transparent;

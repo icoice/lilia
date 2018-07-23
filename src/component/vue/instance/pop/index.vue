@@ -1,10 +1,10 @@
 <template lang="pug">
-  div.moo-pop(class='moo' @mouseleave='inner')
-    div.moo-pop-control(:class="{'moo-pop-open': mooShow }")
+  div.lilia-pop(class='lilia' @mouseleave='inner')
+    div.lilia-pop-control(:class="{'lilia-pop-open': liliaShow }")
       btn(@tap='showPop' @mousemove='clearInner')
         div(slot='btn')
           slot(name='pop-btn')
-    div.moo-pop-content(v-if='mooShow')
+    div.lilia-pop-content(v-if='liliaShow')
       slot(name='pop')
 </template>
 
@@ -12,10 +12,10 @@
 import btn from '../../common/button';
 import actions from './actions';
 
-const drive = window.$moo_drive;
+const drive = window.$lilia_drive;
 
 export default {
-  ...drive.Vue.state('moo', {
+  ...drive.Vue.state('lilia', {
     name: [String, 'POP'],
     show: [Boolean, false],
     hasInit: [Boolean, false],

@@ -11,8 +11,8 @@
   font-family:"iconfont" !important;
   font-size:16px;
   font-style:normal;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+  -webkit-font-sliliathing: antialiased;
+  -moz-osx-font-sliliathing: grayscale;
 }
 
 .icon-3dcube:before { content: "\e60d"; }

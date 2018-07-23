@@ -1,5 +1,5 @@
 <template lang='pug'>
-  div.moo-file(:class="['moo', m$Disabled ? 'moo-file-disabled' : '']")
+  div.lilia-file(:class="['lilia', m$Disabled ? 'lilia-file-disabled' : '']")
     div.select-file(v-if='!m$Disabled')
       div(v-if='!m$HasShowSlot')
         span.iconfont(class='icon-upload')
@@ -24,7 +24,7 @@
 import btn from '../button';
 import actions from './actions';
 
-const drive = window.$moo_drive;
+const drive = window.$lilia_drive;
 
 export default {
   ...drive.Vue.state('m$', {

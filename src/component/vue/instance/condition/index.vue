@@ -1,15 +1,15 @@
 <template lang="pug">
-div.moo-condition(class='moo')
+div.lilia-condition(class='lilia')
   // 组件内容
   div.condition-container(v-for='(line, code) in items' v-if='hasNoEmptry(items)')
     div.condition-item(v-for='(item, no) in line' :style='width(cols)')
       div.condition-name {{ item.name }}
       // input
       div.condition-container(@click='closeComponents' v-if='item.component === "input"')
-        moo-input(:val='item.value' :placeholder='item.tips' @updated='val => change(item, val)')
+        lilia-input(:val='item.value' :placeholder='item.tips' @updated='val => change(item, val)')
       // select
       div.condition-container(v-if='item.component === "select"')
-        moo-select(
+        lilia-select(
           :val='typeof item.value !== "object" ? null : item.value.key'
           :list='item.list'
           :placeholder='item.tips'
@@ -18,13 +18,13 @@ div.moo-condition(class='moo')
       div.condition-container(v-if="item.component === 'typeInput'")
         div.condition-type-input
           div.condition-container-half
-            moo-input(
+            lilia-input(
               v-if="item.items.input"
               :val='item.items.input.value'
               :placeholder='item.items.input.tips'
               @updated='val => change(item.items.input, val)')
           div.condition-container-half
-            moo-select(
+            lilia-select(
               v-if='item.items.select'
               :val='typeof item.items.select.value !== "object" ? null : item.items.select.value.key'
               :list='item.items.select.list'
@@ -33,11 +33,11 @@ div.moo-condition(class='moo')
       // date
       div.condition-container(v-if='item.component === "date"')
         div.condition-date-input
-          moo-pop(@change='e => changeDateStatus(item)')
+          lilia-pop(@change='e => changeDateStatus(item)')
             div(slot='pop-btn')
               span {{ item.value !== '' ? formatDate(item.value) : item.tips }}
             div(slot='pop')
-              moo-datepicker(
+              lilia-datepicker(
                 :show='true'
                 :noClose='true'
                 :noAutoHide='true'
@@ -46,11 +46,11 @@ div.moo-condition(class='moo')
       // dateScope
       div.condition-container(v-if='item.component === "dateScope"')
         div.condition-date-scope
-          moo-pop(@change='e => changeDateStatus(item.items.start)')
+          lilia-pop(@change='e => changeDateStatus(item.items.start)')
             div(slot='pop-btn')
               span {{ item.items.start.value !== '' ? formatDate(item.items.start.value) : item.items.start.tips }}
             div(slot='pop')
-              moo-datepicker(
+              lilia-datepicker(
                 :show='true'
                 :noClose='true'
                 :noAutoHide='true'
@@ -58,10 +58,10 @@ div.moo-condition(class='moo')
                 @change='val => changeDate(val)')
         div.condition-date-split -
         div.condition-date-scope
-          moo-pop(@change='e => changeDateStatus(item.items.end)')
+          lilia-pop(@change='e => changeDateStatus(item.items.end)')
             div(slot='pop-btn') {{ item.items.end.value !== '' ? formatDate(item.items.end.value) : item.items.end.tips }}
             div(slot='pop')
-              moo-datepicker(
+              lilia-datepicker(
                 :show='true'
                 :noClose='true'
                 :noAutoHide='false'
@@ -77,7 +77,7 @@ div.moo-condition(class='moo')
               span {{ checkBoxSelected(item) }}
               span.iconfont(class='icon-arrowdown')
         div.condition-checkbox-search(v-else)
-          moo-input(
+          lilia-input(
             :val='!checkboxSearchKey[code * cols + no] ? "" : checkboxSearchKey[code * cols + no]'
             placeholder='请输入关键词'
             @updated='val => updateSearchCheckbox(code * cols + no, val)')
@@ -90,7 +90,7 @@ div.moo-condition(class='moo')
             btn(@tap='e => changeSearchCheckbox(false, item)')
               span(slot='btn') 关闭
           div.condition-checkbox-con
-            moo-checkbox(
+            lilia-checkbox(
               :items='searchCheckbox(code * cols + no, item)'
               :selected='item.value'
               @tap='val => change(item, val)')
@@ -102,7 +102,7 @@ div.moo-condition(class='moo')
           btn(@tap='changeSearchCheckbox(true, item)')
             div(slot='btn') {{ checkBoxSelected(item) }}
         div.condition-radio-search(v-else)
-          moo-input(
+          lilia-input(
             :val='!checkboxSearchKey[code * cols + no] ? "" : checkboxSearchKey[code * cols + no]'
             placeholder='请输入关键词搜索'
             @updated='val => updateSearchCheckbox(code * cols + no, val)')
@@ -112,7 +112,7 @@ div.moo-condition(class='moo')
               span(slot='btn') 重置
             btn(@tap='e => changeSearchCheckbox(false, item)')
               span(slot='btn') 关闭
-          moo-radio(
+          lilia-radio(
             :items='searchCheckbox(code * cols + no, item)'
             :selected='item.value.code'
             @tap='val => change(item, val)')
@@ -121,15 +121,15 @@ div.moo-condition(class='moo')
 </template>
 
 <script>
-import mooInput from '../../common/input';
-import mooSelect from '../../common/select';
-import mooRadio from '../../common/radio';
-import mooCheckbox from '../../common/checkbox';
+import liliaInput from '../../common/input';
+import liliaSelect from '../../common/select';
+import liliaRadio from '../../common/radio';
+import liliaCheckbox from '../../common/checkbox';
 import btn from '../../common/button';
-import mooDatepicker from '../datepicker';
+import liliaDatepicker from '../datepicker';
 import actions from './actions';
 
-const util = window.$moo_util;
+const util = window.$lilia_util;
 
 export default {
   props: {
@@ -153,11 +153,11 @@ export default {
     };
   },
   components: {
-    mooInput,
-    mooSelect,
-    mooDatepicker,
-    mooCheckbox,
-    mooRadio,
+    liliaInput,
+    liliaSelect,
+    liliaDatepicker,
+    liliaCheckbox,
+    liliaRadio,
     btn,
   },
   computed: {

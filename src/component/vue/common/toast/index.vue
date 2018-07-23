@@ -1,5 +1,5 @@
 <template lang='pug'>
-  div.moo-toast(class='moo' v-if='m$Show')
+  div.lilia-toast(class='lilia' v-if='m$Show')
     div.toast-showcase
       p.toast-content {{ m$Message }}
       div.toast-bg
@@ -8,7 +8,7 @@
 <script>
 import actions from './actions';
 
-const drive = window.$moo_drive;
+const drive = window.$lilia_drive;
 
 export default {
   ...drive.Vue.state('m$', {

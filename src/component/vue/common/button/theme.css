@@ -5,7 +5,7 @@ $btnColor: #35cb44;
 $moveColor: #35f249;
 $pressColor: #00a611;
 
-.moo-btn {
+.lilia-btn {
   @mixin clear-select;
 
   .btn-touch {

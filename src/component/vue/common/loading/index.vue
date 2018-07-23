@@ -1,7 +1,7 @@
 <template >
-  <div class="moo moo-loading">
+  <div class="lilia lilia-loading">
     <div class="load-mark" v-if="!isLoadComplete">
-      <div class="moo-icon">
+      <div class="lilia-icon">
         <!-- 1 -->
         <div class="loader loader--style1" title="0" v-if='loadType === 0'>
           <svg version="1.1" id="loader-1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"

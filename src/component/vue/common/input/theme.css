@@ -1,7 +1,7 @@
 @import 'planes/base.css';
 @import 'planes/unit.css';
 
-.moo-input {
+.lilia-input {
   @mixin clear-select;
   overflow: hidden;
 
@@ -60,13 +60,13 @@
   }
 }
 
-.moo-input-disabled {
+.lilia-input-disabled {
   input {
     border-color: #b2cbb4;
   }
 }
 
-.moo-input-error {
+.lilia-input-error {
   input {
     border: 1px solid #c00;
   }

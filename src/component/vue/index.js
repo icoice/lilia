@@ -21,46 +21,46 @@ import paging from './instance/paging';
 import measure from './instance/measure';
 import showcase from './instance/showcase';
 
-export const mooBtn = button;
-export const mooCheckbox = checkbox;
-export const mooChoose = choose;
-export const mooCondition = condition;
-export const mooDate = date;
-export const mooDatepicker = datepicker;
-export const mooFile = file;
-export const mooLoading = loading;
-export const mooMeasure = measure;
-export const mooPaging = paging;
-export const mooInput = input;
-export const mooRadio = radio;
-export const mooSelect = select;
-export const mooShowcase = showcase;
-export const mooToast = toast;
-export const mooTable = table;
-export const mooImg = image;
-export const mooTree = tree;
-export const mooPop = pop;
+export const liliaBtn = button;
+export const liliaCheckbox = checkbox;
+export const liliaChoose = choose;
+export const liliaCondition = condition;
+export const liliaDate = date;
+export const liliaDatepicker = datepicker;
+export const liliaFile = file;
+export const liliaLoading = loading;
+export const liliaMeasure = measure;
+export const liliaPaging = paging;
+export const liliaInput = input;
+export const liliaRadio = radio;
+export const liliaSelect = select;
+export const liliaShowcase = showcase;
+export const liliaToast = toast;
+export const liliaTable = table;
+export const liliaImg = image;
+export const liliaTree = tree;
+export const liliaPop = pop;
 
 const component = {
-  mooBtn,
-  mooChoose,
-  mooCheckbox,
-  mooCondition,
-  mooDate,
-  mooDatepicker,
-  mooFile,
-  mooLoading,
-  mooMeasure,
-  mooInput,
-  mooPaging,
-  mooRadio,
-  mooSelect,
-  mooShowcase,
-  mooTable,
-  mooToast,
-  mooTree,
-  mooImg,
-  mooPop,
+  liliaBtn,
+  liliaChoose,
+  liliaCheckbox,
+  liliaCondition,
+  liliaDate,
+  liliaDatepicker,
+  liliaFile,
+  liliaLoading,
+  liliaMeasure,
+  liliaInput,
+  liliaPaging,
+  liliaRadio,
+  liliaSelect,
+  liliaShowcase,
+  liliaTable,
+  liliaToast,
+  liliaTree,
+  liliaImg,
+  liliaPop,
 };
 
 export const register = function register(Vue) {

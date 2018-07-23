@@ -1,4 +1,4 @@
-const util = window.$moo_util;
+const util = window.$lilia_util;
 
 // 鼠标事件
 const mouse = {

@@ -1,4 +1,4 @@
-const util = window.$moo_util;
+const util = window.$lilia_util;
 const methods = {
   init() {
     this.yearScope();

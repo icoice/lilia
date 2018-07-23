@@ -1,5 +1,5 @@
 <template lang="pug">
-  div.moo-radio(:class="{ 'moo-radio-disabled': m$Disabled }")
+  div.lilia-radio(:class="{ 'lilia-radio-disabled': m$Disabled }")
     div.radio-item(
       v-for="(item, code) in m$Items"
       v-if='item'
@@ -14,7 +14,7 @@
 <script>
 import actions from './actions';
 
-const drive = window.$moo_drive;
+const drive = window.$lilia_drive;
 
 export default {
   ...drive.Vue.state('m$', {

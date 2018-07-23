@@ -1,23 +1,23 @@
 const methods = {
   init() {
-    if (!this.mooHasInit) {
-      this.mooHasInit = true;
+    if (!this.liliaHasInit) {
+      this.liliaHasInit = true;
       window.addEventListener('click', (e) => {
-        if (this.mooHasInner) {
-          this.mooShow = false;
-          this.mooHasInner = false;
+        if (this.liliaHasInner) {
+          this.liliaShow = false;
+          this.liliaHasInner = false;
         }
       }, true);
     }
   },
   inner() {
-    this.mooHasInner = true;
+    this.liliaHasInner = true;
   },
   clearInner() {
-    this.mooHasInner = false;
+    this.liliaHasInner = false;
   },
   showPop() {
-    this.mooShow = !this.mooShow;
+    this.liliaShow = !this.liliaShow;
     this.$emit('change');
   },
 };

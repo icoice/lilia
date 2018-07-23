@@ -1,5 +1,5 @@
 <template lang='pug'>
-div.moo-checkbox(class='moo')
+div.lilia-checkbox(class='lilia')
   div.box-item(v-for='(item, code) in m$Items')
     div(v-if='item')
       btn(@tap='e => tap(code, item)')
@@ -14,7 +14,7 @@ div.moo-checkbox(class='moo')
 import actions from './actions';
 import btn from '../button';
 
-const drive = window.$moo_drive;
+const drive = window.$lilia_drive;
 
 export default {
   ...drive.Vue.state('m$', {

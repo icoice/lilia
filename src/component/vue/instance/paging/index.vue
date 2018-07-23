@@ -1,5 +1,5 @@
 <template lang='pug'>
-  div.moo-paging(class='moo' v-if='pageTotal > 0')
+  div.lilia-paging(class='lilia' v-if='pageTotal > 0')
     ul
       li.paging-operate(class='paging-first')
         btn(@tap='firstPageNo')

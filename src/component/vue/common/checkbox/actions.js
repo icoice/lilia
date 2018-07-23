@@ -1,4 +1,4 @@
-const util = window.$mooUtil;
+const util = window.$liliaUtil;
 
 const methods = {
   tap(code, item) {

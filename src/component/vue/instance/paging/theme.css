@@ -1,12 +1,12 @@
 @import 'planes/base.css';
 @import 'planes/unit.css';
 
-.moo-paging {
+.lilia-paging {
   @mixin clear-select;
   overflow: hidden;
 }
 
-.moo-paging .paging-tips {
+.lilia-paging .paging-tips {
   height: 42pxr;
   line-height: 42pxr;
   font-size: 14pxr;
@@ -14,17 +14,17 @@
   color: #666;
 }
 
-.moo-paging ul {
+.lilia-paging ul {
   overflow: hidden;
   margin: 0;
   padding: 0;
 }
 
-.moo-paging ul li {
+.lilia-paging ul li {
   float: left;
   list-style-type: none;
 
-  .moo-btn .btn-touch {
+  .lilia-btn .btn-touch {
     padding: 0;
     height: 42pxr;
     line-height: 42pxr;
@@ -36,26 +36,26 @@
     color: #0d462c;
   }
 
-  .moo-btn-disabled .btn-touch {
+  .lilia-btn-disabled .btn-touch {
     color: #333;
   }
 }
 
-.moo-paging ul li.page-no {
-  .moo-btn .btn-touch {
+.lilia-paging ul li.page-no {
+  .lilia-btn .btn-touch {
     padding: 0 10pxr;
   }
 }
 
-.moo-paging ul li.page-no-selected {
-  .moo-btn .btn-touch {
+.lilia-paging ul li.page-no-selected {
+  .lilia-btn .btn-touch {
     font-weight: bold;
     color: #d10432;
   }
 }
 
-.moo-paging ul li.paging-operate {
-  .moo-btn .btn-touch {
+.lilia-paging ul li.paging-operate {
+  .lilia-btn .btn-touch {
     padding: 0 10pxr;
     width: auto;
     height: 42pxr;

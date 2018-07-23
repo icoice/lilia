@@ -1,5 +1,5 @@
 <template lang='pug'>
-div.moo-input(class='moo' :class='status')
+div.lilia-input(class='lilia' :class='status')
   div.input-container
     input(
       ref='input'
@@ -23,7 +23,7 @@ div.moo-input(class='moo' :class='status')
 <script>
 import actions from './actions';
 
-const drive = window.$moo_drive;
+const drive = window.$lilia_drive;
 
 export default {
   ...drive.Vue.state('m$', {
@@ -45,8 +45,8 @@ export default {
   computed: {
     status() {
       return {
-        'moo-input-error': this.m$HasVerifyFail || this.m$HasEmptry,
-        'moo-input-disabled': this.m$Disabled,
+        'lilia-input-error': this.m$HasVerifyFail || this.m$HasEmptry,
+        'lilia-input-disabled': this.m$Disabled,
       };
     },
   },

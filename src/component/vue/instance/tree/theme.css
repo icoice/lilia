@@ -1,7 +1,7 @@
 @import 'planes/base.css';
 @import 'planes/unit.css';
 
-.moo-tree {
+.lilia-tree {
   @mixin clear-select;
   padding-bottom: 10pxr;
   width: 800pxr;
@@ -9,7 +9,7 @@
   background-color: #fff;
 }
 
-.moo-tree .tree-line {
+.lilia-tree .tree-line {
   position: relative;
   padding: 10pxr 10pxr 10pxr 25pxr;
   border-left: 2px solid #00a611;
@@ -18,7 +18,7 @@
   cursor: pointer;
 }
 
-.moo-tree .tree-line:hover {
+.lilia-tree .tree-line:hover {
   background-color: #ade5b2;
 
   .tree-btn {
@@ -26,7 +26,7 @@
   }
 }
 
-.moo-tree .tree-line span {
+.lilia-tree .tree-line span {
   display: block;
   position: absolute;
   z-index: 1;
@@ -37,7 +37,7 @@
   border-bottom: 2px solid #00a611;
 }
 
-.moo-tree span.tree-middle-line {
+.lilia-tree span.tree-middle-line {
   display: block;
   position: absolute;
   top: 50%;
@@ -47,7 +47,7 @@
   border-bottom: 1px solid #dfdfdf;
 }
 
-.moo-tree .tree-root {
+.lilia-tree .tree-root {
   border-top: none;
   border-left: none;
   border-right: none;
@@ -55,14 +55,14 @@
   color: #0d462c;
 }
 
-.moo-tree .tree-line .tree-btn {
+.lilia-tree .tree-line .tree-btn {
   position: relative;
   z-index: 2;
   padding-left: 5pxr;
   background-color: #fff;
 }
 
-.moo-tree span.tree-open {
+.lilia-tree span.tree-open {
   display: inline;
   position: relative;
   z-index: 1;
@@ -74,7 +74,7 @@
   color: #03a512;
 }
 
-.moo-tree .tree-selected {
+.lilia-tree .tree-selected {
   background-color: #ccffd0;
   color: #0d462c;
 

@@ -1,6 +1,6 @@
 <template>
-  <div class="moo-multiple-choose">
-    <div class="moo-multiple-container" ref="container"></div>
+  <div class="lilia-multiple-choose">
+    <div class="lilia-multiple-container" ref="container"></div>
   </div>
 </template>
 
@@ -127,7 +127,7 @@
       createHouse(parentNode, item, parentChooseID = null) {
         const { chooseHouse } = this;
         if (Array.isArray(item.house)) {
-          const houseContainer = this.buildNode(['moo-multiple-house-container']);
+          const houseContainer = this.buildNode(['lilia-multiple-house-container']);
           const houseItems = [];
           item.house.map((houseID) => {
             chooseHouse.map((houseItem) => {
@@ -138,7 +138,7 @@
           });
           houseItems.map((houseItem) => {
             const chooseID = (parentChooseID !== null ? [parentChooseID, houseItem.id] : [houseItem.id]).join('/');
-            const houseNode = this.buildNode(['moo-multiple-house-node'], houseItem, chooseID);
+            const houseNode = this.buildNode(['lilia-multiple-house-node'], houseItem, chooseID);
             houseContainer.appendChild(houseNode);
             return houseItem;
           });
@@ -149,7 +149,7 @@
       createNodeLayer(root = [], parentNode, parentChooseID = null) {
         root.map((item) => {
           const chooseID = (parentChooseID !== null ? [parentChooseID, item.id] : [item.id]).join('/');
-          const node = this.buildNode(['moo-multiple-node'], item, chooseID);
+          const node = this.buildNode(['lilia-multiple-node'], item, chooseID);
           node.onclick = () => {};
           this.createHouse(node, item, chooseID);
           this.createRouteSign(node, item, chooseID);
@@ -222,7 +222,7 @@
             nodes[chooseID] = checked;
             nodeContent.onclick = () => nodes[chooseID]();
           }
-          nodeContent.className = ['moo-multiple-node-content'].join(' ');
+          nodeContent.className = ['lilia-multiple-node-content'].join(' ');
           nodeCheckbox.className = ['psm-icon', 'psm-no-checked'].join(' ');
           nodeContentTxt.innerHTML = item.name;
           nodeContent.appendChild(nodeCheckbox);

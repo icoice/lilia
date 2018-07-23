@@ -1,6 +1,6 @@
 <template>
   <!-- 滑动的效果在H5体验不管怎么弄都不太好，所以制作一个以年代为基准的日期插件 -->
-  <div class="moo moo-date" v-if="hasOpen">
+  <div class="lilia lilia-date" v-if="hasOpen">
     <div class="date-control">
       <btn @tap="closeDate">
         <span slot="btn">
@@ -39,7 +39,7 @@
         <div class="date-operator">
           <!-- 递增 -->
           <div class='btn'>
-            <div class="moo-icon moo-arrow-left"
+            <div class="lilia-icon lilia-arrow-left"
               @mousedown="e => upBegin(unit)"
               @mousemove="e => e.preventDefault()"
               @mouseup="upOver">
@@ -54,7 +54,7 @@
           </div>
           <!-- 递减 -->
           <div class='btn'>
-            <div class="moo-icon moo-arrow-right"
+            <div class="lilia-icon lilia-arrow-right"
               @mousedown="e => downBegin(unit)"
               @mousemove="e => e.preventDefault()"
               @mouseup="downOver">
@@ -74,7 +74,7 @@
         <div class="date-operator">
           <!-- 递增 -->
           <div class="btn">
-            <div class="moo-icon moo-arrow-left"
+            <div class="lilia-icon lilia-arrow-left"
               @mousedown="e => upTimeBegin(unit)"
               @mousemove="e => e.preventDefault()"
               @mouseup="upTimeOver">
@@ -89,7 +89,7 @@
           </div>
           <!-- 递减 -->
           <div class="btn">
-            <div class="moo-icon moo-arrow-right"
+            <div class="lilia-icon lilia-arrow-right"
               @mousedown="e => downTimeBegin(unit)"
               @mousemove="e => e.preventDefault()"
               @mouseup="downTimeOver">

@@ -1,7 +1,7 @@
 @import 'planes/base.css';
 @import 'planes/unit.css';
 
-.moo-radio {
+.lilia-radio {
   @mixin clear-select;
   overflow: hidden;
   position: relative;
@@ -47,7 +47,7 @@
   }
 }
 
-.moo-radio-disabled {
+.lilia-radio-disabled {
   .radio-item .radio-checked {
     border-color: #efefef;
   }

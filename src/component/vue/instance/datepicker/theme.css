@@ -1,13 +1,13 @@
 @import 'planes/base.css';
 @import 'planes/unit.css';
 
-.moo-datepicker {
+.lilia-datepicker {
   @mixin clear-select;
   width: 600pxr;
   border: 1px solid #06a413;
   background-color: #f8fffa;
 
-  .moo-btn .btn-touch {
+  .lilia-btn .btn-touch {
     background: transparent;
     border-radius: 0;
     text-align: center;
@@ -17,16 +17,16 @@
     text-shadow: none;
   }
 
-  .moo-select .select-pull-down {
+  .lilia-select .select-pull-down {
     overflow-y: auto;
     height: 200pxr;
   }
 }
 
-.moo-datepicker .datepicker-area {
+.lilia-datepicker .datepicker-area {
   padding: 0 5pxr 5pxr 5pxr;
 
-  .moo-btn .btn-touch {
+  .lilia-btn .btn-touch {
     padding: 0;
   }
 
@@ -45,14 +45,14 @@
     box-sizing: border-box;
     padding-left: 10pxr;
 
-    .moo-btn .btn-touch {
+    .lilia-btn .btn-touch {
       text-align: left;
       color: #00619c;
     }
   }
 }
 
-.moo-datepicker .datepicker-nav {
+.lilia-datepicker .datepicker-nav {
   overflow: hidden;
   padding: 5pxr;
   border-bottom: 1px solid #96d39c;
@@ -63,7 +63,7 @@
     width: 70%;
   }
 
-  .nav-item .moo-input {
+  .nav-item .lilia-input {
     input {
       font-size: 30pxr;
       font-weight: bold;
@@ -76,30 +76,30 @@
   }
 
 
-  .nav-item:last-child .moo-btn {
+  .nav-item:last-child .lilia-btn {
     float: right;
   }
 
-  .nav-item:last-child .moo-btn .btn-touch {
+  .nav-item:last-child .lilia-btn .btn-touch {
     font-size: 30pxr;
   }
 }
 
-.moo-datepicker .row {
+.lilia-datepicker .row {
   width: 100%;
   border-collapse: collapse;
 }
 
-.moo-datepicker .row tr {
+.lilia-datepicker .row tr {
   overflow: hidden;
 }
 
-.moo-datepicker .row tr td {
+.lilia-datepicker .row tr td {
   padding: 0;
   text-align: center;
   border: 1px solid #96d39c;
 
-  .moo-btn .btn-touch {
+  .lilia-btn .btn-touch {
     padding: 10pxr 0;
     background-color: #f6fff7;
     font-size: 13pxr;
@@ -108,62 +108,62 @@
   }
 }
 
-.moo-datepicker .row tr td:first-child  {
-  .moo-btn .btn-touch {
+.lilia-datepicker .row tr td:first-child  {
+  .lilia-btn .btn-touch {
     background-color: #dfffe2;
     color: #0d462c;
   }
 }
 
-.moo-datepicker .row tr td.select {
-  .moo-btn .btn-touch {
+.lilia-datepicker .row tr td.select {
+  .lilia-btn .btn-touch {
     background-color: #ade5b2;
     color: #cc006f;
   }
 }
 
-.moo-datepicker .datepicker-week {
+.lilia-datepicker .datepicker-week {
   font-size: 12pxr;
   color: #456a48;
 }
 
-.moo-datepicker tr.datepicker-week td {
+.lilia-datepicker tr.datepicker-week td {
   padding: 10pxr 0;
   background-color: #dfffe2;
   box-sizing: border-box;
 }
 
-.moo-datepicker tr.datepicker-week td:first-child {
+.lilia-datepicker tr.datepicker-week td:first-child {
   color: #cb3564;
 }
 
-.moo-datepicker .datepicker-items .datepicker-item-title {
+.lilia-datepicker .datepicker-items .datepicker-item-title {
   font-size: 12pxr;
   color: #6bb191;
 }
 
-.moo-datepicker .datepicker-items-operator {
+.lilia-datepicker .datepicker-items-operator {
   overflow: hidden;
 
-  .moo-btn {
+  .lilia-btn {
     float: left;
     width: 50%;
   }
 
-  .moo-btn .btn-touch {
+  .lilia-btn .btn-touch {
     padding: 10pxr;
   }
 }
 
-.moo-datepicker .area-time {
+.lilia-datepicker .area-time {
   margin-top: 10pxr;
 }
 
-.moo-datepicker .speed-select {
+.lilia-datepicker .speed-select {
   padding: 0;
   height: 60pxr;
 
-  .moo-select {
+  .lilia-select {
     float: left;
     margin: 5pxr;
     width: 140pxr;
@@ -174,11 +174,11 @@
     height: 200pxr;
   }
 
-  .moo-btn .btn-touch {
+  .lilia-btn .btn-touch {
     padding: 5pxr;
     text-indent: 20pxr;
   }
-  .moo-btn .btn-touch:hover {
+  .lilia-btn .btn-touch:hover {
     background-color: #dfffe2;
   }
 }

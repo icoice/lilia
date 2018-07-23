@@ -1,5 +1,5 @@
 <template lang='pug'>
-  div.moo-tree(class='moo')
+  div.lilia-tree(class='lilia')
     div.tree-container(ref='tree')
 </template>
 

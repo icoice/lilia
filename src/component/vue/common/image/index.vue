@@ -1,5 +1,5 @@
 <template lang='pug'>
-  div.moo-img(moo)
+  div.lilia-img(lilia)
     div(class='image')
       img(:src='readFileReslut'
         v-show='isLoad'
@@ -11,7 +11,7 @@
 </template>
 
 <script>
-const util = window.$moo_util;
+const util = window.$lilia_util;
 
 export default {
   props: {

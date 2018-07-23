@@ -1,8 +1,8 @@
-.moo-pop {
+.lilia-pop {
   width: 160pxr;
 
-  .moo-pop-control {
-    .moo-btn .btn-touch {
+  .lilia-pop-control {
+    .lilia-btn .btn-touch {
       min-width: 120pxr;
       border: 1px solid #00a611;
       background: #fff;
@@ -11,18 +11,18 @@
     }
   }
 
-  .moo-pop-open {
+  .lilia-pop-open {
     position: relative;
     z-index: 11;
 
-    .moo-btn .btn-touch {
+    .lilia-btn .btn-touch {
       border-bottom: 1px solid transparent;
       border-bottom-left-radius: 0;
       border-bottom-right-radius: 0;
     }
   }
 
-  .moo-pop-content {
+  .lilia-pop-content {
     position: absolute;
     z-index: 10;
     margin-top: -1px;

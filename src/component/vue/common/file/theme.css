@@ -1,7 +1,7 @@
 @import 'planes/base.css';
 @import 'planes/unit.css';
 
-.moo-file {
+.lilia-file {
   @mixin clear-select;
 
   .select-file {

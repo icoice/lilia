@@ -1,5 +1,5 @@
 <template lang='pug'>
-  div.moo-measure(class='moo' ref='measure')
+  div.lilia-measure(class='lilia' ref='measure')
     div.measure-content(ref='measureContent')
       slot(name='measure')
     div.measure

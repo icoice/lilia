@@ -1,18 +1,18 @@
 @import 'planes/base.css';
 @import 'planes/unit.css';
 
-.moo-loading {
+.lilia-loading {
   @mixin clear-select;
   overflow: hidden;
   margin: 10pxr;
 }
 
-.moo-loading svg path,
-.moo-loading svg rect{
+.lilia-loading svg path,
+.lilia-loading svg rect{
   fill: #00ae25;
 }
 
-.moo-loading .moo-icon {
+.lilia-loading .lilia-icon {
   margin: 0 auto;
   padding: 14pxr;
   font-size: 12pxr;
@@ -20,7 +20,7 @@
   text-align: center;
 }
 
-.moo-loading p.load-descrption {
+.lilia-loading p.load-descrption {
   text-align: center;
   color: #eaeaea;
 }

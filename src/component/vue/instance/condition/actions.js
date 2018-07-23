@@ -1,5 +1,5 @@
-const drive = window.$moo_drive;
-const util = window.$moo_util;
+const drive = window.$lilia_drive;
+const util = window.$lilia_util;
 
 export const methods = {
   allSelect(item) {

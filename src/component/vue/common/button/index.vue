@@ -1,5 +1,5 @@
 <template lang='pug'>
-div.moo-btn(:class="['moo', hasDisabled]")
+div.lilia-btn(:class="['lilia', hasDisabled]")
   // 支持移动设备
   div(:class="['btn-touch', hasTapped]"
     v-if='m$HasMobile'
@@ -20,7 +20,7 @@ div.moo-btn(:class="['moo', hasDisabled]")
 <script>
 import actions from './actions';
 
-const drive = window.$moo_drive;
+const drive = window.$lilia_drive;
 
 export default {
   ...drive.Vue.state('m$', {

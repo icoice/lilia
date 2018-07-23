@@ -1,21 +1,21 @@
 @import 'planes/base.css';
 @import 'planes/unit.css';
 
-@mixin border-top .moo-date, #c3c3c3;
+@mixin border-top .lilia-date, #c3c3c3;
 
-.moo-date {
+.lilia-date {
   background-color: #eaeaea;
   background: -webkit-gradient(linear,0 1,0 55,from(#fff),to(#eaeaea));
   background: gradient(linear,0 1,0 55,from(#fff),to(#eaeaea));
   box-shadow: 0 5pxr 10pxr #dfdfdf;
 }
 
-.moo-date .date-setting {
+.lilia-date .date-setting {
   overflow: hidden;
-  .moo-btn {
+  .lilia-btn {
     float: left;
   }
-  .moo-btn .btn-touch {
+  .lilia-btn .btn-touch {
     padding: 0 5pxr;
     height: 40pxr;
     line-height: 40pxr;
@@ -27,7 +27,7 @@
       color: #333;
     }
   }
-  .moo-btn .btn-tap {
+  .lilia-btn .btn-tap {
     span {
       color: #333;
     }
@@ -41,7 +41,7 @@
   .btn {
     text-align: center;
   }
-  .btn .moo-icon {
+  .btn .lilia-icon {
     background-color: transparent;
     font-size: 24pxr;
     color: #999;
@@ -78,7 +78,7 @@
 }
 
 .date-control {
-  .moo-btn .btn-touch {
+  .lilia-btn .btn-touch {
     padding: 10pxr;
     background-color: transparent;
     text-align: right;
@@ -87,7 +87,7 @@
       color: #333;
     }
   }
-  .moo-btn .btn-tap {
+  .lilia-btn .btn-tap {
     span {
       color: #333;
     }

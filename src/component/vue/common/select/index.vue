@@ -1,6 +1,6 @@
 <template lang="pug">
-div.moo-select(
-  class='moo'
+div.lilia-select(
+  class='lilia'
   :class="{ 'select-disabled': hasDisabled }"
   @mouseover="hasMoveOnSelect"
   @mouseleave="hasMouseLeave")

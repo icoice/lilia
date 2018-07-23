@@ -10,7 +10,7 @@ import _String from './String';
 import _Storage from './Storage';
 import _Object from './Object';''
 
-window.$moo_util = {
+window.$lilia_util = {
   Array: _Array,
   Assert: _Assert,
   Chain: _Chain,
@@ -24,4 +24,4 @@ window.$moo_util = {
   Object: _Object,
 };
 
-export default window.$moo_util;
+export default window.$lilia_util;
