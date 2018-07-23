@@ -1,4 +1,4 @@
-# vue-moo
+# moo
 
 library.
 

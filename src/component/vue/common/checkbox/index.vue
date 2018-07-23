@@ -14,7 +14,7 @@ div.moo-checkbox(class='moo')
 import actions from './actions';
 import btn from '../button';
 
-const drive = window.$drive;
+const drive = window.$moo_drive;
 
 export default {
   ...drive.Vue.state('m$', {

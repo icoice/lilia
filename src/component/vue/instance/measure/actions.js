@@ -1,4 +1,4 @@
-const util = window.$util;
+const util = window.$moo_util;
 
 const methods = {
   hasMeasure() {

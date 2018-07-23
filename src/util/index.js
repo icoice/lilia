@@ -8,9 +8,9 @@ import _File from './File';
 import _Http from './Http';
 import _String from './String';
 import _Storage from './Storage';
-import _Object from './Object';
+import _Object from './Object';''
 
-window.$util = {
+window.$moo_util = {
   Array: _Array,
   Assert: _Assert,
   Chain: _Chain,
@@ -24,4 +24,4 @@ window.$util = {
   Object: _Object,
 };
 
-export default window.$util;
+export default window.$moo_util;

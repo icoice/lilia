@@ -129,7 +129,7 @@ import btn from '../../common/button';
 import mooDatepicker from '../datepicker';
 import actions from './actions';
 
-const util = window.$util;
+const util = window.$moo_util;
 
 export default {
   props: {

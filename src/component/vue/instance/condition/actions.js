@@ -1,5 +1,5 @@
-const drive = window.$drive;
-const util = window.$util;
+const drive = window.$moo_drive;
+const util = window.$moo_util;
 
 export const methods = {
   allSelect(item) {

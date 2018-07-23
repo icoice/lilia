@@ -11,7 +11,7 @@
 </template>
 
 <script>
-const util = window.$util;
+const util = window.$moo_util;
 
 export default {
   props: {

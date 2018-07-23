@@ -1,9 +1,9 @@
 import Http from './Http';
 import _Vue from './Vue';
 
-window.$drive = {
+window.$moo_drive = {
   Http,
   Vue: _Vue,
 };
 
-export default window.$drive;
+export default window.$moo_drive;

@@ -1,6 +1,6 @@
 {
-  "name": "vue-moo",
-  "version": "0.3.0",
+  "name": "moo",
+  "version": "0.0.1",
   "description": "moo",
   "author": "985611106@qq.com",
   "main": "./lib",

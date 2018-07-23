@@ -44,7 +44,7 @@ import mooSelect from '../../common/select';
 import pop from '../../instance/pop';
 import actions from './actions';
 
-const util = window.$util;
+const util = window.$moo_util;
 
 const keyMap = {
   year: '年',

@@ -24,7 +24,7 @@
 import btn from '../button';
 import actions from './actions';
 
-const drive = window.$drive;
+const drive = window.$moo_drive;
 
 export default {
   ...drive.Vue.state('m$', {

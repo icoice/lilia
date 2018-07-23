@@ -20,7 +20,7 @@ div.moo-btn(:class="['moo', hasDisabled]")
 <script>
 import actions from './actions';
 
-const drive = window.$drive;
+const drive = window.$moo_drive;
 
 export default {
   ...drive.Vue.state('m$', {
