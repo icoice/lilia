@@ -1,6 +1,6 @@
 # moo
 
-library.
+前端应用常用工具库。
 
 ## How to use ?
-npm install --save vue-moo
+npm install --save moo
