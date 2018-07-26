@@ -4,6 +4,7 @@
 .lilia-condition {
   position: relative;
   padding: 6pxr;
+  min-width: 1800pxr;
   background-color: #a3d6a8;
   background: -o-linear-gradient(#dfffe2, #f4fff5);
   background: -moz-linear-gradient(#dfffe2, #f4fff5);
@@ -16,8 +17,17 @@
     width: auto;
   }
 
-  .lilia-pop .lilia-pop-content {
-    min-width: auto;
+  .lilia-pop-checkbox .lilia-pop,
+  .lilia-pop-radio .lilia-pop {
+    width: auto;
+
+    .lilia-btn .btn-touch {
+       span.pop-checkbox-selected,
+       span.pop-radio-selected {
+         width: auto;
+       }
+
+    }
   }
 }
 
@@ -50,76 +60,23 @@
   margin-bottom: auto;
 }
 
-.lilia-condition .condition-date-split {
-  float: left;
-  padding: 8pxr 0;
-  width: 20%;
-  text-align: center;
-}
-
-.lilia-condition .condition-date-scope {
-  float: left;
-  width: 40%;
-  border-radius: 5pxr;
-  cursor: pointer;
-
-  input {
-    font-size: 14pxr;
-    text-align: center;
-  }
-}
-
-.lilia-condition .condition-date-input {
-  border-radius: 5pxr;
-  cursor: pointer;
-
-  input {
-    font-size: 14pxr;
-    text-align: center;
-  }
-
-  .lilia-close {
-    position: absolute;
-    z-index: 1;
-    top: 50%;
-    right: 0;
-    margin-top: -11pxr;
-    margin-right: 2pxr;
-    font-size: 14pxr;
-    color: #666;
-  }
-}
-
-.lilia-condition .condition-date-checked {
-  box-shadow: 10pxr 10pxr 1pxr #000 inset;
-}
-
 .lilia-condition .condition-item {
   float: left;
 }
 
 .lilia-condition .condition-item .condition-container{
   float: left;
-  width: 60%;
-}
-
-.lilia-condition .condition-type-input {
-  margin: 0 auto;
-  .lilia-select {
-    float: right;
-    width: 95%;
-  }
+  width: 65%;
 }
 
 .lilia-condition .condition-container-half {
   float: left;
-  width: 50%;
 }
 
 .lilia-condition .condition-name {
   @mixin clear-select;
   float: left;
-  padding: 8pxr;
+  padding: 8pxr 0;
   width: 30%;
   border: 1px solid transparent;
   font-size: 14pxr;
@@ -301,20 +258,4 @@
 
 .lilia-condition .condition-radio-list .lilia-checkbox {
   background-color: #fff;
-}
-
-.lilia-condition .condition-date-input,
-.lilia-condition .condition-date-scope {
-  position: relative;
-  >.iconfont {
-    position: absolute;
-    top: 50%;
-    left: 0;
-    margin-left: 5pxr;
-    z-index: 4;
-    margin-top: -13pxr;
-    font-size: 26pxr;
-    color: #07a220;
-    background-color: #fff;
-  }
 }

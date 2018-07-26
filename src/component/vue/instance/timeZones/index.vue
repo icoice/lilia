@@ -1,0 +1,92 @@
+<template lang='pug'>
+div.lilia-time-zones
+  // start
+  div.time-scope
+    lilia-pop
+      div(slot='pop-btn')
+        span {{ getStart }}
+      div(slot='pop')
+        lilia-datepicker(
+          :show='true'
+          :now='m$Start.value === "" || !m$Start.value ? Date.now() : m$Start.value'
+          :noClose='true'
+          :noAutoHide='true'
+          :showTime='m$ShowTime'
+          @change='val => change("start", val)')
+        div.clear-time
+          btn(@tap='initStart')
+            span(slot='btn') 清空选择
+  div.time-split &nbsp;至&nbsp;
+  // end
+  div.time-scope
+    lilia-pop
+      div(slot='pop-btn')
+        span {{ getEnd }}
+      div(slot='pop')
+        lilia-datepicker(
+          :show='true'
+          :now='m$End.value === "" || !m$End.value ? Date.now() : m$End.value'
+          :noClose='true'
+          :noAutoHide='true'
+          :showTime='m$ShowTime'
+          @change='val => change("end", val)')
+        div.clear-time
+          btn(@tap='initEnd')
+            span(slot='btn') 清空选择
+</template>
+
+<script>
+import btn from '../../base/button';
+import liliaDatepicker from '../datepicker';
+import liliaPop from '../pop';
+
+const drive = window.$lilia_drive;
+const util = window.$lilia_util;
+
+export default {
+  ...drive.Vue.state('m$', {
+    start: [Object, { value: Date.now(), tips: '开始时间' }],
+    end: [Object, { value: Date.now(), tips: '结束时间' }],
+    showTime: [Boolean, false],
+  }),
+  components: {
+    liliaDatepicker,
+    liliaPop,
+    btn,
+  },
+  computed: {
+    getStart() {
+      const { m$Start, m$ShowTime } = this;
+      if (m$Start.value && m$Start.value !== '') {
+        return util.Date.format(
+          m$ShowTime ? 'YYYY-MM-DD HH:II:SS' : 'YYYY-MM-DD',
+          m$Start.value);
+      }
+      return m$Start.tips;
+    },
+    getEnd() {
+      const { m$End, m$ShowTime } = this;
+      if (m$End.value && m$End.value !== '') {
+        return util.Date.format(
+          m$ShowTime ? 'YYYY-MM-DD HH:II:SS' : 'YYYY-MM-DD',
+          m$End.value);
+      }
+      return m$End.tips;
+    },
+  },
+  methods: {
+    initStart() {
+      this.m$Start = { value: '', tips: '开始时间' };
+    },
+    initEnd() {
+      this.m$End = { value: '', tips: '结束时间' };
+    },
+    change(type, value) {
+      const key = `m$${util.String.firstUppercase(type)}`;
+      this[key].value = value;
+      this[key] = Object.assign({}, this[key]);
+      this.$emit('change', { type, value });
+    },
+  },
+};
+</script>

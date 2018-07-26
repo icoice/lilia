@@ -182,3 +182,10 @@
     background-color: #dfffe2;
   }
 }
+
+.lilia-datepicker .speed-select-time {
+  .lilia-select {
+    width: 120pxr;
+    min-width: auto;
+  }
+}

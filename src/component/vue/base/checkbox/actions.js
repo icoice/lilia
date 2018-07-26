@@ -9,15 +9,13 @@ const methods = {
       this.m$Selected.push(code);
       selected = Object.assign([], this.m$Selected);
     } else {
-      this.m$Selected.map((boxCode) => {
-        if(boxCode !== code) {
-          newSelected.push(boxCode);
-        }
+      this.m$Selected.map((selectCode) => {
+        if(Number(selectCode) !== code) newSelected.push(Number(selectCode));
       });
       selected = newSelected;
       this.m$Selected = newSelected;
     }
-
+    console.log(selected);
     this.$emit('tap', selected);
   },
   btnSelected(code, item) {

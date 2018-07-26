@@ -43,12 +43,14 @@ export default {
     const { list, disabled, open, placeholder } = this;
     const emptySelected = { name: !placeholder ? '请选择' : placeholder, key: '' };
     let selected = emptySelected;
+
     list.map((item) => {
-      if (this.val === item.key) {
+      if (this.val == item.key) {
         selected = item;
       }
       return item;
     });
+
     return {
       selected,
       emptySelected,
@@ -68,7 +70,7 @@ export default {
         this.selected = this.emptySelected;
       } else {
         this.menus.map((item) => {
-          if (key === item.key) this.selected = item;
+          if (key == item.key) this.selected = item;
           return item;
         });
       }

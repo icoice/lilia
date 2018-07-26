@@ -1,0 +1,26 @@
+.lilia-time-zones {
+  min-height: 51pxr;
+}
+
+.lilia-time-zones .time-split {
+  float: left;
+  padding: 8pxr 0;
+  width: 10%;
+  text-align: center;
+}
+
+.lilia-time-zones .time-scope {
+  float: left;
+  width: 45%;
+  border-radius: 5pxr;
+  cursor: pointer;
+}
+
+.lilia-time-zones .clear-time {
+  overflow: hidden;
+  margin-bottom: 5pxr;
+}
+
+.lilia-time-zones .clear-time .lilia-btn {
+  float: right;
+}

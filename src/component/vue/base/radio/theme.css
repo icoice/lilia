@@ -6,6 +6,18 @@
   overflow: hidden;
   position: relative;
 
+  /* reset */
+  .lilia-btn .btn-touch {
+    padding-left: 0;
+    padding-right: 0;
+    height: auto;
+    line-height: normal;
+    background: none;
+    border: none;
+    text-shadow: none;
+    color: #333;
+  }
+
   .radio-item {
     float: left;
     padding: 0 10pxr;
@@ -15,8 +27,6 @@
 
   .radio-item .radio-check {
     float: left;
-    height: 30pxr;
-    line-height: 30pxr;
     color: #00a611;
   }
 
@@ -24,15 +34,12 @@
     color: #004006;
   }
 
-  .radio-checked .radio-checked-box {
-    margin: 0 auto;
+  .radio-item .radio-checked-box {
+    color: #03a512;
   }
 
   .radio-name {
-    float: left;
     margin-left: 10pxr;
-    height: 30pxr;
-    line-height: 30pxr;
     font-size: 12pxr;
     border: 1px solid transparent;
   }

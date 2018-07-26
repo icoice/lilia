@@ -31,7 +31,7 @@ div.lilia-datepicker(v-if='open'
             btn(@tap='e => (day && choose("day", day))')
               span(slot='btn') {{ day === null ? '&nbsp;' : day }}
   // 时间选择
-  div.datepicker-selector(class='speed-select' v-if='hasShowTime')
+  div.datepicker-selector(class='speed-select speed-select-time' v-if='hasShowTime')
     lilia-select(:list='hourList' :val='nowHour' @change='item => choose("hour", item.key)')
     lilia-select(:list='minuteList' :val='nowMinute' @change='item => choose("minute", item.key)')
     lilia-select(:list='secondList' :val='nowSecond' @change='item => choose("second", item.key)')

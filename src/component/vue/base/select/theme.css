@@ -4,6 +4,7 @@
 .lilia-select {
   @mixin clear-select;
   position: relative;
+  min-width: 200pxr;
   text-align: center;
   cursor: pointer;
   border-radius: 5pxr;
@@ -29,9 +30,9 @@
     position: absolute;
     top: 50%;
     right: 0;
-    margin-top: -13pxr;
+    margin-top: -11pxr;
     margin-right: 5pxr;
-    font-size: 26pxr;
+    font-size: 22pxr;
     color: #0d462c;
   }
 }

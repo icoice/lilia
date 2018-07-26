@@ -1,0 +1,8 @@
+.lilia-time .clear-time {
+  overflow: hidden;
+  margin-bottom: 5pxr;
+}
+
+.lilia-time .clear-time .lilia-btn {
+  float: right;
+}

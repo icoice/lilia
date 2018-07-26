@@ -13,7 +13,7 @@ const methods = {
     this.$emit('tap', { code, data });
   },
   hasSelected(code) {
-    return this.m$Selected === code;
+    return this.m$Selected == code;
   },
 };
 
