@@ -22,7 +22,6 @@ import timeZones from './instance/timeZones';
 import pop from './instance/pop';
 import paging from './instance/paging';
 import measure from './instance/measure';
-import showcase from './instance/showcase';
 
 // 组件一列
 export const liliaBtn = button;
@@ -39,7 +38,6 @@ export const liliaInput = input;
 export const liliaImg = image;
 export const liliaRadio = radio;
 export const liliaSelect = select;
-export const liliaShowcase = showcase;
 export const liliaTime = time;
 export const liliaToast = toast;
 export const liliaTable = table;
@@ -62,7 +60,6 @@ const component = {
   liliaPaging,
   liliaRadio,
   liliaSelect,
-  liliaShowcase,
   liliaTable,
   liliaToast,
   liliaTimeZones,
