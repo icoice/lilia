@@ -17,6 +17,14 @@
     width: auto;
   }
 
+  .lilia-time-zones .time-split {
+    width: 10%;
+  }
+
+  .lilia-time-zones .time-scope {
+    width: 45%;
+  }
+
   .lilia-pop-checkbox .lilia-pop,
   .lilia-pop-radio .lilia-pop {
     width: auto;

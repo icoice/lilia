@@ -47,10 +47,10 @@
       position: relative;
       top: 50%;
       left: 0;
-      margin-top: -7px;
+      margin-top: -7pxr;
       margin-right: 1px;
-      padding: 0 2px;
-      font-size: 14px;
+      padding: 0 2pxr;
+      font-size: 14pxr;
       background-color: #fff;
     }
   }
