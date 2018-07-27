@@ -26,7 +26,7 @@
   border: 1px solid #07a220;
   outline: none;
 
-  .iconfont {
+  .liliafont {
     position: absolute;
     top: 50%;
     right: 0;
@@ -71,7 +71,7 @@
 .lilia-select .select-default:hover {
   border: 1px solid #35cb44;
   color: #35cb44;
-  .iconfont {
+  .liliafont {
     color: #35cb44;
   }
 }

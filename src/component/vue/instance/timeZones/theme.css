@@ -3,6 +3,7 @@
 
   .lilia-pop {
     width: auto;
+    min-width: 180pxr;
   }
 }
 
@@ -18,11 +19,24 @@
   cursor: pointer;
 }
 
-.lilia-time-zones .clear-time {
-  overflow: hidden;
-  margin-bottom: 5pxr;
+.lilia-time-zones .time-default {
+  position: relative;
 }
 
-.lilia-time-zones .clear-time .lilia-btn {
-  float: right;
+.lilia-time-zones .clear-time {
+  overflow: hidden;
+  position: absolute;
+  top: 0;
+  right: 0;
+  margin-left: 5pxr;
+  margin-bottom: 5pxr;
+
+  .lilia-btn .btn-touch {
+    padding: 0;
+    min-width: auto;
+    border: none;
+    span {
+      font-size: 14pxr;
+    }
+  }
 }

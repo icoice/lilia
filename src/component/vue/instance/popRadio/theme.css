@@ -10,6 +10,15 @@
     color: #0d462c;
   }
 
+  .lilia-radio {
+    .radio-item .radio-check {
+      float: none;
+    }
+    .lilia-btn .btn-touch  {
+      text-align: left;
+    }
+  }
+
   .lilia-pop {
     position: relative;
     width: 340pxr;
@@ -53,13 +62,22 @@
   }
 }
 
-.lilia-pop-radio .pop-radio-operator {
+.lilia-pop-radio .pop-radio-search {
   overflow: hidden;
-  margin-bottom: 5pxr;
 
-  .lilia-btn {
-    position: relative;
-    float: right;
-    margin-right: 5pxr;
+  .lilia-input {
+    float: left;
+    width: 80%;
+  }
+
+  .pop-radio-operator {
+    float: left;
+    width: 20%;
+    .lilia-btn .btn-touch {
+      margin: 2pxr;
+      padding: 6pxr;
+      width: 75%;
+      border-width: 1px;
+    }
   }
 }

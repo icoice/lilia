@@ -1,7 +1,7 @@
 <template lang="pug">
-  div.lilia-pop(class='lilia' @mouseleave='inner')
+  div.lilia-pop(class='lilia' @mouseleave='inner' @mousemove='clearInner')
     div.lilia-pop-control(:class="{'lilia-pop-open': liliaShow }")
-      btn(@tap='showPop' @mousemove='clearInner')
+      btn(@tap='showPop')
         div(slot='btn')
           slot(name='pop-btn')
     div.lilia-pop-content(v-if='liliaShow')

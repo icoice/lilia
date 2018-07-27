@@ -6,8 +6,8 @@
       div.radio-check
         btn(@tap='selectRadio(code, item)')
           div(slot='btn')
-            span.radio-checked-box(class='iconfont icon-check' v-if='hasSelected(code)')
-            span.radio-checked-box(class='iconfont icon-blank' v-else)
+            span.radio-checked-box(class='liliafont icon-check' v-if='hasSelected(code)')
+            span.radio-checked-box(class='liliafont icon-blank' v-else)
             span.radio-name {{ item.name }}
     div.radio-mask(v-if='m$Disabled')
 </template>

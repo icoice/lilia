@@ -3,8 +3,8 @@ div.lilia-pop-checkbox
   lilia-pop(@change='init')
     div(slot='pop-btn')
       span.pop-checkbox-selected {{ getSelect }}
-      span.iconfont(class='icon-arrowdown')
-      span.iconfont(class='icon-arrowup')
+      span.liliafont(class='icon-arrowdown')
+      span.liliafont(class='icon-arrowup')
     div(slot='pop')
       div.pop-checkbox-operator
         btn(@tap='clearSelect')

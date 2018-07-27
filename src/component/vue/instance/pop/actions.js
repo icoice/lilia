@@ -6,6 +6,7 @@ const methods = {
         if (this.liliaHasInner) {
           this.liliaShow = false;
           this.liliaHasInner = false;
+          this.$emit('change', this.liliaShow);
         }
       }, true);
     }
@@ -18,7 +19,7 @@ const methods = {
   },
   showPop() {
     this.liliaShow = !this.liliaShow;
-    this.$emit('change');
+    this.$emit('change', this.liliaShow);
   },
 };
 

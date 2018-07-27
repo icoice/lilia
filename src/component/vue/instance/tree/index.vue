@@ -156,7 +156,7 @@ export default {
       n.appendChild(mline);
       nName.appendChild(open);
       if (item.child && item.child.length > 0) {
-        open.className = `tree-open iconfont ${!list || list.style.display === 'block' ? 'icon-arrowup' : 'icon-arrowright'}`;
+        open.className = `tree-open liliafont ${!list || list.style.display === 'block' ? 'icon-arrowup' : 'icon-arrowright'}`;
       }
       n.onclick = (e) => {
         this.nodeSelect(node, n, {
@@ -182,7 +182,7 @@ export default {
           if (c.className.indexOf('tree-line') < 0) {
             c.style.display = c.style.display === 'block' ? 'none' : 'block';
             if (item.child && item.child.length > 0) {
-              open.className = `tree-open iconfont ${c.style.display === 'block' ? 'icon-arrowup' : 'icon-arrowright'}`;
+              open.className = `tree-open liliafont ${c.style.display === 'block' ? 'icon-arrowup' : 'icon-arrowright'}`;
             }
           }
         }

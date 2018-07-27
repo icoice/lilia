@@ -13,10 +13,10 @@ div.lilia-input(class='lilia' :class='status')
       @blur='setBlur'
       @keyup='verifyVal')
     div.input-clear(v-if='showClear(m$Val)')
-      span.iconfont(
-      class='icon-cross'
-      @click.stop='clear'
-      @touchend.stop='clear')
+      span.liliafont(
+        class='icon-cross'
+        @click.stop='clear'
+        @touchend.stop='clear')
     div.input-mask(v-if='m$Disabled')
 </template>
 

@@ -1,23 +1,23 @@
 <template lang="pug">
 div.lilia-pop-radio
-  lilia-pop(@change='init')
+  lilia-pop(:show='hasShow' @change='init')
     div(slot='pop-btn')
       span.pop-radio-selected {{ getSelect }}
-      span.iconfont(class='icon-arrowdown')
-      span.iconfont(class='icon-arrowup')
+      span.liliafont(class='icon-arrowdown')
+      span.liliafont(class='icon-arrowup')
     div(slot='pop')
-      div.pop-radio-operator
-        btn(@tap='clearSelect')
-          span(slot='btn') 清空
       div.pop-radio-search
         lilia-input(
           :val='m$Search'
           placeholder='请输入搜索关键词'
           @updated='val => searchList(val)')
+        div.pop-radio-operator
+          btn(@tap='clearSelect')
+            span(slot='btn') 清空
       div.pop-radio-list(v-if='getItems.length > 0')
         lilia-radio(
           :items='getItems'
-          :selected='!m$Val || !m$Val.data ?  null : m$Val.data.key'
+          :selected='getVal'
           @tap='change')
       div.pop-radio-tips(v-else)
         span 无结果
@@ -33,16 +33,22 @@ const util = window.$lilia_util;
 
 export default {
   ...drive.Vue.state('m$', {
-    val: [[Object, Array], null],
+    val: [[Object, Array, Number], null],
     placeholder: [String, '请选择'],
     search: [String, ''],
     items: [Array, []],
   }, {
     data: {
       searchItems: null,
+      hasShow: false,
     },
   }),
   computed: {
+    getVal() {
+      const { m$Val } = this;
+      if (m$Val) return Number(m$Val.code);
+      if (util.Assert.hasNum(m$Val)) return m$Val;
+    },
     getItems() {
       const { searchItems, m$Items } = this;
       return !searchItems ? m$Items : searchItems;
@@ -60,6 +66,7 @@ export default {
   methods: {
     init() {
       this.searchItems = null;
+      this.hasShow = true;
     },
     clearSelect() {
       this.m$Val = null;
@@ -90,6 +97,7 @@ export default {
     },
     change(val) {
       this.m$Val = val;
+      this.hasShow = false;
       this.$emit('tap', this.m$Val);
     },
   },

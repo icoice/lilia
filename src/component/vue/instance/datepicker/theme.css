@@ -81,7 +81,13 @@
   }
 
   .nav-item:last-child .lilia-btn .btn-touch {
-    font-size: 30pxr;
+    margin-top: 3pxr;
+    margin-right: 5pxr;
+    border-radius: 5pxr;
+    background-color: #dfffe2;
+    border: 1px solid #96d39c;
+    color: #016f18;
+    font-size: 18pxr;
   }
 }
 

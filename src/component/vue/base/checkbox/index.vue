@@ -5,8 +5,8 @@ div.lilia-checkbox(class='lilia')
       btn(@tap='e => tap(Number(code), item)')
         div(slot='btn')
           div.box-mark
-            span.iconfont(class='icon-check' v-if='btnSelected(Number(code), item)')
-            span.iconfont(class='icon-blank' v-else)
+            span.liliafont(class='icon-check' v-if='btnSelected(Number(code), item)')
+            span.liliafont(class='icon-blank' v-else)
           div.box-name {{ item.name }}
 </template>
 

@@ -2,7 +2,7 @@
   div.lilia-file(:class="['lilia', m$Disabled ? 'lilia-file-disabled' : '']")
     div.select-file(v-if='!m$Disabled')
       div(v-if='!m$HasShowSlot')
-        span.iconfont(class='icon-upload')
+        span.liliafont(class='icon-upload')
         span.file-button-name {{ `${m$Name}${ m$Limit && !m$Disabled ? `（可上传类型：${ m$Limit }）` : '' }` }}
       slot(name='file-button-content' v-else)
       input(

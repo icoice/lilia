@@ -5,7 +5,7 @@ div.lilia-select(
   @mouseover="hasMoveOnSelect"
   @mouseleave="hasMouseLeave")
   div(:class="['select-default', selectDefaultChange()]" @click="openlist")
-    div(:class="['iconfont', iconChange()]" v-if="!hasDisabled")
+    div(:class="['liliafont', iconChange()]" v-if="!hasDisabled")
     span {{ selected.name }}
   div.select-pull-down(v-if='listOpen && menus.length > 0 && !hasDisabled')
     div.select-option(class='select-clear-option' @click='selectOption(emptySelected)') 重置

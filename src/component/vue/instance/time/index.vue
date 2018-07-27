@@ -1,8 +1,12 @@
 <template lang="pug">
 div.lilia-time
-  lilia-pop
-    div(slot='pop-btn')
-      span {{ getTime }}
+  lilia-pop(@change='init')
+    div.time-default(slot='pop-btn')
+      div.select-time
+        span {{ getTime }}
+      div.clear-time(v-if='hasShowPop')
+        btn(@tap='initTime')
+          span.liliafont(class='icon-cross' slot='btn')
     div(slot='pop')
       lilia-datepicker(
         :show='true'
@@ -11,9 +15,6 @@ div.lilia-time
         :noAutoHide='true'
         :showTime='m$ShowTime'
         @change='val => change(val)')
-      div.clear-time
-        btn(@tap='initTime')
-          span(slot='btn') 清空选择
 </template>
 
 <script>
@@ -28,6 +29,10 @@ export default {
   ...drive.Vue.state('m$', {
     val: [Object, { value: Date.now(), tips: '请选择时间' }],
     showTime: [Boolean, false],
+  }, {
+    data: {
+      hasShowPop: false,
+    },
   }),
   components: {
     btn,
@@ -46,6 +51,9 @@ export default {
     },
   },
   methods: {
+    init(has) {
+      this.hasShowPop = has;
+    },
     initTime() {
       this.m$Val = { value: '', tips: '请选择时间' };
     },

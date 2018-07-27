@@ -3,19 +3,19 @@
     ul
       li.paging-operate(class='paging-first')
         btn(@tap='firstPageNo')
-          span.iconfont(class='icon-arrowleftboldround' slot='btn')
+          span.liliafont(class='icon-arrowleftboldround' slot='btn')
       li.paging-operate(class='paging-prev')
         btn(@tap='e => tapPageNo(currentPageNo - 1)')
-          span.iconfont(class='icon-arrowleftthin' slot='btn')
+          span.liliafont(class='icon-arrowleftthin' slot='btn')
       li.page-no(v-for='pageNo in pageNoList' :class='selected(pageNo)' v-if='!maxPage(pageNo)')
         btn(@tap='tapPageNo(pageNo)' :disabled='maxPage(pageNo)')
           span(slot='btn') {{ format(pageNo) }}
       li.paging-operate(class='paging-next')
         btn(@tap='e => tapPageNo(currentPageNo + 1)')
-          span.iconfont(class='icon-arrowrightthin' slot='btn')
+          span.liliafont(class='icon-arrowrightthin' slot='btn')
       li.paging-operate(class='paging-last')
         btn(@tap='e => tapPageNo(getTotalPage())')
-          span.iconfont(class='icon-arrowrightboldround' slot='btn')
+          span.liliafont(class='icon-arrowrightboldround' slot='btn')
 </template>
 
 <script>

@@ -2,9 +2,13 @@
 div.lilia-time-zones
   // start
   div.time-scope
-    lilia-pop
-      div(slot='pop-btn')
-        span {{ getStart }}
+    lilia-pop(@change='initClearStart')
+      div.time-default(slot='pop-btn')
+        div.select-time
+          span {{ getStart }}
+        div.clear-time(v-if='hasShowStartPop')
+          btn(@tap='initStart')
+            span.liliafont(class='icon-cross' slot='btn')
       div(slot='pop')
         lilia-datepicker(
           :show='true'
@@ -13,15 +17,16 @@ div.lilia-time-zones
           :noAutoHide='true'
           :showTime='m$ShowTime'
           @change='val => change("start", val)')
-        div.clear-time
-          btn(@tap='initStart')
-            span(slot='btn') 清空选择
   div.time-split &nbsp;至&nbsp;
   // end
   div.time-scope
-    lilia-pop
-      div(slot='pop-btn')
-        span {{ getEnd }}
+    lilia-pop(@change='initClearEnd')
+      div.time-default(slot='pop-btn')
+        div.select-time
+          span {{ getEnd }}
+        div.clear-time(v-if='hasShowEndPop')
+          btn(@tap='initEnd')
+            span.liliafont(class='icon-cross' slot='btn')
       div(slot='pop')
         lilia-datepicker(
           :show='true'
@@ -30,9 +35,6 @@ div.lilia-time-zones
           :noAutoHide='true'
           :showTime='m$ShowTime'
           @change='val => change("end", val)')
-        div.clear-time
-          btn(@tap='initEnd')
-            span(slot='btn') 清空选择
 </template>
 
 <script>
@@ -48,6 +50,11 @@ export default {
     start: [Object, { value: Date.now(), tips: '开始时间' }],
     end: [Object, { value: Date.now(), tips: '结束时间' }],
     showTime: [Boolean, false],
+  }, {
+    data: {
+      hasShowStartPop: false,
+      hasShowEndPop: false,
+    },
   }),
   components: {
     liliaDatepicker,
@@ -75,6 +82,12 @@ export default {
     },
   },
   methods: {
+    initClearStart(has) {
+      this.hasShowStartPop = has;
+    },
+    initClearEnd(has) {
+      this.hasShowEndPop = has;
+    },
     initStart() {
       this.m$Start = { value: '', tips: '开始时间' };
     },
@@ -85,7 +98,7 @@ export default {
       const key = `m$${util.String.firstUppercase(type)}`;
       this[key].value = value;
       this[key] = Object.assign({}, this[key]);
-      this.$emit('change', { type, value });
+      this.$emit('tap', { type, value });
     },
   },
 };

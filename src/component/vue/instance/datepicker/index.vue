@@ -8,13 +8,14 @@ div.lilia-datepicker(v-if='open'
     div.nav-item
       lilia-input(
         :val='currentInput || getCurrent'
+        placeholder='YYYY-MM-DD HH:II:SS'
         @keyup='editCurrent'
         @blur='editOver')
     div.nav-item
-      btn(@tap='close' v-if='!hasNoClose')
-        span.iconfont(class='icon-cross' slot='btn')
+      btn(@tap='e => editOver(getCurrent)')
+        span(slot='btn') 确定
       btn(@tap='today')
-        span.iconfont(class='icon-refresh' slot='btn')
+        span(slot='btn') 今天
   // 日期选择
   div.datepicker-selector(class='speed-select')
     lilia-select(:list='yearList' :val='nowYear' @change='item => choose("year", item.key)')
@@ -137,8 +138,10 @@ export default {
   },
   computed: {
     getCurrent() {
-      const format = this.hasShowTime ? 'YYYY-MM-DD HH:II:SS' : 'YYYY-MM-DD';
-      return util.Date.format(format, this.current);
+      const { current, hasShowTime } = this;
+      if (current === '') return current;
+      const format = hasShowTime ? 'YYYY-MM-DD HH:II:SS' : 'YYYY-MM-DD';
+      return util.Date.format(format, current);
     },
   },
   ...actions,
