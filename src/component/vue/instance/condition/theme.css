@@ -28,13 +28,11 @@
   .lilia-pop-checkbox .lilia-pop,
   .lilia-pop-radio .lilia-pop {
     width: auto;
-
     .lilia-btn .btn-touch {
        span.pop-checkbox-selected,
        span.pop-radio-selected {
          width: auto;
        }
-
     }
   }
 }

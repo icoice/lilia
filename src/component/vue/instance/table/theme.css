@@ -36,6 +36,11 @@
     border-left: none;
     border-right: none;
 
+    .liliafont {
+      margin-right: 5pxr;
+      font-size: 12pxr;
+    }
+
     .lilia-btn {
       position: relative;
       .btn-touch {

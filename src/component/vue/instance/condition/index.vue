@@ -1,6 +1,5 @@
 <template lang="pug">
 div.lilia-condition(class='lilia')
-  // 组件内容
   div.condition-container(v-for='(line, code) in items' v-if='hasNoEmptry(items)')
     div.condition-item(v-for='(item, no) in line' :style='width(cols)')
       div.condition-name {{ item.name }}
@@ -27,7 +26,7 @@ div.lilia-condition(class='lilia')
           :start='item.items.start'
           :end='item.items.end'
           :showTime='item.showTime'
-          @tap='val => change(item, val)')
+          @tap='val => changeTimeZones(item, val)')
       div.condition-container(v-if='item.component === "checkbox"')
         lilia-pop-checkbox(
           :val='item.value'
@@ -40,7 +39,6 @@ div.lilia-condition(class='lilia')
           :items='item.items'
           :placeholder='item.tips'
           @tap='val => change(item, val)')
-  // 配置未设置时
   div.condition-tips(v-else) 未设置查询条件内容
 </template>
 

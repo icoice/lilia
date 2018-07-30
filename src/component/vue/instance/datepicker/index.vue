@@ -12,7 +12,7 @@ div.lilia-datepicker(v-if='open'
         @keyup='editCurrent'
         @blur='editOver')
     div.nav-item
-      btn(@tap='e => editOver(getCurrent)')
+      btn(@tap='sureOver')
         span(slot='btn') 确定
       btn(@tap='today')
         span(slot='btn') 今天
@@ -67,7 +67,7 @@ export default {
       default: false,
     },
     now: {
-      type: Number,
+      type: [Number, String],
       default: Date.now(),
     },
     noClose: {
@@ -84,7 +84,8 @@ export default {
       this.open = has;
     },
     now() {
-      this.current = this.now;
+      const { now } = this;
+      this.current = util.Assert.hasStr(now) ? util.Date.timestamp(now) : now;
       this.init();
     },
     showTime(time) {

@@ -14,7 +14,8 @@ div.lilia-time
         :noClose='true'
         :noAutoHide='true'
         :showTime='m$ShowTime'
-        @change='val => change(val)')
+        @change='val => change(val)'
+        @sure='sure')
 </template>
 
 <script>
@@ -56,6 +57,11 @@ export default {
     },
     initTime() {
       this.m$Val = { value: '', tips: '请选择时间' };
+    },
+    sure(val) {
+      const { m$Val } = this;
+      this.hasShowPop = false;
+      this.m$Val = { value: Val, tips: m$Val.tips };
     },
     change(val) {
       const { m$Val } = this;

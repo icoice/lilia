@@ -2,7 +2,7 @@
 div.lilia-time-zones
   // start
   div.time-scope
-    lilia-pop(@change='initClearStart')
+    lilia-pop(:show='hasShowStartPop' @change='initClearStart')
       div.time-default(slot='pop-btn')
         div.select-time
           span {{ getStart }}
@@ -16,11 +16,12 @@ div.lilia-time-zones
           :noClose='true'
           :noAutoHide='true'
           :showTime='m$ShowTime'
-          @change='val => change("start", val)')
+          @change='val => change("start", val)'
+          @sure='closeStart')
   div.time-split &nbsp;至&nbsp;
   // end
   div.time-scope
-    lilia-pop(@change='initClearEnd')
+    lilia-pop(:show='hasShowEndPop' @change='initClearEnd')
       div.time-default(slot='pop-btn')
         div.select-time
           span {{ getEnd }}
@@ -34,7 +35,8 @@ div.lilia-time-zones
           :noClose='true'
           :noAutoHide='true'
           :showTime='m$ShowTime'
-          @change='val => change("end", val)')
+          @change='val => change("end", val)'
+          @sure='closeEnd')
 </template>
 
 <script>
@@ -82,6 +84,22 @@ export default {
     },
   },
   methods: {
+    change(type, value) {
+      const key = `m$${util.String.firstUppercase(type)}`;
+      this[key].value = value;
+      this[key] = Object.assign({}, this[key]);
+      this.$emit('tap', { type, value });
+    },
+    closeStart(val) {
+      const { m$Start } = this;
+      this.hasShowStartPop = false;
+      this.m$Start = { value: val, tips: m$Start.tips };
+    },
+    closeEnd(val) {
+      const { m$End } = this;
+      this.hasShowEndPop = false;
+      this.m$End = { value: val, tips: m$End.tips };
+    },
     initClearStart(has) {
       this.hasShowStartPop = has;
     },
@@ -93,12 +111,6 @@ export default {
     },
     initEnd() {
       this.m$End = { value: '', tips: '结束时间' };
-    },
-    change(type, value) {
-      const key = `m$${util.String.firstUppercase(type)}`;
-      this[key].value = value;
-      this[key] = Object.assign({}, this[key]);
-      this.$emit('tap', { type, value });
     },
   },
 };

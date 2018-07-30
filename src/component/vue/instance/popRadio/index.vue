@@ -64,9 +64,9 @@ export default {
     btn,
   },
   methods: {
-    init() {
+    init(has) {
       this.searchItems = null;
-      this.hasShow = true;
+      this.hasShow = has;
     },
     clearSelect() {
       this.m$Val = null;
@@ -76,7 +76,7 @@ export default {
       const list = {length: 0};
 
       if (val === '') {
-        this.init();
+        this.init(true);
       } else {
         m$Items.map((item, code) => {
           const { name } = item;

@@ -17,8 +17,7 @@ const methods = {
   editCurrent(v) {
     this.currentInput = v;
   },
-  // 输入框编辑完成时
-  editOver(v) {
+  overDone(v) {
     const {
       nowYear,
       nowMonth,
@@ -69,7 +68,16 @@ const methods = {
     this.currentInput = null;
     this.current = this.formatCurrent(y, m, d, h, i, s);
     this.init();
+  },
+  // 输入框编辑完成时
+  editOver(v) {
+    this.overDone(v);
     this.$emit('change', this.current);
+  },
+  sureOver() {
+    const time = util.Date.format('YYYY/MM/DD HH:II:SS', this.current);
+    this.overDone(time);
+    this.$emit('sure', this.current);
   },
   // 获得当前选择
   getNow(type) {
