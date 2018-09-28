@@ -88,12 +88,12 @@ const methods = {
     return true;
   },
   // 执行事件
-  doTap(point, e) {
+  doTap(point, event) {
     if  (!this.hasCanTap(point) || this.m$Disabled) return;
 
     this.$emit('tap', {
       name: this.m$Name || '',
-      event: e,
+      event,
     });
   },
 };

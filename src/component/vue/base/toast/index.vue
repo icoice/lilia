@@ -1,6 +1,6 @@
 <template lang='pug'>
   div.lilia-toast(class='lilia' v-if='m$Show')
-    div.toast-showcase
+    div.toast-showcase(ref='showcase')
       p.toast-content {{ m$Message }}
       div.toast-bg
 </template>

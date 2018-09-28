@@ -10,11 +10,12 @@ const setAxiosResponse = (fake) => ({
   data: Object.assign({}, fake),
   headers: {},
   request: {},
-  HOW: {}, // 非axiox
+  HOW: {},
 });
 
 export default function (setting) {
   const { access } = setting;
+
   Adapter.accross('onExecuteBefore', next => next());
   Adapter.accross('onExecuteAfter', next => next());
   setting.access = access.map((api) => {
@@ -22,5 +23,6 @@ export default function (setting) {
     api.fake = fake !== null ? setAxiosResponse(fake): fake;
     return Object.assign({}, api);
   });
+
   return new Adapter(new Http(setting));
 }

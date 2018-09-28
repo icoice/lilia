@@ -6,16 +6,16 @@ div.lilia-pop-checkbox
       span.liliafont(class='icon-arrowdown')
       span.liliafont(class='icon-arrowup')
     div(slot='pop')
-      div.pop-checkbox-operator
-        btn(@tap='clearSelect')
-          span(slot='btn') 清空
-        btn(@tap='allSelect')
-          span(slot='btn') 全选
       div.pop-checkbox-search
         lilia-input(
           :val='m$Search'
           placeholder='请输入搜索关键词'
           @updated='val => searchList(val)')
+        div.pop-checkbox-operator
+          btn(@tap='clearSelect')
+            span(slot='btn') 清空
+          btn(@tap='allSelect')
+            span(slot='btn') 全选
       div.pop-checkbox-list(v-if='getItems.length > 0')
         lilia-checkbox(
           :items='getItems'

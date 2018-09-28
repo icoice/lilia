@@ -11,14 +11,10 @@ export default (name, state, patch = {}) => {
   Object.entries(state).map((kv) => {
     const [k, v] = kv;
     const dk = `${name}${firstUppercase(k)}`;
-    $props[k] = {
-      type: v[0],
-      default: typeof v[1] === 'object' ? () => v[1] : v[1],
-    };
-    $watch[k] = function(val) {
-     this[dk] = val;
-    };
+    $props[k] = { type: v[0], default: typeof v[1] === 'object' ? () => v[1] : v[1] };
+    $watch[k] = function(val) { this[dk] = val };
     $data[k] = v[1];
+
     return kv;
   });
 
@@ -27,11 +23,15 @@ export default (name, state, patch = {}) => {
     watch: Object.assign($watch, watch),
     data() {
      const newData = {};
+
      Object.entries($data).map((kv) => {
       const [k, v] = kv;
+
       newData[`${name}${firstUppercase(k)}`] = this[k];
+
       return kv;
      });
+
      return Object.assign(newData, data);
     },
   };

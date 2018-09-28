@@ -11,12 +11,12 @@ div.lilia-input(class='lilia' :class='status')
       @change='setChange'
       @focus='setFocus'
       @blur='setBlur'
-      @keyup='verifyVal')
+      @keyup='verifyValue')
     div.input-clear(v-if='showClear(m$Val)')
       span.liliafont(
         class='icon-cross'
-        @click.stop='clear'
-        @touchend.stop='clear')
+        @mousedown.stop='clear'
+        @touchstart.stop='clear')
     div.input-mask(v-if='m$Disabled')
 </template>
 
@@ -51,8 +51,7 @@ export default {
     },
   },
   updated() {
-    // 注意，input重渲染的时候也会被触发，会让值被置空
-    this.$emit('updated', this.getVal());
+    this.$emit('updated', this.getValue()); // 注意，input重渲染的时候也会被触发，会让值被置空
   },
   mounted() {
     if(this.m$Focus) this.$refs.input.focus();

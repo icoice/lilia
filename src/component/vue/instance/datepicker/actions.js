@@ -33,6 +33,19 @@ const methods = {
       seconds
     } = this;
 
+    // 校验格式为2018/5/5
+    if (v.indexOf('/') >= 0) {
+      const vgroup = v.split('/');
+      let vstr = '';
+
+      vgroup.map((numStr) => {
+        vstr = vstr + (Number(numStr) < 10 ? `0${numStr}` : numStr);
+        return numStr;
+      });
+
+      v = vstr;
+    }
+
     let val = v.replace(/[^0-9]/g, '');
     let y = val.substr(0, 4);
     let m = val.substr(4, 2);
@@ -48,21 +61,23 @@ const methods = {
     if (!i || i.length < 1) i = nowMinute;
     if (!s || s.length < 1) s = nowSecond;
 
-    if (y < years[0]) y = nowYear;
-    if (y > years[1]) y = nowYear;
-    if (m < months[0]) m = nowMonth;
-    if (m > months[1]) m = nowMonth;
-    if (d < 1) d = nowDay;
-    if (h < hours[0]) h = nowHour;
-    if (h > hours[1]) h = nowHour;
-    if (i < minutes[0]) i = nowMinute;
-    if (i > minutes[1]) i = nowMinute;
-    if (s < seconds[0]) s = nowSecond;
-    if (s > seconds[1]) s = nowSecond;
-    if ((y % 100 !== 0 && y % 4 === 0) || (y % 400 === 0)) {
-      if (d > 29) d = nowDay;
+    if (y < years[0]) y = years[0];
+    if (y > years[1]) y = years[1];
+    if (m < months[0] + 1) m = months[0] + 1;
+    if (m > months[1] + 1) m = months[1] + 1;
+    if (d < 1) d = 1;
+
+    if (h < hours[0]) h = hours[0];
+    if (h > hours[1]) h = hours[1];
+    if (i < minutes[0]) i = minutes[0];
+    if (i > minutes[1]) i = minutes[1];
+    if (s < seconds[0]) s = seconds[0];
+    if (s > seconds[1]) s = seconds[1];
+
+    if (((y % 100 !== 0 && y % 4 === 0) || (y % 400 === 0)) && m === 2) {
+      if (d > 29) d = 29;
     } else {
-      if (d > days[m]) d = nowDay;
+      if (d > days[m - 1]) d = days[m - 1];
     }
 
     this.currentInput = null;
@@ -104,116 +119,6 @@ const methods = {
       this.isBindMouseMenus = true;
     }
   },
-  // 上个时间
-  prevTime(type) {
-    let y = type === 'year' ? this.nowYear - 1 : this.nowYear;
-    let m = type === 'month' ? this.nowMonth - 1 : this.nowMonth;
-    let d = type === 'day' ? this.nowDay - 1 : this.nowDay;
-    let h = type === 'hour' ? this.nowHour - 1 : this.nowHour;
-    let i = type === 'minute' ? this.nowMinute - 1 : this.nowMinute;
-    let s = type === 'second' ? this.nowSecond - 1 : this.nowSecond;
-
-    const { months, selectYearScope, days, years } = this;
-
-    if (d <= 0) {
-      m = m - 1;
-      d = days[m - 1];
-    }
-
-    if (m <= months[0]) {
-      this.yearList = [];
-      y = y - 1;
-      m = months[1] + 1;
-      if (!d || d > days[m - 1]) d = days[m - 1];
-    }
-
-    if (y < selectYearScope[0] && y > years[0] + 21) {
-      this.yearList = [];
-      this.selectYearScope = [y - 20, y];
-    }
-
-    if (y < years[0]) y = years[0];
-    if (h <= 0) h = 23;
-    if (i <= 1) i = 59;
-    if (s <= 1) s = 59;
-
-    this.current = this.formatCurrent(y, m, d, h, i, s);
-    this.init();
-    this.$emit('change', this.current);
-  },
-  // 下个时间
-  nextTime(type) {
-    let y = type === 'year' ? this.nowYear + 1 : this.nowYear;
-    let m = type === 'month' ? this.nowMonth + 1 : this.nowMonth;
-    let d = type === 'day' ? this.nowDay + 1 : this.nowDay;
-    let h = type === 'hour' ? this.nowHour + 1 : this.nowHour;
-    let i = type === 'minute' ? this.nowMinute + 1 : this.nowMinute;
-    let s = type === 'second' ? this.nowSecond + 1 : this.nowSecond;
-
-    const { months, selectYearScope, days, years } = this;
-
-    if (d > days[m - 1]) {
-      m = m + 1;
-      d = 1;
-    }
-
-    if (m > months[1] + 1) {
-      this.yearList = [];
-      y = y + 1;
-      m = months[0] + 1;
-      if (d > days[m - 1]) d = day[m - 1];
-    }
-
-    if (y > years[1]) {
-      this.yearList = [];
-      y = years[1];
-    }
-
-    if (y > selectYearScope[1] && y <= years[1] - 21) {
-      this.yearList = [];
-      this.selectYearScope = [y + 20, y];
-    }
-
-    if (h >= 24) h = 0;
-    if (i >= 59) i = 1;
-    if (s >= 59) s = 1;
-
-    this.current = this.formatCurrent(y, m, d, h, i, s);
-    this.init();
-    this.$emit('change', this.current);
-  },
-  // 上一年
-  prevYear() {
-    const y = this.nowYear - 21;
-    const m = this.nowMonth;
-    const d = this.nowDay;
-    const h = this.nowHour;
-    const i = this.nowMinute;
-    const s = this.nowSecond;
-
-    this.current = this.formatCurrent(y, m, d, h, i, s);
-    this.selectYearScope = [null, null];
-    this.yearList = [];
-
-    this.init();
-    this.$emit('change', this.current);
-  },
-  // 下一年
-  nextYear() {
-    const y = this.nowYear + 21;
-    const m = this.nowMonth;
-    const d = this.nowDay;
-    const h = this.nowHour;
-    const i = this.nowMinute;
-    const s = this.nowSecond;
-
-    this.current = this.formatCurrent(y, m, d, h, i, s);
-    this.selectYearScope = [null, null];
-    this.yearList = [];
-
-    this.init();
-    this.$emit('change', this.current);
-  },
   // 返回今天
   today() {
     const td = util.Date.now();
@@ -238,22 +143,24 @@ const methods = {
     let i = type === 'minute' ? number : this.nowMinute;
     let s = type === 'second' ? number : this.nowSecond;
 
-    if (y < years[0]) y = this.nowYear;
-    if (y > years[1]) y = this.nowYear;
-    if (m < months[0]) m = this.nowMonth;
-    if (m > months[1]) m = this.nowMonth;
-    if (d < 1) d = this.nowDay;
-    if ((y % 100 !== 0 && y % 4 === 0) || (y % 400 === 0)) {
-      if (d > 29) d = this.nowDay;
+    if (y < years[0]) y = years[0];
+    if (y > years[1]) y = years[1];
+    if (m < months[0] + 1) m = months[0] + 1;
+    if (m > months[1] + 1) m = months[1] + 1;
+    if (d < 1) d = 1;
+
+    if (h < hours[0]) h = hours[0];
+    if (h > hours[1]) h = hours[1];
+    if (i < minutes[0]) i = minutes[0];
+    if (i > minutes[1]) i = minutes[1];
+    if (s < seconds[0]) s = seconds[0];
+    if (s > seconds[1]) s = seconds[1];
+
+    if (((y % 100 !== 0 && y % 4 === 0) || (y % 400 === 0)) && m === 2) {
+      if (d > 29) d = 29;
     } else {
-      if (d > days[m]) d = this.nowDay;
+      if (d > days[m - 1]) d =  days[m - 1];
     }
-    if (h < hours[0]) h = this.nowHour;
-    if (h > hours[1]) h = this.nowHour;
-    if (i < minutes[0]) i = this.nowMinute;
-    if (i > minutes[1]) i = this.nowMinute;
-    if (s < seconds[0]) s = this.nowSecond;
-    if (s > seconds[1]) s = this.nowSecond;
 
     this.current = this.formatCurrent(y, m, d, h, i, s);
     this.init();
@@ -391,7 +298,7 @@ const methods = {
 
       line.push(i - firstWeek);
 
-      if (grid % cols === 0 || max - i === 0) {
+      if (grid % cols === 0 || max === i) {
         list.push([].concat(line));
         line = [];
       }

@@ -8,8 +8,9 @@ div.lilia-datepicker(v-if='open'
     div.nav-item
       lilia-input(
         :val='currentInput || getCurrent'
+        :filter='/[^0-9]/g'
         placeholder='YYYY-MM-DD HH:II:SS'
-        @keyup='editCurrent'
+        @keydown='editCurrent'
         @blur='editOver')
     div.nav-item
       btn(@tap='sureOver')

@@ -14,6 +14,8 @@ import choose from './instance/choose';
 import condition from './instance/condition';
 import datepicker from './instance/datepicker';
 import datepickerMobile from './instance/datepickerMobile';
+import latticeCell from './instance/latticeCell';
+import selfAdaptiveBox from './instance/selfAdaptiveBox';
 import table from './instance/table';
 import time from './instance/time';
 import tree from './instance/tree';
@@ -31,6 +33,7 @@ export const liliaCondition = condition;
 export const liliaDatepicker = datepicker;
 export const liliaDatepickerMobile = datepickerMobile;
 export const liliaFile = file;
+export const liliaLatticeCell = latticeCell;
 export const liliaLoading = loading;
 export const liliaMeasure = measure;
 export const liliaPaging = paging;
@@ -38,6 +41,7 @@ export const liliaInput = input;
 export const liliaImg = image;
 export const liliaRadio = radio;
 export const liliaSelect = select;
+export const liliaSelfAdaptiveBox = selfAdaptiveBox;
 export const liliaTime = time;
 export const liliaToast = toast;
 export const liliaTable = table;
@@ -54,12 +58,14 @@ const component = {
   liliaDatepicker,
   liliaDatepickerMobile,
   liliaFile,
+  liliaLatticeCell,
   liliaLoading,
   liliaMeasure,
   liliaInput,
   liliaPaging,
   liliaRadio,
   liliaSelect,
+  liliaSelfAdaptiveBox,
   liliaTable,
   liliaToast,
   liliaTimeZones,

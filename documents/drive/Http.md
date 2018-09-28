@@ -16,6 +16,26 @@
         data,
       }));
 
+    $.defineAccess({
+      name: 'getUserInfo',
+      path: '/get/userInfo',
+    });
+
+    $.accessPayload('getUserInfo', {
+      id: 'userId',
+      date: {
+        key: 'time',
+        default: Date.now(),
+      },
+    });
+
+    $.GET('getUsrInfo').
+      path('/get/userInfo').
+      payload({
+        userId: 'id',
+        time: { key: 'date', default: new Date().getTime() },
+      });
+
     $.GET('getUsrInfo').
       path('/get/userInfo'). // 服务真实路径
       payload(

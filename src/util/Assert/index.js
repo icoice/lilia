@@ -4,6 +4,7 @@ import hasArr from './hasArr';
 import hasDate from './hasDate';
 import hasEmpty from './hasEmpty';
 import hasFile from './hasFile';
+import hasFormData from './hasFormData';
 import hasFunc from './hasFunc';
 import hasNum from './hasNum';
 import hasObj from './hasObj';
@@ -17,6 +18,7 @@ export default {
   hasDate,
   hasEmpty,
   hasFile,
+  hasFormData,
   hasFunc,
   hasNum,
   hasObj,

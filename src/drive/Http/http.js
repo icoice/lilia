@@ -1,12 +1,21 @@
 import axios from 'axios';
 import util from '../../util';
 
-const { def, hasPromise } = util.Assert;
+const {
+  def,
+  hasEmpty,
+  hasFormData,
+  hasObj,
+  hasArr,
+  hasPromise,
+} = util.Assert;
 
 export default class Http {
+
   constructor(set = {}) {
     return this.init(set);
   }
+
   // 配置Http实例
   init(set) {
     this.access = def(set.access, []);
@@ -18,42 +27,68 @@ export default class Http {
     this.METHOD = '_HRM';
     this.QUERY = '_HRQ';
     this.BODY = '_HRB';
+
     return this.register();
   }
+
+  // 自动文本协议
+  autoContentType(data) {
+    if (hasFormData(data)) return 'multipart/form-data';
+    if (hasArr(data)) return 'application/json';
+    if (hasObj(data) && !hasEmpty(data)) return 'application/json';
+
+    return 'text/plain';
+  }
+
   // 注册Remote实例方法
   register() {
     const { access } = this;
     const list = {};
+
     access.map((item) => {
       list[item.name] = this.request(item);
       return item;
     });
+
     return list;
   }
-  // 自动文本协议
-  autoContentType(data) {
-    if (data instanceof FormData) return 'multipart/form-data';
-    if (typeof data === 'object' && data !== null) return 'application/json';
-    return 'text/plain';
-  }
+
   // 创建axios的payload
   createPayload(path, method, query, body, data) {
-    const headers = {
-      'Content-Type': this.autoContentType(data),
-    };
+    const headers = { 'Content-Type': this.autoContentType(data) };
+    let sendParams;
+    let sendBody;
+
+    if (data instanceof FormData) {
+      sendParams = data;
+      sendBody = data;
+    } else {
+      sendParams = Object.assign({}, query, method === 'POST' ? {} : data);
+      sendBody = Object.assign({}, body, method !== 'POST' ? {} : data);
+    }
+
     return this.setPayload({
       url: `${this.domain}${path}`,
       method,
       headers: this.setHeaders(headers),
-      params: data instanceof FormData ? data : Object.assign({}, query, method === 'POST' ? {} : data),
-      data: data instanceof FormData ? data : Object.assign({}, body, method !== 'POST' ? {} : data),
+      params: sendParams,
+      data: sendBody,
     });
   }
+
   // 请求
   request(item) {
     const { sender, fakeDelay } = this;
     const { METHOD, QUERY, BODY } = this;
     const { name, method, path, fake } = item;
+    const req = (pl) => {
+      if (fake !== null) {
+        return new Promise(resolve => {
+          setTimeout(() => resolve(fake), fakeDelay);
+        });
+      }
+      return !sender ? axios(pl) : sender(pl);
+    }
 
     return (params = {}) => {
       const rm = params[METHOD] || method;
@@ -65,16 +100,12 @@ export default class Http {
       delete params[BODY];
 
       const payload = this.createPayload(path, rm, rq, rb, params);
-      const req = (pl) => {
-        if (fake !== null) {
-          return new Promise(resolve => {
-            setTimeout(() => resolve(fake), fakeDelay);
-          });
-        }
-        return !sender ? axios(pl) : sender(pl);
+
+      if (payload && hasPromise(payload)) {
+        return payload.then(set => req(set)); // 如果payload返回的是一个promise
       }
-     // 假设payload返回的是一个promise
-     return payload && hasPromise(payload) ? payload.then(set => req(set)) : req(payload);
+
+      return req(payload);
     };
   }
 }

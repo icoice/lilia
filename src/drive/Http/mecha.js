@@ -1,3 +1,63 @@
+import util from '../../util';
+
+const {
+  hasObj,
+  hasFunc,
+  hasEmpty,
+  hasFormData,
+} = util.Assert;
+
+let countId = 0;
+
+function $API_LIST(id, api, adapter) {
+
+  Object.entries(api).map((access) => {
+    const [n, m] = access;
+    adapter[n] = m;
+
+    if (hasFunc(m)) {
+      adapter[n] = (p = {}) => {
+        countId += 1;
+        const id = countId;
+        let payload = p;
+
+        this.sendId = id;
+        sendRecords[n] = hasEmpty(sendRecords[n]) ? {} : sendRecords[n];
+        sendRecords[n][id] = { REJECT_RESPONSE: false };
+
+        if (!hasFormData(p)) {
+          payload = this.buildRequestPayload(n, p);
+          if (requestBeforeProcess) {
+            payload = Object.assign({}, requestBeforeProcess(payload, m));
+          }
+        }
+
+        return method(payload).then((response) => {
+          const { description, data } = response;
+          if (!data) {
+            this.log('exception', '未获得服务器的响应数据');
+          } else {
+            if (hasObj(data) && !hasEmpty(data)) {
+              data.HOW = Object.assign({ id }, sendRecords[n][id]);
+            }
+            this.log('complete', `${description}`, data);
+          }
+
+          delete sendRecords[n][id]; // 拒绝响应的措施, 解决无法abort的问题。
+          return response;
+        }).catch(e => {
+          delete sendRecords[n][id];
+
+          this.requsetException(e);
+
+          return e;
+        });
+      }
+    }
+    return access;
+  });
+}
+
 export default class Mecha {
 
   constructor(adapter) {
@@ -9,6 +69,7 @@ export default class Mecha {
       1003: '未设定该组接口的payload',
       1004: '未指定一组接口定义',
     };
+
     // http协议请求状态
     this.READY_STATE_MESSAGE = [
      '未发送',
@@ -16,14 +77,17 @@ export default class Mecha {
      '等待响应',
      '请求完成'
     ];
+
     this.setting = {
       api: null, // API映射存放
       origin: null, // API payload的源定义
       alias: null, // API payload的别名定义
     };
+
     this.logger = [];
     this.sendRecords = {}; // 当前接口发送记录
     this.sendId = 0; // 发送id
+
     this.requestErrorHandle = () => {}; // 请求时发生错误的后续处理
     this.requestHandle = () => {}; // 请求完成的后续处理
     this.requestExceptionHandle = () => {}; // 请求时发生异常的后续处理
@@ -42,7 +106,9 @@ export default class Mecha {
     const { api } = setting;
     const adapter = {};
 
-    if (!api) return this.log('error', ERROR_MESSAGE[1004]);
+    if (hasEmpty(api)) {
+      return this.log('error', ERROR_MESSAGE[1004]);
+    }
 
     // 夹层的异常处理
     adapter.ON_REQUEST_ERROR = (callback) => {
@@ -57,49 +123,7 @@ export default class Mecha {
       this.requestHandle = callback;
     };
 
-    // 接口列
-    const list = Object.entries(api);
-
-    // 方法请求
-    const request = (params) => {
-     const { n, id, method, payload } = params;
-     return method(payload).then((response) => {
-       const { description, data } = response;
-       if (!data) {
-         this.log('exception', '未获得服务器的响应数据');
-       } else {
-         if (typeof data === 'object' && data !== null) data.HOW = Object.assign({ id }, sendRecords[n][id]);
-         this.log('complete', `${description}`, data);
-       }
-
-       delete sendRecords[n][id]; // 拒绝响应的措施, 解决无法abort的问题。
-       return response;
-     }).catch(e => {
-       delete sendRecords[n][id];
-       this.requsetException(e);
-       return e;
-     });
-    }
-
-    // 创建接口
-    list.map((access) => {
-      const [n, method] = access;
-      adapter[n] = typeof method === 'function' ? (params = {}) => {
-        this.sendId += 1;
-        const id = this.sendId;
-        let payload = params;
-        sendRecords[n] = !sendRecords[n] ? {} : sendRecords[n];
-        sendRecords[n][id] = { REJECT_RESPONSE: false };
-        if (!(params instanceof FormData)) {
-          payload = this.getRequestPayload(n, params);
-          if (requestBeforeProcess) {
-            payload = Object.assign({}, requestBeforeProcess(payload, method));
-          }
-        }
-        return request({ n, id, method, payload });
-      } : method ;
-      return access;
-    });
+    $API_LIST.call(this, list, adapter);
 
     // 拒绝响应
     adapter.rejectResponse = (name, id = null) => {
@@ -131,6 +155,9 @@ export default class Mecha {
       origin: data,
       time: Date.now(),
     };
+
+    this.logger.push(record);
+
     switch (type) {
       case 'error':
         this.requestErrorHandle(record);
@@ -141,7 +168,6 @@ export default class Mecha {
       default:
         this.requestHandle(record);
     }
-    this.logger.push(record);
   }
 
   // axios的异常请求处理
@@ -152,45 +178,68 @@ export default class Mecha {
     const defaultMessage = !message ? '程序存在异常，无法完成请求' : message;
     const infos = {
       description: !request ? '' : READY_STATE_MESSAGE[request.readyState - 1],
-      statusText: !request || request.statusText === '' ? defaultMessage : request.statusText,
-      status: !request ? '' : request.status,
+      statusText: !request || !request.statusText || request.statusText === '' ? defaultMessage : request.statusText,
+      status: !request || !request.status ? '' : request.status,
     };
     const status = typeof infos.status === 'undefined' ? '' : `[${infos.status}] `;
     const statusTxt = infos.statusText !== '' && typeof infos.statusText === 'string' ? `${infos.description},` : infos.description;
     const logInfo = `${status}${statusTxt}${infos.statusText}`;
+
     this.log('exception', logInfo);
+
     return infos;
   }
 
   // 别名数据同步，同步别名数据到源数据，源数据同步到别名数据
   recoverPayload(type, origin, alias, data = {}) {
     const payload = {};
+
     Object.entries(origin).map((item) => {
       const [key, val] = item;
-      const aliasKey = !alias[key] ? key : alias[key];
-      const typeKey = ({ origin: key, alias: aliasKey })[type];
-      payload[typeKey] = aliasKey in data ? data[aliasKey] : val;
+      const ak = hasEmpty(alias[key]) ? key : alias[key];
+      const tk = ({ origin: key, alias: ak })[type];
+
+      payload[tk] = ak in data ? data[ak] : val;
+
       return item;
     });
+
     return payload;
   }
 
    // 设置payload
   definePayload(key, origin, alias) {
     const { setting } = this;
-    if (!setting.origin) setting.origin = {};
-    if (!setting.alias) setting.alias = {};
+
+    if (hasEmpty(setting.origin)) {
+      setting.origin = {};
+    }
+
+    if (hasEmpty(setting.alias)) {
+      setting.alias = {};
+    }
+
     setting.origin[key] = origin;
     setting.alias[key] = alias;
   }
 
-  // 获得payload
-  getRequestPayload(key, params) {
+  //  创建payload
+  buildRequestPayload(key, params) {
     const { setting, ERROR_MESSAGE } = this;
     const { origin, alias } = setting;
-    if (!setting.origin && !setting.alias) return this.log('error', ERROR_MESSAGE[1003]);
-    if (!origin[key]) return this.log('error', ERROR_MESSAGE[1002]);
-    if (!alias[key]) return this.log('error', ERROR_MESSAGE[1001]);
+
+    if (hasEmpty(origin) || hasEmpty(alias)) {
+      return this.log('error', ERROR_MESSAGE[1003]);
+    }
+
+    if (hasEmpty(origin[key])) {
+      return this.log('error', ERROR_MESSAGE[1002]);
+    }
+
+    if (hasEmpty(alias[key])) {
+      return this.log('error', ERROR_MESSAGE[1001]);
+    }
+
     return this.recoverPayload('origin', origin[key], alias[key], params);
   }
 

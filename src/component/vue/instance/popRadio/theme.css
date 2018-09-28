@@ -67,16 +67,20 @@
 
   .lilia-input {
     float: left;
-    width: 80%;
+    width: 60%;
   }
 
   .pop-radio-operator {
+    overflow: hidden;
     float: left;
-    width: 20%;
+    width: 40%;
+    .lilia-btn {
+      float: left;
+      width: 46%;
+    }
     .lilia-btn .btn-touch {
-      margin: 2pxr;
+      margin: 2pxr 0 2pxr 2pxr;
       padding: 6pxr;
-      width: 75%;
       border-width: 1px;
     }
   }
