@@ -1,7 +1,7 @@
 <template lang="pug">
 div.lilia-self-adaptive-box(ref='container')
   btn(@tap='doTap')
-    div.box-tap(slot='btn')
+    div.box-tap(slot='btn' ref='boxTap')
       slot(name='box')
 </template>
 
@@ -53,7 +53,7 @@ export default {
   methods: {
     resize() {
       const { unit, adaptiveType } = this;
-      const { container } = this.$refs;
+      const { container, boxTap } = this.$refs;
       const { parentNode, children } = container;
       const node = adaptiveType === 'outside' ? parentNode : children[0];
 
@@ -62,11 +62,11 @@ export default {
       const { offsetWidth, offsetHeight } = node;
 
       if (this.autoWidth === 'noAuto') {
-        container.style.width = `${offsetWidth}${unit}`;
+        boxTap.style.width = `${offsetWidth}${unit}`;
       }
 
       if (this.autoHeight === 'noAuto') {
-        container.style.height = `${offsetHeight}${unit}`;
+        boxTap.style.height = `${offsetHeight}${unit}`;
       }
 
       this.$emit('resize', {
