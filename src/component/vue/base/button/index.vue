@@ -7,7 +7,6 @@ div.lilia-btn(:class="['lilia', hasDisabled]")
     @touchmove= "touchMove"
     @touchend="touchEnd")
     slot(name="btn")
-
   // 支持台式电脑
   div(:class="['btn-touch', hasTapped]"
     v-else

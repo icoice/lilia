@@ -1,7 +1,7 @@
 @import 'planes/base.css';
 @import 'planes/unit.css';
 
-.lilia-loading {
+/* .lilia-loading {
   @mixin clear-select;
   overflow: hidden;
   margin: 10pxr;
@@ -23,4 +23,4 @@
 .lilia-loading p.load-descrption {
   text-align: center;
   color: #eaeaea;
-}
+} */

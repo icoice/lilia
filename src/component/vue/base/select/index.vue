@@ -45,7 +45,7 @@ export default {
     let selected = emptySelected;
 
     list.map((item) => {
-      if (this.val == item.key) {
+      if (this.val === item.key) {
         selected = item;
       }
       return item;

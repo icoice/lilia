@@ -1,6 +1,6 @@
 @import 'planes/base.css';
 @import 'planes/unit.css';
-
+/*
 .lilia-input {
   @mixin clear-select;
   overflow: hidden;
@@ -69,4 +69,4 @@
   input {
     border: 1px solid #c00;
   }
-}
+}*/

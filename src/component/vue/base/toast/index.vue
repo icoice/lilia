@@ -24,6 +24,10 @@ export default {
       type: Number,
       default: 5000,
     },
+  }, {
+    data: {
+      timeoutID: null,
+    },
   }),
   mounted() {
     this.sandClock();

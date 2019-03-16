@@ -10,8 +10,8 @@ const methods = {
     this.$emit('onoff', false);
   },
   sandClock() {
-    clearTimeout(timeoutID);
-    timeoutID = setTimeout(() => {
+    clearTimeout(this.timeoutID);
+    this.timeoutID = setTimeout(() => {
       if (this.m$Show) this.close();
     }, this.m$Timeout);
   },

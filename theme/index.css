@@ -5,6 +5,7 @@
 @import './icon/iconfont.css';
 @import '../lib/component/vue/base/**/**/*.css'; /* lilia component */
 @import '../lib/component/vue/instance/**/**/*.css'; /* lilia component */
+@import '../lib/component/nextVue/theme/*.css'; /* lilia component */
 
 * {
   font-family: Microsoft YaHei;

@@ -1,0 +1,50 @@
+.lilia-tab {
+  overflow: hidden;
+
+  .lilia-tab-buttons {
+    overflow: hidden;
+
+    .lilia-tab-item {
+      float: left;
+      border-top: 1px solid #efefef;
+      border-right: 1px solid #efefef;
+    }
+
+    .lilia-tab-item .lilia-button {
+      .tap-area {
+        background-color: transparent;
+        color: #333;
+      }
+
+      .iconfont {
+        color: #06f;
+      }
+    }
+
+    .lilia-tab-selected {
+      .lilia-button {
+        border-radius: 0;
+        background-color: #06f;
+      }
+
+      .lilia-button {
+        .tap-area {
+          color: #fff;
+        }
+
+        .iconfont {
+          color: #fff;
+        }
+      }
+    }
+
+    .lilia-tab-item:first-child {
+      border-left: 1px solid #efefef;
+    }
+  }
+
+  .lilia-tab-content {
+    padding: 10pxr;
+    border: 1px solid #efefef;
+  }
+}

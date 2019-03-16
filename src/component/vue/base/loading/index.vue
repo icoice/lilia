@@ -1,4 +1,4 @@
-<template >
+<template>
   <div class="lilia lilia-loading">
     <div class="load-mark" v-if="!isLoadComplete">
       <div class="lilia-icon">

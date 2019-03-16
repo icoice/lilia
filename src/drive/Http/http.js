@@ -21,6 +21,7 @@ export default class Http {
     this.access = def(set.access, []);
     this.domain = def(set.domain, '');
     this.fakeDelay = def(set.fakeDelay, 1000);
+    this.hasFake = def(set.hasFake, true);
     this.setHeaders = def(set.setHeaders, params => params);
     this.setPayload = def(set.setPayload, params => params);
     this.sender = def(set.sender, null);
@@ -56,6 +57,7 @@ export default class Http {
   // 创建axios的payload
   createPayload(path, method, query, body, data) {
     const headers = { 'Content-Type': this.autoContentType(data) };
+    let restfulPath;
     let sendParams;
     let sendBody;
 
@@ -65,10 +67,28 @@ export default class Http {
     } else {
       sendParams = Object.assign({}, query, method === 'POST' ? {} : data);
       sendBody = Object.assign({}, body, method !== 'POST' ? {} : data);
+
+      if (sendParams) {
+        Object.entries(sendParams).map((kv) => {
+          const [k, v] = kv;
+          const keyRule = new RegExp(`\\:${k}`, 'g');
+          restfulPath = path.replace(keyRule, v);
+          return kv;
+        });
+      }
+
+      if (sendBody) {
+        Object.entries(sendBody).map((kv) => {
+          const [k, v] = kv;
+          const keyRule = new RegExp(`/\:${k}/g`);
+          restfulPath = path.replace(keyRule, v);
+          return kv;
+        });
+      }
     }
 
     return this.setPayload({
-      url: `${this.domain}${path}`,
+      url: `${this.domain}${restfulPath || path}`,
       method,
       headers: this.setHeaders(headers),
       params: sendParams,
@@ -78,11 +98,11 @@ export default class Http {
 
   // 请求
   request(item) {
-    const { sender, fakeDelay } = this;
+    const { sender, fakeDelay, hasFake } = this;
     const { METHOD, QUERY, BODY } = this;
     const { name, method, path, fake } = item;
     const req = (pl) => {
-      if (fake !== null) {
+      if (fake !== null && hasFake) {
         return new Promise(resolve => {
           setTimeout(() => resolve(fake), fakeDelay);
         });

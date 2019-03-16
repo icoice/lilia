@@ -9,10 +9,11 @@ const {
 
 let countId = 0;
 
-function $API_LIST(id, api, adapter) {
+function $API_LIST(api, adapter, sendRecords, requestBeforeProcess) {
 
   Object.entries(api).map((access) => {
     const [n, m] = access;
+
     adapter[n] = m;
 
     if (hasFunc(m)) {
@@ -32,7 +33,7 @@ function $API_LIST(id, api, adapter) {
           }
         }
 
-        return method(payload).then((response) => {
+        return m(payload).then((response) => {
           const { description, data } = response;
           if (!data) {
             this.log('exception', '未获得服务器的响应数据');
@@ -64,9 +65,6 @@ export default class Mecha {
     // 错误信息
     this.ERROR_MESSAGE = {
       1000: '未定义该API接口',
-      1001: '未定义接口的别名payload',
-      1002: '未定义接口服务的payload',
-      1003: '未设定该组接口的payload',
       1004: '未指定一组接口定义',
     };
 
@@ -123,8 +121,6 @@ export default class Mecha {
       this.requestHandle = callback;
     };
 
-    $API_LIST.call(this, list, adapter);
-
     // 拒绝响应
     adapter.rejectResponse = (name, id = null) => {
       const { sendRecords } = this;
@@ -143,6 +139,13 @@ export default class Mecha {
         return kv;
       });
     }
+
+    $API_LIST.apply(this, [
+      api,
+      adapter,
+      sendRecords,
+      requestBeforeProcess,
+    ]);
 
     return adapter;
   }
@@ -176,11 +179,9 @@ export default class Mecha {
     const { request } = e;
     const { READY_STATE_MESSAGE } = this;
     const defaultMessage = !message ? '程序存在异常，无法完成请求' : message;
-    const infos = {
-      description: !request ? '' : READY_STATE_MESSAGE[request.readyState - 1],
-      statusText: !request || !request.statusText || request.statusText === '' ? defaultMessage : request.statusText,
-      status: !request || !request.status ? '' : request.status,
-    };
+    const description = !request ? '' : READY_STATE_MESSAGE[request.readyState - 1];
+    const statusText = !request || !request.statusText || request.statusText === '' ? defaultMessage : request.statusText;
+    const infos = { description, statusText, status: !request || !request.status ? '' : request.status };
     const status = typeof infos.status === 'undefined' ? '' : `[${infos.status}] `;
     const statusTxt = infos.statusText !== '' && typeof infos.statusText === 'string' ? `${infos.description},` : infos.description;
     const logInfo = `${status}${statusTxt}${infos.statusText}`;
@@ -191,7 +192,7 @@ export default class Mecha {
   }
 
   // 别名数据同步，同步别名数据到源数据，源数据同步到别名数据
-  recoverPayload(type, origin, alias, data = {}) {
+  recoverPayload(type, origin = {}, alias = {}, data = {}) {
     const payload = {};
 
     Object.entries(origin).map((item) => {
@@ -227,18 +228,6 @@ export default class Mecha {
   buildRequestPayload(key, params) {
     const { setting, ERROR_MESSAGE } = this;
     const { origin, alias } = setting;
-
-    if (hasEmpty(origin) || hasEmpty(alias)) {
-      return this.log('error', ERROR_MESSAGE[1003]);
-    }
-
-    if (hasEmpty(origin[key])) {
-      return this.log('error', ERROR_MESSAGE[1002]);
-    }
-
-    if (hasEmpty(alias[key])) {
-      return this.log('error', ERROR_MESSAGE[1001]);
-    }
 
     return this.recoverPayload('origin', origin[key], alias[key], params);
   }

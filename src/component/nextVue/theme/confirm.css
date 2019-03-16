@@ -1,0 +1,58 @@
+.lilia-confirm {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  z-index: 9999;
+  transform-origin: center;
+  transform: translate(-50%, -50%);
+  border: 1px solid #eaeaea;
+  box-shadow: 0 10px 10px #efefef;
+}
+
+.lilia-confirm-body {
+  background-color: #fff;
+}
+
+.lilia-confirm-content {
+  padding: 10pxr;
+  border-bottom: 1pxr solid #efefef;
+
+  .lilia-normal-text {
+    padding: 30pxr;
+    text-align: center;
+    font-size: 30pxr;
+  }
+}
+
+.lilia-confirm-operator {
+  overflow: hidden;
+
+  .lilia-button {
+    display: block;
+    float: left;
+    width: 50%;
+    text-align: center;
+  }
+
+  .lilia-button .tap-area {
+    padding-top: 15pxr;
+    padding-bottom: 15pxr;
+    background-color: #fff;
+    border-left: 1pxr solid #efefef;
+    border-radius: 0;
+    font-size: 22pxr;
+    color: #333;
+  }
+
+  .lilia-button:first-child .tap-area {
+    border-left: none;
+  }
+
+  .lilia-button .tap-area span {
+    font-size: 22pxr;
+  }
+
+  .lilia-pressed .tap-area {
+    background-color: #efefef;
+  }
+}

@@ -1,10 +1,4 @@
 const methods = {
-  iconChange() {
-    return this.listOpen ? 'icon-arrowup' : 'icon-arrowdown';
-  },
-  selectDefaultChange() {
-    return this.listOpen ? 'list-open' : 'list-close';
-  },
   hasMoveOnSelect() {
     this.isMoveOver = 1;
   },

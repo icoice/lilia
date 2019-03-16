@@ -20,7 +20,9 @@ export default function (setting) {
   Adapter.accross('onExecuteAfter', next => next());
   setting.access = access.map((api) => {
     const { fake } = api;
+
     api.fake = fake !== null ? setAxiosResponse(fake): fake;
+
     return Object.assign({}, api);
   });
 

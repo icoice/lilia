@@ -36,6 +36,7 @@ const formatMaps = (maps) => {
 
 /* http、httpMecha的数据格式构造 */
 export default (params)  => {
+  const { fake, domain } = params;
   const hasFake = fake.open;
   const fakeDataStruct = fake.pack;
   const fakeDelay = fake.delay;
@@ -46,11 +47,12 @@ export default (params)  => {
 
   const apiParams = {
    domain, // 常规域名
-   access, // 接入映射
+   access: list, // 接入映射
    setPayload, // 当payload载入时
    setHeaders, // 当headers载入时
    sender, // 替换发送体
-   fakeDelayTime: fakeDelay, // 模拟数据延迟时间
+   fakeDelay, // 模拟数据延迟时间
+   hasFake, // 是否开启虚拟数据
   };
 
   const serve = http(apiParams);

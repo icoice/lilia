@@ -1,10 +1,17 @@
 // 基础组件
-import button from './base/button';
+import button from '../nextVue/button';
+import confirm from '../nextVue/confirm';
+import pulldown from '../nextVue/pulldown';
+import input from '../nextVue/input';
+import loading from '../nextVue/loading';
+import tab from '../nextVue/tab';
+
+// import button from './base/button';
 import checkbox from './base/checkbox';
 import file from './base/file';
-import loading from './base/loading';
+// import loading from './base/loading';
 import image from './base/image';
-import input from './base/input';
+// import input from './base/input';
 import radio from './base/radio';
 import select from './base/select';
 import toast from './base/toast';
@@ -16,7 +23,7 @@ import datepicker from './instance/datepicker';
 import datepickerMobile from './instance/datepickerMobile';
 import latticeCell from './instance/latticeCell';
 import selfAdaptiveBox from './instance/selfAdaptiveBox';
-import table from './instance/table';
+// import table from './instance/table';
 import time from './instance/time';
 import tree from './instance/tree';
 import type from './instance/type';
@@ -26,7 +33,14 @@ import paging from './instance/paging';
 import measure from './instance/measure';
 
 // 组件一列
-export const liliaBtn = button;
+export const liliaButton = button;
+export const liliaConfirm = confirm;
+export const liliaPulldown = pulldown;
+export const liliaInput = input;
+export const liliaLoading = loading;
+export const liliaTab = tab;
+
+// export const liliaTable = table;
 export const liliaCheckbox = checkbox;
 export const liliaChoose = choose;
 export const liliaCondition = condition;
@@ -34,24 +48,28 @@ export const liliaDatepicker = datepicker;
 export const liliaDatepickerMobile = datepickerMobile;
 export const liliaFile = file;
 export const liliaLatticeCell = latticeCell;
-export const liliaLoading = loading;
 export const liliaMeasure = measure;
 export const liliaPaging = paging;
-export const liliaInput = input;
 export const liliaImg = image;
 export const liliaRadio = radio;
 export const liliaSelect = select;
 export const liliaSelfAdaptiveBox = selfAdaptiveBox;
 export const liliaTime = time;
 export const liliaToast = toast;
-export const liliaTable = table;
 export const liliaTimeZones = timeZones;
 export const liliaTree = tree;
 export const liliaType = type;
 export const liliaPop = pop;
 
 const component = {
-  liliaBtn,
+  liliaButton,
+  liliaPulldown,
+  liliaInput,
+  liliaLoading,
+  liliaTab,
+  liliaConfirm,
+
+  // liliaTable,
   liliaChoose,
   liliaCheckbox,
   liliaCondition,
@@ -61,12 +79,10 @@ const component = {
   liliaLatticeCell,
   liliaLoading,
   liliaMeasure,
-  liliaInput,
   liliaPaging,
   liliaRadio,
   liliaSelect,
   liliaSelfAdaptiveBox,
-  liliaTable,
   liliaToast,
   liliaTimeZones,
   liliaTree,
@@ -77,11 +93,13 @@ const component = {
 
 export const register = function register(Vue) {
   const components = {};
+
   Object.entries(component).map((kv) => {
     const [n, c] = kv;
     components[n] = Vue.component(n, c);
     return kv;
   });
+
   return components;
 };
 
