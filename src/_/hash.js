@@ -1,4 +1,4 @@
-module.exports = () => {
+export default () => {
   const { hash } = location;
   const paramSupCode = hash.indexOf('?');
   const pathSupCode = hash.indexOf('/');

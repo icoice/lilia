@@ -100,4 +100,5 @@ const decideType = (express = [], doth) => {
 };
 
 decideType.JUDGE = judge;
-module.exports = decideType;
+
+export default decideType;

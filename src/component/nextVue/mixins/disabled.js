@@ -4,6 +4,12 @@ import state from '../state';
 const { JUDGE } = _.decideType;
 
 export default {
+  props: {
+    disabled: {
+      type: Boolean,
+      default: false,
+    },
+  },
   data() {
     return {
       isDisabled: this.disabled,

@@ -9,7 +9,7 @@ div.lilia-pulldown.lilia(
         span(slot='button') {{ name }}
     div.pulldown-block
       lilia-button(@pressEnd='gotoOpen')
-        div.pulldown-value(v-if='selected !== null' slot='button') {{ getSelectItem(selected).value }}
+        div.pulldown-value(v-if='selected !== null && selected !== ""' slot='button') {{ getSelectItem(selected).value }}
         div.pulldown-placeholder(v-else slot='button') {{ placeholder }}
     div.pulldown-block.pulldown-control(v-if='status !== "disabled" && !selected')
       lilia-button(@pressEnd='gotoOpen')
@@ -46,7 +46,7 @@ export default {
       default: null,
     },
     value: {
-      type: [Number, String, Object],
+      type: [Number, String],
       default: null,
     },
     searchValue: {
@@ -73,14 +73,14 @@ export default {
   },
   data() {
     return {
-      selected: this.getSelectItem(this.value),
+      selected: this.value,
       searchVal: this.searchValue,
       pulldonwList: this.checkList(this.list || []),
     };
   },
   watch: {
     value(val) {
-      this.selected = this.getSelectItem(val);
+      this.selected = val;
     },
     searchValue(val) {
       this.searchVal = this.searchValue;
@@ -102,7 +102,7 @@ export default {
     gotoSelected(key) {
       this.selected = key;
 
-      this.liliaState.wheelFlowAction('change', this.selected);
+      this.liliaState.wheelFlowAction('change', this.getSelectItem(this.selected));
       this.liliaState.wheelFlowAction('drop');
     },
   },

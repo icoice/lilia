@@ -1,6 +1,7 @@
-const { decideType } = require('../_');
-const { JUDGE } = decideType;
+import _ from '../_';
 
+const { decideType } = _;
+const { JUDGE } = decideType;
 const arrayNearRepeatClear = (arr) => {
   const newArr = [];
   let before = null;
@@ -19,7 +20,7 @@ const arrayNearRepeatClear = (arr) => {
   return arr;
 };
 
-module.exports = class FlyStateMachine {
+export default class FlyStateMachine {
 
   constructor(option) {
     const {

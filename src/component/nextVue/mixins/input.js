@@ -13,14 +13,9 @@ export default {
       type: RegExp,
       default: null,
     },
-    disabled: {
-      type: Boolean,
-      default: false,
-    },
   },
   data() {
     return {
-      isDisabled: this.disabled,
       val: this.doFilter(this.value),
       status: '',
       inputRecords: [],

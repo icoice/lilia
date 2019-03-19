@@ -5,12 +5,14 @@ import pulldown from '../nextVue/pulldown';
 import input from '../nextVue/input';
 import loading from '../nextVue/loading';
 import tab from '../nextVue/tab';
+import image from '../nextVue/image';
+import uploadFile from '../nextVue/uploadFile';
 
 // import button from './base/button';
 import checkbox from './base/checkbox';
 import file from './base/file';
 // import loading from './base/loading';
-import image from './base/image';
+// import image from './base/image';
 // import input from './base/input';
 import radio from './base/radio';
 import select from './base/select';
@@ -39,6 +41,8 @@ export const liliaPulldown = pulldown;
 export const liliaInput = input;
 export const liliaLoading = loading;
 export const liliaTab = tab;
+export const liliaImage = image;
+export const liliaUploadFile = uploadFile;
 
 // export const liliaTable = table;
 export const liliaCheckbox = checkbox;
@@ -50,7 +54,7 @@ export const liliaFile = file;
 export const liliaLatticeCell = latticeCell;
 export const liliaMeasure = measure;
 export const liliaPaging = paging;
-export const liliaImg = image;
+// export const liliaImg = image;
 export const liliaRadio = radio;
 export const liliaSelect = select;
 export const liliaSelfAdaptiveBox = selfAdaptiveBox;
@@ -68,6 +72,8 @@ const component = {
   liliaLoading,
   liliaTab,
   liliaConfirm,
+  liliaImage,
+  liliaUploadFile,
 
   // liliaTable,
   liliaChoose,
@@ -77,7 +83,7 @@ const component = {
   liliaDatepickerMobile,
   liliaFile,
   liliaLatticeCell,
-  liliaLoading,
+  // liliaLoading,
   liliaMeasure,
   liliaPaging,
   liliaRadio,
@@ -87,7 +93,7 @@ const component = {
   liliaTimeZones,
   liliaTree,
   liliaType,
-  liliaImg,
+  // liliaImg,
   liliaPop,
 };
 
@@ -96,7 +102,9 @@ export const register = function register(Vue) {
 
   Object.entries(component).map((kv) => {
     const [n, c] = kv;
+
     components[n] = Vue.component(n, c);
+
     return kv;
   });
 
