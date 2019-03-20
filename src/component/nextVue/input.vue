@@ -34,7 +34,7 @@ export default {
   props: {
     max: {
       type: Number,
-      default: 100,
+      default: 500,
     },
     firstFocus: {
       type: Boolean,

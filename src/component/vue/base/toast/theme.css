@@ -5,7 +5,7 @@
   @mixin clear-select;
   overflow: hidden;
   position: fixed;
-  z-index: 100;
+  z-index: 9999999999;
   left: 0;
   bottom: 10%;
   padding: 12pxr;

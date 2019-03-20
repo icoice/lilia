@@ -29,7 +29,6 @@ export default {
     });
 
     liliaState.setFlowAction('sure', (status, is) => {
-      this.isOpened = false;
       this.eventHappen(status, is);
     });
 

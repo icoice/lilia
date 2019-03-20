@@ -6,7 +6,7 @@
   transform-origin: center;
   transform: translate(-50%, -50%);
   border: 1px solid #eaeaea;
-  box-shadow: 0 10px 10px #efefef;
+  box-shadow: 0 10px 10px rgba(0, 0, 0, .3);
 }
 
 .lilia-confirm-body {

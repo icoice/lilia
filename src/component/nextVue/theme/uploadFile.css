@@ -6,9 +6,12 @@
   position: relative;
   overflow: hidden;
   display: inline-block;
-  border-radius: 5pxr;
 
   .file-list {
+    .file-item:first-child {
+      border-top: 1px solid #efefef;
+    }
+
     .file-item {
       padding-bottom: 5pxr;
       border-left: 1px solid #efefef;
@@ -56,7 +59,9 @@
   }
 
   .upload-button {
+    position: relative;
     background-color: #06f;
+    border-radius: 5pxr;
 
     input {
       position: absolute;

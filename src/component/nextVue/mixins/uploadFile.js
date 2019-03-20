@@ -5,9 +5,9 @@ const { JUDGE } = _.decideType;
 
 export default {
   props: {
-    file: {
-      type: [File, String],
-      default: null,
+    files: {
+      type: Array,
+      default: () => [],
     },
     limit: {
       type: String,
@@ -21,16 +21,21 @@ export default {
   data() {
     return {
       status: '',
-      files: [],
+      inputFiles: this.files,
     };
+  },
+  watch: {
+    files(files) {
+      this.inputFiles = files;
+    },
   },
   mounted() {
     const { liliaState } = this;
 
     // 压缩图片文件
     liliaState.setFlowAction('change', (status, files) => {
-      this.files = files;
-      this.eventHappen(status, this.files);
+      this.inputFiles = files;
+      this.eventHappen(status, this.inputFiles);
     });
 
     // 验证失败

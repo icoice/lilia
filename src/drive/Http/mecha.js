@@ -182,9 +182,9 @@ export default class Mecha {
     const description = !request ? '' : READY_STATE_MESSAGE[request.readyState - 1];
     const statusText = !request || !request.statusText || request.statusText === '' ? defaultMessage : request.statusText;
     const infos = { description, statusText, status: !request || !request.status ? '' : request.status };
-    const status = typeof infos.status === 'undefined' ? '' : `[${infos.status}] `;
-    const statusTxt = infos.statusText !== '' && typeof infos.statusText === 'string' ? `${infos.description},` : infos.description;
-    const logInfo = `${status}${statusTxt}${infos.statusText}`;
+    const status = typeof infos.status === 'undefined' || infos.status === '' || infos.status === null ? '' : `[${infos.status}]`;
+    const statusTxt = infos.description !== '' && typeof infos.description === 'string' ? `[${infos.description}]` : infos.description;
+    const logInfo = `${status} ${statusTxt} ${infos.statusText}`;
 
     this.log('exception', logInfo);
 

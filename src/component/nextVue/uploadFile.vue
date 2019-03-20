@@ -9,9 +9,9 @@
       input(type='file' :name='name' :multiple='isMultiple' @change='getFiles')
     div.file-list
       ul
-        li.file-item(v-for='file in files' :class='{"file-extend-error": !verifyFileExtend(file.name)}')
+        li.file-item(v-for='file in inputFiles' :class='{"file-extend-error": !verifyFileExtend(file.name)}')
           div.file-item-preview(v-if='isShowImage')
-            lilia-image(:file='file')
+            lilia-image(:name='file.name' :file='file')
           div.file-item-content
             p.file-error(v-if='!verifyFileExtend(file.name)') 文件格式错误，请更换上传文件。
             div.file-item-line

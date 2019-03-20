@@ -5,6 +5,10 @@ const { JUDGE } = _.decideType;
 
 export default {
   props: {
+    name: {
+      type: String,
+      default: String(Date.now()),
+    },
     file: {
       type: [File, String],
       default: null,
@@ -37,7 +41,11 @@ export default {
       this.zoom64(originFile, express).then((file64) => {
         this.file64 = file64;
         this.status = status;
-        this.eventHappen(this.status, this.file64);
+
+        this.eventHappen(this.status, {
+          file64: this.file64,
+          file: this.base64ToFile(this.file64, this.name),
+        });
       });
     });
   },
