@@ -5,10 +5,10 @@ div.lilia-confirm.lilia(v-if='isOpened')
       slot(name='confirm-content' v-if='content === ""')
       p.lilia-normal-text(v-else) {{ content }}
     div.lilia-confirm-operator
-      lilia-button(@pressEnd='cancel')
-        span(slot='button') 取消
       lilia-button(@pressEnd='sure')
         span(slot='button') 确认
+      lilia-button(@pressEnd='cancel')
+        span(slot='button') 取消
 </template>
 
 <script>

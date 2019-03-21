@@ -8,6 +8,8 @@
   display: inline-block;
 
   .file-list {
+    margin-top: 5pxr;
+
     .file-item:first-child {
       border-top: 1px solid #efefef;
     }

@@ -6,6 +6,7 @@ import loading from './loading';
 import confirm from './confirm';
 import image from './image';
 import uploadFile from './uploadFile';
+import pageReference from './pageReference';
 
 export default {
   confirm,
@@ -16,4 +17,5 @@ export default {
   tap,
   loading,
   image,
+  pageReference,
 };

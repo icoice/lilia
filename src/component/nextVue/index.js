@@ -5,11 +5,13 @@ import liliaInput from './liliaInput';
 import liliaLoading from './loading';
 import liliaImage from './image';
 import liliaUploadFile from './uploadFile';
+import liliaPageReference from './pageReference';
 
 export default {
   liliaButton,
   liliaConfirm,
   liliaPulldown,
+  liliaPageReference,
   liliaLoading,
   liliaInput,
   liliaImage,

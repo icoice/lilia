@@ -7,6 +7,7 @@ import loading from '../nextVue/loading';
 import tab from '../nextVue/tab';
 import image from '../nextVue/image';
 import uploadFile from '../nextVue/uploadFile';
+import pageReference from '../nextVue/pageReference';
 
 // import button from './base/button';
 import checkbox from './base/checkbox';
@@ -43,6 +44,7 @@ export const liliaLoading = loading;
 export const liliaTab = tab;
 export const liliaImage = image;
 export const liliaUploadFile = uploadFile;
+export const liliaPageReference = pageReference;
 
 // export const liliaTable = table;
 export const liliaCheckbox = checkbox;
@@ -74,6 +76,7 @@ const component = {
   liliaConfirm,
   liliaImage,
   liliaUploadFile,
+  liliaPageReference,
 
   // liliaTable,
   liliaChoose,
