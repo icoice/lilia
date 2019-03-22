@@ -2,6 +2,7 @@ import _ from  '../../../_';
 import state from  '../state';
 
 const { decideType } = _;
+const { JUDGE } = decideType;
 
 // 私有：保存已创建的状态机
 const STATE_LIBRARY = {};
@@ -60,7 +61,9 @@ export default (stateName) => ({
         clear() {
           const { id } = STATE_CONF;
 
-          STATE_LIBRARY[id] = STATE_LIBRARY[id] || state[stateName](id);
+          STATE_LIBRARY[id] = STATE_LIBRARY[id] ||
+          (JUDGE.IS_FUN(stateName) && stateName(id)) ||
+          state[stateName](id);
 
           return STATE_LIBRARY[id];
         },
