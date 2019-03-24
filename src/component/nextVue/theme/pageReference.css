@@ -8,8 +8,7 @@
 
   tr td.page-info {
     padding: 0 10pxr;
-    border: none;
-    border-left: 1px solid #efefef;
+    border: 1px solid #efefef;
 
     .page-info-value {
       color: #06f;

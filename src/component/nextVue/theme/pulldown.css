@@ -62,6 +62,7 @@
 .lilia-pulldown {
   overflow: inherit;
   display: inline-block;
+  position: relative;
   background-color: #fff;
   letter-spacing: normal;
   word-spacing: normal;

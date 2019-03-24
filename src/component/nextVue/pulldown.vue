@@ -9,7 +9,9 @@ div.lilia-pulldown.lilia(
         span(slot='button') {{ name }}
     div.pulldown-block
       lilia-button(@pressEnd='gotoOpen')
-        div.pulldown-value(v-if='selected !== null && selected !== ""' slot='button') {{ getSelectItem(selected).value }}
+        div.pulldown-value(
+          v-if='selected !== null && selected !== ""'
+          slot='button') {{ getSelectItem(selected).value }}
         div.pulldown-placeholder(v-else slot='button') {{ placeholder }}
     div.pulldown-block.pulldown-control(v-if='status !== "disabled" && !selected')
       lilia-button(@pressEnd='gotoOpen')
@@ -46,7 +48,7 @@ export default {
       default: null,
     },
     value: {
-      type: [Number, String],
+      type: [Number, String, Object],
       default: null,
     },
     searchValue: {
