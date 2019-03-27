@@ -2,6 +2,10 @@ function isJSONStr(str) {
   return /^\{((".{0,}":".{0,}")|('.{0,}':'.{0,}')){0,}\}$/g.test(str);
 }
 
+function isArrStr(str) {
+  return /^\[.+\]$/g.test(str);
+}
+
 const judge = {
   // Null
   IS_NUL: val => val === null,
@@ -29,8 +33,8 @@ const judge = {
   BY_FUN: val => judge.IS_UND(val) || judge.IS_FUN(val),
   BE_FUN: (val, context = judge) => judge.IS_FUN(val) ? val.bind(context) : Function(),
   // JSON
-  IS_JSN: val => typeof val === 'string' && isJSONStr(val),
-  NO_JSN: val => typeof val !== 'string' || !isJSONStr(val),
+  IS_JSN: val => typeof val === 'string' && (isJSONStr(val) || isArrStr(val)),
+  NO_JSN: val => typeof val !== 'string' || !(isJSONStr(val) || isArrStr(val)),
   BY_JSN: val => judge.IS_UND(val) || judge.IS_JSN(val),
   // Array
   IS_ARR: val => (val instanceof Array),

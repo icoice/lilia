@@ -72,7 +72,9 @@ export default class Http {
         Object.entries(sendParams).map((kv) => {
           const [k, v] = kv;
           const keyRule = new RegExp(`\\:${k}`, 'g');
+
           restfulPath = path.replace(keyRule, v);
+
           return kv;
         });
       }
@@ -81,7 +83,9 @@ export default class Http {
         Object.entries(sendBody).map((kv) => {
           const [k, v] = kv;
           const keyRule = new RegExp(`/\:${k}/g`);
+
           restfulPath = path.replace(keyRule, v);
+
           return kv;
         });
       }

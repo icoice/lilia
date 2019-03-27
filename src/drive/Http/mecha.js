@@ -10,7 +10,6 @@ const {
 let countId = 0;
 
 function $API_LIST(api, adapter, sendRecords, requestBeforeProcess) {
-
   Object.entries(api).map((access) => {
     const [n, m] = access;
 
@@ -19,29 +18,42 @@ function $API_LIST(api, adapter, sendRecords, requestBeforeProcess) {
     if (hasFunc(m)) {
       adapter[n] = (p = {}) => {
         countId += 1;
+        adapter.NOW_REQUEST_ID = countId;
+
         const id = countId;
         let payload = p;
 
         this.sendId = id;
+
         sendRecords[n] = hasEmpty(sendRecords[n]) ? {} : sendRecords[n];
         sendRecords[n][id] = { REJECT_RESPONSE: false };
 
         if (!hasFormData(p)) {
           payload = this.buildRequestPayload(n, p);
+
           if (requestBeforeProcess) {
-            payload = Object.assign({}, requestBeforeProcess(payload, m));
+            payload = Object.assign({}, requestBeforeProcess(payload, {
+              id,
+              name: n,
+            }));
           }
         }
 
         return m(payload).then((response) => {
           const { description, data } = response;
+          const REQ_META = Object.assign({
+            id,
+            name: n,
+          }, sendRecords[n][id]);
+
           if (!data) {
-            this.log('exception', '未获得服务器的响应数据');
+            this.log('exception', '未获得服务器的响应数据', REQ_META);
           } else {
             if (hasObj(data) && !hasEmpty(data)) {
-              data.HOW = Object.assign({ id }, sendRecords[n][id]);
+              data.REQ_META = REQ_META;
             }
-            this.log('complete', `${description}`, data);
+
+            this.log('complete', `${description || ''}`, data);
           }
 
           delete sendRecords[n][id]; // 拒绝响应的措施, 解决无法abort的问题。
@@ -85,11 +97,11 @@ export default class Mecha {
     this.logger = [];
     this.sendRecords = {}; // 当前接口发送记录
     this.sendId = 0; // 发送id
-
     this.requestErrorHandle = () => {}; // 请求时发生错误的后续处理
     this.requestHandle = () => {}; // 请求完成的后续处理
     this.requestExceptionHandle = () => {}; // 请求时发生异常的后续处理
     this.requestBeforeProcess = payload => payload; // 请求前处理
+
     this.defineRequest(adapter); // 定义请求内容
   }
 
@@ -135,7 +147,9 @@ export default class Mecha {
 
       Object.entries(ids).map((kv) => {
         const [id, config] = kv;
+
         config.REJECT_RESPONSE = true;
+
         return kv;
       });
     }
@@ -151,8 +165,10 @@ export default class Mecha {
   }
 
   // 日志
-  log(type, description, data = null) {
+  log(type, description, data = null, name = '') {
     const record = {
+      id: this.sendId,
+      name,
       type,
       description,
       origin: data,

@@ -69,9 +69,9 @@ export default (params)  => {
   });
 
   // 夹层发送请求前
-  mecha.defineRequestBefore((payload) => {
+  mecha.defineRequestBefore((payload, name) => {
     if (hasFunc(params.sendBefore)) {
-      return Object.assign(payload, params.sendBefore(payload));
+      return Object.assign(payload, params.sendBefore(payload, name));
     }
 
     return payload;
