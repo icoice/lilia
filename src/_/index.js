@@ -7,15 +7,17 @@ import image from './image';
 import file from './file';
 import memory from './memory';
 import empty from './empty';
+import storage from './storage';
 
 export default {
   arrayPile,
-  hash,
-  isMob,
   decideType,
-  memory,
-  empty,
   ...device,
-  ...image,
   ...file,
+  hash,
+  empty,
+  ...image,
+  isMob,
+  memory,
+  storage,
 };

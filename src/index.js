@@ -21,27 +21,31 @@ export const $vue = {
   actions: (n) => drive.Vue.store.actions(n),
 }
 
-export const start = (Vue, state) => {
-  const program = (App, router) => {
-    Vue.use(Router);
-    util.Storage.memory('lilia_vue_components', component.register(Vue));
-    program.router = new Router(router);
+export const start = (Vue, storeList, middleware = []) => {
+  const store = $vue.store(Vue, (Store) => {
+    middleware.map(item => Store.use(item.name, item.use));
+    Object.entries(storeList).map(([name, build]) => build(new Store(name)));
+  });
+
+  Vue.use(Router);
+
+  const run = (App, routeList, cb) => {
+    _.memory('lilia_vue_components', component.register(Vue));
+
+    const router = new Router(routeList);
+
+    if (cb) cb({ store, router });
 
     return new Vue({
       el: '#app',
       template: '<App/>',
       components: { App },
-      router: program.router,
-      store: program.store,
+      router,
+      store,
     });
   };
 
-  program.store = $vue.store(Vue, (Store) => {
-    program.setStoreUse = Store.use;
-    Object.entries(state).map(([name, build]) => build(new Store(name)));
-  });
-
-  return program;
+  return run;
 }
 
 export default {

@@ -125,9 +125,12 @@ export const create = function create(Vue, process) {
     state.prototype[key] = target;
   }
 
-  if (typeof process === 'function')  process(state);
+  if (typeof process === 'function') {
+    process(state);
+  }
 
   Vue.use(Vuex);
+
   return new Store(store);
 };
 
