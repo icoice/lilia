@@ -64,7 +64,7 @@ export default {
         return item;
       });
 
-      return selected;
+      return selected || {};
     },
     checkItem(item) {
       if (JUDGE.IS_STR(item)) {
