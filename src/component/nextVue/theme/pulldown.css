@@ -95,6 +95,8 @@
       display: block;
 
       .tap-area {
+        padding-left: 0;
+        padding-right: 0;
         background-color: transparent;
         border-radius: 0;
         color: #333;

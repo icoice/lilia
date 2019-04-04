@@ -13,11 +13,12 @@ div.lilia-pulldown.lilia(
           v-if='selected !== null && selected !== ""'
           slot='button') {{ getSelectItem(selected).value }}
         div.pulldown-placeholder(v-else slot='button') {{ placeholder }}
-    div.pulldown-block.pulldown-control(v-if='status !== "disabled" && !selected')
+    div.pulldown-block.pulldown-control(v-if='status !== "disabled" && selected === null')
       lilia-button(@pressEnd='gotoOpen')
         span.iconfont.icon-arrowdropup(slot='button' v-if='status === "open"')
         span.iconfont.icon-arrowdropdown(slot='button' v-else)
-    div.pulldown-block.pulldown-control(v-if='status !== "disabled" && selected')
+    div.pulldown-block.pulldown-control(
+      v-if='status !== "disabled" && selected !== null')
       lilia-button(@pressEnd='clear')
         span.iconfont.icon-clear(slot='button')
   div.pulldown-search(v-if='status === "searching"')
@@ -26,9 +27,11 @@ div.lilia-pulldown.lilia(
       li(v-for='(item, code) in pulldonwList')
           lilia-button(:stateID='`pulldown_${stateID}_${item.value}`' @pressEnd='e => gotoSelected(item.key)')
             div(slot='button' :key='code')
+              span &nbsp;&nbsp;
               span.iconfont.pulldown-has-selected(:class='{"icon-check": selected && item.key === selected }')
               span &nbsp;&nbsp;
               span {{ item.value }}
+              span &nbsp;&nbsp;
 </template>
 
 <script>
