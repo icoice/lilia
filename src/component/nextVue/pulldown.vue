@@ -13,12 +13,13 @@ div.lilia-pulldown.lilia(
           v-if='selected !== null && selected !== ""'
           slot='button') {{ getSelectItem(selected).value }}
         div.pulldown-placeholder(v-else slot='button') {{ placeholder }}
-    div.pulldown-block.pulldown-control(v-if='status !== "disabled" && selected === null')
+    div.pulldown-block.pulldown-control(
+      v-if='status !== "disabled" && (selected === null || selected === "")')
       lilia-button(@pressEnd='gotoOpen')
         span.iconfont.icon-arrowdropup(slot='button' v-if='status === "open"')
         span.iconfont.icon-arrowdropdown(slot='button' v-else)
     div.pulldown-block.pulldown-control(
-      v-if='status !== "disabled" && selected !== null')
+      v-if='status !== "disabled" && selected !== null && selected !== ""')
       lilia-button(@pressEnd='clear')
         span.iconfont.icon-clear(slot='button')
   div.pulldown-search(v-if='status === "searching"')
