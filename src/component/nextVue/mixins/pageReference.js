@@ -36,7 +36,7 @@ export default {
 
       this.status = status;
       this.currentNo = no <= 0 ? 1 : no;
-      this.currentNo = no >= maxPg ? maxPg : no;
+      this.currentNo = this.currentNo >= maxPg ? maxPg : this.currentNo;
 
       this.reset();
 

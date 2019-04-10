@@ -117,17 +117,27 @@
 
   .pulldown-content {
     position: relative;
+    padding: 5pxr;
     z-index: 2;
 
+    .pulldown-clear {
+      clear: both;
+    }
+
     .pulldown-block {
-      display: inline-block;
+      float: left;
 
       .lilia-button {
         .tap-area {
-          padding-left: 5pxr;
+          display: block;
+          padding: 5pxr;
           background-color: transparent;
           font-size: 18pxr;
-          color: #666;
+          color: #333;
+        }
+
+        .iconfont {
+          color: #06f;
         }
       }
     }
@@ -135,19 +145,9 @@
     .pulldown-control {
       .lilia-button {
         .tap-area {
-          width: 10pxr;
+          padding: 0;
           background-color: transparent;
           border-radius: 0;
-        }
-
-        .iconfont::before {
-          display: block;
-          position: absolute;
-          top: 50%;
-          right: 0;
-          transform-origin: center;
-          transform: translateY(-50%);
-          color: #06f;
         }
       }
     }

@@ -51,6 +51,18 @@ const judge = {
   // undefined
   IS_UND: val => typeof val === 'undefined',
   NO_UND: val => typeof val !== 'undefined',
+  // Date
+  IS_DAT: val => val instanceof Date,
+  NO_DAT: val => !val instanceof Date,
+  // FormData
+  IS_FOD: val => val instanceof FormData,
+  NO_FOD: val => !val instanceof FormData,
+  // File
+  IS_FIL: val => val instanceof File,
+  NO_FIL: val => !val instanceof File,
+  // FileReader
+  IS_FIR: val => val instanceof FileReader,
+  NO_FIR: val => !val instanceof FileReader,
   // multiple swtich
   IN(value, sequence) {
     let count = 0;

@@ -31,42 +31,54 @@ export default {
 
     liliaState.setFlowAction('input', (status, e) => {
       if (this.status === 'disabled') return status;
+
       this.status = status;
       this.val = this.doFilter(e.target.value);
+
       this.eventHappen(this.status, this.val);
     });
 
     liliaState.setFlowAction('change', (status, e) => {
       if (this.status === 'disabled') return status;
+
       this.status = status;
       this.val = this.doFilter(e.target.value);
+
       this.eventHappen(this.status, this.val);
     });
 
     liliaState.setFlowAction('keyup', (status, e) => {
       if (this.status === 'disabled') return status;
+
       this.status = status;
       this.val = this.doFilter(e.target.value);
+
       this.eventHappen(this.status, this.val);
     });
 
     liliaState.setFlowAction('keydown', (status, e) => {
       if (this.status === 'disabled') return status;
+
       this.status = status;
       this.val = this.doFilter(e.target.value);
+
       this.eventHappen(this.status, e.target.value);
     });
 
     liliaState.setFlowAction('focus', (status, e) => {
       if (this.status === 'disabled') return status;
+
       this.status = status;
       this.toFocus();
+
       this.eventHappen(this.status, this.val);
     });
 
     liliaState.setFlowAction('blur', (status, e) => {
       if (this.status === 'disabled') return status;
+
       this.status = status;
+
       this.inputRecords.push(this.val);
       this.toBlur();
       this.eventHappen(this.status, this.val);
@@ -74,8 +86,10 @@ export default {
 
     liliaState.setFlowAction('clear', (status, e) => {
       if (this.status === 'disabled') return status;
+
       this.status = status;
       this.val = '';
+
       this.eventHappen(this.status, this.val);
       this.toFocus();
     });

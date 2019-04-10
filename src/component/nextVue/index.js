@@ -1,5 +1,6 @@
 import liliaButton from './button';
 import liliaConfirm from './confirm';
+import liliaDatepicker from './datepicker';
 import liliaPulldown from './pulldown';
 import liliaInput from './liliaInput';
 import liliaLoading from './loading';
@@ -16,4 +17,5 @@ export default {
   liliaInput,
   liliaImage,
   liliaUploadFile,
+  liliaDatepicker,
 };

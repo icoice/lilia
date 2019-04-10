@@ -8,6 +8,7 @@ import tab from '../nextVue/tab';
 import image from '../nextVue/image';
 import uploadFile from '../nextVue/uploadFile';
 import pageReference from '../nextVue/pageReference';
+import datepicker from '../nextVue/datepicker';
 
 // import button from './base/button';
 import checkbox from './base/checkbox';
@@ -22,7 +23,7 @@ import toast from './base/toast';
 // 特例组件
 import choose from './instance/choose';
 import condition from './instance/condition';
-import datepicker from './instance/datepicker';
+// import datepicker from './instance/datepicker';
 import datepickerMobile from './instance/datepickerMobile';
 import latticeCell from './instance/latticeCell';
 import selfAdaptiveBox from './instance/selfAdaptiveBox';
@@ -38,6 +39,7 @@ import measure from './instance/measure';
 // 组件一列
 export const liliaButton = button;
 export const liliaConfirm = confirm;
+export const liliaDatepicker = datepicker;
 export const liliaPulldown = pulldown;
 export const liliaInput = input;
 export const liliaLoading = loading;
@@ -50,7 +52,6 @@ export const liliaPageReference = pageReference;
 export const liliaCheckbox = checkbox;
 export const liliaChoose = choose;
 export const liliaCondition = condition;
-export const liliaDatepicker = datepicker;
 export const liliaDatepickerMobile = datepickerMobile;
 export const liliaFile = file;
 export const liliaLatticeCell = latticeCell;
@@ -77,12 +78,13 @@ const component = {
   liliaImage,
   liliaUploadFile,
   liliaPageReference,
+  liliaDatepicker,
 
   // liliaTable,
   liliaChoose,
   liliaCheckbox,
   liliaCondition,
-  liliaDatepicker,
+  // liliaDatepicker,
   liliaDatepickerMobile,
   liliaFile,
   liliaLatticeCell,
