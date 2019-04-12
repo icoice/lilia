@@ -1,6 +1,7 @@
 import Router from 'vue-router';
 import underscore from './_';
 import _stateMachine from './stateMachine';
+import _mixins from './component/nextVue/mixins';
 import _createState from './component/nextVue/mixins/createState';
 import _drive from './drive';
 import _util from './util';
@@ -12,6 +13,7 @@ export const util = _util;
 export const StateMachine = _stateMachine;
 export const vueStateMachine = _createState;
 export const _ = underscore;
+export const mixins = _mixins;
 
 // 简写
 export const $vue = {
@@ -50,6 +52,7 @@ export const start = (Vue, storeList, middleware = []) => {
 
 export default {
   _,
+  mixins,
   start,
   component,
   StateMachine,

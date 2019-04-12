@@ -121,7 +121,7 @@
 
   .lilia-button .tap-area {
     display: block;
-    padding: 0;
+    padding: 10pxr;
     background-color: transparent;
     text-align: center;
     font-size: 14pxr;

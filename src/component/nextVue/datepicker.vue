@@ -1,8 +1,8 @@
 <template lang='pug'>
 div.lilia-datepicker.lilia(v-if='open'
   class='lilia'
-  @mouseover='e => mousePos(1)'
-  @mouseleave='e => mousePos(0)')
+  @mouseover='e => isLeaveThis(1)'
+  @mouseleave='e => isLeaveThis(0)')
   div.datepicker-nav
     div.nav-item
       lilia-input(
@@ -53,19 +53,14 @@ div.lilia-datepicker.lilia(v-if='open'
 
 <script>
 import _ from '../../_';
+import leaveMouseHide from './mixins/leaveMouseHide';
 
 const { JUDGE } = _.decideType;
 
-const keyMap = {
-  year: '年',
-  month: '月',
-  day: '日',
-  hour: '时',
-  minute: '分',
-  second: '秒',
-};
-
 export default {
+  mixins: [
+    leaveMouseHide,
+  ],
   props: {
     show: {
       type: Boolean,
@@ -78,10 +73,6 @@ export default {
     now: {
       type: [Number, String],
       default: Date.now(),
-    },
-    noAutoHide: {
-      type: Boolean,
-      default: true,
     },
   },
   watch: {
@@ -98,7 +89,7 @@ export default {
     },
   },
   data() {
-    const { now, showTime, noAutoHide, show } = this;
+    const { now, showTime, show } = this;
     const years = [1900, 9999];
     const days = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
     const hours = [0, 23];
@@ -120,8 +111,6 @@ export default {
       hours,
       hourList: [],
       isShowTime: showTime,
-      isBindMouseMenus: false,
-      isNoAutoHide: noAutoHide,
       isMoveOver: 0,
       months,
       monthList: [],
@@ -137,7 +126,6 @@ export default {
       seconds,
       secondList: [],
       selectYearScope: [null, null],
-      keyMap,
       weekList,
       yearList: [],
       years,
@@ -148,6 +136,11 @@ export default {
   },
   activated() {
     this.init();
+  },
+  updated() {
+    if (!this.open) {
+      this.$emit('autoHide');
+    }
   },
   computed: {
     getCurrent() {
@@ -168,7 +161,11 @@ export default {
       this.hourScope();
       this.minuteScope();
       this.secondScope();
-      this.bindMouseMenus();
+      this.setHideListener();
+      this.$emit('init', this.current);
+    },
+    leaveHere() {
+      this.open = false;
     },
     formatCurrent(y, m, d, h, i, s) {
       const date = this.isShowTime ? `${y}/${m}/${d} ${h}:${i}:${s}` : `${y}/${m}/${d}`;
@@ -264,20 +261,6 @@ export default {
     // 去编辑
     toEdit(type, has) {
       this[`hasEdit${_.firstUppercase(type)}`] = has;
-    },
-    // 是否移离当前组件
-    mousePos(has) {
-      this.isMoveOver = has;
-    },
-    // 绑定移离事件
-    bindMouseMenus() {
-      if (!this.isBindMouseMenus && !this.isNoAutoHide) {
-        window.addEventListener('click', () => {
-          if (!this.isMoveOver) this.open = false;
-        }, true);
-
-        this.isBindMouseMenus = true;
-      }
     },
     // 返回今天
     today() {
