@@ -7,12 +7,14 @@ export default {
   props: {
     value: {
       type: [Object, Number, String],
-      default: 0,
+      default: null,
     },
   },
   data() {
+    const { value } = this;
+
     return {
-      selected: this.format(this.value),
+      selected: !value ? value : this.format(value),
     };
   },
   watch: {
@@ -25,6 +27,7 @@ export default {
 
     liliaState.setFlowAction('change', (status, item) => {
       this.selected = item;
+
       this.eventHappen(status, item);
     });
   },

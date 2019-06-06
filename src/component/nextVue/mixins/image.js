@@ -1,13 +1,17 @@
 import _ from '../../../_';
-import state from '../state';
 
 const { JUDGE } = _.decideType;
+let lazyCounter = 0;
 
 export default {
   props: {
     name: {
       type: String,
       default: String(Date.now()),
+    },
+    webp: {
+      type: [File, String],
+      default: null,
     },
     file: {
       type: [File, String],
@@ -21,6 +25,7 @@ export default {
   data() {
     return {
       originFile: this.file,
+      isSupportWebp: false,
       file64: null,
       status: '',
     };
@@ -32,21 +37,52 @@ export default {
       this.liliaState.wheelFlowAction('load');
     },
   },
-  mounted() {
-    const { liliaState } = this;
-    // 压缩图片文件
-    liliaState.setFlowAction('load', (status) => {
+  created() {
+    this.checkWebp('lossy').then((is) => {
+      this.isSupportWebp = is;
+    });
+  },
+  computed: {
+    isReadOrigin() {
       const { express, originFile } = this;
 
-      this.zoom64(originFile, express).then((file64) => {
-        this.file64 = file64;
-        this.status = status;
+      return express === 1 && !(originFile instanceof File);
+    },
+  },
+  mounted() {
+    const { liliaState } = this;
 
-        this.eventHappen(this.status, {
-          file64: this.file64,
-          file: this.base64ToFile(this.file64, this.name),
+    lazyCounter = lazyCounter > 10 ? 0 : lazyCounter + 1;
+
+    // 压缩图片文件
+    liliaState.setFlowAction('load', (status) => {
+      setTimeout(() => {
+        this.checkWebp('lossy').then((isSupportWebp) => {
+          const {
+            name,
+            express,
+            originFile,
+            webp,
+            isReadOrigin,
+            status,
+          } = this;
+          const file = isSupportWebp ? webp : originFile;
+
+          if (!isReadOrigin) {
+            this.zoom64(file, express).then((file64) => {
+              this.file64 = file64;
+              this.status = status;
+
+              this.eventHappen(status, {
+                file64,
+                file: this.base64ToFile(file64, name),
+              });
+            });
+          } else {
+            this.eventHappen(status, file);
+          }
         });
-      });
+      }, lazyCounter * 500);
     });
   },
   methods: {

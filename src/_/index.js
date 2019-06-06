@@ -1,4 +1,5 @@
 import arrayPile from './arrayPile';
+import copyToClipboard from './copyToClipboard';
 import hash from './hash';
 import decideType from './decideType';
 import device from './device';
@@ -16,6 +17,7 @@ import now from './now';
 
 export default {
   arrayPile,
+  copyToClipboard,
   decideType,
   dateFormat,
   ...device,

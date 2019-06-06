@@ -1,8 +1,12 @@
 <template lang='pug'>
   div.lilia-image.lilia
-    lilia-loading(:isEnd='file64 !== null' :loadType='5')
+    lilia-loading(:isEnd='isReadOrigin || file64 !== null' :loadType='5')
       div(slot='loadEnd')
-        img.image-body.animated.fadeIn(:src='file64')
+        img.image-body.animated.fadeIn(v-if='webp && isSupportWebp'
+          :src='webp' @error='isSupportWebp = false')
+        // 如果压缩值为1， 且原数据不为文件对象时，则直接读取
+        img.image-body.animated.fadeIn(v-else
+          :src='isReadOrigin ? originFile : file64')
 </template>
 
 <script>

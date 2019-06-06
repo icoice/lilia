@@ -1,5 +1,52 @@
 import device from './device';
 
+export const checkWebp = (feature) => {
+  const img = new Image();
+
+  return new Promise((reslove, reject) => {
+    const types = {
+      lossy: 'UklGRiIAAABXRUJQVlA4IBYAAAAwAQCdASoBAAEADsD+JaQAA3AAAAAA',
+      lossless: 'UklGRhoAAABXRUJQVlA4TA0AAAAvAAAAEAcQERGIiP4HAA==',
+      alpha: 'UklGRkoAAABXRUJQVlA4WAoAAAAQAAAAAAAAAAAAQUxQSAwAAAARBxAR/Q9ERP8DAABWUDggGAAAABQBAJ0BKgEAAQAAAP4AAA3AAP7mtQAAAA==',
+      animation: 'UklGRlIAAABXRUJQVlA4WAoAAAASAAAAAAAAAAAAQU5JTQYAAAD/////AABBTk1GJgAAAAAAAAAAAAAAAAAAAGQAAABWUDhMDQAAAC8AAAAQBxAREYiI/gcA',
+    };
+
+    img.onload = () => {
+      if (img.width > 0 || img.height > 0) {
+        reslove(true);
+      } else {
+        reject(false);
+      }
+    };
+
+    img.onerror = () => {
+      reject(false);
+    };
+
+    img.src = `data:image/webp;base64,${types[feature]}`;
+  });
+}
+
+export const imageCanvas = (src, width, height) => device.browser(() => {
+  const img = new Image();
+
+  return new Promise((reslove) => {
+    img.setAttribute('crossOrigin', 'anonymous');
+    img.style.width = `${width}px`;
+    img.src = src;
+    img.onload = () => {
+      const canvas = document.createElement('canvas');
+      const ctx = canvas.getContext('2d');
+
+      canvas.setAttribute('width', width || img.naturalWidth);
+      canvas.setAttribute('height', height || img.naturalHeight);
+      ctx.drawImage(img, 0, 0);
+
+      reslove(canvas);
+    };
+  });
+});
+
 export const domToBase64 = (img, scale) => device.browser(() => {
   const canvas = document.createElement('canvas');
   const w = img.naturalWidth * scale;
@@ -81,6 +128,8 @@ export const getRealMimeType = reader => {
 
 
 export default {
+  checkWebp,
+  imageCanvas,
   domToBase64,
   toBase64,
   zoom64,
