@@ -56,6 +56,9 @@ export default (params)  => {
   };
 
   const serve = http(apiParams);
+
+  serve.domain = domain;
+
   const mecha = new httpMecha(serve); // 针对http协议的夹层
 
   // 定义夹层的payload校验

@@ -21,13 +21,13 @@ export default {
 
       this.isDisabled = is;
 
-      liliaState.wheelFlowAction(this.isDisabled ? 'disabled' : 'useabled');
+      liliaState.wheelFlowAction(this.isDisabled ? 'disabled' : 'useable');
     },
   },
   mounted() {
     const { liliaState } = this;
 
-    liliaState.setFlowAction('useabled', (status, e) => {
+    liliaState.setFlowAction('useable', (status, e) => {
       this.status = status;
 
       this.eventHappen(this.status, e);
@@ -39,7 +39,7 @@ export default {
       this.eventHappen(this.status, e);
     });
 
-    liliaState.wheelFlowAction(this.isDisabled ? 'disabled' : 'useabled');
+    liliaState.wheelFlowAction(this.isDisabled ? 'disabled' : 'useable');
   },
   methods: {
     ..._,

@@ -47,7 +47,10 @@ export default class Http {
     const list = {};
 
     access.map((item) => {
-      list[item.name] = this.request(item);
+      const call = this.request(item);
+
+      list[item.name] = call;
+
       return item;
     });
 
@@ -57,7 +60,7 @@ export default class Http {
   // 创建axios的payload
   createPayload(path, method, query, body, data) {
     const headers = { 'Content-Type': this.autoContentType(data) };
-    let restfulPath;
+    let restfulPath= path;
     let sendParams;
     let sendBody;
 
@@ -73,7 +76,7 @@ export default class Http {
           const [k, v] = kv;
           const keyRule = new RegExp(`\\:${k}`, 'g');
 
-          restfulPath = path.replace(keyRule, v);
+          restfulPath = restfulPath.replace(keyRule, v);
 
           return kv;
         });
@@ -82,9 +85,9 @@ export default class Http {
       if (sendBody) {
         Object.entries(sendBody).map((kv) => {
           const [k, v] = kv;
-          const keyRule = new RegExp(`/\:${k}/g`);
+          const keyRule = new RegExp(`\\:${k}`, 'g');
 
-          restfulPath = path.replace(keyRule, v);
+          restfulPath = restfulPath.replace(keyRule, v);
 
           return kv;
         });
@@ -92,7 +95,7 @@ export default class Http {
     }
 
     return this.setPayload({
-      url: `${this.domain}${restfulPath || path}`,
+      url: `${this.domain}${restfulPath || 'unknownPath'}`,
       method,
       headers: this.setHeaders(headers),
       params: sendParams,
@@ -111,6 +114,7 @@ export default class Http {
           setTimeout(() => resolve(fake), fakeDelay);
         });
       }
+
       return !sender ? axios(pl) : sender(pl);
     }
 

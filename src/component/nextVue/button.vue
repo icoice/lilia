@@ -1,5 +1,6 @@
 <template lang="pug">
-div.lilia-button.lilia(:class='{"lilia-pressed": status === "pressStart", "lilia-disabled": status === "disabled"}')
+div.lilia-button.lilia(
+  :class='{"lilia-pressed": status === "pressStart", "lilia-disabled": status === "disabled"}')
   div.tap-area(v-if='isMobile' @touchstart='onTapStart' @touchmove='onTapMove' @touchend='onTapEnd')
     slot(name='button')
   div.tap-area(v-else @mousedown='onTapStart' @mousemove='onTapMove' @mouseup='onTapEnd')

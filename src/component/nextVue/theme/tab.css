@@ -2,10 +2,22 @@
 @import 'planes/unit.css';
 
 @media (width <= 720px) {
-  @mixin border-top .lilia-tab .lilia-tab-buttons .lilia-tab-item, #efefef;
-  @mixin border-left .lilia-tab .lilia-tab-buttons .lilia-tab-item, #efefef;
-  @mixin border .lilia-tab .lilia-tab-buttons .lilia-tab-item:last-child, #efefef;
-  @mixin border .lilia-tab .lilia-tab-content, #efefef;
+  .lilia-tab .lilia-tab-buttons {
+    .lilia-tab-item {
+      @mixin border-top .lilia-button .tap-area, #efefef;
+      @mixin border-left .lilia-button .tap-area, #efefef;
+    }
+
+    @mixin border-right .lilia-tab-item:last-child, #efefef;
+
+    .lilia-tab-item:last-child {
+      overflow: visible;
+    }
+  }
+
+  .lilia-tab {
+    @mixin border .lilia-tab-container, #efefef;
+  }
 }
 
 @media (width > 720px) {
@@ -18,7 +30,7 @@
     border-right: 1px solid #efefef;
   }
 
-  .lilia-tab .lilia-tab-content {
+  .lilia-tab .lilia-tab-container {
     border: 1px solid #efefef;
   }
 }
@@ -32,6 +44,7 @@
     }
 
     .lilia-tab-item .lilia-button {
+      display: block;
       position: relative;
       z-index: 1;
 
@@ -63,7 +76,14 @@
     }
   }
 
-  .lilia-tab-content {
-    padding: 10pxr;
+  .lilia-tab-container {
+    background-color: #fff;
+    clear: both;
+
+    .lilia-tab-content {
+      position: relative;
+      background-color: transparent;
+      z-index: 1;
+    }
   }
 }

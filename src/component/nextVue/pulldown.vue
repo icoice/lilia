@@ -29,11 +29,9 @@ div.lilia-pulldown.lilia(
       li(v-for='(item, code) in pulldonwList')
           lilia-button(:stateID='`pulldown_${stateID}_${item.value}`' @pressEnd='e => gotoSelected(item.key)')
             div(slot='button' :key='code')
-              span &nbsp;&nbsp;
               span.iconfont.pulldown-has-selected(:class='{"icon-check": selected && item.key === selected }')
-              span &nbsp;&nbsp;
+              span(v-if='selected && item.key === selected') &nbsp;&nbsp;
               span {{ item.value }}
-              span &nbsp;&nbsp;
 </template>
 
 <script>

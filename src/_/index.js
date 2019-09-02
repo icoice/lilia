@@ -14,6 +14,7 @@ import firstUppercase from './firstUppercase';
 import timestamp from './timestamp';
 import week from './week';
 import now from './now';
+import nodeToString from './nodeToString';
 
 export default {
   arrayPile,
@@ -32,4 +33,5 @@ export default {
   timestamp,
   week,
   now,
+  nodeToString,
 };

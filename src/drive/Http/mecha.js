@@ -9,64 +9,68 @@ const {
 
 let countId = 0;
 
-function $API_LIST(api, adapter, sendRecords, requestBeforeProcess) {
+function buildMechaAPI(api, adapter, sendRecords, requestBeforeProcess) {
   Object.entries(api).map((access) => {
-    const [n, m] = access;
+    const [callName, call] = access;
 
-    adapter[n] = m;
+    adapter[callName] = call;
 
-    if (hasFunc(m)) {
-      adapter[n] = (p = {}) => {
-        countId += 1;
-        adapter.NOW_REQUEST_ID = countId;
+    if (!hasFunc(call)) {
+      return access;
+    }
 
-        const id = countId;
-        let payload = p;
+    adapter[callName] = (py = {}) => {
+      countId += 1;
+      adapter.NOW_REQUEST_ID = countId;
 
-        this.sendId = id;
+      const id = countId;
+      let payload = py;
 
-        sendRecords[n] = hasEmpty(sendRecords[n]) ? {} : sendRecords[n];
-        sendRecords[n][id] = { REJECT_RESPONSE: false };
+      this.sendId = id;
+      sendRecords[callName] = hasEmpty(sendRecords[callName]) ? {} : sendRecords[callName];
+      sendRecords[callName][id] = { REJECT_RESPONSE: false };
 
-        if (!hasFormData(p)) {
-          payload = this.buildRequestPayload(n, p);
+      if (!hasFormData(py)) {
+        payload = this.buildRequestPayload(callName, py);
 
-          if (requestBeforeProcess) {
-            payload = Object.assign({}, requestBeforeProcess(payload, {
-              id,
-              name: n,
-            }));
+        if (requestBeforeProcess) {
+          payload = Object.assign({}, requestBeforeProcess(payload, {
+            id,
+            name: callName,
+          }));
+        }
+      }
+
+      return call(payload).then((response) => {
+        const { description, data } = response;
+        const REQ_META = Object.assign({ id, name: callName }, sendRecords[callName][id]);
+
+        if (!data) {
+          this.log('exception', '未获得服务器的响应数据', REQ_META);
+        } else {
+          if (hasObj(data) && !hasEmpty(data)) {
+            data.REQ_META = REQ_META;
           }
+
+          this.log('complete', `${description || ''}`, {
+            domain: api.domain,
+            methodName: callName,
+            payload: { ...payload },
+            data,
+          });
         }
 
-        return m(payload).then((response) => {
-          const { description, data } = response;
-          const REQ_META = Object.assign({
-            id,
-            name: n,
-          }, sendRecords[n][id]);
+        delete sendRecords[callName][id]; // 拒绝响应的措施, 解决无法abort的问题。
+        return response;
+      }).catch((e) => {
+        delete sendRecords[callName][id];
 
-          if (!data) {
-            this.log('exception', '未获得服务器的响应数据', REQ_META);
-          } else {
-            if (hasObj(data) && !hasEmpty(data)) {
-              data.REQ_META = REQ_META;
-            }
+        this.requsetException(e);
 
-            this.log('complete', `${description || ''}`, data);
-          }
-
-          delete sendRecords[n][id]; // 拒绝响应的措施, 解决无法abort的问题。
-          return response;
-        }).catch(e => {
-          delete sendRecords[n][id];
-
-          this.requsetException(e);
-
-          return e;
-        });
-      }
+        return e;
+      });
     }
+
     return access;
   });
 }
@@ -154,7 +158,7 @@ export default class Mecha {
       });
     }
 
-    $API_LIST.apply(this, [
+    buildMechaAPI.apply(this, [
       api,
       adapter,
       sendRecords,

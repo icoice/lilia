@@ -1,5 +1,6 @@
-export default () => {
-  const date = new Date();
+export default (val) => {
+  const date = !val ? new Date() : new Date(val);
+
   return {
     year: date.getFullYear(),
     month: date.getMonth() + 1,

@@ -6,9 +6,10 @@ div.lilia-tab.lilia
       lilia-button(@pressEnd='e => change(item)')
         div(slot="button")
           span.iconfont(:class="item.icon" v-if='item.icon')
-          span {{ item.name }}
-  div.lilia-tab-content
-    slot(name="tab" :item='selected || {}')
+          span(v-html='item.name')
+  div.lilia-tab-container
+    div.lilia-tab-content
+      slot(name="tab" :item='selected || {}')
 </template>
 
 <script>
