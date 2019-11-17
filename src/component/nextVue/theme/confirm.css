@@ -18,7 +18,6 @@
 
 .lilia-confirm-content {
   padding: 10pxr;
-  border-bottom: 1pxr solid #efefef;
 
   .lilia-normal-text {
     padding: 30pxr;
@@ -29,6 +28,7 @@
 
 .lilia-confirm-operator {
   overflow: hidden;
+  border-top: 1px solid #efefef;
 
   .lilia-button {
     display: block;

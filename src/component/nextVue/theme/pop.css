@@ -1,0 +1,40 @@
+.lilia-pop {
+  display: inline-block;
+
+  .lilia-pop-header {
+    display: inline-block;
+
+    .lilia-button .tap-area {
+      min-width: 120pxr;
+      padding: 0;
+      background: #fff;
+      border: 1px solid #cfcfcf;
+      border-radius: 0;
+      text-shadow: none;
+      color: #333;
+    }
+  }
+
+  .lilia-pop-open {
+    .lilia-button .tap-area {
+      border-bottom: 1px solid transparent;
+      border-radius: 0;
+    }
+  }
+
+  .lilia-pop-content {
+    position: absolute;
+    z-index: 10;
+    margin-top: -1px;
+    min-width: 250pxr;
+    min-height: 250pxr;
+    padding: 10pxr;
+    border: 1px solid #cfcfcf;
+    background-color: #fff;
+  }
+
+  .lilia-pop-open {
+    position: relative;
+    z-index: 11;
+  }
+}

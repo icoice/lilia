@@ -9,6 +9,7 @@ import image from '../nextVue/image';
 import uploadFile from '../nextVue/uploadFile';
 import pageReference from '../nextVue/pageReference';
 import datepicker from '../nextVue/datepicker';
+import pop from '../nextVue/pop';
 
 // import button from './base/button';
 import checkbox from './base/checkbox';
@@ -32,7 +33,7 @@ import time from './instance/time';
 import tree from './instance/tree';
 import type from './instance/type';
 import timeZones from './instance/timeZones';
-import pop from './instance/pop';
+// import pop from './instance/pop';
 import paging from './instance/paging';
 import measure from './instance/measure';
 

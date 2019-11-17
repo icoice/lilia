@@ -66,7 +66,7 @@ export default {
             isReadOrigin,
             status,
           } = this;
-          const file = isSupportWebp ? webp : originFile;
+          const file = isSupportWebp && webp ? webp : originFile;
 
           if (!isReadOrigin) {
             this.zoom64(file, express).then((file64) => {
@@ -82,7 +82,7 @@ export default {
             this.eventHappen(status, file);
           }
         });
-      }, lazyCounter * 500);
+      }, lazyCounter * 200);
     });
   },
   methods: {

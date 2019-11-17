@@ -7,6 +7,7 @@ import confirm from './confirm';
 import image from './image';
 import uploadFile from './uploadFile';
 import pageReference from './pageReference';
+import pop from './pop';
 
 export default {
   confirm,
@@ -18,4 +19,5 @@ export default {
   loading,
   image,
   pageReference,
+  pop,
 };
