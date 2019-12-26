@@ -115,7 +115,7 @@ export default {
       const { filter } = this;
 
       if (filter) {
-        return value.replace(filter, '');
+        return String(value).replace(filter, '');
       }
 
       return value;

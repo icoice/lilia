@@ -43,7 +43,11 @@ function buildMechaAPI(api, adapter, sendRecords, requestBeforeProcess) {
 
       return call(payload).then((response) => {
         const { description, data } = response;
-        const REQ_META = Object.assign({ id, name: callName }, sendRecords[callName][id]);
+        const REQ_META = Object.assign({
+          id,
+          name: callName,
+        },
+        sendRecords[callName][id]);
 
         if (!data) {
           this.log('exception', '未获得服务器的响应数据', REQ_META);
@@ -60,7 +64,9 @@ function buildMechaAPI(api, adapter, sendRecords, requestBeforeProcess) {
           });
         }
 
-        delete sendRecords[callName][id]; // 拒绝响应的措施, 解决无法abort的问题。
+        // 拒绝响应的措施, 解决无法abort的问题。
+        delete sendRecords[callName][id];
+
         return response;
       }).catch((e) => {
         delete sendRecords[callName][id];

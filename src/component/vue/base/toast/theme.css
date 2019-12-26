@@ -17,7 +17,7 @@
     position: relative;
     margin: 0 auto;
     width: 360pxr;
-    font-size: 12pxr;
+    font-size: 14pxr;
     border-radius: 5pxr;
     color: #fff;
   }
@@ -29,6 +29,7 @@
     padding: 12pxr;
     min-height: 24pxr;
     line-height: 24pxr;
+    font-size: 14pxr;
     text-align: center;
     color: #fff;
   }
