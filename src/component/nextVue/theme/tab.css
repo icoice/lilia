@@ -13,6 +13,11 @@
     .lilia-tab-item:last-child {
       overflow: visible;
     }
+
+    .lilia-tab-item:last-child::after {
+      right: 0;
+      width: 1px;
+    }
   }
 
   .lilia-tab {
@@ -81,9 +86,7 @@
     clear: both;
 
     .lilia-tab-content {
-      position: relative;
       background-color: transparent;
-      z-index: 1;
     }
   }
 }
