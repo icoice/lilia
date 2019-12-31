@@ -1,5 +1,6 @@
 .lilia-pop {
   display: inline-block;
+  position: relative;
 
   .lilia-pop-header {
     display: inline-block;
