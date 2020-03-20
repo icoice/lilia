@@ -3,6 +3,8 @@ node_modules/
 dist/
 _book/
 lib/
+theme/
+./common/
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*

@@ -1,172 +1,201 @@
-import Vuex, { Store, mapGetters, mapActions } from 'vuex';
-import util from '../../util';
+import Vuex, {
+  Store,
+  mapActions,
+  mapGetters,
+} from 'vuex';
 
-const storeGetters = {};
-const storeActions = {};
-const storeMutations = {};
-const storeStates = {};
-const stateNamespaces = [];
+import {
+  eq,
+  firstUppercase,
+  loop,
+} from '../../common';
 
-// create的构造函数
-export const create = function create(Vue, process) {
+const $actions = {};
+const $getters = {};
+const $mutations = {};
+const $states = {};
+const namespaces = [];
+
+function buildStore(namespace = '') {
   const store = {
-    state: {},
-    getters: {},
     actions: {},
+    getters: {},
     mutations: {},
+    state: {},
+  };
+  let ns = namespace;
+
+  $actions[ns] = [];
+  $getters[ns] = [];
+  $mutations[ns] = [];
+  $states[ns] = [];
+
+  this.readState = (state, n) => state[this.namespace(n)];
+  this.mealName = n => `set${firstUppercase(ns)}${firstUppercase(n)}`;
+  this.namespace = n => `${ns}${firstUppercase(n)}`;
+  this.setScope = (name) => { ns = eq(ns, '') ? name : ns; };
+  this.struct = store;
+
+  // Meal
+  this.meal = (n, params) => {
+    const name = this.namespace(n);
+    const actionName = `set${firstUppercase(name)}`;
+
+    store.state[name] = params;
+    store.getters[name] = state => state[name];
+
+    store.actions[actionName] = ({ state }, payload) => {
+      state[name] = payload;
+      state[ns][n] = payload;
+    };
+
+    store.mutations[name] = (state, payload) => {
+      state[name] = payload;
+      state[ns][n] = payload;
+    };
+
+    $actions[ns].push(actionName);
+    $getters[ns].push(storeName);
+    $mutations[ns].push(storeName);
+    $states[ns].push(storeName);
   };
 
-  const state = function(processName = '') {
-    let namespace = processName;
-    storeGetters[namespace] = [];
-    storeActions[namespace] = [];
-    storeMutations[namespace] = [];
-    storeStates[namespace] = [];
+  // Mutation
+  this.mutation = (n, callback) => {
+    const name = this.namespace(n);
 
-    this.setStoreScope = function setStoreScope(name) {
-      namespace = namespace === '' ? name : namespace;
-    };
+    store.mutations[name] = callback;
 
-    this.namespace = function setNamespace(name) {
-      return `${namespace}${util.String.firstUppercase(name)}`;
-    };
+    $mutations[ns].push(name);
+  };
 
-    this.mealActionName = function mealActionName(name) {
-      return `set${util.String.firstUppercase(namespace)}${util.String.firstUppercase(name)}`;
-    };
+  // Getter
+  this.getter = (n, callback = null) => {
+    const name = this.namespace(n);
 
-    this.getState = function getState(state, name) {
-     return state[this.namespace(name)];
-    };
+    store.getters[name] = !eq(callback, null) ? callback : state => state[name];
 
-    this.meal = function setMeal(name, params) {
-      const storeName = this.namespace(name);
-      const actionName = `set${util.String.firstUppercase(storeName)}`;
-      store.state[storeName]  = params;
-      store.actions[actionName]  =  ({ state }, params) => {
-        state[storeName] = params;
-        state[namespace][name] = params;
-      };
-      store.mutations[storeName]  =  (state,  payload) => {
-        state[storeName] = payload;
-        state[namespace][name] = payload;
-      };
-      store.getters[storeName]  =  state => state[storeName];
-      storeStates[namespace].push(storeName);
-      storeActions[namespace].push(actionName);
-      storeMutations[namespace].push(storeName);
-      storeGetters[namespace].push(storeName);
-    };
+    $getters[ns].push(name);
+  };
 
-    this.mutation = function setMutation(name, callback) {
-     const storeName = this.namespace(name);
-     store.mutations[storeName] = callback;
-     storeMutations[namespace].push(storeName);
-    };
+  // Action
+  this.action = (n, callback) => {
+    const name = this.namespace(n);
 
-   this.getter = function setGetter(name, callback = null) {
-     const storeName = this.namespace(name);
-     store.getters[storeName] = callback !== null ? callback : state =>  state[storeName];
-     storeGetters[namespace].push(storeName);
-    };
-
-   this.action = function setAction(name, cb) {
-     const ns = this.namespace;
-     const storeName = ns(name);
-     store.actions[storeName] = function (item, params) {
-      const conf = {
+    store.actions[name] = (item, params) => {
+      const actionPack = {
         ...item,
-        doth: (name, params) => {
-         item.dispatch(ns(name), params);
-        },
-        push: (name, val) => {
-         item.commit(ns(name), val);
-        },
-        publish: (nameList) => {
-         Object.entries(nameList).map((kv) => {
-           const [name, val] = kv;
-           item.commit(ns(name), val);
-           return kv;
-         });
-        },
-      };
-      return cb(conf, params);
-     };
-     storeActions[namespace].push(storeName);
-   };
 
-   this.state = function setState(maps) {
-     if (stateNamespaces.indexOf(namespace) < 0) {
-      stateNamespaces.push(namespace);
-      store.state[namespace] = {};
-      store.getters[namespace] = state => state[namespace];
-     }
-     Object.entries(maps).map((kv) => {
-      const [name, params] = kv;
-      const stateSpace = store.state[namespace];
-      const storeName = this.namespace(name);
-      this.meal(name, params);
-      stateSpace[name] = params;
-      store.state[storeName] = params;
-      store.getters[storeName] = state => state[storeName];
-      store.mutations[storeName]  = (state,  payload) => {
-        state[storeName] = payload;
-        stateSpace[name] = payload;
+        push: (mn, v) => {
+          item.commit(this.namespace(mn), v);
+        },
+        publish: (names) => {
+          loop(names,
+            (v, sn) => item.commit(this.namespace(sn), v));
+        },
+        doth: (mn, params) => {
+          item.dispatch(this.namespace(mn), params);
+        },
       };
-      storeMutations[namespace].push(storeName);
-      storeStates[namespace].push(storeName);
-      storeGetters[namespace].push(storeName);
-      return kv;
-     });
-   };
+
+      return JUDGE.DO_FUN(callback, [
+        actionPack,
+        params,
+      ]);
+    };
+
+    $actions[ns].push(name);
   };
 
-  state.use = function use(key, target) {
+  // State
+  this.state = (maps) => {
+    if (JUDGE.NO_CON(ns, namespaces)) {
+      namespaces.push(ns);
+
+      store.state[ns] = {};
+      store.getters[ns] = state => state[ns];
+    }
+
+    loop(maps, (params, n) => {
+      const stateSpace = store.state[ns];
+      const name = this.namespace(n);
+
+      this.meal(n, params);
+
+      stateSpace[n] = params;
+      store.getters[name] = state => state[name];
+      store.state[name] = params;
+
+      store.mutations[name] = (state, payload) => {
+        state[name] = payload;
+        stateSpace[n] = payload;
+      };
+
+      $getters[ns].push(name);
+      $mutations[ns].push(name);
+      $states[ns].push(name);
+    });
+  };
+};
+
+export const create = function create(Vue, process) {
+  const store = buildStore();
+
+  store.use = (key, target) => {
     state.prototype[key] = target;
   }
 
-  if (typeof process === 'function') {
-    process(state);
-  }
-
+  JUDGE.DO_FUN(process, [state]);
   Vue.use(Vuex);
 
-  return new Store(store);
+  return new Store(store.struct);
 };
 
-const maps = function(namespace, nameList, category) {
-  return nameList !== null ? nameList.map((name) => {
-    return  `${namespace}${util.String.firstUppercase(name)}`;
-  }) : category[namespace];
+const maps = function maps(ns, nameList, category) {
+  return !eq(nameList, null) ? nameList.map((name) => {
+    return `${ns}${firstUppercase(name)}`;
+  }) : category[ns];
 }
 
-export const getters = function getters(namespace, nameList = null) {
-  if (!storeGetters[namespace]) return {};
-  return mapGetters(maps(namespace, nameList, storeGetters));
+export const getters = function getters(ns, nameList = null) {
+  if (!$getters[ns]) {
+    return {};
+  }
+
+  return mapGetters(maps(ns, nameList, $getters));
 }
 
-export const getterNS = function getterNS(namespace) {
-  if (stateNamespaces.indexOf(namespace) < 0) return {};
-  return mapGetters(stateNamespaces);
+export const getterNS = function getterNS(ns) {
+  if (JUDGE.NO_CON(ns, namespaces)) {
+    return {};
+  }
+
+  return mapGetters(namespaces);
 }
 
-export const getterAll = function getterAll(namespace, nameList = null) {
-  if (stateNamespaces.indexOf(namespace) < 0 && !storeGetters[namespace]) return {};
-  const a = maps(namespace, nameList, storeGetters);
-  const b = stateNamespaces;
-  const c = [];
-  return mapGetters(c.concat(a).concat(b));
+export const getterAll = function getterAll(ns, nameList = null) {
+  if (JUDGE.NO_CON(ns, namespaces) && !$getters[ns]) {
+    return {};
+  }
+
+  return mapGetters([
+    ...maps(ns, nameList, $getters),
+    ...namespaces,
+  ]);
 }
 
-export const actions = function actions(namespace, nameList = null) {
-  if (!storeActions[namespace]) return {};
-  return mapActions(maps(namespace, nameList, storeActions));
+export const actions = function actions(ns, nameList = null) {
+  if (!$actions[ns]) {
+    return {};
+  }
+
+  return mapActions(maps(ns, nameList, $actions));
 }
 
 export default {
+  actions,
   create,
   getterAll,
   getterNS,
   getters,
-  actions,
 };

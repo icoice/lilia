@@ -6,11 +6,11 @@
   "main": "./lib",
   "scripts": {
     "start": "npm run encode",
-    "copy-all": "babel src  --out-dir ./lib --copy-files",
-    "copy-theme": "babel src/css  --out-dir ./theme --copy-files",
+    "copy-all": "babel src --out-dir ./lib --copy-files",
+    "copy-theme": "babel src/css --out-dir ./theme --copy-files",
+    "copy-common": "babel lib/common --out-dir ./common --copy-files",
     "encode-drive": "babel src/drive  -d ./lib/drive",
-    "encode-util": "babel src/util  -d ./lib/util",
-    "encode": "npm-run-all copy-all copy-theme encode-drive encode-util",
+    "encode": "npm-run-all copy-all copy-theme encode-drive copy-common",
     "lint": "eslint --ext .js,.vue src"
   },
   "peerDependencies": {

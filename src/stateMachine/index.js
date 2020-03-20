@@ -1,7 +1,5 @@
-import _ from '../_';
+import { decideType, JUDGE } from '../common';
 
-const { decideType } = _;
-const { JUDGE } = decideType;
 const arrayNearRepeatClear = (arr) => {
   const newArr = [];
   let before = null;
@@ -24,9 +22,9 @@ export default class FlyStateMachine {
 
   constructor(option) {
     const {
+      events,
       name,
       status,
-      events,
     } = option;
 
     this.name = name || '';

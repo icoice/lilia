@@ -1,63 +1,63 @@
 import Router from 'vue-router';
-import underscore from './_';
-import _stateMachine from './stateMachine';
-import _mixins from './component/nextVue/mixins';
-import _createState from './component/nextVue/mixins/createState';
-import _drive from './drive';
-import _util from './util';
-import _vue from './component/vue';
+import common, { JUDGE, loop, memory } from './common';
+import createState from './component/vue/mixins/createState';
+import drive, { requestPack } from './drive';
+import mixins from './component/vue/mixins';
+import stateMachine from './stateMachine';
+import vue from './component/vue';
 
-export const component = _vue;
-export const drive = _drive;
-export const util = _util;
-export const StateMachine = _stateMachine;
-export const vueStateMachine = _createState;
-export const _ = underscore;
-export const mixins = _mixins;
+export const StateMachine = stateMachine;
 
-// 简写
-export const $vue = {
+export const _ = common;
+
+export const store = {
+  actions: (n) => drive.Vue.store.actions(n),
+  getters: (n) => drive.Vue.store.getterAll(n),
   state: (n, d) => drive.Vue.state(n, d),
   store: (v, c) => drive.Vue.store.create(v, c),
-  getters: (n) => drive.Vue.store.getterAll(n),
-  actions: (n) => drive.Vue.store.actions(n),
-}
+};
 
-export const start = (Vue, storeList, middleware = []) => {
+// Vue运行的封装，在项目内用于凸显项目主要业务内容，无需过多关注Vue的方法
+export const vueRun = (Vue, stores, middleware = []) => {
   const store = $vue.store(Vue, (Store) => {
     middleware.map(item => Store.use(item.name, item.use));
-    Object.entries(storeList).map(([name, build]) => build(new Store(name)));
+    loop(stores, (build, name) => build(new Store(name)));
   });
 
   Vue.use(Router);
 
-  const run = (App, routeList, cb) => {
-    _.memory('lilia_vue_components', component.register(Vue));
+  return (App, routes, callback) => {
+    memory('lilia_vue_components', component.register(Vue));
 
-    const router = new Router(routeList);
+    const router = new Router(routes);
 
-    if (cb) cb({ store, router });
+    JUDGE.DO_FUN(callback, [
+      { store, router },
+    ]);
 
     return new Vue({
-      el: '#app',
-      template: '<App/>',
       components: { App },
+      el: '#app',
       router,
       store,
+      template: '<App/>',
     });
   };
-
-  return run;
 }
 
-export default {
-  _,
-  mixins,
-  start,
+export {
+  common,
   component,
-  StateMachine,
-  vueStateMachine,
   drive,
-  util,
-  $vue,
+  mixins,
+};
+
+export default {
+  StateMachine,
+  common,
+  component,
+  drive,
+  mixins,
+  store,
+  vueRun,
 };

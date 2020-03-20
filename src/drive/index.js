@@ -1,7 +1,16 @@
-import util from '../util';
-import Http from './Http';
-import Vue from './Vue';
+import Request, { requestPack } from './request';
+import Vue from './vue';
 
-window.$lilia_drive = { Http, Vue };
+window.LILIA_DRIVE_PACK = {
+  Request,
+  Vue,
+  requestPack,
+};
 
-export default window.$lilia_drive;
+export {
+  Request,
+  Vue,
+  requestPack,
+};
+
+export default window.LILIA_DRIVE_PACK;

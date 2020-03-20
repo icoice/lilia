@@ -1,38 +1,43 @@
-import util from '../../util';
+import { firstUppercase, loop, JUDGE } from '../../common';
 
-const { firstUppercase } = util.String;
+export default (namespace, list) => {
+  const props = {};
+  const types = [String, Number, Object, FormData, Array, null];
+  const watch = {};
+  const propNames = [];
 
-export default (name, state, patch = {}) => {
-  const $props = {};
-  const $watch = {};
-  const $data = {};
-  const { props, watch, data } = patch;
+  list.map((item) => {
+    let propName;
+    let propBody;
 
-  Object.entries(state).map((kv) => {
-    const [k, v] = kv;
-    const dk = `${name}${firstUppercase(k)}`;
-    $props[k] = { type: v[0], default: typeof v[1] === 'object' ? () => v[1] : v[1] };
-    $watch[k] = function(val) { this[dk] = val };
-    $data[k] = v[1];
+    loop(item, (v, k) => {
+      if (JUDGE.IS_ARR(v) || JUDGE.BELONG_IN(v, types)) {
+        propName = k;
+        propBody = { type: v };
 
-    return kv;
+        propNames.push(k);
+      }
+    });
+
+    props[propName] = propBody;
+    watch[propName] = JUDGE.IS_FUN(item.watch) ? item.watch : v => v;
+
+    return item;
   });
 
   return {
-    props: Object.assign($props, props),
-    watch: Object.assign($watch, watch),
     data() {
-     const newData = {};
+      const list = {};
 
-     Object.entries($data).map((kv) => {
-      const [k, v] = kv;
+      propNames.map((n) => {
+        list[`${namespace}${firstUppercase(n)}`] = this[n];
+      });
 
-      newData[`${name}${firstUppercase(k)}`] = this[k];
-
-      return kv;
-     });
-
-     return Object.assign(newData, data);
+      return {
+        ...list,
+      };
     },
+    props,
+    watch,
   };
 }

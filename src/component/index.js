@@ -1,5 +1,3 @@
-import '../util';
-import '../drive';
-import vue from './nextVue';
+import vue from './vue';
 
 export default vue;
