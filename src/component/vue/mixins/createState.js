@@ -44,33 +44,6 @@ function isMyState(id) {
   return eq(stateInfo.id, id);
 }
 
-// 创建状态机
-function initState() {
-  const { stateInfo } = this;
-
-  return decideType([
-    () => ({
-      IS_OBJ: stateInfo,
-    }),
-  ],{
-    clear() {
-      const { id } = stateInfo;
-
-      if (stateLibrary[id]) {
-        return stateLibrary[id];
-      }
-
-      if (JUDGE.IS_FUN(stateName)) {
-        stateLibrary[id] = stateName(id);
-      } else {
-        stateLibrary[id] = state[stateName]();
-      }
-
-      return stateLibrary[id];
-    },
-  });
-}
-
 // 获得状态机
 function queryState() {
   const { stateInfo } = this;
@@ -108,9 +81,33 @@ export default stateName => ({
   data,
   computed,
   methods: {
-    initState,
     isMyState,
     otherState,
     queryState,
+    initState() {
+      const { stateInfo } = this;
+
+      return decideType([
+        () => ({
+          IS_OBJ: stateInfo,
+        }),
+      ],{
+        clear() {
+          const { id } = stateInfo;
+
+          if (stateLibrary[id]) {
+            return stateLibrary[id];
+          }
+
+          if (JUDGE.IS_FUN(stateName)) {
+            stateLibrary[id] = stateName(id);
+          } else {
+            stateLibrary[id] = state[stateName]();
+          }
+
+          return stateLibrary[id];
+        },
+      });
+    },
   },
 });

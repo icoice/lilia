@@ -1,0 +1,27 @@
+@import 'planes/base.css';
+@import 'planes/unit.css';
+
+.lilia-loading {
+  @mixin clear-select;
+  overflow: hidden;
+  margin: 0;
+  padding: 0;
+}
+
+.lilia-loading .load-mask {
+  text-align: center;
+  border: 1px solid #efefef;
+}
+
+.lilia-loading svg path,
+.lilia-loading svg rect{
+  fill: #006aff;
+}
+
+.lilia-loading .lilia-icon {
+  margin: 0 auto;
+  padding: 14pxr;
+  font-size: 12pxr;
+  color: #006aff;
+  text-align: center;
+}

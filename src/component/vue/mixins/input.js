@@ -13,14 +13,14 @@ export default {
   },
   data() {
     return {
-      val: this.filter(this.value),
+      val: this.valueFilter(this.value),
       status: '',
       inputRecords: [],
     };
   },
   watch: {
     value(value) {
-      this.val = this.filter(value);
+      this.val = this.valueFilter(value);
     },
   },
   mounted() {
@@ -30,7 +30,7 @@ export default {
       if (eq(this.status, 'disabled')) return status;
 
       this.status = status;
-      this.val = this.filter(e.target.value);
+      this.val = this.valueFilter(e.target.value);
 
       this.eventHappen(this.status, this.val);
     });
@@ -39,7 +39,7 @@ export default {
       if (eq(this.status, 'disabled')) return status;
 
       this.status = status;
-      this.val = this.filter(e.target.value);
+      this.val = this.valueFilter(e.target.value);
 
       this.eventHappen(this.status, this.val);
     });
@@ -48,7 +48,7 @@ export default {
       if (eq(this.status, 'disabled')) return status;
 
       this.status = status;
-      this.val = this.filter(e.target.value);
+      this.val = this.valueFilter(e.target.value);
 
       this.eventHappen(this.status, this.val);
     });
@@ -57,7 +57,7 @@ export default {
       if (eq(this.status, 'disabled')) return status;
 
       this.status = status;
-      this.val = this.filter(e.target.value);
+      this.val = this.valueFilter(e.target.value);
 
       this.eventHappen(this.status, e.target.value);
     });
@@ -109,7 +109,7 @@ export default {
 
       state.wheelFlowAction(eventName, e);
     },
-    filter(value) {
+    valueFilter(value) {
       const { filter } = this;
 
       if (filter) {

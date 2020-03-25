@@ -66,9 +66,7 @@ function apiPack(api, adapter, records, beforeProcess) {
   loop(api, (call, callName) => {
     adapter[callName] = call;
 
-    if (JUDGE.NO_FUN(call)) {
-      return access;
-    }
+    if (JUDGE.NO_FUN(call)) return;
 
     adapter[callName] = createAdapter(callName, call);
   });

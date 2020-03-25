@@ -6,7 +6,7 @@ import requestPack from './requestPack';
 const extractAccess = (maps) => {
   const accessGroup = [];
 
-  loop(maps, access => extractAccess.push({
+  loop(maps, access => accessGroup.push({
     fake: access.fake,
     method: access.method,
     name: access.name,
@@ -20,9 +20,9 @@ const extractPayloads = (maps) => {
   const payloadGroup = [];
 
   loop(maps, access => payloadGroup.push({
-    alias: desc.alias,
-    name: desc.name,
-    origin: desc.origin,
+    alias: access.alias,
+    name: access.name,
+    origin: access.origin,
   }));
 
   return payloadGroup;
@@ -39,17 +39,20 @@ export default ({
   sender,
   setHeaders,
   setPayload,
+  sendBefore,
 })  => {
-  const mecha = new RequestMecha({ ...serve, domain });
   const payloads = extractPayloads(access);
-  const serve = request({
-    access: extractAccess(access), // 接入映射
-    domain, // 常规域名
-    fakeDelay: fake.delay, // 模拟数据延迟时间
-    hasFake: fake.open, // 是否开启虚拟数据
-    sender, // 替换发送体
-    setHeaders, // 当headers载入时
-    setPayload, // 当payload载入时
+  const mecha = new RequestMecha({
+    ...request({
+      access: extractAccess(access), // 接入映射
+      domain, // 常规域名
+      fakeDelay: fake.delay, // 模拟数据延迟时间
+      hasFake: fake.open, // 是否开启虚拟数据
+      sender, // 替换发送体
+      setHeaders, // 当headers载入时
+      setPayload, // 当payload载入时
+    }),
+    domain,
   });
 
   payloads.map((payload) => {
@@ -63,10 +66,10 @@ export default ({
 
   // 夹层发送请求前
   mecha.defineRequestBefore((payload, name) => {
-    if (JUDGE.IS_FUN(params.sendBefore)) {
+    if (JUDGE.IS_FUN(sendBefore)) {
       return {
         ...payload,
-        ...params.sendBefore(payload, name),
+        ...sendBefore(payload, name),
       };
     }
 

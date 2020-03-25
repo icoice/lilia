@@ -18,7 +18,7 @@ const arrayNearRepeatClear = (arr) => {
   return arr;
 };
 
-export default class FlyStateMachine {
+export default class StateMachine {
 
   constructor(option) {
     const {

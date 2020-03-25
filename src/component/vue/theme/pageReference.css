@@ -1,0 +1,73 @@
+@import 'planes/base.css';
+@import 'planes/unit.css';
+
+.lilia-page-reference {
+  table {
+    border-collapse: collapse;
+  }
+
+  tr td.page-info {
+    padding: 0 10pxr;
+    border: 1px solid #efefef;
+
+    .page-info-value {
+      color: #06f;
+    }
+  }
+
+  tr td {
+    padding: 0;
+    border: 1px solid #efefef;
+
+    .lilia-input {
+      border: none;
+
+      input {
+        width: 60pxr;
+        font-size: 20pxr;
+      }
+    }
+
+    .lilia-button {
+      .tap-area {
+        padding: 10pxr 20pxr;
+        background-color: transparent;
+        border-radius: 0;
+      }
+
+      .tap-area span {
+        font-size: 20pxr;
+        color: #333;
+      }
+
+      .tap-area span.page-selected {
+        border-bottom: 1px solid #06f;
+        font-size: 20pxr;
+        color: #06f;
+      }
+
+      .tap-area span.iconfont {
+        font-size: 24pxr;
+      }
+    }
+
+    .lilia-pressed {
+      .tap-area {
+        background-color: #06f;
+      }
+
+      .tap-area span {
+        color: #fff;
+      }
+    }
+  }
+
+  .page-operate {
+    .lilia-button {
+      .tap-area span.iconfont {
+        position: relative;
+        top: 1px;
+      }
+    }
+  }
+}

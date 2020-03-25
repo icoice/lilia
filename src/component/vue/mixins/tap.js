@@ -1,4 +1,4 @@
-import { JUDGE, eq } from '../../../common';
+import { JUDGE, eq, isMob } from '../../../common';
 
 export default {
   data() {
@@ -51,6 +51,8 @@ export default {
     });
   },
   methods: {
+    isMob,
+
     onTapMove(e) {
       const { state } = this;
 

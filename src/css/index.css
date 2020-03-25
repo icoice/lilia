@@ -2,9 +2,7 @@
 @import 'planes/base.css';
 @import 'planes/border.css';
 @import 'planes/unit.css';
-@import '../lib/component/vue/base/**/**/*.css'; /* lilia component */
-@import '../lib/component/vue/instance/**/**/*.css'; /* lilia component */
-@import '../lib/component/nextVue/theme/*.css'; /* lilia component */
+@import '../lib/component/vue/theme/*.css';
 
 * {
   font-family: Microsoft YaHei;

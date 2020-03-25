@@ -73,18 +73,13 @@ export default class Http {
       exception() {
         sendParams = { ...query };
         sendBody = { ...body };
-
-        if (eq(method, 'POST')) {
-          sendBody = {
-            sendBody,
-            ...data,
-          };
-        } else {
-          sendParams = {
-            sendParams,
-            ...data,
-          };
-        }
+        sendBody = eq(method, 'POST') ? {
+          sendBody,
+          ...data,
+        } : {
+          sendParams,
+          ...data,
+        };
 
         loop(sendParams, (v, k) => {
           restfulPath = restfulPath.replace(new RegExp(`\\:${k}`, 'g'), v);

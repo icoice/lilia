@@ -19,7 +19,7 @@ const api = (method, name) => {
     path: '',
   };
 
-  access.payload = (keys = [], alias = [], def = '') => {
+  access.payload = function (keys = [], alias = [], def = '') {
     const { config } = this;
 
     keys.map((k, code) => {
@@ -35,7 +35,7 @@ const api = (method, name) => {
     return this;
   };
 
-  access.path = (link) => {
+  access.path = function (link) {
     const { config } = this;
 
     config.path = link;
@@ -43,7 +43,7 @@ const api = (method, name) => {
     return this;
   };
 
-  access.fake = (data) => {
+  access.fake = function (data) {
     const  { config } = this;
 
     config.fake = !data[config.name] ? data : data[config.name];
@@ -55,7 +55,7 @@ const api = (method, name) => {
 };
 
 names.map((method) => {
-  creator[method] = (name) => {
+  creator[method] = function (name) {
     const { config } = this;
     const apiMethod = api(method, name);
 
@@ -86,7 +86,7 @@ pack.config = {
   },
 };
 
-pack.bindPublicEvent = (serves) => {
+pack.bindPublicEvent = function (serves) {
   serves.map((serve) => {
     serve.ON_REQUEST_ERROR(this.ORERR);
     serve.ON_REQUEST_EXCEPTION(this.ORERR);
@@ -94,53 +94,58 @@ pack.bindPublicEvent = (serves) => {
   });
 };
 
-pack.onRequestError = (callback) => {
+pack.onRequestError = function (callback) {
   this.ORERR = callback;
 };
 
-pack.onRequestException = (callback) => {
+pack.onRequestException = function (callback) {
   this.OREXCEP = callback;
 };
 
-pack.onRequest = (callback) => {
+pack.onRequest = function (callback) {
   this.OR = callback;
 };
 
-pack.domain = (host) => {
+pack.domain = function (host) {
   const { config } = this;
+
   config.domain = host;
 };
 
-pack.before = (callback) => {
+pack.before = function (callback) {
   const { config } = this;
+
   config.sendBefore = callback;
 };
 
-pack.payload = (callback) => {
+pack.payload = function (callback) {
   const { config } = this;
+
   config.setPayload = callback;
 };
 
-pack.header = (callback) => {
+pack.header = function (callback) {
   const { config } = this;
+
   config.setHeaders = callback;
 };
 
-pack.sender = (callback) => {
+pack.sender = function (callback) {
   const { config } = this;
   config.sender = callback;
 };
 
-pack.sender = (callback) => {
+pack.sender = function (callback) {
   const { config } = this;
+
   config.sender = callback;
 };
 
-pack.fake = (has) => {
+pack.fake = function (is) {
   const fakeOpt = {};
   const { fake } = this.config;
 
-  fake.open = has;
+  fake.open = is;
 
   fakeOpt.delay = function (msec) {
     fake.delay = msec;

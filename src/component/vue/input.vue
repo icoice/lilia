@@ -51,7 +51,9 @@ export default {
   },
   watch: {
     firstFocus(is) {
-      this.liliaState.wheelFlowAction(!is ? 'blur' : 'focus');
+      const { state } = this;
+
+      state.wheelFlowAction(!is ? 'blur' : 'focus');
     },
   },
   mounted() {
@@ -62,11 +64,13 @@ export default {
   },
   methods: {
     hasFirstFocus() {
+      const { state } = this;
+
       if (this.firstFocus) {
-        this.liliaState.wheelFlowAction('focus');
+        state.wheelFlowAction('focus');
       }
 
-      this.liliaState.wheelFlowAction('blur');
+      state.wheelFlowAction('blur');
     },
   },
 };

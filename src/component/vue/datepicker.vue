@@ -52,10 +52,15 @@ div.lilia-datepicker.lilia(v-if='open'
 </template>
 
 <script>
-import _ from '../../common';
+import {
+  JUDGE,
+  dateFormat,
+  eq,
+  or,
+  timestamp,
+  week,
+} from '../../common';
 import leaveMouseHide from './mixins/leaveMouseHide';
-
-const { JUDGE } = common.decideType;
 
 export default {
   mixins: [
@@ -81,7 +86,8 @@ export default {
     },
     now() {
       const { now } = this;
-      this.current = _(now) ? common.timestamp(now) : now;
+
+      this.current = timestamp(now) ? timestamp(now) : now;
       this.init();
     },
     showTime(time) {
@@ -90,42 +96,42 @@ export default {
   },
   data() {
     const { now, showTime, show } = this;
-    const years = [1900, 9999];
+    const dateUnits = { year: '年', month: '月', day: '日', hour: '时', minute: '分', second: '秒' };
     const days = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
     const hours = [0, 23];
-    const months = [0, 11];
     const minutes = [0, 59];
+    const months = [0, 11];
     const seconds = [0, 59];
     const showDate = ['year', 'month', 'day', 'hour', 'minute', 'second'];
     const weekList = ['日', '一', '二', '三', '四', '五', '六'];
-    const dateUnits = { year: '年', month: '月', day: '日', hour: '时', minute: '分', second: '秒' };
+    const years = [1900, 9999];
 
     return {
       cols: 7,
       current: now,
-      currentYear: null,
       currentInput: null, // 用于处理组件更新问题
+      currentYear: null,
+      dateUnits,
       dayList: [],
       days,
-      dateUnits,
-      hours,
       hourList: [],
-      isShowTime: showTime,
+      hours,
       isMoveOver: 0,
-      months,
-      monthList: [],
-      minutes,
+      isShowTime: showTime,
       minuteList: [],
-      nowMonth: null,
+      minutes,
+      monthList: [],
+      months,
       nowDay: null,
       nowHour: null,
       nowMinute: null,
+      nowMonth: null,
       nowSecond: null,
       open: show,
-      showDate,
-      seconds,
       secondList: [],
+      seconds,
       selectYearScope: [null, null],
+      showDate,
       weekList,
       yearList: [],
       years,
@@ -146,11 +152,11 @@ export default {
     getCurrent() {
       const { current, isShowTime } = this;
 
-      if (current === '') return current;
+      if (eq(current, '')) return current;
 
       const format = isShowTime ? 'YYYY-MM-DD HH:II:SS' : 'YYYY-MM-DD';
 
-      return common.dateFormat(format, current);
+      return dateFormat(format, current);
     },
   },
   methods: {
@@ -168,8 +174,9 @@ export default {
       this.open = false;
     },
     formatCurrent(y, m, d, h, i, s) {
-      const date = this.isShowTime ? `${y}/${m}/${d} ${h}:${i}:${s}` : `${y}/${m}/${d}`;
-      return common.timestamp(date);
+      return timestamp(this.isShowTime ?
+        `${y}/${m}/${d} ${h}:${i}:${s}` :
+        `${y}/${m}/${d}`);
     },
     // 输入框编辑编辑中
     editCurrent(v) {
@@ -178,17 +185,17 @@ export default {
     overDone(v) {
       const {
         currentYear,
-        nowMonth,
-        nowDay,
-        nowHour,
-        nowMinute,
-        nowSecond,
-        years,
-        months,
         days,
         hours,
         minutes,
-        seconds
+        months,
+        nowDay,
+        nowHour,
+        nowMinute,
+        nowMonth,
+        nowSecond,
+        seconds,
+        years,
       } = this;
 
       // 校验格式为2018/5/5
@@ -252,25 +259,25 @@ export default {
     },
     // 获得当前选择
     getNow(type) {
-      return this[`now${common.firstUppercase(type)}`];
+      return this[`now${firstUppercase(type)}`];
     },
     // 获得编辑状态
     getEditStatus(type) {
-      return this[`hasEdit${common.firstUppercase(type)}`];
+      return this[`hasEdit${firstUppercase(type)}`];
     },
     // 去编辑
     toEdit(type, has) {
-      this[`hasEdit${common.firstUppercase(type)}`] = has;
+      this[`hasEdit${firstUppercase(type)}`] = has;
     },
     // 返回今天
     today() {
-      const td = common.now();
-      const y = td.year;
-      const m = td.month;
+      const td = now();
       const d = td.day;
       const h = td.hour;
       const i = td.minute;
+      const m = td.month;
       const s = td.second;
+      const y = td.year;
 
       this.current = this.formatCurrent(y, m, d, h, i, s);
       this.init();
@@ -279,12 +286,12 @@ export default {
     // 所选日期
     choose(type, number) {
       const { years, months, days, hours, minutes, seconds } = this;
-      let y = type === 'year' ? number : this.currentYear;
-      let m = type === 'month' ? number : this.nowMonth;
-      let d = type === 'day' ? number : this.nowDay;
-      let h = type === 'hour' ? number : this.nowHour;
-      let i = type === 'minute' ? number : this.nowMinute;
-      let s = type === 'second' ? number : this.nowSecond;
+      let d = eq(type, 'day') ? number : this.nowDay;
+      let h = eq(type, 'hour') ? number : this.nowHour;
+      let i = eq(type, 'minute') ? number : this.nowMinute;
+      let m = eq(type, 'month') ? number : this.nowMonth;
+      let s = eq(type, 'second') ? number : this.nowSecond;
+      let y = eq(type, 'year') ? number : this.currentYear;
 
       if (y < years[0]) y = years[0];
       if (y > years[1]) y = years[1];
@@ -375,12 +382,12 @@ export default {
       const max = years[1];
       let list = [];
 
-      if (common.empty(this.yearList)) {
+      if (empty(this.yearList)) {
         let start = selectYearScope[0];
         let end = selectYearScope[1];
 
-        if (selectYearScope[0] === null) start = nowYear - Math.floor(amount / 2);
-        if (selectYearScope[1] === null) end = nowYear + Math.floor(amount / 2);
+        if (eq(selectYearScope[0], null)) start = nowYear - Math.floor(amount / 2);
+        if (eq(selectYearScope[1], null)) end = nowYear + Math.floor(amount / 2);
         if (start < min) start = min;
         if (end > max) end = max;
 
@@ -426,7 +433,7 @@ export default {
       const currentYear = date.getFullYear();
       const nowMonth = date.getMonth() + 1;
       const nowDay = date.getDate();
-      const firstWeek = common.week(`${currentYear}/${nowMonth}/1`);
+      const firstWeek = week(`${currentYear}/${nowMonth}/1`);
       const min = 1;
       const max = days[nowMonth - 1] + firstWeek;
       const cols = this.cols;
@@ -444,7 +451,10 @@ export default {
 
         line.push(i - firstWeek);
 
-        if (grid % cols === 0 || max === i) {
+        if (or([
+          eq(grid % cols, 0),
+          eq(max, i)],
+        )) {
           list.push([].concat(line));
           line = [];
         }

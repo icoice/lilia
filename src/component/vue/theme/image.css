@@ -1,0 +1,25 @@
+@import 'planes/base.css';
+@import 'planes/unit.css';
+
+.lilia-image {
+  overflow: hidden;
+  position: relative;
+  min-height: 200pxr;
+  background-color: #333;
+
+  .lilia-loading {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform-origin: center;
+    transform: translate(-50%, -50%);
+
+    img {
+      width: 100%;
+    }
+  }
+
+  .lilia-loading .load-mask {
+    border: none;
+  }
+}

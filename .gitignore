@@ -4,7 +4,9 @@ dist/
 _book/
 lib/
 theme/
-./common/
+common/
+!src/common/
+!src/component/vue/theme
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*

@@ -1,9 +1,15 @@
-const space = {};
+const { lilia_memory_space } = window;
+
+if (!lilia_memory_space) {
+  window.lilia_memory_space = {};
+}
 
 export default (name, target) => {
+  const { lilia_memory_space } = window;
+
   if (typeof target !== 'undefined') {
-    space[name] = target;
+    lilia_memory_space[name] = target;
   } else {
-    return space[name];
+    return lilia_memory_space[name];
   }
 };

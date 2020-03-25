@@ -5,6 +5,7 @@ import Vuex, {
 } from 'vuex';
 
 import {
+  JUDGE,
   eq,
   firstUppercase,
   loop,
@@ -16,28 +17,34 @@ const $mutations = {};
 const $states = {};
 const namespaces = [];
 
-function buildStore(namespace = '') {
+// 返回一个Store类
+function BuildStore() {
   const store = {
     actions: {},
     getters: {},
     mutations: {},
     state: {},
   };
-  let ns = namespace;
 
-  $actions[ns] = [];
-  $getters[ns] = [];
-  $mutations[ns] = [];
-  $states[ns] = [];
+  const StoreStruct = function (namespace = '') {
+    let ns = namespace;
 
-  this.readState = (state, n) => state[this.namespace(n)];
-  this.mealName = n => `set${firstUppercase(ns)}${firstUppercase(n)}`;
-  this.namespace = n => `${ns}${firstUppercase(n)}`;
-  this.setScope = (name) => { ns = eq(ns, '') ? name : ns; };
-  this.struct = store;
+    $actions[ns] = [];
+    $getters[ns] = [];
+    $mutations[ns] = [];
+    $states[ns] = [];
+
+    this.ns = ns;
+    this.namespace = n => `${ns}${firstUppercase(n)}`;
+    this.readState = (state, n) => state[this.namespace(n)];
+    this.mealName = n => `set${firstUppercase(ns)}${firstUppercase(n)}`;
+    this.setScope = name => { ns = eq(ns, '') ? name : ns; };
+    this.struct = store;
+  }
 
   // Meal
-  this.meal = (n, params) => {
+  StoreStruct.prototype.meal = function (n, params) {
+    const { ns } = this;
     const name = this.namespace(n);
     const actionName = `set${firstUppercase(name)}`;
 
@@ -49,19 +56,20 @@ function buildStore(namespace = '') {
       state[ns][n] = payload;
     };
 
-    store.mutations[name] = (state, payload) => {
+    store.mutations[name] = function (state, payload) {
       state[name] = payload;
       state[ns][n] = payload;
     };
 
     $actions[ns].push(actionName);
-    $getters[ns].push(storeName);
-    $mutations[ns].push(storeName);
-    $states[ns].push(storeName);
+    $getters[ns].push(name);
+    $mutations[ns].push(name);
+    $states[ns].push(name);
   };
 
   // Mutation
-  this.mutation = (n, callback) => {
+  StoreStruct.prototype.mutation = function (n, callback) {
+    const { ns } = this;
     const name = this.namespace(n);
 
     store.mutations[name] = callback;
@@ -70,7 +78,8 @@ function buildStore(namespace = '') {
   };
 
   // Getter
-  this.getter = (n, callback = null) => {
+  StoreStruct.prototype.getter = function (n, callback = null) {
+    const { ns } = this;
     const name = this.namespace(n);
 
     store.getters[name] = !eq(callback, null) ? callback : state => state[name];
@@ -79,7 +88,8 @@ function buildStore(namespace = '') {
   };
 
   // Action
-  this.action = (n, callback) => {
+  StoreStruct.prototype.action = function (n, callback) {
+    const { ns } = this;
     const name = this.namespace(n);
 
     store.actions[name] = (item, params) => {
@@ -90,12 +100,9 @@ function buildStore(namespace = '') {
           item.commit(this.namespace(mn), v);
         },
         publish: (names) => {
-          loop(names,
-            (v, sn) => item.commit(this.namespace(sn), v));
+          loop(names, (v, sn) => item.commit(this.namespace(sn), v));
         },
-        doth: (mn, params) => {
-          item.dispatch(this.namespace(mn), params);
-        },
+        doth: (mn, params) => item.dispatch(this.namespace(mn), params),
       };
 
       return JUDGE.DO_FUN(callback, [
@@ -108,7 +115,9 @@ function buildStore(namespace = '') {
   };
 
   // State
-  this.state = (maps) => {
+  StoreStruct.prototype.state = function (maps) {
+    const { ns } = this;
+
     if (JUDGE.NO_CON(ns, namespaces)) {
       namespaces.push(ns);
 
@@ -136,36 +145,46 @@ function buildStore(namespace = '') {
       $states[ns].push(name);
     });
   };
-};
 
-export const create = function create(Vue, process) {
-  const store = buildStore();
+  return {
+    StoreStruct,
+    store,
+  };
+}
 
-  store.use = (key, target) => {
-    state.prototype[key] = target;
+export const create = (Vue, process) => {
+  const { StoreStruct, store } = BuildStore();
+
+  StoreStruct.use = (key, target) => {
+    store[key] = target;
   }
 
-  JUDGE.DO_FUN(process, [state]);
+  JUDGE.DO_FUN(process, [StoreStruct]);
   Vue.use(Vuex);
 
-  return new Store(store.struct);
+  console.log(store);
+
+  return new Store(store);
 };
 
-const maps = function maps(ns, nameList, category) {
+const maps = (ns, nameList, category) => {
   return !eq(nameList, null) ? nameList.map((name) => {
     return `${ns}${firstUppercase(name)}`;
   }) : category[ns];
 }
 
-export const getters = function getters(ns, nameList = null) {
-  if (!$getters[ns]) {
+export const getters = (ns, nameList = null) => {
+  if (JUDGE.NO_CON(ns, namespaces) && !$getters[ns]) {
     return {};
   }
 
-  return mapGetters(maps(ns, nameList, $getters));
+  return mapGetters([
+    ...maps(ns, nameList, $getters),
+    ns,
+  ]);
 }
 
-export const getterNS = function getterNS(ns) {
+export const getterNS = (ns) => {
   if (JUDGE.NO_CON(ns, namespaces)) {
     return {};
   }
@@ -173,7 +192,7 @@ export const getterNS = function getterNS(ns) {
   return mapGetters(namespaces);
 }
 
-export const getterAll = function getterAll(ns, nameList = null) {
+export const getterAll = (ns, nameList = null) => {
   if (JUDGE.NO_CON(ns, namespaces) && !$getters[ns]) {
     return {};
   }
@@ -184,7 +203,7 @@ export const getterAll = function getterAll(ns, nameList = null) {
   ]);
 }
 
-export const actions = function actions(ns, nameList = null) {
+export const actions = (ns, nameList = null) => {
   if (!$actions[ns]) {
     return {};
   }
