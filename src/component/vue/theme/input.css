@@ -31,18 +31,19 @@
 
   .lilia-button {
     .tap-area {
-      background-color: transparent;
-      border-radius: 0;
-    }
-
-    .lilia-common-icon::before {
-      display: block;
       position: absolute;
       top: 50%;
       right: 0;
       margin-right: 10pxr;
+      padding: 0;
+      background-color: transparent;
+      border-radius: 0;
       transform-origin: center;
       transform: translateY(-50%);
+    }
+
+    .lilia-common-icon::before {
+      display: block;
       font-size: 26pxr;
       color: #06f;
     }

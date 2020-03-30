@@ -3,19 +3,20 @@ div.lilia-input.lilia
   div.input-mask(v-if='status === "disabled"')
   div.input-content
     input(ref='input'
-      :value='val === null ? "" : val'
-      :type='type'
       :maxLength='max'
       :placeholder='placeholder'
-      @input='e => eventAction("input", e)'
+      :type='type'
+      :value='val === null ? "" : val'
+      @blur='e => eventAction("blur", e)'
       @change='e => eventAction("change", e)'
       @focus='e => eventAction("focus", e)'
-      @blur='e => eventAction("blur", e)'
-      @keyup='e => eventAction("keyup", e)'
-      @keydown='e => eventAction("keydown", e)')
+      @input='e => eventAction("input", e)'
+      @keydown='e => eventAction("keydown", e)'
+      @keyup='e => eventAction("keyup", e)')
     lilia-button(@pressEnd='e => eventAction("clear", e)')
-      span.lilia-common-icon.lilia-common-close(slot='button'
-        v-if='val !== null && val !== "" && status !== "disabled"')
+      span.lilia-common-icon.lilia-common-close(
+        v-if='val !== null && val !== "" && status !== "disabled"'
+        slot='button')
       span(slot='button' v-else)
 </template>
 

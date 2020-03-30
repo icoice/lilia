@@ -74,10 +74,10 @@ export default class Http {
         sendParams = { ...query };
         sendBody = { ...body };
         sendBody = eq(method, 'POST') ? {
-          sendBody,
+          ...sendBody,
           ...data,
         } : {
-          sendParams,
+          ...sendParams,
           ...data,
         };
 

@@ -190,9 +190,9 @@ export default class Mecha {
     const { READY_STATE_MESSAGE } = this;
     const defaultMessage = !message ? '程序存在异常，无法完成请求' : message;
     const description = !request ? '' : READY_STATE_MESSAGE[request.readyState - 1];
-    const statusText = or([!request, !request.statusText, !eq(request.statusText, '')]) ? defaultMessage : request.statusText;
-    const infos = { description, statusText, status: or([!request, !request.status]) ? '' : request.status };
-    const status = JUDGE.NO_STR(infos.status) ? '' : `[${infos.status}]`;
+    const statusText = !request || !request.statusText || !eq(request.statusText, '') ? defaultMessage : request.statusText;
+    const infos = { description, statusText, status: !request || !request.status ? '' : request.status };
+    const status = JUDGE.NO_STR(infos.status) || empty(infos.status) ? '' : `[${infos.status}]`;
     const statusTxt = !eq(infos.description, '') && JUDGE.IS_STR(infos.description) ? `[${infos.description}]` : infos.description;
 
     this.log('exception', `${status} ${statusTxt} ${infos.statusText}`);

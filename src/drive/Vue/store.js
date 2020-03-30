@@ -155,14 +155,12 @@ function BuildStore() {
 export const create = (Vue, process) => {
   const { StoreStruct, store } = BuildStore();
 
-  StoreStruct.use = (key, target) => {
-    store[key] = target;
+  StoreStruct.use = function (key, target) {
+    StoreStruct.prototype[key] = target;
   }
 
   JUDGE.DO_FUN(process, [StoreStruct]);
   Vue.use(Vuex);
-
-  console.log(store);
 
   return new Store(store);
 };
