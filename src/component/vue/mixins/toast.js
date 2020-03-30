@@ -24,12 +24,13 @@ export default {
 
     state.setFlowAction('open', (status, e) => {
       this.status = status;
-      console.log(status);
+
       this.$emit('onoff', this.status);
     });
 
     state.setFlowAction('close', (status, e) => {
       this.status = status;
+
       this.$emit('onoff', this.status);
     });
 
@@ -44,8 +45,6 @@ export default {
       const { state, timeoutID, timeout } = this;
 
       clearTimeout(this.timeoutID);
-
-      console.log(timeout);
 
       this.timeoutID = setTimeout(() => {
         state.runFlow('close');
