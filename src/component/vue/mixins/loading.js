@@ -4,9 +4,14 @@ export default {
       type: Boolean,
       default: true,
     },
+    lazy: {
+      type: Number,
+      default: 0,
+    },
   },
   data: () => ({
     status: '',
+    before: null,
   }),
   mounted() {
     const { state } = this;
@@ -32,9 +37,19 @@ export default {
   },
   methods: {
     changeStatus(is) {
-      const { state } = this;
+      const { state, before, lazy } = this;
 
-      state.wheelFlowAction(is ? 'loadEnd' : 'loadStart');
+      clearTimeout(before);
+
+      if (is) {
+        return state.wheelFlowAction('loadEnd');
+      }
+
+      this.before = setTimeout(() => {
+        state.wheelFlowAction('loadStart');
+      }, lazy);
+
+      return before;
     },
     eventHappen(evtName, e = {}) {
       this.$emit(evtName, e);

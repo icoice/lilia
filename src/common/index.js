@@ -20,6 +20,7 @@ import nodeToString from './nodeToString';
 import now from './now';
 import or from './or';
 import replaceHump from './replaceHump';
+import stepByStep from './stepByStep';
 import storage from './storage';
 import timestamp from './timestamp';
 import webpSupport from './webpSupport';
@@ -51,6 +52,7 @@ export {
   now,
   or,
   replaceHump,
+  stepByStep,
   storage,
   timestamp,
   webpSupport,
@@ -81,6 +83,7 @@ export default {
   now,
   or,
   replaceHump,
+  stepByStep,
   storage,
   timestamp,
   webpSupport,
