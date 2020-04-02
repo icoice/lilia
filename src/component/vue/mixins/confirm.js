@@ -1,7 +1,3 @@
-import common from '../../../common';
-
-const { JUDGE } = common.decideType;
-
 export default {
   props: {
     show: {
@@ -41,8 +37,6 @@ export default {
     state.wheelFlowAction('open', this.isOpened);
   },
   methods: {
-    ...common,
-
     sure() {
       const { state } = this;
 

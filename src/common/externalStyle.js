@@ -3,8 +3,8 @@ export default (elem, attrName) => {
   const { currentStyle } = elem;
 
   if (currentStyle) {
-    return currentStyle[attrName]
+    return currentStyle;
   }
 
-  return defaultView.getComputedStyle(node)[attrName];
+  return defaultView.getComputedStyle(elem);
 };

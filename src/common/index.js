@@ -1,6 +1,7 @@
 import arrayPile from './arrayPile';
 import arrayToJson from './arrayToJson';
 import assign from './assign';
+import contain from './contain';
 import copyToClipboard from './copyToClipboard';
 import dateFormat from './dateFormat';
 import decideType, { JUDGE } from './decideType';
@@ -8,6 +9,7 @@ import def from './def';
 import device from './device';
 import empty from './empty';
 import equal from './equal';
+import externalStyle from './externalStyle';
 import file from './file';
 import firstUppercase from './firstUppercase';
 import hash from './hash';
@@ -33,6 +35,7 @@ export {
   arrayPile,
   arrayToJson,
   assign,
+  contain,
   copyToClipboard,
   dateFormat,
   decideType,
@@ -40,6 +43,7 @@ export {
   device,
   empty,
   equal,
+  externalStyle,
   file,
   firstUppercase,
   hash,
@@ -66,6 +70,7 @@ export default {
   JUDGE,
   arrayPile,
   arrayToJson,
+  contain,
   copyToClipboard,
   dateFormat,
   decideType,
@@ -73,6 +78,7 @@ export default {
   empty,
   eq: equal,
   equal,
+  externalStyle,
   firstUppercase,
   hash,
   imageCompress,
