@@ -6,6 +6,20 @@ import mixins from './component/vue/mixins';
 import stateMachine from './stateMachine';
 import component from './component/vue';
 
+const originalPush = Router.prototype.push;
+
+// 3.7.1版本的NavigationDuplicated问题处理
+Router.prototype.push = function push(location, onResolve, onReject) {
+  if (onResolve || onReject) {
+    return originalPush
+      .call(this, location, onResolve, onReject);
+  }
+
+  return originalPush
+    .call(this, location)
+    .catch(err => err);
+}
+
 export const REQ = requestPack;
 export const StateMachine = stateMachine;
 export const _ = common;

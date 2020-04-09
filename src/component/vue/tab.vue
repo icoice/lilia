@@ -15,9 +15,7 @@ div.lilia-tab.lilia
 <script>
 import createState from './mixins/createState';
 import tab from './mixins/tab';
-import _ from '../../common';
-
-const { JUDGE } = common.decideType;
+import { JUDGE } from '../../common';
 
 export default {
   mixins: [
@@ -57,5 +55,5 @@ export default {
       }
     },
   },
-}
+};
 </script>

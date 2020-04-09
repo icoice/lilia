@@ -21,6 +21,7 @@
 
     .lilia-input {
       border: none;
+      box-shadow: none;
 
       input {
         width: 60pxr;
@@ -30,7 +31,6 @@
 
     .lilia-button {
       .tap-area {
-        padding: 10pxr 20pxr;
         background-color: transparent;
         border-radius: 0;
       }
@@ -53,11 +53,11 @@
 
     .lilia-pressed {
       .tap-area {
-        background-color: #06f;
+        background-color: transparent;
       }
 
       .tap-area span {
-        color: #fff;
+        color: #c00;
       }
     }
   }

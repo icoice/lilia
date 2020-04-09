@@ -7,6 +7,7 @@ import pop from './pop';
 import pulldown from './pulldown';
 import tab from './tab';
 import tap from './tap';
+import table from './table';
 import toast from './toast';
 import uploadFile from './uploadFile';
 
@@ -20,6 +21,7 @@ export default {
   pulldown,
   tab,
   tap,
+  table,
   toast,
   uploadFile,
 };

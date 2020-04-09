@@ -1,0 +1,126 @@
+@import 'planes/base.css';
+@import 'planes/unit.css';
+@import 'planes/border.css';
+
+.lilia-table {
+  position: relative;
+}
+
+/*
+  这里保留一个无定义定位的父级，
+  让内部子级拥有absolute属性的
+  元素可内部跟随滚动条滑动
+*/
+.lilia-table >div {
+  overflow-x: scroll;
+  overflow-y: visible;
+  border-collapse: collapse;
+  border-left: 1px solid transparent;
+
+  table {
+    width: 100%;
+    white-space: nowrap;
+    border-spacing: 0; /* table默认border-spacing为2px */
+
+    tr, thead, td {
+      background-color: #fff;
+    }
+
+    .table-head {
+      td {
+        @mixin filament-bottom #cfcfcf;
+        transition: 500ms;
+        padding: 10pxr 0;
+        text-align: center;
+        color: #06f;
+      }
+
+      td {
+        z-index: 4;
+      }
+
+      td::after {
+        content: ' ';
+        position: absolute;
+        top: 50%;
+        right: 0;
+        height: 50%;
+        transform-origin: center;
+        transform: translateY(-50%);
+        border-right: 1px solid #dfdfdf;
+      }
+
+      td:last-child::after {
+        border: none;
+      }
+    }
+
+    tr td {
+      @mixin filament-bottom #dfdfdf;
+      padding: 0;
+      background-color: #fff;
+
+      .lilia-button {
+        display: block;
+
+        .tap-area {
+          background-color: transparent;
+          text-align: center;
+          color: #333;
+        }
+      }
+
+      .lilia-pressed {
+        .tap-area {
+          background-color: transparent;
+          color: #06f;
+        }
+      }
+    }
+  }
+}
+
+/*
+  当表格（container）出现滚动条，或父级出现滚动条时，第一列固定宽度并浮定。
+*/
+.lilia-table {
+  table.narrow-screen {
+    padding-left: 200pxr;
+
+    tr, thead {
+      td:first-child {
+        transition: 500ms;
+        position: absolute;
+        z-index: 3;
+        margin-left: -204pxr;
+        width: 200pxr;
+        background-color: #fff;
+      }
+
+      td:first-child::after {
+        content: ' ';
+        position: absolute;
+        top: 50%;
+        right: 0;
+        height: 50%;
+        transform-origin: center;
+        transform: translateY(-50%);
+        border-right: 1px solid #dfdfdf;
+      }
+
+      td {
+        .lilia-button * {
+          text-overflow: ellipsis;
+          white-space: nowrap;
+          overflow: hidden;
+        }
+      }
+    }
+
+    thead {
+      td:first-child {
+        z-index: 5;
+      }
+    }
+  }
+}

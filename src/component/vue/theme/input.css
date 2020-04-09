@@ -30,6 +30,8 @@
   }
 
   .lilia-button {
+    width: 40pxr;
+
     .tap-area {
       position: absolute;
       top: 50%;
