@@ -3,13 +3,11 @@
     table
       tr
         td.page-info
-          span 全
-          span.page-info-value {{total}}
-          span 条记录
+          span.page-info-value {{ total }}
         td.page-info
-          span 共
-          span.page-info-value {{Math.ceil(total / pageSize)}}
-          span 页
+          span.page-info-value {{ currentNo }}
+          span.page-info-value /
+          span.page-info-value {{ Math.ceil(total / pageSize) }}
         td.page-operate
           lilia-button(@pressEnd='firstPageNo')
             span.iconfont.icon-skipprevious(slot='button')

@@ -33,7 +33,7 @@ export default {
   },
   methods: {
     listenMouseMove() {
-      const { bindMouseMove, liliaState } = this;
+      const { bindMouseMove, state } = this;
 
       if (bindMouseMove) return;
 
@@ -43,7 +43,7 @@ export default {
         const { isLeaveComponent } = this;
 
         if (isLeaveComponent) {
-          liliaState.wheelFlowAction('close');
+          state.wheelFlowAction('close');
         }
       }, true);
     },
@@ -54,17 +54,17 @@ export default {
       this.isLeaveComponent = false;
     },
     popShow() {
-      const { status, liliaState } = this;
+      const { status, state } = this;
 
       switch (status) {
         case 'open':
-          liliaState.wheelFlowAction('close');
+          state.wheelFlowAction('close');
           break;
         case 'close':
-          liliaState.wheelFlowAction('open');
+          state.wheelFlowAction('open');
           break;
         default:
-          liliaState.wheelFlowAction('close');
+          state.wheelFlowAction('close');
       }
     },
   },

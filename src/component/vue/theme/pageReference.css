@@ -8,7 +8,6 @@
 
   tr td.page-info {
     padding: 0 10pxr;
-    border: 1px solid #efefef;
 
     .page-info-value {
       color: #06f;
@@ -17,7 +16,6 @@
 
   tr td {
     padding: 0;
-    border: 1px solid #efefef;
 
     .lilia-input {
       border: none;
@@ -41,7 +39,6 @@
       }
 
       .tap-area span.page-selected {
-        border-bottom: 1px solid #06f;
         font-size: 20pxr;
         color: #06f;
       }
