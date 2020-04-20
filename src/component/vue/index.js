@@ -1,6 +1,7 @@
 import { loop } from '../../common';
 import liliaButton from './button';
 import liliaConfirm from './confirm';
+import liliaDrift from './drift';
 import liliaDatepicker from './datepicker';
 import liliaImage from './image';
 import liliaInput from './input';
@@ -16,14 +17,15 @@ const components = {
   liliaButton,
   liliaConfirm,
   liliaDatepicker,
+  liliaDrift,
   liliaImage,
   liliaInput,
   liliaLoading,
   liliaPageReference,
   liliaPop,
   liliaPulldown,
-  liliaToast,
   liliaTable,
+  liliaToast,
   liliaUploadFile,
 };
 
@@ -31,14 +33,15 @@ export {
   liliaButton,
   liliaConfirm,
   liliaDatepicker,
+  liliaDrift,
   liliaImage,
   liliaInput,
   liliaLoading,
   liliaPageReference,
   liliaPop,
   liliaPulldown,
-  liliaToast,
   liliaTable,
+  liliaToast,
   liliaUploadFile,
 };
 

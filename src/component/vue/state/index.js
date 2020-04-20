@@ -1,4 +1,5 @@
 import confirm from './confirm';
+import drift from './drift';
 import image from './image';
 import input from './input';
 import loading from './loading';
@@ -6,13 +7,14 @@ import pageReference from './pageReference';
 import pop from './pop';
 import pulldown from './pulldown';
 import tab from './tab';
-import tap from './tap';
 import table from './table';
+import tap from './tap';
 import toast from './toast';
 import uploadFile from './uploadFile';
 
 export default {
   confirm,
+  drift,
   image,
   input,
   loading,
@@ -20,8 +22,8 @@ export default {
   pop,
   pulldown,
   tab,
-  tap,
   table,
+  tap,
   toast,
   uploadFile,
 };

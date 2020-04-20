@@ -1,4 +1,5 @@
 @import 'planes/base.css';
+@import 'planes/border.css';
 @import 'planes/unit.css';
 
 .lilia-upload-file {
@@ -10,15 +11,10 @@
   .file-list {
     margin-top: 5pxr;
 
-    .file-item:first-child {
-      border-top: 1px solid #efefef;
-    }
-
     .file-item {
+      @mixin filament-bottom #cfcfcf;
+
       padding-bottom: 5pxr;
-      border-left: 1px solid #efefef;
-      border-right: 1px solid #efefef;
-      border-bottom: 1px solid #efefef;
       background-color: #fafafa;
       color: #666;
 

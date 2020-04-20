@@ -78,6 +78,20 @@
       }
     }
   }
+
+  td.table-option {
+    .lilia-button {
+      .tap-area {
+        color: #06f;
+      }
+    }
+
+    .lilia-pressed {
+      .tap-area {
+        color: #d8eaf9;
+      }
+    }
+  }
 }
 
 /*

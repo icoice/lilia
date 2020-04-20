@@ -16,15 +16,15 @@ function apiPack(api, adapter, records, beforeProcess) {
 
     if (JUDGE.NO_FOD(py)) {
       payload = this.buildRequestPayload(callName, py);
-    }
 
-    if (JUDGE.IS_FUN(beforeProcess)) {
-      payload = {
-        ...beforeProcess(payload, {
-          id,
-          name: callName,
-        }),
-      };
+      if (JUDGE.IS_FUN(beforeProcess)) {
+        payload = {
+          ...beforeProcess(payload, {
+            id,
+            name: callName,
+          }),
+        };
+      }
     }
 
     return call(payload).then((response) => {

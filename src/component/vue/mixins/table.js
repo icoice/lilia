@@ -1,4 +1,9 @@
-import { replaceHump } from '../../../common';
+import {
+  replaceHump,
+  eq,
+  empty,
+  htmlCollectionToArray,
+} from '../../../common';
 
 export default {
   props: {
@@ -9,6 +14,10 @@ export default {
     fields: {
       type: Object,
       default: () => ({}),
+    },
+    options: {
+      type: Array,
+      default: () => [],
     },
   },
   watch: {
@@ -25,7 +34,6 @@ export default {
   },
   data() {
     return {
-      offset: { top: 0 },
       isBindResize: false,
       status: '',
     };
@@ -52,6 +60,12 @@ export default {
     state.wheelFlowAction('narrowScreen');
   },
   methods: {
+    eq,
+    empty,
+
+    triggerOption(option) {
+      this.$emit('trigger', option);
+    },
     setScroll() {
       const me = this;
       const { table } = this.$refs;
@@ -60,25 +74,25 @@ export default {
       parentNode.addEventListener('scroll', function scroll() {
         const { scrollTop } = this;
         const { offsetTop } = table;
+        const thead = table.querySelector('table thead td');
+        const headList = htmlCollectionToArray(thead);
         const top = `${scrollTop - offsetTop}px`;
 
-        me.offset = {
-          ...me.offset,
-
-          top: scrollTop > offsetTop ? top : 0,
-        };
+        headList.map((td) => {
+          td.style.top = scrollTop > offsetTop ? top : 0;
+        });
       });
 
       window.addEventListener('scroll', function scroll() {
         const { scrollY } = this;
         const { offsetTop } = table;
+        const thead = table.querySelector('table thead td');
+        const headList = htmlCollectionToArray(thead);
         const top = `${scrollY - offsetTop}px`;
 
-        me.offset = {
-          ...me.offset,
-
-          top: scrollY > offsetTop ? top : 0,
-        };
+        headList.map((td) => {
+          td.style.top = scrollTop > offsetTop ? top : 0;
+        });
       });
     },
     autoNarrowScreen() {

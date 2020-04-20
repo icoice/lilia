@@ -15,9 +15,13 @@ Router.prototype.push = function push(location, onResolve, onReject) {
       .call(this, location, onResolve, onReject);
   }
 
-  return originalPush
-    .call(this, location)
-    .catch(err => err);
+  const res = originalPush.call(this, location);
+
+  if (!res || !res.catch) {
+    return res;
+  }
+
+  return res.catch(err => err);
 }
 
 export const REQ = requestPack;
@@ -29,6 +33,7 @@ export const store = {
   state: (n, d) => drive.Vue.state(n, d),
   store: (v, c) => drive.Vue.store.create(v, c),
 };
+export const vueComponentStore = drive.Vue.state;
 
 // Vue运行的封装，在项目内用于凸显项目主要业务内容，无需过多关注Vue的方法
 export const vueRun = (Vue, stores, middleware = []) => {
@@ -81,5 +86,6 @@ export default {
   mixins,
   requestPack,
   store,
+  vueComponentStore,
   vueRun,
 };

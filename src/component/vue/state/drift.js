@@ -2,7 +2,7 @@ import StateMachine from  '../../../stateMachine';
 
 export default () => {
   const state = new StateMachine({
-    name: 'toast',
+    name: 'drift',
     status: [
       'on',
       'off',

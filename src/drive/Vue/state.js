@@ -2,39 +2,43 @@ import { firstUppercase, loop, JUDGE } from '../../common';
 
 export default (namespace, list) => {
   const props = {};
-  const types = [String, Number, Object, FormData, Array, null];
+  const types = [String, Number, Object, FormData, Array, Boolean];
   const watch = {};
   const propNames = [];
 
   list.map((item) => {
-    let propName;
-    let propBody;
+    const propName = item.key;
 
-    loop(item, (v, k) => {
-      if (JUDGE.IS_ARR(v) || JUDGE.BELONG_IN(v, types)) {
-        propName = k;
-        propBody = { type: v };
+    propNames.push(propName);
 
-        propNames.push(k);
-      }
-    });
+    props[propName] = {
+      type: !item.type ? types : item.type,
+      default: item.def,
+    };
 
-    props[propName] = propBody;
-    watch[propName] = JUDGE.IS_FUN(item.watch) ? item.watch : v => v;
+    if (JUDGE.IS_FUN(item.watch)) {
+      watch[propName] = item.watch;
+    } else {
+      watch[propName] = function (v) {
+        const dk = `${namespace}${firstUppercase(propName)}`;
+
+        this[dk] = v;
+      };
+    }
 
     return item;
   });
 
   return {
     data() {
-      const list = {};
+      const contactProps = {};
 
       propNames.map((n) => {
-        list[`${namespace}${firstUppercase(n)}`] = this[n];
+        contactProps[`${namespace}${firstUppercase(n)}`] = this[n];
       });
 
       return {
-        ...list,
+        ...contactProps,
       };
     },
     props,

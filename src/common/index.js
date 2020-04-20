@@ -13,6 +13,7 @@ import externalStyle from './externalStyle';
 import file from './file';
 import firstUppercase from './firstUppercase';
 import hash from './hash';
+import htmlCollectionToArray from './htmlCollectionToArray';
 import image from './image';
 import imageCompress from './imageCompress';
 import isMob from './isMob';
@@ -47,6 +48,7 @@ export {
   file,
   firstUppercase,
   hash,
+  htmlCollectionToArray,
   image,
   imageCompress,
   isMob,
@@ -81,6 +83,7 @@ export default {
   externalStyle,
   firstUppercase,
   hash,
+  htmlCollectionToArray,
   imageCompress,
   isMob,
   loop,
