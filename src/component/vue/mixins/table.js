@@ -71,17 +71,19 @@ export default {
       const { table } = this.$refs;
       const { parentNode } = table;
 
-      parentNode.addEventListener('scroll', function scroll() {
-        const { scrollTop } = this;
-        const { offsetTop } = table;
-        const thead = table.querySelector('table thead td');
-        const headList = htmlCollectionToArray(thead);
-        const top = `${scrollTop - offsetTop}px`;
+      if (parentNode) {
+        parentNode.addEventListener('scroll', function scroll() {
+          const { scrollTop } = this;
+          const { offsetTop } = table;
+          const thead = table.querySelector('table thead td');
+          const headList = htmlCollectionToArray(thead);
+          const top = `${scrollTop - offsetTop}px`;
 
-        headList.map((td) => {
-          td.style.top = scrollTop > offsetTop ? top : 0;
+          headList.map((td) => {
+            td.style.top = scrollTop > offsetTop ? top : 0;
+          });
         });
-      });
+      }
 
       window.addEventListener('scroll', function scroll() {
         const { scrollY } = this;
