@@ -16,6 +16,7 @@ import hash from './hash';
 import htmlCollectionToArray from './htmlCollectionToArray';
 import image from './image';
 import imageCompress from './imageCompress';
+import importScript from './importScript';
 import isMob from './isMob';
 import loop from './loop';
 import memory from './memory';
@@ -51,6 +52,7 @@ export {
   htmlCollectionToArray,
   image,
   imageCompress,
+  importScript,
   isMob,
   loop,
   memory,
@@ -85,6 +87,7 @@ export default {
   hash,
   htmlCollectionToArray,
   imageCompress,
+  importScript,
   isMob,
   loop,
   memory,

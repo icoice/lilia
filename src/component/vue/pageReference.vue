@@ -4,17 +4,17 @@
       tr
         td.page-operate
           lilia-button(@pressEnd='firstPageNo')
-            span(slot='button') First
+            span(slot='button') first
           lilia-button(@pressEnd='e => tapPageNo(currentNo - 1)')
-            span(slot='button') Prev
+            span(slot='button') prev
         td.page-no.animated.fadeIn(v-for='pageNo in pageNoList' v-if='!maxPage(pageNo)')
           lilia-button(@pressEnd='e => tapPageNo(pageNo)')
             span(slot='button' :class='selected(pageNo)') {{ format(pageNo) }}
         td.page-operate
           lilia-button(@pressEnd='e => tapPageNo(currentNo + 1)')
-            span(slot='button') Next
+            span(slot='button') next
           lilia-button(@pressEnd='e => tapPageNo(getTotalPage())')
-            span(slot='button') Last
+            span(slot='button') last
         td.page-no-input
           lilia-input(placeholder='页码' :value='String(currentNo)' :filter='/[^0-9]/' @keyup='inputPageNo')
         td.page-info
@@ -22,7 +22,7 @@
           span.page-info-value /
           span.page-info-value {{ Math.ceil(total / pageSize) }}
         td.page-info
-          span.page-info-value {{ total }}
+          span.page-info-value total {{ total }}
 </template>
 
 <script>

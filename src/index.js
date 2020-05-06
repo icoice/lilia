@@ -1,5 +1,5 @@
 import Router from 'vue-router';
-import common, { JUDGE, loop, memory } from './common';
+import common, { JUDGE, loop, memory, importScripts } from './common';
 import createState from './component/vue/mixins/createState';
 import drive, { requestPack, Request } from './drive';
 import mixins from './component/vue/mixins';
@@ -8,7 +8,7 @@ import component from './component/vue';
 
 const originalPush = Router.prototype.push;
 
-// 3.7.1版本的NavigationDuplicated问题处理
+// vue-router 3.7.1版本的NavigationDuplicated问题处理
 Router.prototype.push = function push(location, onResolve, onReject) {
   if (onResolve || onReject) {
     return originalPush
@@ -70,6 +70,7 @@ export {
   component,
   createState,
   drive,
+  importScripts,
   mixins,
   requestPack,
 };
@@ -83,6 +84,7 @@ export default {
   component,
   createState,
   drive,
+  importScripts,
   mixins,
   requestPack,
   store,

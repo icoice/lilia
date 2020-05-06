@@ -39,6 +39,7 @@
     "planes": "file:../planes",
     "prismjs-okaidia-theme": "0.0.1",
     "rxjs": "^6.2.2",
+    "serviceworker-cache-polyfill": "^4.0.0",
     "vue": "^2.5.16",
     "vue-router": "^3.0.1",
     "vuex": "^2.4.1"

@@ -29,13 +29,11 @@ export default {
   mounted() {
     const { state } = this;
 
-    // 压缩图片文件
     state.setFlowAction('change', (status, files) => {
       this.inputFiles = files;
       this.eventHappen(status, this.inputFiles);
     });
 
-    // 验证失败
     state.setFlowAction('verifyFail', (status, errorFile) => {
       this.eventHappen(status, errorFile);
     });
