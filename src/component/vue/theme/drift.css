@@ -11,7 +11,7 @@
   min-height: 240pxr;
   transform-origin: center;
   transform: translate(-50%, -50%);
-  box-shadow: 0 0 15pxr rgba(0, 0, 0, .1);
+  box-shadow: 0 0 15pxr rgba(0, 0, 0, .5);
   background-color: #fff;
 
   .lilia-drift-menus {

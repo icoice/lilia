@@ -13,7 +13,7 @@ div.lilia-input.lilia
       @input='e => eventAction("input", e)'
       @keydown='e => eventAction("keydown", e)'
       @keyup='e => eventAction("keyup", e)')
-    lilia-button(@pressEnd='e => eventAction("clear", e)')
+    lilia-button.input-clear(@pressEnd='e => eventAction("clear", e)')
       span.lilia-common-icon.lilia-common-close(
         v-if='val !== null && val !== "" && status !== "disabled"'
         slot='button')

@@ -32,7 +32,7 @@ export default {
       this.status = status;
       this.val = this.valueFilter(e.target.value);
 
-      this.eventHappen(this.status, this.val);
+      this.eventHappen([this.status, 'change'], this.val);
     });
 
     state.setFlowAction('change', (status, e) => {
@@ -41,7 +41,7 @@ export default {
       this.status = status;
       this.val = this.valueFilter(e.target.value);
 
-      this.eventHappen(this.status, this.val);
+      this.eventHappen([this.status], this.val);
     });
 
     state.setFlowAction('keyup', (status, e) => {
@@ -50,7 +50,7 @@ export default {
       this.status = status;
       this.val = this.valueFilter(e.target.value);
 
-      this.eventHappen(this.status, this.val);
+      this.eventHappen([this.status, 'change'], this.val);
     });
 
     state.setFlowAction('keydown', (status, e) => {
@@ -59,7 +59,7 @@ export default {
       this.status = status;
       this.val = this.valueFilter(e.target.value);
 
-      this.eventHappen(this.status, e.target.value);
+      this.eventHappen([this.status, 'change'], this.val);
     });
 
     state.setFlowAction('focus', (status, e) => {
@@ -68,7 +68,7 @@ export default {
       this.status = status;
 
       this.focus();
-      this.eventHappen(this.status, this.val);
+      this.eventHappen([this.status], this.val);
     });
 
     state.setFlowAction('blur', (status, e) => {
@@ -78,7 +78,7 @@ export default {
 
       this.inputRecords.push(this.val);
       this.blur();
-      this.eventHappen(this.status, this.val);
+      this.eventHappen([this.status], this.val);
     });
 
     state.setFlowAction('clear', (status, e) => {
@@ -87,18 +87,18 @@ export default {
       this.status = status;
       this.val = '';
 
-      this.eventHappen(this.status, this.val);
+      this.eventHappen([this.status, 'change'], this.val);
       this.focus();
     });
 
     state.setFlowAction('usable', (status, e) => {
       this.status = status;
-      this.eventHappen(this.status, e);
+      this.eventHappen([this.status], e);
     });
 
     state.setFlowAction('disabled', (status, e) => {
       this.status = status;
-      this.eventHappen(this.status, e);
+      this.eventHappen([this.status], e);
     });
 
     state.wheelFlowAction(isDisabled ? 'disabled' : 'useabled');
@@ -128,8 +128,10 @@ export default {
 
       input.blur();
     },
-    eventHappen(evtName, e = {}) {
-      this.$emit(evtName, e);
+    eventHappen(evtNames = [], e = {}) {
+      evtNames.map((evtName) => {
+        this.$emit(evtName, e);
+      });
     },
   },
 };

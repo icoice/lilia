@@ -98,13 +98,15 @@ export default {
       });
     },
     autoNarrowScreen() {
+      const { state } = this;
+
+      state.wheelFlowAction('narrowScreen');
+
       if (this.isBindResize) {
         return this.isBindResize;
       }
 
       window.addEventListener('resize', () => {
-        const { state } = this;
-
         state.wheelFlowAction('narrowScreen');
       }, false);
 

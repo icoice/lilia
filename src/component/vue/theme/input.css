@@ -29,7 +29,8 @@
     opacity: .5;
   }
 
-  .lilia-button {
+  .lilia-button.input-clear {
+    display: inline-block;
     width: 40pxr;
 
     .tap-area {

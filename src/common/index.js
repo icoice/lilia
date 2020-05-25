@@ -1,3 +1,4 @@
+import arrayFilter from './arrayFilter';
 import arrayPile from './arrayPile';
 import arrayToJson from './arrayToJson';
 import assign from './assign';
@@ -34,6 +35,7 @@ export const eq = equal;
 
 export {
   JUDGE,
+  arrayFilter,
   arrayPile,
   arrayToJson,
   assign,
@@ -72,6 +74,7 @@ export default {
   ...file,
   ...image,
   JUDGE,
+  arrayFilter,
   arrayPile,
   arrayToJson,
   contain,

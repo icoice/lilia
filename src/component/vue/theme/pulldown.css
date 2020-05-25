@@ -1,65 +1,9 @@
 @import 'planes/base.css';
 @import 'planes/unit.css';
-
-@media (width <= 720px) {
-  @mixin border .lilia-pulldown, #666;
-  @mixin border .lilia-pulldown .pulldown-list, #666;
-  @mixin border-bottom .lilia-pulldown .pulldown-list ul li, #e7e7e7;
-
-  .lilia-pulldown .pulldown-list ul li:last-child::after {
-    display: none;
-  }
-
-  .lilia-pulldown .pulldown-title .lilia-button .tap-area {
-    box-shadow: 0 .5px .5px #bac6cf inset;
-  }
-
-  .lilia-pulldown .pulldown-list:after {
-    border-top: 0;
-  }
-
-  .lilia-pulldown .pulldown-control {
-    .lilia-button {
-      .iconfont::before {
-        font-size: 32pxr;
-      }
-    }
-  }
-}
-
-@media (width > 720px) {
-  .lilia-pulldown {
-    border: 1px solid #bac6cf;
-    box-sizing: border-box;
-  }
-
-  .lilia-pulldown .pulldown-list {
-    margin-left: -1px;
-    border: 1px solid #bac6cf;
-  }
-
-  .lilia-pulldown .pulldown-list ul li {
-    border-bottom: 1px solid #e9f1f8;
-  }
-
-  .lilia-pulldown .pulldown-list ul li:last-child {
-    border-bottom: none;
-  }
-
-  .lilia-pulldown .pulldown-title .lilia-button .tap-area {
-    border-right: 1px solid #bac6cf;
-  }
-
-  .lilia-pulldown .pulldown-control {
-    .lilia-button {
-      .iconfont::before {
-        font-size: 20px;
-      }
-    }
-  }
-}
+@import 'planes/border.css';
 
 .lilia-pulldown {
+  @mixin filament #efefef;
   overflow: inherit;
   display: inline-block;
   position: relative;
@@ -79,10 +23,12 @@
   }
 
   .pulldown-list {
+    @mixin filament #efefef;
     position: absolute;
     z-index: 100;
+    min-width: 160pxr;
     min-height: 60pxr;
-    min-width: 140pxr;
+    padding: 10pxr 10pxr 0 10pxr;
     background-color: #fff;
     box-shadow: 0 10px 10px rgba(0,0,0,.25);
 
@@ -91,8 +37,20 @@
       z-index: 1;
     }
 
+    li {
+      @mixin filament-bottom #efefef;
+      float: none;
+      margin: 0;
+    }
+
+    li:last-child::after {
+      display: none;
+    }
+
     .lilia-button {
       display: block;
+      position: relative;
+      z-index: 1;
 
       .tap-area {
         padding: 10pxr;
@@ -100,17 +58,31 @@
         border-radius: 0;
         color: #333;
       }
-
-      .pulldown-has-selected {
-        color: #06f;
-      }
     }
 
     .lilia-pressed {
       .tap-area {
         background-color: #eaf9ff;
-        color: #06f;
+        color: #006aff;
       }
+    }
+
+    .lilia-input {
+      min-width: 260pxr;
+
+      .lilia-button.input-clear {
+        display: inline-block;
+        position: static;
+        z-index: 0;
+
+        .tap-area {
+          margin: 0;
+        }
+      }
+    }
+    
+    .pulldown-checked {
+      border-bottom: 2px solid #006aff;
     }
   }
 
@@ -133,10 +105,6 @@
           background-color: transparent;
           font-size: 18pxr;
           color: #333;
-        }
-
-        .iconfont {
-          color: #06f;
         }
       }
     }
