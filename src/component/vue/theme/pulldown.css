@@ -26,7 +26,7 @@
     @mixin filament #efefef;
     position: absolute;
     z-index: 100;
-    min-width: 160pxr;
+    min-width: 300pxr;
     min-height: 60pxr;
     padding: 10pxr 10pxr 0 10pxr;
     background-color: #fff;
@@ -88,7 +88,7 @@
 
   .pulldown-content {
     position: relative;
-    padding: 5pxr;
+    padding: 7pxr;
     z-index: 2;
 
     .pulldown-clear {

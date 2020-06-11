@@ -1,6 +1,6 @@
 # lilia
 
-前端应用常用工具库。
+> Used for the front-end
 
 ## How to use ?
 npm install --save lilia
