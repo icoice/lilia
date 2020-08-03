@@ -1,5 +1,5 @@
 <template lang='pug'>
-  div.lilia-page-reference(class='lilia' v-if='pageTotal > 0')
+  div.lilia-page-reference.lilia(class='lilia' v-if='pageTotal > 0')
     table
       tr
         td.page-operate

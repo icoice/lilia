@@ -1,5 +1,5 @@
 <template lang="pug">
-div.lilia-table(ref='table')
+div.lilia-table.lilia(ref='table')
   div(ref='container')
     table(:class='status')
       thead.table-head(v-if='fields && !empty(fields)')

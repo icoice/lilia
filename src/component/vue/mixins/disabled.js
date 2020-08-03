@@ -41,7 +41,7 @@ export default {
   },
   methods: {
     noDisabled(cb) {
-      const { state } = this;
+      const { status } = this;
 
       if (!eq(status, 'disabled')) {
         JUDGE.DO_FUN(cb);

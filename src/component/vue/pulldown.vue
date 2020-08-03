@@ -9,8 +9,7 @@ div.lilia-pulldown.lilia(
         span(slot='button') {{ name }}
     div.pulldown-block
       lilia-button(@pressEnd='gotoOpen')
-        divdocker(v-if='selectedNoEmpty'
-          slot='button') {{ chooseList }}
+        div(v-if='selectedNoEmpty' slot='button') {{ chooseList }}
         div.pulldown-placeholder(v-else slot='button') {{ placeholder }}
     div.pulldown-block.pulldown-control.pulldown-expand(v-if='noDis')
       lilia-button(@pressEnd='gotoOpen')

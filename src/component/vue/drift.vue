@@ -1,5 +1,5 @@
 <template lang="pug">
-div.lilia-drift(v-if='status === "on"')
+div.lilia-drift.lilia(v-if='status === "on"')
   div.lilia-drift-menus
     div.drift-title {{ title }}
     lilia-button.drift-close(@pressEnd='close')
