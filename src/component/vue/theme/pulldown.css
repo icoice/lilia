@@ -3,23 +3,25 @@
 @import 'planes/border.css';
 
 .lilia-pulldown {
-  @mixin filament #efefef;
+  @mixin filament #efefef, 15px;
   overflow: inherit;
   display: inline-block;
   position: relative;
-  background-color: #fff;
   letter-spacing: normal;
   word-spacing: normal;
   vertical-align: top;
+  border-radius: 15px;
+  transition: 300ms;
 
   .pulldown-mask {
     position: absolute;
+    z-index: 1;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
-    background-color: #d1dde3;
     opacity: .5;
+    transition: 500ms;
   }
 
   .pulldown-list {
@@ -138,4 +140,13 @@
       color: #d5d5d5;
     }
   }
+}
+
+.lilia-pulldown:before {
+  background-color: #fff;
+  transition: 300ms;
+}
+
+.lilia-pulldown-disabled:before {
+  background-color: #8e8e8e;
 }

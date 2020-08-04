@@ -1,8 +1,9 @@
 <template lang="pug">
 div.lilia-pulldown.lilia(
+  :class='eq(status, "disabled") ? "lilia-pulldown-disabled" : ""'
   @mousedown.stop='checkHere'
   @touchstart.stop='checkHere')
-  div.pulldown-mask(v-if='beDis')
+  div.pulldown-mask(v-show='eq(status, "disabled")')
   div.pulldown-content
     div.pulldown-block.pulldown-title(v-show='name')
       lilia-button(@pressEnd='gotoOpen')
@@ -11,12 +12,12 @@ div.lilia-pulldown.lilia(
       lilia-button(@pressEnd='gotoOpen')
         div(v-if='selectedNoEmpty' slot='button') {{ chooseList }}
         div.pulldown-placeholder(v-else slot='button') {{ placeholder }}
-    div.pulldown-block.pulldown-control.pulldown-expand(v-if='noDis')
+    div.pulldown-block.pulldown-control.pulldown-expand(v-if='!eq(status, "disabled")')
       lilia-button(@pressEnd='gotoOpen')
         span.iconfont.icon-expandless(slot='button' v-if='beOpen')
         span.iconfont.icon-expandmore(slot='button' v-else)
     div.pulldown-block.pulldown-control.pulldown-remove(
-      v-if='noDis && selectedNoEmpty')
+      v-if='!eq(status, "disabled") && selectedNoEmpty')
       lilia-button(@pressEnd='clear')
         span.iconfont.input-clear(slot='button')
     div.pulldown-clear
@@ -65,10 +66,6 @@ export default {
       type: [Number, String],
       default: '',
     },
-    disabled: {
-      type: Boolean,
-      default: false,
-    },
     list: {
       type: Array,
       default: () => [],
@@ -114,12 +111,6 @@ export default {
     },
     beOpen() {
       return eq(this.status, 'open');
-    },
-    beDis() {
-      return eq(this.status, 'disabled');
-    },
-    noDis() {
-      return !eq(this.status, 'disabled');
     },
     selectedNoEmpty() {
       const { selected, isMultiple } = this;
