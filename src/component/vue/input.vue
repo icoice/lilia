@@ -14,7 +14,7 @@ div.lilia-input.lilia
       @keydown='e => eventAction("keydown", e)'
       @keyup='e => eventAction("keyup", e)')
     lilia-button.input-clear(@pressEnd='e => eventAction("clear", e)')
-      span.lilia-common-icon.lilia-common-close(
+      span.fa.fa-times(
         v-if='val !== null && val !== "" && status !== "disabled"'
         slot='button')
       span(slot='button' v-else)
@@ -33,7 +33,7 @@ export default {
   ],
   props: {
     max: {
-      type: Number,
+      type: [Number, String],
       default: 500,
     },
     firstFocus: {
@@ -64,10 +64,10 @@ export default {
   },
   methods: {
     hasFirstFocus() {
-      const { state } = this;
+      const { state, firstFocus } = this;
 
-      if (this.firstFocus) {
-        state.wheelFlowAction('focus');
+      if (firstFocus) {
+        return state.wheelFlowAction('focus');
       }
 
       state.wheelFlowAction('blur');

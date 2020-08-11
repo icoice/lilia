@@ -1,6 +1,6 @@
 <template lang="pug">
 div.lilia-pulldown.lilia(
-  :class='eq(status, "disabled") ? "lilia-pulldown-disabled" : ""'
+  :class='statusChange'
   @mousedown.stop='checkHere'
   @touchstart.stop='checkHere')
   div.pulldown-mask(v-show='eq(status, "disabled")')
@@ -14,14 +14,16 @@ div.lilia-pulldown.lilia(
         div.pulldown-placeholder(v-else slot='button') {{ placeholder }}
     div.pulldown-block.pulldown-control.pulldown-expand(v-if='!eq(status, "disabled")')
       lilia-button(@pressEnd='gotoOpen')
-        span.iconfont.icon-expandless(slot='button' v-if='beOpen')
-        span.iconfont.icon-expandmore(slot='button' v-else)
+        span.fa.fa-chevron-up(slot='button' v-if='beOpen')
+        span.fa.fa-chevron-down(slot='button' v-else)
     div.pulldown-block.pulldown-control.pulldown-remove(
       v-if='!eq(status, "disabled") && selectedNoEmpty')
-      lilia-button(@pressEnd='clear')
-        span.iconfont.input-clear(slot='button')
+      lilia-button(
+        :stateId='`pulldown_${stateId}_close`'
+        @pressEnd='clear')
+        span.fa.fa-times(slot='button')
     div.pulldown-clear
-  mixin pulldonwList
+  mixin pulldownList
     div.pulldown-to-search
       lilia-input(
         :value='searchVal'
@@ -34,11 +36,12 @@ div.lilia-pulldown.lilia(
             :stateId='`pulldown_${stateId}_${item.value}`'
             @pressEnd='e => gotoSelected(item.key)')
             div(slot='button' :key='code')
+              span.fa.fa-check(v-if='choosed(item)')
               span {{ item.value }}
   div.pulldown-list.pulldown-search(v-if='beSearching')
-    +pulldonwList
+    +pulldownList
   div.pulldown-list(v-if='beOpen')
-    +pulldonwList
+    +pulldownList
 </template>
 
 <script>
@@ -102,7 +105,7 @@ export default {
     return {
       selected,
       searchVal: searchValue,
-      pulldonwList: this.checkList(list || []),
+      pulldownList: this.checkList(list || []),
     };
   },
   computed: {
@@ -111,15 +114,6 @@ export default {
     },
     beOpen() {
       return eq(this.status, 'open');
-    },
-    selectedNoEmpty() {
-      const { selected, isMultiple } = this;
-
-      if (isMultiple && JUDGE.IS_ARR(selected)) {
-        return selected.length > 0;
-      }
-
-      return !eq(selected, null) && !eq(selected, '');
     },
     chooseList() {
       const { selected, isMultiple } = this;
@@ -135,15 +129,32 @@ export default {
       return this.getSelectItem(selected).value;
     },
     listFilter() {
-      const { pulldonwList, searchVal } = this;
+      const { pulldownList, searchVal } = this;
 
-      return arrayFilter(pulldonwList, (item) => {
+      return arrayFilter(pulldownList, (item) => {
         const { key, value } = item;
         const inKey = key.indexOf(searchVal) >= 0;
         const inVal = value.indexOf(searchVal) >= 0;
 
         return item && item.value && (inKey || inVal);
       });
+    },
+    selectedNoEmpty() {
+      const { selected, isMultiple } = this;
+
+      if (isMultiple && JUDGE.IS_ARR(selected)) {
+        return selected.length > 0;
+      }
+
+      return !eq(selected, null) && !eq(selected, '');
+    },
+    statusChange() {
+      const { status, beSearching, beOpen } = this;
+
+      return {
+        'lilia-pulldown-disabled':  this.eq(status, "disabled"),
+        'lilia-pulldown-drop': beSearching || beOpen,
+      };
     },
   },
   watch: {
@@ -154,7 +165,10 @@ export default {
       this.searchVal = this.searchValue;
     },
     list(data) {
-      this.pulldonwList = this.checkList(data || []);
+      this.pulldownList = this.checkList(data || []);
+    },
+    isMultiple(isMultiple) {
+      this.selected = isMultiple ? [] : null;
     },
   },
   methods: {

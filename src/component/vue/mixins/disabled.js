@@ -28,13 +28,13 @@ export default {
     state.setFlowAction('useable', (status, e) => {
       this.status = status;
 
-      this.eventHappen(this.status, e);
+      this.$emit(status, e);
     });
 
     state.setFlowAction('disabled', (status, e) => {
       this.status = status;
 
-      this.eventHappen(this.status, e);
+      this.$emit(status, e);
     });
 
     state.wheelFlowAction(isDisabled ? 'disabled' : 'useable');
@@ -46,9 +46,6 @@ export default {
       if (!eq(status, 'disabled')) {
         JUDGE.DO_FUN(cb);
       }
-    },
-    eventHappen(evtName, e = {}) {
-      this.$emit(evtName, e);
     },
   },
 };

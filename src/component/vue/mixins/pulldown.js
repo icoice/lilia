@@ -15,8 +15,10 @@ export default {
 
     state.setFlowAction('clear', (status, e) => {
       this.noDisabled(() => {
+        const { isMultiple } = this;
+
         this.status = status;
-        this.selected = null;
+        this.selected = isMultiple ? [] : null;
         this.here = false;
 
         return this.eventHappen(this.status, e);

@@ -45,7 +45,7 @@
       transform: translateY(-50%);
     }
 
-    .lilia-common-icon::before {
+    .fa::before {
       display: block;
       font-size: 26pxr;
       color: #06f;

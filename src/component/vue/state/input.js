@@ -12,7 +12,7 @@ export default () => {
       'keyup',
       'keydown',
       'disabled',
-      'usable',
+      'useable',
     ],
     events: {
       INPUT_FOCUS: 'focus',
@@ -23,7 +23,7 @@ export default () => {
       INPUT_KEYDOWN: 'keydown',
       INPUT_CLEAR: 'clear',
       INPUT_DISABLED: 'disabled',
-      INPUT_USABLE: 'usable',
+      INPUT_USEABLE: 'useable',
     },
   });
 
@@ -36,7 +36,7 @@ export default () => {
   state.defineFlow('keydown', 'INPUT_KEYDOWN');
   state.defineFlow('clear', 'INPUT_CLEAR');
   state.defineFlow('disabled', 'INPUT_DISABLED');
-  state.defineFlow('usable', 'INPUT_USABLE');
+  state.defineFlow('useable', 'INPUT_USEABLE');
 
   return state;
 };

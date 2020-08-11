@@ -27,88 +27,71 @@ export default {
     const { state, isDisabled } = this;
 
     state.setFlowAction('input', (status, e) => {
-      if (eq(this.status, 'disabled')) return status;
-
-      this.status = status;
-      this.val = this.valueFilter(e.target.value);
-
-      this.eventHappen([this.status, 'change'], this.val);
+      this.noDisabled(() => {
+        this.status = status;
+        this.val = this.valueFilter(e.target.value);
+  
+        this.eventHappen([status, 'change'], this.val);
+      });
     });
 
     state.setFlowAction('change', (status, e) => {
-      if (eq(this.status, 'disabled')) return status;
-
-      this.status = status;
-      this.val = this.valueFilter(e.target.value);
-
-      this.eventHappen([this.status], this.val);
+      this.noDisabled(() => {
+        this.status = status;
+        this.val = this.valueFilter(e.target.value);
+  
+        this.eventHappen([status], this.val);
+      });
     });
 
     state.setFlowAction('keyup', (status, e) => {
-      if (eq(this.status, 'disabled')) return status;
-
-      this.status = status;
-      this.val = this.valueFilter(e.target.value);
-
-      this.eventHappen([this.status, 'change'], this.val);
+      this.noDisabled(() => {
+        this.status = status;
+        this.val = this.valueFilter(e.target.value);
+  
+        this.eventHappen([status, 'change'], this.val);
+      });
     });
 
     state.setFlowAction('keydown', (status, e) => {
-      if (eq(this.status, 'disabled')) return status;
-
-      this.status = status;
-      this.val = this.valueFilter(e.target.value);
-
-      this.eventHappen([this.status, 'change'], this.val);
+      this.noDisabled(() => {
+        this.status = status;
+        this.val = this.valueFilter(e.target.value);
+  
+        this.eventHappen([status, 'change'], this.val);
+      });
     });
 
     state.setFlowAction('focus', (status, e) => {
-      if (eq(this.status, 'disabled')) return status;
+      this.noDisabled(() => {
+        this.status = status;
 
-      this.status = status;
-
-      this.focus();
-      this.eventHappen([this.status], this.val);
+        this.focus();
+        this.eventHappen([status], this.val);
+      });
     });
 
     state.setFlowAction('blur', (status, e) => {
-      if (eq(this.status, 'disabled')) return status;
+      this.noDisabled(() => {
+        this.status = status;
 
-      this.status = status;
-
-      this.inputRecords.push(this.val);
-      this.blur();
-      this.eventHappen([this.status], this.val);
+        this.inputRecords.push(this.val);
+        this.blur();
+        this.eventHappen([status], this.val);
+      });
     });
 
     state.setFlowAction('clear', (status, e) => {
-      if (eq(this.status, 'disabled')) return status;
+      this.noDisabled(() => {
+        this.status = status;
+        this.val = '';
 
-      this.status = status;
-      this.val = '';
-
-      this.eventHappen([this.status, 'change'], this.val);
-      this.focus();
+        this.eventHappen([status, 'change'], this.val);
+        this.focus();
+      });
     });
-
-    state.setFlowAction('usable', (status, e) => {
-      this.status = status;
-      this.eventHappen([this.status], e);
-    });
-
-    state.setFlowAction('disabled', (status, e) => {
-      this.status = status;
-      this.eventHappen([this.status], e);
-    });
-
-    state.wheelFlowAction(isDisabled ? 'disabled' : 'useabled');
   },
   methods: {
-    eventAction(eventName, e) {
-      const { state } = this;
-
-      state.wheelFlowAction(eventName, e);
-    },
     valueFilter(value) {
       const { filter } = this;
 
@@ -128,10 +111,13 @@ export default {
 
       input.blur();
     },
+    eventAction(eventName, e) {
+      const { state } = this;
+
+      state.wheelFlowAction(eventName, e);
+    },
     eventHappen(evtNames = [], e = {}) {
-      evtNames.map((evtName) => {
-        this.$emit(evtName, e);
-      });
+      evtNames.map(evtName => this.$emit(evtName, e));
     },
   },
 };

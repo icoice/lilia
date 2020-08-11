@@ -3,7 +3,7 @@
 @import 'planes/border.css';
 
 .lilia-pulldown {
-  @mixin filament #efefef, 15px;
+  @mixin filament #afafaf, 15px;
   overflow: inherit;
   display: inline-block;
   position: relative;
@@ -25,10 +25,9 @@
   }
 
   .pulldown-list {
-    @mixin filament #efefef;
+    @mixin filament #afafaf;
     position: absolute;
     z-index: 100;
-    min-width: 300pxr;
     min-height: 60pxr;
     padding: 10pxr 10pxr 0 10pxr;
     background-color: #fff;
@@ -40,7 +39,7 @@
     }
 
     li {
-      @mixin filament-bottom #efefef;
+      @mixin filament-bottom #afafaf;
       float: none;
       margin: 0;
     }
@@ -70,7 +69,8 @@
     }
 
     .lilia-input {
-      min-width: 260pxr;
+      @mixin filament-bottom #cfcfcf;
+      box-shadow: none;
 
       .lilia-button.input-clear {
         display: inline-block;
@@ -81,10 +81,20 @@
           margin: 0;
         }
       }
+
+      .input-content {
+        font-size: 0;
+      }
+
+      input {
+        min-width: 300pxr;
+      }
     }
     
     .pulldown-checked {
-      border-bottom: 2px solid #006aff;
+      span.fa {
+        color: #006aff;
+      }
     }
   }
 
@@ -105,20 +115,33 @@
           display: block;
           padding: 5pxr;
           background-color: transparent;
-          font-size: 18pxr;
+          font-size: 0;
           color: #333;
         }
       }
     }
 
     .pulldown-control {
+      font-size: 0;
+
       .lilia-button {
+        transform-origin: center;
+        transform: translate(0,50%);
+
         .tap-area {
           padding: 0;
           background-color: transparent;
           border-radius: 0;
+
+          span {
+            color: #006aff;
+          }
         }
       }
+    }
+
+    .pulldown-remove {
+      margin-left: 10pxr;
     }
 
     .pulldown-title {
@@ -149,4 +172,9 @@
 
 .lilia-pulldown-disabled:before {
   background-color: #8e8e8e;
+}
+
+.lilia-pulldown-drop:before {
+  border-bottom-left-radius: 0;
+  border-bottom-right-radius: 0;
 }
