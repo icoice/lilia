@@ -1,6 +1,5 @@
 <template lang='pug'>
 div.lilia-datepicker.lilia(v-if='open'
-  class='lilia'
   @mouseover='e => isLeaveThis(1)'
   @mouseleave='e => isLeaveThis(0)')
   div.datepicker-nav
@@ -13,9 +12,9 @@ div.lilia-datepicker.lilia(v-if='open'
         @blur='editOver')
     div.nav-item
       lilia-button(@pressEnd='today')
-        span.iconfont.icon-today(slot='button')
+        span.fa.fa-calendar(slot='button')
       lilia-button(@pressEnd='done')
-        span.iconfont.icon-done(slot='button')
+        span.fa.fa-calendar-times-o(slot='button')
   div.datepicker-selector(class='speed-select')
     lilia-pulldown(
       :list='yearList'
@@ -58,7 +57,9 @@ import {
   eq,
   or,
   timestamp,
+  empty,
   week,
+  now,
 } from '../../common';
 import leaveMouseHide from './mixins/leaveMouseHide';
 
@@ -84,9 +85,7 @@ export default {
     show(has) {
       this.open = has;
     },
-    now() {
-      const { now } = this;
-
+    now(now) {
       this.current = timestamp(now) ? timestamp(now) : now;
       this.init();
     },
@@ -143,11 +142,6 @@ export default {
   activated() {
     this.init();
   },
-  updated() {
-    if (!this.open) {
-      this.$emit('autoHide');
-    }
-  },
   computed: {
     getCurrent() {
       const { current, isShowTime } = this;
@@ -169,9 +163,6 @@ export default {
       this.secondScope();
       this.setHideListener();
       this.$emit('init', this.current);
-    },
-    leaveHere() {
-      this.open = false;
     },
     formatCurrent(y, m, d, h, i, s) {
       return timestamp(this.isShowTime ?
@@ -317,12 +308,7 @@ export default {
       this.init();
       this.$emit('change', this.current);
     },
-    // 关闭
-    close() {
-      this.open = false;
 
-      this.$emit('close', this.open);
-    },
     // 可选时
     hourScope() {
       const { current, isShowTime, hours } = this;

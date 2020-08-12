@@ -3,7 +3,6 @@
 
 .lilia-datepicker {
   @mixin clear-select;
-  border: 1px solid #bac6cf;
   background-color: #fff;
 
   .lilia-pulldown {
@@ -27,8 +26,10 @@
     }
 
     .pulldown-list {
-      overflow-y: auto;
-      max-height: 500pxr;
+      ul {
+        overflow-y: auto;
+        max-height: 300pxr;
+      }
     }
 
     .pulldown-content .pulldown-value {
@@ -64,10 +65,18 @@
   }
 }
 
+.lilia-datepicker .datepicker-selector {
+  position: relative;
+  z-index: 10;
+
+  .lilia-pulldown:before {
+    display: none;
+  }
+}
+
 .lilia-datepicker .datepicker-nav {
   overflow: hidden;
   padding: 5pxr;
-  border-bottom: 1px solid #efefef;
   background-color: #fff;
 
   .nav-item {
@@ -76,7 +85,9 @@
   }
 
   .nav-item .lilia-input {
+    @mixin filament-bottom #cfcfcf;
     border: none;
+    box-shadow: none;
 
     input {
       font-size: 30pxr;
@@ -96,6 +107,15 @@
     .lilia-button {
       margin-top: 1pxr;
       margin-left: 5pxr;
+
+      .tap-area {
+        padding: 16pxr;
+        background-color: #fff;
+        
+        span {
+          color: #006cff;
+        }
+      }
     }
   }
 }
@@ -113,7 +133,6 @@
   position: relative;
   padding: 0;
   text-align: center;
-  border: 1px solid #d8eaf9;
 
   .lilia-button {
     display: block;
@@ -130,11 +149,12 @@
 }
 
 .lilia-datepicker .row tr td:first-child  {
-  background-color: #f8fcff;
+  background-color: #fff;
   color: #fff;
 }
 
 .lilia-datepicker .row tr td.select {
+  border-radius: 10pxr;
   background-color: #06f;
 
   .lilia-button .tap-area {
@@ -151,23 +171,24 @@
   padding: 10pxr 0;
   background-color: #fff;
   box-sizing: border-box;
-  color: #000;
+  color: #006cff;
 }
 
 .lilia-datepicker .datepicker-items table {
   tr.datepicker-week td {
-    background-color: #f8fcff;
+    @mixin filament-bottom #dfdfdf;
+    background-color: #fff;
   }
 
   tr.datepicker-week td:first-child {
-    background-color: #f8fcff;
+    background-color: #fff;
     color: #c21717;
   }
 }
 
 .lilia-datepicker .datepicker-items .datepicker-item-title {
   font-size: 14pxr;
-  color: ##fff;
+  color: #fff;
 }
 
 .lilia-datepicker .datepicker-items-operator {
@@ -183,7 +204,7 @@
 
   .datepicker-items {
     overflow-y: scroll;
-    height: 200pxr;
+    height: 150pxr;
   }
 
   .lilia-pulldown {

@@ -39,7 +39,6 @@
     }
 
     li {
-      @mixin filament-bottom #afafaf;
       float: none;
       margin: 0;
     }

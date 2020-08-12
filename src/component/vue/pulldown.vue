@@ -133,8 +133,8 @@ export default {
 
       return arrayFilter(pulldownList, (item) => {
         const { key, value } = item;
-        const inKey = key.indexOf(searchVal) >= 0;
-        const inVal = value.indexOf(searchVal) >= 0;
+        const inKey = String(key).indexOf(searchVal) >= 0;
+        const inVal = String(value).indexOf(searchVal) >= 0;
 
         return item && item.value && (inKey || inVal);
       });
