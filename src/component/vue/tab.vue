@@ -5,7 +5,7 @@ div.lilia-tab.lilia
       :class='selected && (selected.key === item.key || selected.key === code) ? "lilia-tab-selected" : ""')
       lilia-button(@pressEnd='e => change(item)')
         div(slot="button")
-          span.iconfont(:class="item.icon" v-if='item.icon')
+          span(:class="item.icon" v-if='item.icon')
           span(v-html='item.name')
   div.lilia-tab-container
     div.lilia-tab-content

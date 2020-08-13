@@ -1,5 +1,5 @@
 <template lang='pug'>
-div.lilia-datepicker.lilia(v-if='open'
+div.lilia-datepicker.lilia.scale-in-center(v-if='open'
   @mouseover='e => isLeaveThis(1)'
   @mouseleave='e => isLeaveThis(0)')
   div.datepicker-nav

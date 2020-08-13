@@ -1,5 +1,6 @@
 @import 'planes/base.css';
 @import 'planes/unit.css';
+@import './_common_animations.css';
 
 .lilia-datepicker {
   @mixin clear-select;
@@ -155,10 +156,11 @@
 
 .lilia-datepicker .row tr td.select {
   border-radius: 10pxr;
-  background-color: #06f;
 
   .lilia-button .tap-area {
-    color: #fff;
+    text-decoration: underline;
+    font-weight: bold;
+    color: #06f;
   }
 }
 

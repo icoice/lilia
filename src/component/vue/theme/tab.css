@@ -1,46 +1,6 @@
 @import 'planes/base.css';
 @import 'planes/unit.css';
 
-@media (width <= 720px) {
-  .lilia-tab .lilia-tab-buttons {
-    .lilia-tab-item {
-      @mixin border-top .lilia-button .tap-area, #efefef;
-      @mixin border-left .lilia-button .tap-area, #efefef;
-    }
-
-    @mixin border-right .lilia-tab-item:last-child, #efefef;
-
-    .lilia-tab-item:last-child {
-      overflow: visible;
-    }
-
-    .lilia-tab-item:last-child::after {
-      left: auto;
-      right: 0;
-      width: 1px;
-    }
-  }
-
-  .lilia-tab {
-    @mixin border .lilia-tab-container, #efefef;
-  }
-}
-
-@media (width > 720px) {
-  .lilia-tab .lilia-tab-buttons .lilia-tab-item {
-    border-top: 1px solid #efefef;
-    border-left: 1px solid #efefef;
-  }
-
-  .lilia-tab .lilia-tab-buttons .lilia-tab-item:last-child {
-    border-right: 1px solid #efefef;
-  }
-
-  .lilia-tab .lilia-tab-container {
-    border: 1px solid #efefef;
-  }
-}
-
 .lilia-tab {
   .lilia-tab-buttons {
     overflow: hidden;
@@ -67,27 +27,30 @@
     .lilia-tab-selected {
       .lilia-button {
         border-radius: 0;
-        background-color: #06f;
+        border-bottom: 2px solid #006cff;
       }
 
       .lilia-button {
         .tap-area {
-          color: #fff;
-        }
-
-        .iconfont {
-          color: #fff;
+          color: #006cff;
         }
       }
     }
   }
 
   .lilia-tab-container {
-    background-color: #fff;
+    @mixin filament #cfcfcf;
+    padding: 10pxr;
     clear: both;
 
     .lilia-tab-content {
       background-color: transparent;
     }
+  }
+
+  .lilia-tab-container:before {
+    border-left: none;
+    border-right: none;
+    border-bottom: none;
   }
 }

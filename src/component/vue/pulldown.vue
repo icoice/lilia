@@ -38,9 +38,9 @@ div.lilia-pulldown.lilia(
             div(slot='button' :key='code')
               span.fa.fa-check(v-if='choosed(item)')
               span {{ item.value }}
-  div.pulldown-list.pulldown-search(v-if='beSearching')
+  div.pulldown-list.pulldown-search.scale-up-ver-top(v-if='beSearching')
     +pulldownList
-  div.pulldown-list(v-if='beOpen')
+  div.pulldown-list.scale-up-ver-top(v-if='beOpen')
     +pulldownList
 </template>
 

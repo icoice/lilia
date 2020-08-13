@@ -1,6 +1,7 @@
 @import 'planes/base.css';
 @import 'planes/unit.css';
 @import 'planes/border.css';
+@import './_common_animations.css';
 
 .lilia-pulldown {
   @mixin filament #afafaf, 15px;

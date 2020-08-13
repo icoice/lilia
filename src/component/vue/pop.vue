@@ -3,8 +3,13 @@
     div.lilia-pop-header(:class='{"lilia-pop-open": isOpen}')
       lilia-button(@pressEnd='popShow')
         div.lilia-pop-button(slot='button')
-          slot(name='pop-header')
-    div.lilia-pop-content(v-show='isOpen')
+          div.pop-header
+            slot(name='pop-header')
+          div.fa-icon
+            div.fa.fa-chevron-up(v-if='isOpen')
+            div.fa.fa-chevron-down(v-else)
+          div(style='clear: both')
+    div.lilia-pop-content.scale-up-ver-top(v-show='isOpen')
       slot(name='pop-body')
 </template>
 

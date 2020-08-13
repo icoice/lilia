@@ -1,5 +1,6 @@
 @import 'planes/base.css';
 @import 'planes/unit.css';
+@import './_common_animations.css';
 
 .lilia-loading {
   @mixin clear-select;

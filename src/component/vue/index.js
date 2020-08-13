@@ -11,6 +11,7 @@ import liliaPop from './pop';
 import liliaPulldown from './pulldown';
 import liliaToast from './toast';
 import liliaTable from './table';
+import liliaTab from './tab';
 import liliaUploadFile from './uploadFile';
 
 const components = {
@@ -26,6 +27,7 @@ const components = {
   liliaPulldown,
   liliaTable,
   liliaToast,
+  liliaTab,
   liliaUploadFile,
 };
 
@@ -42,6 +44,7 @@ export {
   liliaPulldown,
   liliaTable,
   liliaToast,
+  liliaTab,
   liliaUploadFile,
 };
 

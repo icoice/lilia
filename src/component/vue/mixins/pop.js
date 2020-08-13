@@ -2,13 +2,9 @@ import { JUDGE, eq } from '../../../common';
 
 export default {
   props: {
-    name: {
-      type: String,
-      default: 'POP NAME',
-    },
     componentStatus: {
-      type: Boolean,
-      default: false,
+      type: String,
+      default: 'close',
     },
   },
   watch: {

@@ -2,21 +2,21 @@
 div.lilia-loading.lilia
   div.load-mask(v-if='status === "loadStart"')
     div.load-content(v-if='loadType === 0')
-      one
+      one.bounce-in-top 
     div.load-content(v-if='loadType === 1')
-      two
+      two.bounce-in-top 
     div.load-content(v-if='loadType === 2')
-      three
+      three.bounce-in-top 
     div.load-content(v-if='loadType === 3')
-      four
+      four.bounce-in-top 
     div.load-content(v-if='loadType === 4')
-      five
+      five.bounce-in-top 
     div.load-content(v-if='loadType === 5')
-      six
+      six.bounce-in-top 
     div.load-content(v-if='loadType === 6')
-      seven
+      seven.bounce-in-top 
     div.load-content(v-if='loadType === 7')
-      eight
+      eight.bounce-in-top 
   slot(name='loadEnd' v-else)
 </template>
 

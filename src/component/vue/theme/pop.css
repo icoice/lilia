@@ -1,28 +1,53 @@
+@import 'planes/base.css';
+@import 'planes/unit.css';
+@import './_common_animations.css';
+
 .lilia-pop {
   display: inline-block;
   position: relative;
 
   .lilia-pop-header {
+    @mixin filament #cfcfcf, 10px;
     display: inline-block;
+    
+    .pop-header {
+      float: left;
+      text-align: center;
+    }
+
+    .fa-icon {
+      float: left;
+      margin-left: 10pxr;
+      text-align: center;
+
+      .fa {
+        font-size: 14pxr;
+        color: #006cff;
+      }
+    }
 
     .lilia-button .tap-area {
       min-width: 120pxr;
-      padding: 0;
-      background: #fff;
+      padding: 10pxr;
+      background-color: transparent;
       border-radius: 5pxr;
       text-shadow: none;
       color: #333;
     }
   }
 
-  .lilia-pop-open {
-    .lilia-button .tap-area {
-      border-bottom-left-radius: 0;
-      border-bottom-right-radius: 0;
-    }
+  .lilia-pop-header:before {
+    background-color: #fff;
+  }
+
+  .lilia-pop-open:before {
+    border-bottom: none;
+    border-bottom-left-radius: 0;
+    border-bottom-right-radius: 0;
   }
 
   .lilia-pop-content {
+    @mixin filament #cfcfcf;
     position: absolute;
     z-index: 10;
     margin-top: -1px;
