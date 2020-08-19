@@ -53,13 +53,16 @@ export const JUDGE = {
   NO_UND: val => typeof val !== 'undefined',
   // Date
   IS_DAT: val => val instanceof Date,
-  NO_DAT: val => !val instanceof Date,
+  NO_DAT: val => !JUDGE.IS_DAT(val),
   // FormData
   IS_FOD: val => val instanceof FormData,
-  NO_FOD: val => !val instanceof FormData,
+  NO_FOD: val => !JUDGE.IS_FOD(val),
   // File
   IS_FIL: val => val instanceof File,
-  NO_FIL: val => !val instanceof File,
+  NO_FIL: val => !JUDGE.IS_FIL(val),
+  // File Image
+  IS_IMG: val => JUDGE.IS_FIL(val) && val.type.indexOf('image') >= 0,
+  NO_IMG: val => !JUDGE.IS_IMG(val),
   // FileReader
   IS_FIR: val => val instanceof FileReader,
   NO_FIR: val => !val instanceof FileReader,
