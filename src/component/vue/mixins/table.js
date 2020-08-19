@@ -1,10 +1,3 @@
-import {
-  replaceHump,
-  eq,
-  empty,
-  htmlCollectionToArray,
-} from '../../../common';
-
 export default {
   props: {
     list: {
@@ -42,7 +35,7 @@ export default {
     const { state } = this;
 
     state.setFlowAction('narrowScreen', (status) => {
-      this.statusChange(replaceHump(status, '-'));
+      this.statusChange(this.$replaceHump(status, '-'));
       this.eventHappen(status);
     });
 
@@ -60,9 +53,6 @@ export default {
     state.wheelFlowAction('narrowScreen');
   },
   methods: {
-    eq,
-    empty,
-
     triggerOption(option) {
       this.$emit('trigger', option);
     },
@@ -76,7 +66,7 @@ export default {
           const { scrollTop } = this;
           const { offsetTop } = table;
           const thead = table.querySelector('table thead td');
-          const headList = htmlCollectionToArray(thead);
+          const headList = this.$htmlCollectionToArray(thead);
           const top = `${scrollTop - offsetTop}px`;
 
           headList.map((td) => {
@@ -89,7 +79,7 @@ export default {
         const { scrollY } = this;
         const { offsetTop } = table;
         const thead = table.querySelector('table thead td');
-        const headList = htmlCollectionToArray(thead);
+        const headList = this.$htmlCollectionToArray(thead);
         const top = `${scrollY - offsetTop}px`;
 
         headList.map((td) => {

@@ -1,5 +1,3 @@
-import { JUDGE, eq } from '../../../common';
-
 export default {
   props: {
     componentStatus: {
@@ -24,7 +22,7 @@ export default {
     const { state, isDisabled } = this;
 
     state.setFlowAction('open', (status, e) => {
-      if (eq(this.status, 'disabled')) return status;
+      if (this.$eq(this.status, 'disabled')) return status;
 
       this.status = status;
 
@@ -32,7 +30,7 @@ export default {
     });
 
     state.setFlowAction('close', (status, e) => {
-      if (eq(this.status, 'disabled')) return status;
+      if (this.$eq(this.status, 'disabled')) return status;
 
       this.status = status;
 

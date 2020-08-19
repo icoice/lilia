@@ -1,5 +1,3 @@
-import { JUDGE, eq, isMob } from '../../../common';
-
 export default {
   data() {
     return {
@@ -13,8 +11,8 @@ export default {
     // 按下动作流程
     state.setFlowAction('press', (status, e) => {
       this.noDisabled(() => {
-        if (!eq(this.status, 'cancel')) {
-          if (eq(status, 'pressStart')) {
+        if (!this.$eq(this.status, 'cancel')) {
+          if (this.$eq(status, 'pressStart')) {
             this.point = this.getPoint(e);
           }
 
@@ -51,8 +49,6 @@ export default {
     });
   },
   methods: {
-    isMob,
-
     onTapMove(e) {
       const { state } = this;
 
@@ -89,7 +85,7 @@ export default {
       const point = e.touches || e.changedTouches || e;
       let touchPoint = { x: 1, y: 1 };
 
-      JUDGE.IN(point, {
+      this.$IN(point, {
         IS_OBJ() {
           touchPoint = {
             x: point.pageX,

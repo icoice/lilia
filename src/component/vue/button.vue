@@ -27,13 +27,13 @@ export default {
   }),
   methods: {
     checkEnv() {
-      this.isMobile = this.isMob();
+      this.isMobile = this.$isMob();
 
       if (!this.bindReisze) {
         this.bindReisze = true;
 
         window.addEventListener('resize', () => {
-          this.isMobile = this.isMob();
+          this.isMobile = this.$isMob();
         });
       }
     },

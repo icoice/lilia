@@ -51,16 +51,6 @@ div.lilia-datepicker.lilia.scale-in-center(v-if='open'
 </template>
 
 <script>
-import {
-  JUDGE,
-  dateFormat,
-  eq,
-  or,
-  timestamp,
-  empty,
-  week,
-  now,
-} from '../../common';
 import leaveMouseHide from './mixins/leaveMouseHide';
 
 export default {
@@ -86,7 +76,7 @@ export default {
       this.open = has;
     },
     now(now) {
-      this.current = timestamp(now) ? timestamp(now) : now;
+      this.current = this.$timestamp(now) ? this.$timestamp(now) : now;
       this.init();
     },
     showTime(time) {
@@ -146,11 +136,11 @@ export default {
     getCurrent() {
       const { current, isShowTime } = this;
 
-      if (eq(current, '')) return current;
+      if (this.$eq(current, '')) return current;
 
       const format = isShowTime ? 'YYYY-MM-DD HH:II:SS' : 'YYYY-MM-DD';
 
-      return dateFormat(format, current);
+      return this.$dateFormat(format, current);
     },
   },
   methods: {
@@ -165,7 +155,7 @@ export default {
       this.$emit('init', this.current);
     },
     formatCurrent(y, m, d, h, i, s) {
-      return timestamp(this.isShowTime ?
+      return this.$timestamp(this.isShowTime ?
         `${y}/${m}/${d} ${h}:${i}:${s}` :
         `${y}/${m}/${d}`);
     },
@@ -262,7 +252,7 @@ export default {
     },
     // 返回今天
     today() {
-      const td = now();
+      const td = this.$now();
       const d = td.day;
       const h = td.hour;
       const i = td.minute;
@@ -277,12 +267,12 @@ export default {
     // 所选日期
     choose(type, number) {
       const { years, months, days, hours, minutes, seconds } = this;
-      let d = eq(type, 'day') ? number : this.nowDay;
-      let h = eq(type, 'hour') ? number : this.nowHour;
-      let i = eq(type, 'minute') ? number : this.nowMinute;
-      let m = eq(type, 'month') ? number : this.nowMonth;
-      let s = eq(type, 'second') ? number : this.nowSecond;
-      let y = eq(type, 'year') ? number : this.currentYear;
+      let d = this.$eq(type, 'day') ? number : this.nowDay;
+      let h = this.$eq(type, 'hour') ? number : this.nowHour;
+      let i = this.$eq(type, 'minute') ? number : this.nowMinute;
+      let m = this.$eq(type, 'month') ? number : this.nowMonth;
+      let s = this.$eq(type, 'second') ? number : this.nowSecond;
+      let y = this.$eq(type, 'year') ? number : this.currentYear;
 
       if (y < years[0]) y = years[0];
       if (y > years[1]) y = years[1];
@@ -368,12 +358,12 @@ export default {
       const max = years[1];
       let list = [];
 
-      if (empty(this.yearList)) {
+      if (this.$empty(this.yearList)) {
         let start = selectYearScope[0];
         let end = selectYearScope[1];
 
-        if (eq(selectYearScope[0], null)) start = nowYear - Math.floor(amount / 2);
-        if (eq(selectYearScope[1], null)) end = nowYear + Math.floor(amount / 2);
+        if (this.$eq(selectYearScope[0], null)) start = nowYear - Math.floor(amount / 2);
+        if (this.$eq(selectYearScope[1], null)) end = nowYear + Math.floor(amount / 2);
         if (start < min) start = min;
         if (end > max) end = max;
 
@@ -419,7 +409,7 @@ export default {
       const currentYear = date.getFullYear();
       const nowMonth = date.getMonth() + 1;
       const nowDay = date.getDate();
-      const firstWeek = week(`${currentYear}/${nowMonth}/1`);
+      const firstWeek = this.$week(`${currentYear}/${nowMonth}/1`);
       const min = 1;
       const max = days[nowMonth - 1] + firstWeek;
       const cols = this.cols;
@@ -437,9 +427,9 @@ export default {
 
         line.push(i - firstWeek);
 
-        if (or([
-          eq(grid % cols, 0),
-          eq(max, i)],
+        if (this.$or([
+          this.$eq(grid % cols, 0),
+          this.$eq(max, i)],
         )) {
           list.push([].concat(line));
           line = [];

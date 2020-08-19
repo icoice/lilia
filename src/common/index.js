@@ -73,6 +73,7 @@ export default {
   ...device,
   ...file,
   ...image,
+
   JUDGE,
   arrayFilter,
   arrayPile,

@@ -42,6 +42,25 @@ export const vueRun = (Vue, stores, middleware = []) => {
     loop(stores, (build, name) => build(new Store(name)));
   });
 
+  Vue.use({
+    install(Vue, options) {
+      const judgeKeys = Object.keys(JUDGE);
+      const commonKeys = Object.keys(common);
+
+      judgeKeys.map((name) => {
+        Vue.prototype[`$${name}`] = JUDGE[name];
+
+        return name;
+      });
+
+      commonKeys.map((name) => {
+        Vue.prototype[`$${name}`] = common[name];
+
+        return name;
+      });
+    },
+  });
+
   Vue.use(Router);
 
   return (App, routes, callback) => {
@@ -50,7 +69,10 @@ export const vueRun = (Vue, stores, middleware = []) => {
     const router = new Router(routes);
 
     JUDGE.DO_FUN(callback, [
-      { store, router },
+      {
+        store,
+        router,
+      },
     ]);
 
     return new Vue({

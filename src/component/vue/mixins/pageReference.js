@@ -1,5 +1,3 @@
-import { eq } from  '../../../common';
-
 export default {
   props: {
     no: {
@@ -49,7 +47,7 @@ export default {
     no(no) {
       this.currentNo = no;
 
-      if (eq(no, 1)) {
+      if (this.$eq(no, 1)) {
         this.firstPageNo();
       }
 
@@ -70,7 +68,7 @@ export default {
     selected(pageNo) {
       const { currentNo } = this;
 
-      return eq(currentNo, pageNo) ? 'page-selected' : '';
+      return this.$eq(currentNo, pageNo) ? 'page-selected' : '';
     },
     getTotalPage() {
       const { pageTotal, pageSize } = this;

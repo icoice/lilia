@@ -1,7 +1,3 @@
-import { JUDGE, webpSupport, eq, imageCompress } from '../../../common';
-
-let lazyCounter = 0;
-
 export default {
   props: {
     name: {
@@ -39,38 +35,52 @@ export default {
       state.wheelFlowAction('load');
     },
   },
+  computed: {
+    isReadOrigin() {
+      return this.$IS_STR(this.originFile);
+    },
+  },
   created() {
-    webpSupport('lossy').then((is) => {
+    this.$memory('lazyCounter', 0);
+    this.$webpSupport('lossy').then((is) => {
       this.isSupportWebp = is;
     });
   },
-  computed: {
-    isReadOrigin() {
-      const { express, originFile } = this;
-
-      return eq(express, 1) && !JUDGE.BELONG(originFile, File);
-    },
+  activated() {
+    state.wheelFlowAction('load');
   },
   mounted() {
     const { state } = this;
+    let lazyCounter =  this.$memory('lazyCounter');
 
-    lazyCounter = lazyCounter > 10 ? 0 : lazyCounter + 1;
+    if (lazyCounter > 10) {
+      this.$memory('lazyCounter', 0);
+      lazyCounter = 0;
+    } else {
+      lazyCounter = lazyCounter + 1;
+    }
 
     state.setFlowAction('load', (status) => {
-      setTimeout(() => this.compress(status), lazyCounter * 200);
+      if (!this.file64) {
+        setTimeout(
+          () => this.compress(status),
+          lazyCounter * 200);
+      }
     });
   },
   methods: {
     compress(status) {
-      webpSupport('lossy').then((is) => {
-        const { express, isReadOrigin, name, originFile, webp } = this;
+      const { $imageCompress } = this;
+
+      this.$webpSupport('lossy').then((is) => {
+        const { express, isReadOrigin, originFile, webp } = this;
         const file = is && webp ? webp : originFile;
 
         if (isReadOrigin) {
           return this.eventHappen(status, file);
         }
 
-        return imageCompress(file, express).then((file64) => {
+        return $imageCompress(file, express).then((file64) => {
           this.file64 = file64;
           this.status = status;
 

@@ -4,7 +4,6 @@
       div(slot='loadEnd')
         img.image-body.animated.fadeIn(v-if='webp && isSupportWebp'
           :src='webp' @error='isSupportWebp = false')
-        // 如果压缩值为1， 且原数据不为文件对象时，则直接读取
         img.image-body.animated.fadeIn(v-else
           :src='isReadOrigin ? originFile : file64')
 </template>

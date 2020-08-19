@@ -1,5 +1,3 @@
-import { JUDGE, eq } from '../../../common';
-
 export default {
   data() {
     return {
@@ -46,7 +44,9 @@ export default {
       this.here = true;
     },
     outsideScopeClose() {
-      if (!this.here && JUDGE.IS_CON(this.status, ['open', 'change'])) {
+      const { status, here } = this;
+
+      if (!here && this.$IS_CON(status, ['open', 'change'])) {
         this.state.wheelFlowAction('drop');
       } else {
         this.here = false;
@@ -54,11 +54,11 @@ export default {
     },
     getSelectItem(item) {
       const list = this.pulldonwList || this.checkList(this.list || []);
-      let key = JUDGE.IS_OBJ(item) ? item.key : item;
+      let key = this.$IS_OBJ(item) ? item.key : item;
       let selected = null;
 
       list.map((item) => {
-        if (eq(item.key, key)) {
+        if (this.$eq(item.key, key)) {
           selected = item;
         }
 
@@ -68,14 +68,16 @@ export default {
       return selected || {};
     },
     checkItem(item) {
-      if (JUDGE.IS_STR(item)) {
+      if (this.$IS_STR(item)) {
         return {
           key: item,
           value: item,
         };
       }
 
-      if (JUDGE.IS_OBJ(item) && JUDGE.NO_NUL(item) && JUDGE.IS_UND(item.key)) {
+      if (this.$IS_OBJ(item) &&
+          this.$NO_NUL(item) &&
+          this.$IS_UND(item.key)) {
         item.key = item.value;
 
         return item;
@@ -84,9 +86,7 @@ export default {
       return item;
     },
     checkList(list) {
-      return list.map((item) => {
-        return this.checkItem(item);
-      });
+      return list.map(item => this.checkItem(item));
     },
     eventHappen(evtName, e = {}) {
       this.$emit(evtName, e);

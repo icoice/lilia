@@ -1,28 +1,31 @@
 <template lang='pug'>
-  div.lilia-upload-file.lilia(:class='this.status === "disabled" ? "upload-file-disabled" : ""')
+  div.lilia-upload-file.lilia(
+    :class='this.status === "disabled" ? "upload-file-disabled" : ""')
     div.upload-disabled-mask(v-if='this.status === "disabled"')
     div.upload-button
       div.upload-button-content
-        span.iconfont.icon-insertdrivefile
+        span.fa.fa-upload
         span.upload-button-name {{ name }}
-        span.upload-button-limit {{ limit !== '' ? `  / 支持文件类型：${limit}` : '' }}
+        span.upload-button-limit {{ limit !== '' ? `（仅支持${limit}）` : '' }}
       input(type='file' :name='name' :multiple='isMultiple' @change='getFiles')
-    div.file-list
-      ul
-        li.file-item(v-for='file in inputFiles' :class='{"file-extend-error": !limitFile(file.name)}')
-          div.file-item-preview(v-if='isShowImage')
-            lilia-image(:name='file.name' :file='file')
-          div.file-item-content
-            p.file-error(v-if='!limitFile(file.name)') 文件格式错误，请更换上传文件。
-            div.file-item-line
-              span.name 文件名称：
-              span.value {{ file.name }}
-            div.file-item-line
-              span.name 文件大小：
-              span.value {{ MB(file.size) }}MB
-            div.file-item-line
-              span.name 修改日期：
-              span.value {{ file.lastModifiedDate }}
+    lilia-pop(v-if='inputFiles && inputFiles.length > 0')
+      div(slot='pop-header') 已选择文件（{{ inputFiles.length }}）个
+      div.file-list(slot='pop-body')
+        ul
+          li.file-item(v-for='file in inputFiles' :class='{"file-extend-error": !limitFile(file.name)}')
+            div.file-item-preview(v-if='isShowImage')
+              lilia-image(:name='file.name' :file='file')
+            div.file-item-content
+              div.file-item-line
+                span.name 文件名称：
+                span.value {{ file.name }}
+              div.file-item-line
+                span.name 文件大小：
+                span.value {{ MB(file.size) }}MB
+              div.file-item-line
+                span.name 修改日期：
+                span.value {{ file.lastModifiedDate }}
+              p.file-error(v-if='!limitFile(file.name)') 格式错误
 </template>
 
 <script>
@@ -39,7 +42,7 @@ export default {
   props: {
     name: {
       type: String,
-      default: '选择上传文件',
+      default: '上传文件',
     },
     isShowImage: {
       type: Boolean,

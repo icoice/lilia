@@ -3,50 +3,56 @@
 @import 'planes/unit.css';
 
 .lilia-upload-file {
-  @mixin clear-select;
   position: relative;
-  overflow: hidden;
   display: inline-block;
 
   .file-list {
     margin-top: 5pxr;
 
     .file-item {
-      @mixin filament-bottom #cfcfcf;
+      @mixin filament-bottom #dfdfdf;
 
       padding-bottom: 5pxr;
-      background-color: #fafafa;
+      background-color: transparent;
       color: #666;
 
       .file-item-preview {
         width: 100%;
       }
 
+      .file-item-content {
+        padding: 10pxr 0;
+      }
+
       .file-error {
-        padding: 5pxr;
-        font-size: 14pxr;
+        position: absolute;
+        top: 50%;
+        right: 0;
+        transform-origin: center;
+        transform: translateY(-50%) rotate(45deg);
+        padding: 0.5rem;
+        border-radius: 5px;
+        border: 1px solid #c00;
+        opacity: 0.8;
+        line-height: 1;
+        font-size: 0.7rem;
         color: #c00;
       }
 
       .file-item-line {
         overflow: hidden;
-        padding-left: 5pxr;
-        padding-right: 5pxr;
+        white-space: nowrap;
 
         .name {
-          float: left;
-          display: block;
           text-align: right;
           padding-top: 5pxr;
           padding-left: 5pxr;
           padding-right: 5pxr;
           width: 100pxr;
-          color: #333;
+          color: #0065ff;
         }
 
         .value {
-          float: left;
-          display: block;
           text-align: left;
           padding-top: 5pxr;
           padding-left: 5pxr;
@@ -54,9 +60,14 @@
         }
       }
     }
+
+    .file-item:last-child::before {
+      display: none;
+    }
   }
 
   .upload-button {
+    float: left;
     position: relative;
     background-color: #06f;
     border-radius: 5pxr;
@@ -78,6 +89,14 @@
     padding: 10pxr;
     text-align: center;
     color: #fff;
+
+    span {
+      margin-right: 5pxr;
+    }
+
+    span:last-child {
+      margin-right: 0;
+    }
   }
 
   .upload-disabled-mask {
@@ -88,5 +107,15 @@
     width: 100%;
     height: 100%;
     background: rgba(216, 216, 216, 0.65);
+  }
+
+  .lilia-pop {
+    float: left;
+    margin-left: 5pxr;
+    font-size: 0;
+
+    .lilia-pop-header {
+      font-size: 0;
+    }
   }
 }

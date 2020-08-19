@@ -1,5 +1,3 @@
-import { JUDGE } from '../../../common';
-
 export default {
   props: {
     files: {

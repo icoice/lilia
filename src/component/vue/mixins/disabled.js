@@ -1,6 +1,3 @@
-import state from '../state';
-import { eq, JUDGE } from '../../../common';
-
 export default {
   props: {
     disabled: {
@@ -43,8 +40,8 @@ export default {
     noDisabled(cb) {
       const { status } = this;
 
-      if (!eq(status, 'disabled')) {
-        JUDGE.DO_FUN(cb);
+      if (!this.$eq(status, 'disabled')) {
+        this.$DO_FUN(cb);
       }
     },
   },

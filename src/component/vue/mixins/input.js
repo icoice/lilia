@@ -1,5 +1,3 @@
-import { JUDGE, eq } from '../../../common';
-
 export default {
   props: {
     value: {
@@ -24,7 +22,7 @@ export default {
     },
   },
   mounted() {
-    const { state, isDisabled } = this;
+    const { state } = this;
 
     state.setFlowAction('input', (status, e) => {
       this.noDisabled(() => {

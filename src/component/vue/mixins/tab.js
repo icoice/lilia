@@ -1,5 +1,3 @@
-import { JUDGE } from '../../../common';
-
 export default {
   props: {
     value: {
@@ -30,7 +28,7 @@ export default {
   },
   methods: {
     format(value) {
-      if (JUDGE.IS_STR(value) || JUDGE.IS_NUM(value)) {
+      if (this.$IS_STR(value) || this.$IS_NUM(value)) {
         return {
           key: value,
         };

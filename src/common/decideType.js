@@ -73,7 +73,7 @@ export const JUDGE = {
     Object.entries(sequence).map((kv) => {
       const [typeName, callback] = kv;
 
-      if (this.IS_FUN(callback) && this.IS_FUN(JUDGE[typeName])) {
+      if (JUDGE.IS_FUN(callback) && JUDGE.IS_FUN(JUDGE[typeName])) {
         if (JUDGE[typeName](value)) {
           count += 1;
           callback();
@@ -81,43 +81,43 @@ export const JUDGE = {
       }
     });
 
-    if (!count && this.IS_FUN(sequence.DEF)) {
+    if (!count && JUDGE.IS_FUN(sequence.DEF)) {
       sequence.DEF();
     }
   },
   DO_FUN(fn, params = []) {
-    if (this.IS_FUN(fn)) {
+    if (JUDGE.IS_FUN(fn)) {
       return fn(...params);
     }
   },
   IS_CON(v, t) {
-    if (this.NO_STR(t) && this.NO_ARR(t)) {
+    if (JUDGE.NO_STR(t) && JUDGE.NO_ARR(t)) {
       return false;
     }
 
     return t.indexOf(v) >= 0;
   },
   NO_CON(v, t) {
-    if (this.NO_STR(t) && this.NO_ARR(t)) {
+    if (JUDGE.NO_STR(t) && JUDGE.NO_ARR(t)) {
       return false;
     }
 
     return t.indexOf(v) < 0;
   },
   BELONG(v, t) {
-    if (this.NO_OBJ(t)) {
+    if (JUDGE.NO_OBJ(t)) {
       return false;
     }
 
     return (v instanceof t) || v === t;
   },
   BELONG_IN(v, t) {
-    if (this.NO_ARR(t)) {
+    if (JUDGE.NO_ARR(t)) {
       return false;
     }
 
     for (let i = 0; i < t.length; i += 1) {
-      if (this.BELONG(v, t[i])) {
+      if (JUDGE.BELONG(v, t[i])) {
         return true;
       }
 
