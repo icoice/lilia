@@ -37,12 +37,12 @@ export const JUDGE = {
   NO_JSN: val => typeof val !== 'string' || !(isJSONStr(val) || isArrStr(val)),
   BY_JSN: val => JUDGE.IS_UND(val) || JUDGE.IS_JSN(val),
   // Array
-  IS_ARR: val => (val instanceof Array),
-  NO_ARR: val => !(val instanceof Array),
+  IS_ARR: val => JUDGE.NO_NUL(val) && JUDGE.IS_OBJ(val) && (val instanceof Array),
+  NO_ARR: val => !JUDGE.IS_ARR(val),
   BY_ARR: val => JUDGE.IS_UND(val) || JUDGE.IS_ARR(val),
   // RegExp
-  IS_REG: val => val instanceof RegExp,
-  NO_REG: val => !(val instanceof RegExp),
+  IS_REG: val => JUDGE.NO_NUL(val) && JUDGE.IS_OBJ(val) && (val instanceof RegExp),
+  NO_REG: val => !JUDGE.IS_REG(val),
   BY_BON: val => JUDGE.IS_UND(val) || JUDGE.IS_REG(val),
   // NaN
   IS_NAN: val => isNaN(val),
@@ -52,23 +52,26 @@ export const JUDGE = {
   IS_UND: val => typeof val === 'undefined',
   NO_UND: val => typeof val !== 'undefined',
   // Date
-  IS_DAT: val => val instanceof Date,
+  IS_DAT: val =>  JUDGE.NO_NUL(val) && JUDGE.IS_OBJ(val) && (val instanceof Date),
   NO_DAT: val => !JUDGE.IS_DAT(val),
   // FormData
-  IS_FOD: val => val instanceof FormData,
+  IS_FOD: val => JUDGE.NO_NUL(val) && JUDGE.IS_OBJ(val) && (val instanceof FormData),
   NO_FOD: val => !JUDGE.IS_FOD(val),
   // File
-  IS_FIL: val => val instanceof File,
+  IS_FIL: val => JUDGE.NO_NUL(val) && JUDGE.IS_OBJ(val) && (val instanceof File),
   NO_FIL: val => !JUDGE.IS_FIL(val),
   // File Image
   IS_IMG: val => JUDGE.IS_FIL(val) && val.type.indexOf('image') >= 0,
   NO_IMG: val => !JUDGE.IS_IMG(val),
   // FileReader
-  IS_FIR: val => val instanceof FileReader,
-  NO_FIR: val => !val instanceof FileReader,
+  IS_FIR: val => JUDGE.NO_NUL(val) && JUDGE.IS_OBJ(val) && (val instanceof FileReader),
+  NO_FIR: val => !JUDGE.IS_FIR(val),
   // Promise
-  IS_PRO: val => val instanceof Promise || (JUDGE.IS_FUN(val.then) && JUDGE.IS_FUN(val.catch)),
+  IS_PRO: val => JUDGE.NO_NUL(val) && JUDGE.IS_OBJ(val) && val instanceof Promise || (JUDGE.IS_FUN(val.then) && JUDGE.IS_FUN(val.catch)),
   NO_PRO: val => !JUDGE.IS_PRO(val),
+  // dom
+  IS_DOM: val => JUDGE.IS_OBJ(val) && JUDGE.IS_NUM(val.nodeType),
+  NO_DOM: val => !JUDGE.IS_DOM(val),
   // multiple swtich
   IN(value, sequence) {
     let count = 0;

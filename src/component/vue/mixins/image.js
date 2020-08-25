@@ -1,27 +1,28 @@
 export default {
   props: {
-    name: {
-      type: String,
-      default: String(Date.now()),
-    },
-    webp: {
-      type: [File, String],
-      default: null,
-    },
+    // 需载入的图像
     file: {
-      type: [File, String],
+      type: [Object, File, String],
       default: null,
     },
+    // 压缩比例
     express: {
       type: Number,
       default: 1,
     },
+    // 设置超时
+    timeout: {
+      type: Number,
+      default: 120 * 1000,
+    },
   },
   data() {
     return {
-      file64: null,
-      isSupportWebp: false,
-      originFile: this.file,
+      file64: null, // 已编码为base64的图像文件
+      originFile: this.file, // 源文件
+      isSupportWebp: false, // 是否支持webp
+      isLoadImageFail: false, // 是否载入图片失败
+      timeConsuming: 0, // 载入耗时 
       status: '',
     };
   },
@@ -31,26 +32,34 @@ export default {
 
       this.originFile = file;
       this.file64 = null;
-
+      
       state.wheelFlowAction('load');
     },
   },
   computed: {
+    // 如果文件是字符串且无需压缩则读取源文件
     isReadOrigin() {
-      return this.$IS_STR(this.originFile);
+      const { $IS_STR, originFile, express } = this;
+
+      return $IS_STR(originFile) && express;
     },
   },
   created() {
     this.$memory('lazyCounter', 0);
+    // 校验浏览器是否支持webp
     this.$webpSupport('lossy').then((is) => {
       this.isSupportWebp = is;
     });
   },
   activated() {
+    const { state } = this;
+
     state.wheelFlowAction('load');
   },
   mounted() {
     const { state } = this;
+
+    // 多图像同页面延迟加载处理，减轻浏览器渲染负担
     let lazyCounter =  this.$memory('lazyCounter');
 
     if (lazyCounter > 10) {
@@ -60,6 +69,7 @@ export default {
       lazyCounter = lazyCounter + 1;
     }
 
+    // 预定义压缩以及编译成base64码（这里才是消耗大的地方）
     state.setFlowAction('load', (status) => {
       if (!this.file64) {
         setTimeout(
@@ -73,20 +83,17 @@ export default {
       const { $imageCompress } = this;
 
       this.$webpSupport('lossy').then((is) => {
-        const { express, isReadOrigin, originFile, webp } = this;
-        const file = is && webp ? webp : originFile;
+        const { express, isReadOrigin, originFile } = this;
 
         if (isReadOrigin) {
-          return this.eventHappen(status, file);
+          return this.eventHappen(status, originFile);
         }
 
-        return $imageCompress(file, express).then((file64) => {
+        return $imageCompress(originFile, express).then((file64) => {
           this.file64 = file64;
           this.status = status;
 
-          this.eventHappen(status, {
-            file64,
-          });
+          this.eventHappen(status, { file64 });
         });
       });
     },

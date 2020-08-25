@@ -28,7 +28,6 @@ export default {
     const { state } = this;
 
     state.setFlowAction('change', (status, files) => {
-      console.log(files);
       this.inputFiles = files;
       this.eventHappen(status, this.inputFiles);
     });

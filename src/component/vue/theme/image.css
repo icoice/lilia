@@ -4,8 +4,23 @@
 .lilia-image {
   overflow: hidden;
   position: relative;
-  min-height: 200pxr;
+  display: inline-block;
   background-color: #333;
+
+  .image-exception {
+    margin: 10pxr;
+    text-align: center;
+
+    span {
+      font-size: 60pxr;
+      color: #fff;
+    }
+
+    p {
+      font-size: 12pxr;
+      color: #fff;
+    }
+  }
 
   .lilia-loading {
     position: absolute;
@@ -13,9 +28,11 @@
     left: 50%;
     transform-origin: center;
     transform: translate(-50%, -50%);
+    transition: 500ms;
 
     img {
       width: 100%;
+      transition: 500ms;
     }
   }
 

@@ -13,7 +13,7 @@
       div.file-list(slot='pop-body')
         ul
           li.file-item(v-for='file in inputFiles' :class='{"file-extend-error": !limitFile(file.name)}')
-            div.file-item-preview(v-if='isShowImage && $IS_IMG(file)')
+            div.file-item-preview(v-if='isImagePreview && $IS_IMG(file)')
               lilia-image(:name='file.name' :file='file')
             div.file-item-content
               div.file-item-line
@@ -44,7 +44,7 @@ export default {
       type: String,
       default: '上传文件',
     },
-    isShowImage: {
+    isImagePreview: {
       type: Boolean,
       default: false,
     },

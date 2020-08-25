@@ -1,5 +1,7 @@
 import device from './device';
+import { JUDGE } from './decideType';
 
+// 通过canvas绘制image类dom对象，再导出成base64字符串
 const DOM_BE_64 = (img, scale) => {
   const canvas = document.createElement('canvas');
   const w = img.naturalWidth * scale;
@@ -13,8 +15,9 @@ const DOM_BE_64 = (img, scale) => {
   return canvas.toDataURL();
 };
 
+// 图片file对象转换成base64字符串
 const BASE_64 = file => new Promise((resolve) => {
-  if (!(file instanceof File)) return;
+  if (JUDGE.NO_FIL(file)) return;
 
   const b64 = new FileReader();
 
@@ -23,6 +26,7 @@ const BASE_64 = file => new Promise((resolve) => {
   b64.readAsDataURL(file);
 });
 
+// 通过image类获得图片file对象，再转换成base64字符串，同时用来进行尺寸压缩
 const loadImage = (src, scale) => (new Promise((resolve, reject) => {
   device.browser(() => {
     const img = new Image();
@@ -30,21 +34,26 @@ const loadImage = (src, scale) => (new Promise((resolve, reject) => {
     img.setAttribute('crossOrigin', 'anonymous');
   
     img.onload = e => resolve(DOM_BE_64(img, scale));
-    img.onerror = e => reject('image load error');
+    img.onerror = e => reject('Image load has error');
     img.src = src;
   })
 }));
 
 export default (pic, scale = 1) => {
-  if (pic instanceof File) {
+  // pic为图像文件时
+  if (JUDGE.IS_IMG(pic)) {
     return BASE_64(pic).then(b64 => loadImage(b64, scale));
   }
 
-  if (pic !== null && typeof pic === 'object' && typeof pic.nodeType === 'number') {
+  // pic为dom对象时
+  if (JUDGE.IS_DOM(pic)) {
     return new Promise(resolve => resolve(DOM_BE_64(img, scale)));
   }
 
-  if (typeof pic === 'string') {
+  // pic为图像链接地址时
+  if (JUDGE.IS_STR(pic)) {
     return loadImage(pic, scale);
   }
+
+  return new Promise(resolve => resolve(pic));
 };
