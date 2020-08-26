@@ -8,6 +8,8 @@
   background-color: #333;
 
   .image-exception {
+    position: relative;
+    top: 50%;
     margin: 10pxr;
     text-align: center;
 
@@ -29,6 +31,10 @@
     transform-origin: center;
     transform: translate(-50%, -50%);
     transition: 500ms;
+
+    >div {
+      font-size: 0;
+    }
 
     img {
       width: 100%;
