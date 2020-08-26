@@ -89,6 +89,7 @@ export default {
         image.style.height = 'auto';
         imageBody.style.width = '100%';
         imageBody.style.height = 'auto';
+        image.style.minWidth = `${100 * 0.2}rem`;
         image.style.minHeight = `${100 * 0.2}rem`;
 
         return fitImage;
@@ -100,6 +101,7 @@ export default {
       image.style.height = `${size.height}px`;
       imageBody.style.width = `${size.width}px`;
       imageBody.style.height = `${size.height}px`;
+      image.style.minWidth = 'auto';
       image.style.minHeight = 'auto';
 
       return fitImage;
