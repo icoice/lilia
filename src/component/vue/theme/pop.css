@@ -9,15 +9,21 @@
   .lilia-pop-header {
     @mixin filament #cfcfcf, 10px;
     display: inline-block;
+    font-size: 0;
     
     .pop-header {
       float: left;
+      font-size: 14pxr;
       text-align: center;
     }
 
     .fa-icon {
       float: left;
       margin-left: 10pxr;
+      margin-top: -3px;
+      transform: translateY(50%);
+      transform-origin: center;
+      font-size: 0;
       text-align: center;
 
       .fa {
@@ -50,7 +56,7 @@
     @mixin filament #cfcfcf;
     position: absolute;
     z-index: 10;
-    margin-top: -1px;
+    margin-top: -4px;
     min-width: 250pxr;
     min-height: 250pxr;
     padding: 10pxr;
