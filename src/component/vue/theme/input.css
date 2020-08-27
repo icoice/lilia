@@ -3,7 +3,6 @@
 .lilia-input {
   @mixin filament #dedede;
   position: relative;
-  overflow: hidden;
   display: inline-block;
   box-shadow: 0 0 5pxr #dfdfdf inset;
   letter-spacing: normal;
@@ -17,6 +16,10 @@
     text-indent: 10pxr;
     background-color: transparent;
     border: none;
+  }
+
+  .input-content {
+    font-size: 0;
   }
 
   .input-mask {
