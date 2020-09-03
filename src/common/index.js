@@ -4,6 +4,7 @@ import arrayToJson from './arrayToJson';
 import assign from './assign';
 import contain from './contain';
 import copyToClipboard from './copyToClipboard';
+import createTree from './createTree';
 import dateFormat from './dateFormat';
 import decideType, { JUDGE } from './decideType';
 import def from './def';
@@ -15,6 +16,7 @@ import file from './file';
 import firstUppercase from './firstUppercase';
 import hash from './hash';
 import htmlCollectionToArray from './htmlCollectionToArray';
+import jsonToArray from './jsonToArray';
 import image from './image';
 import imageCompress from './imageCompress';
 import importScript from './importScript';
@@ -41,6 +43,7 @@ export {
   assign,
   contain,
   copyToClipboard,
+  createTree,
   dateFormat,
   decideType,
   def,
@@ -52,6 +55,7 @@ export {
   firstUppercase,
   hash,
   htmlCollectionToArray,
+  jsonToArray,
   image,
   imageCompress,
   importScript,
@@ -80,6 +84,7 @@ export default {
   arrayToJson,
   contain,
   copyToClipboard,
+  createTree,
   dateFormat,
   decideType,
   def,
@@ -90,6 +95,7 @@ export default {
   firstUppercase,
   hash,
   htmlCollectionToArray,
+  jsonToArray,
   imageCompress,
   importScript,
   isMob,

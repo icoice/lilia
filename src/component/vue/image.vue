@@ -34,6 +34,21 @@ export default {
     image,
   ],
   props: {
+    // 宽度
+    width: {
+      type: Number,
+      default: 100,
+    },
+    // 高度
+    height: {
+      type: Number,
+      default: 100,
+    },
+    // 使用Rem
+    useRem: {
+      type: Boolean,
+      default: true,
+    },
     // 限制展示面积
     showArea: {
       type: Number,
@@ -76,8 +91,13 @@ export default {
         };
       }
     },
+    setSize(num) {
+      const { useRem } = this;
+
+      return useRem ? `${num / 20}rem` : `${num}px`;
+    },
     fitImageSize() {
-      const { fitImage, $refs } = this;
+      const { fitImage, $refs, width, height } = this;
       const { imageBody, image } = $refs;
 
       if (!image || !imageBody) {
@@ -85,24 +105,20 @@ export default {
       }
 
       if (!fitImage) {
-        image.style.width = 'auto';
-        image.style.height = 'auto';
+        image.style.width = this.setSize(width);
+        image.style.height = this.setSize(height);
         imageBody.style.width = '100%';
         imageBody.style.height = 'auto';
-        image.style.minWidth = `${100 * 0.2}rem`;
-        image.style.minHeight = `${100 * 0.2}rem`;
 
         return fitImage;
       }
 
       const size = this.measure(imageBody.naturalWidth, imageBody.naturalHeight);
 
-      image.style.width = `${size.width}px`;
-      image.style.height = `${size.height}px`;
-      imageBody.style.width = `${size.width}px`;
-      imageBody.style.height = `${size.height}px`;
-      image.style.minWidth = 'auto';
-      image.style.minHeight = 'auto';
+      image.style.width = this.setSize(size.width);
+      image.style.height = this.setSize(size.height);
+      imageBody.style.width = this.setSize(size.width);
+      imageBody.style.height = this.setSize(size.height);
 
       return fitImage;
     }, 

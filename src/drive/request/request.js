@@ -9,7 +9,7 @@ import {
   decideType,
 } from '../../common';
 
-export default class Http {
+export default class Request {
 
   constructor(set = {}) {
     return this.init(set);
@@ -22,6 +22,7 @@ export default class Http {
     this.QUERY = '_HRQ';
     this.access = def(set.access, []);
     this.domain = def(set.domain, '');
+    this.fakePack = def(set.fakePack, params => params);
     this.fakeDelay = def(set.fakeDelay, 1000);
     this.hasFake = def(set.hasFake, true);
     this.sender = def(set.sender, null);
@@ -99,13 +100,17 @@ export default class Http {
 
   // 请求
   request(item) {
-    const { sender, fakeDelay, hasFake } = this;
+    const { sender, fakeDelay, hasFake, fakePack } = this;
     const { METHOD, QUERY, BODY } = this;
     const { name, method, path, fake } = item;
     const req = (pl) => {
       if (!eq(fake, null) && hasFake) {
         return new Promise(resolve => {
-          setTimeout(() => resolve(fake), fakeDelay);
+          setTimeout(() => {
+            resolve(fakePack(fake, {
+              ...item,
+            }));
+          }, fakeDelay);
         });
       }
 

@@ -46,6 +46,7 @@ export default ({
     ...request({
       access: extractAccess(access), // 接入映射
       domain, // 常规域名
+      fakePack: fake.pack,
       fakeDelay: fake.delay, // 模拟数据延迟时间
       hasFake: fake.open, // 是否开启虚拟数据
       sender, // 替换发送体

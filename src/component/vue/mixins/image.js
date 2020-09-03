@@ -41,7 +41,7 @@ export default {
     isReadOrigin() {
       const { $IS_STR, originFile, express } = this;
 
-      return $IS_STR(originFile) && express;
+      return $IS_STR(originFile) && express === 1;
     },
   },
   created() {
