@@ -5,13 +5,12 @@
 
 .lilia-pulldown {
   @mixin filament #afafaf, 15px;
-  overflow: inherit;
+  overflow: initial;
   display: inline-block;
   position: relative;
   letter-spacing: normal;
   word-spacing: normal;
   vertical-align: top;
-  border-radius: 15px;
   transition: 300ms;
 
   .pulldown-mask {

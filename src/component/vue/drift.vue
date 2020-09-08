@@ -3,7 +3,7 @@ div.lilia-drift.lilia(v-if='status === "on"')
   div.lilia-drift-menus
     div.drift-title {{ title }}
     lilia-button.drift-close(@pressEnd='close')
-      span(slot='button') 关闭
+      span.fa.fa-times(slot='button')
   slot(name='drift-content')
 </template>
 

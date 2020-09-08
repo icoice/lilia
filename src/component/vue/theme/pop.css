@@ -5,6 +5,7 @@
 .lilia-pop {
   display: inline-block;
   position: relative;
+  z-index: 20;
 
   .lilia-pop-header {
     @mixin filament #cfcfcf, 10px;

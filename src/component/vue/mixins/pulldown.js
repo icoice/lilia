@@ -65,7 +65,7 @@ export default {
         return item;
       });
 
-      return selected || {};
+      return selected;
     },
     checkItem(item) {
       if (this.$IS_STR(item)) {

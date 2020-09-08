@@ -45,7 +45,7 @@ export default {
   },
   watch: {
     no(no) {
-      this.currentNo = no;
+      this.currentNo = Number(no);
 
       if (this.$eq(no, 1)) {
         this.firstPageNo();
@@ -54,12 +54,12 @@ export default {
       this.reset();
     },
     size(size) {
-      this.pageSize = size;
+      this.pageSize = Number(size);
 
       this.reset();
     },
     total(total) {
-      this.pageTotal = total;
+      this.pageTotal = Number(total);
 
       this.reset();
     },

@@ -66,7 +66,7 @@ export default {
           const { scrollTop } = this;
           const { offsetTop } = table;
           const thead = table.querySelector('table thead td');
-          const headList = this.$htmlCollectionToArray(thead);
+          const headList = me.$htmlCollectionToArray(thead);
           const top = `${scrollTop - offsetTop}px`;
 
           headList.map((td) => {
@@ -79,7 +79,7 @@ export default {
         const { scrollY } = this;
         const { offsetTop } = table;
         const thead = table.querySelector('table thead td');
-        const headList = this.$htmlCollectionToArray(thead);
+        const headList = me.$htmlCollectionToArray(thead);
         const top = `${scrollY - offsetTop}px`;
 
         headList.map((td) => {
@@ -104,6 +104,11 @@ export default {
     },
     statusChange(status = '') {
       const { table, container } = this.$refs;
+
+      if (!table || !container) {
+        return status;
+      }
+
       const { parentNode } = table;
 
       // 自身节点出现滚动条

@@ -174,8 +174,11 @@ export default {
   methods: {
     eq,
 
-    clear() {
+    clear(key) {
+      const { isMultiple } = this;
+
       this.state.wheelFlowAction('clear');
+      this.state.wheelFlowAction('change', !isMultiple ? null : []);
     },
     choosed(item) {
       const { selected, isMultiple } = this;
