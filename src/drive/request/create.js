@@ -3,7 +3,7 @@ import Adapter from 'imagination-adapter';
 import Request from './request';
 
 // 设置伪响应格式，对应axios
-const setAxiosResponse = (fake) => ({
+const setAxiosResponse = fake => (fake === null ? fake : {
   REQ_META: {},
   config: {},
   data: Object.assign({}, fake),

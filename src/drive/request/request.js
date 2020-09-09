@@ -104,10 +104,12 @@ export default class Request {
     const { METHOD, QUERY, BODY } = this;
     const { name, method, path, fake } = item;
     const req = (pl) => {
-      if (!eq(fake, null) && hasFake) {
+      if (!eq(fake, null) && hasFake) { 
         return new Promise(resolve => {
           setTimeout(() => {
             resolve(fakePack(fake, {
+              name,
+
               ...item,
             }));
           }, fakeDelay);

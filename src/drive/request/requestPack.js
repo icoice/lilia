@@ -19,11 +19,27 @@ const api = (method, name) => {
     path: '',
   };
 
-  access.payload = function (keys = [], alias = [], def = '') {
+  // def用于设置payload的默认值， 如果keys为对象时，alias为作为def参数使用
+  access.payload = function (keys = [], alias = [], def = {}) {
     const { config } = this;
+    
+    if (typeof keys === 'object' && keys !== null) {
+      const aliasChangeToDef = typeof alias !== 'object' ? {} : alias;
+
+      Object.keys(keys).map((k) => {
+        const aliasName = keys[k];
+
+        config.origin[k] = !aliasChangeToDef[k] ? '' : aliasChangeToDef[k];
+        config.alias[k] = aliasName;
+
+        return k;
+      });
+
+      return this;
+    }
 
     keys.map((k, code) => {
-      config.origin[k] = def;
+      config.origin[k] = !def[k] ? '' : def[k];
 
       if (alias[code]) {
         config.alias[k] = alias[code];
@@ -46,7 +62,7 @@ const api = (method, name) => {
   access.fake = function (data) {
     const  { config } = this;
 
-    config.fake = !data[config.name] ? data : data[config.name];
+    config.fake = !data || !data[config.name] ? data : data[config.name];
 
     return this;
   };
