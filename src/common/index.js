@@ -20,6 +20,7 @@ import jsonToArray from './jsonToArray';
 import image from './image';
 import imageCompress from './imageCompress';
 import importScript from './importScript';
+import locationSearchToJson from './locationSearchToJson';
 import isMob from './isMob';
 import loop from './loop';
 import memory from './memory';
@@ -61,6 +62,7 @@ export {
   importScript,
   isMob,
   loop,
+  locationSearchToJson,
   memory,
   nodeToString,
   now,
@@ -95,6 +97,7 @@ export default {
   firstUppercase,
   hash,
   htmlCollectionToArray,
+  locationSearchToJson,
   jsonToArray,
   imageCompress,
   importScript,

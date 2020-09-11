@@ -23,7 +23,7 @@ const api = (method, name) => {
   access.payload = function (keys = [], alias = [], def = {}) {
     const { config } = this;
     
-    if (typeof keys === 'object' && keys !== null) {
+    if (typeof keys === 'object' && !(keys instanceof Array) && keys !== null) {
       const aliasChangeToDef = typeof alias !== 'object' ? {} : alias;
 
       Object.keys(keys).map((k) => {
