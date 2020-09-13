@@ -1,5 +1,5 @@
 // 根据id和parentId创建树, 基于Javascript对象引用的特性制作，无论有多少的节点，也是第二遍遍历完成树形结构的数据
-export default function createTree(list = [], tree = null) {
+export default function createTree(list = [], rootMark = null, tree = null) {
   const mapList = {};
   let treeTemp = tree;
 
@@ -17,14 +17,14 @@ export default function createTree(list = [], tree = null) {
     treeTemp = {};
 
     list.map((item) => {
-      if (item.parentId === null) {
+      if (item.parentId === rootMark) {
         treeTemp[item.id] = mapList[item.id];
       }
 
       return item;
     });
 
-    return createTree(list, treeTemp);
+    return createTree(list, rootMark, treeTemp);
   }
 
   // step.2 生长

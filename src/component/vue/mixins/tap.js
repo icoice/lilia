@@ -10,12 +10,12 @@ export default {
 
     // 按下动作流程
     state.setFlowAction('press', (status, e) => {
+      if (this.$eq(status, 'pressStart')) {
+        this.point = this.getPoint(e);
+      }
+
       this.noDisabled(() => {
         if (!this.$eq(this.status, 'cancel')) {
-          if (this.$eq(status, 'pressStart')) {
-            this.point = this.getPoint(e);
-          }
-
           this.eventHappen(status, e);
         }
 
@@ -52,7 +52,9 @@ export default {
     onTapMove(e) {
       const { state } = this;
 
-      state.wheelFlowAction('pressCancel', e);
+      if (!this.isCanTap(this.getPoint(e))) {
+        state.wheelFlowAction('pressCancel', e);
+      }
     },
     onTapStart(e) {
       const { state } = this;
@@ -72,8 +74,8 @@ export default {
 
       const disX = point.x - x;
       const disY = point.y - y;
-      const bs = 10;
-      const be = -10;
+      const bs = 15;
+      const be = -15;
 
       if (disX > bs || disX < be) return false;
       if (disY > bs || disY < be) return false;
@@ -87,12 +89,17 @@ export default {
 
       this.$IN(point, {
         IS_OBJ() {
-          touchPoint = {
+          // chrome浏览器把changedTouches变为JSON数组，因此此处判断是否存在length属性
+          touchPoint = point.length !== undefined ? {
+            x: !point[0] ? 1 : point[0].pageX,
+            y: !point[0] ? 1 : point[0].pageY,
+          } : {
             x: point.pageX,
             y: point.pageY,
           };
         },
         IS_ARR() {
+          console.log(point[0]);
           touchPoint = {
             x: point[0].pageX,
             y: point[0].pageY,

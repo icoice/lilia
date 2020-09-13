@@ -75,6 +75,10 @@ export default class Request {
         sendParams = { ...query, ...data };
         sendBody = { ...body, ...data };
 
+        if (!eq(method, 'GET')) {
+          sendParams = {};
+        }
+
         if (!eq(method, 'POST')) {
           sendBody = {};
         }

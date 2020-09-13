@@ -11,7 +11,7 @@
     div.image-exception(
       v-else-if='file === null')
       span.fa.fa-picture-o
-      p 未设置图片或图片链接
+      p(v-if='placeholder') {{ placeholder }}
     lilia-loading(
       v-else
       :isEnd='isReadOrigin || file64 !== null'
@@ -34,6 +34,10 @@ export default {
     image,
   ],
   props: {
+    placeholder: {
+      type: String,
+      default: null,
+    },
     // 宽度
     width: {
       type: Number,
