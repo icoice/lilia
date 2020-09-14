@@ -84,7 +84,7 @@ export default {
     },
     // 获得点击或触击的点
     getPoint(e = { pageX: 1, pageY: 1 }) {
-      const point = e.touches || e.changedTouches || e;
+      const point = e.changedTouches || e.touches || e;
       let touchPoint = { x: 1, y: 1 };
 
       this.$IN(point, {
@@ -99,7 +99,6 @@ export default {
           };
         },
         IS_ARR() {
-          console.log(point[0]);
           touchPoint = {
             x: point[0].pageX,
             y: point[0].pageY,

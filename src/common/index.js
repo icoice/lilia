@@ -5,6 +5,7 @@ import assign from './assign';
 import contain from './contain';
 import copyToClipboard from './copyToClipboard';
 import createTree from './createTree';
+import consoleWin from './consoleWin';
 import dateFormat from './dateFormat';
 import decideType, { JUDGE } from './decideType';
 import def from './def';
@@ -45,6 +46,7 @@ export {
   contain,
   copyToClipboard,
   createTree,
+  consoleWin,
   dateFormat,
   decideType,
   def,
@@ -87,6 +89,7 @@ export default {
   contain,
   copyToClipboard,
   createTree,
+  consoleWin,
   dateFormat,
   decideType,
   def,
