@@ -31,6 +31,7 @@ import or from './or';
 import replaceHump from './replaceHump';
 import stepByStep from './stepByStep';
 import storage from './storage';
+import scrollEnd from './scrollEnd';
 import timestamp from './timestamp';
 import webpSupport from './webpSupport';
 import week from './week';
@@ -72,6 +73,7 @@ export {
   replaceHump,
   stepByStep,
   storage,
+  scrollEnd,
   timestamp,
   webpSupport,
   week,
@@ -113,6 +115,7 @@ export default {
   replaceHump,
   stepByStep,
   storage,
+  scrollEnd,
   timestamp,
   webpSupport,
   week,
