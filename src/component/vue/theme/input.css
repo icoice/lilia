@@ -2,9 +2,14 @@
 
 .lilia-input {
   @mixin filament #dedede;
+
+  &::before {
+    background-color: #f4f4f4;
+  }
+
   position: relative;
   display: inline-block;
-  box-shadow: 0 0 5pxr #dfdfdf inset;
+  background-color: #fff;
   letter-spacing: normal;
   word-spacing: normal;
   vertical-align: top;

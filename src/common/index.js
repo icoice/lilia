@@ -32,6 +32,7 @@ import replaceHump from './replaceHump';
 import stepByStep from './stepByStep';
 import storage from './storage';
 import scrollEnd from './scrollEnd';
+import scrollRecord from './scrollRecord';
 import timestamp from './timestamp';
 import webpSupport from './webpSupport';
 import week from './week';
@@ -74,6 +75,7 @@ export {
   stepByStep,
   storage,
   scrollEnd,
+  scrollRecord,
   timestamp,
   webpSupport,
   week,
@@ -116,6 +118,7 @@ export default {
   stepByStep,
   storage,
   scrollEnd,
+  scrollRecord,
   timestamp,
   webpSupport,
   week,
