@@ -39,6 +39,14 @@ const api = (method, name) => {
     }
 
     keys.map((k, code) => {
+      if (typeof k === 'object' && k !== null && k.name) {
+        config.origin[k.name] = !k.defaultValue ? '' : k.defaultValue;
+
+        if (k.aliasName) config.alias[k] = k.aliasName;
+
+        return code;
+      }
+
       config.origin[k] = !def[k] ? '' : def[k];
 
       if (alias[code]) {

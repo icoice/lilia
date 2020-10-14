@@ -1,23 +1,5 @@
 import { decideType, JUDGE } from '../common';
 
-const arrayNearRepeatClear = (arr) => {
-  const newArr = [];
-  let before = null;
-
-  if (JUDGE.IS_ARR(arr)) {
-    arr.map((el) => {
-      if (before !== el) newArr.push(el);
-      before = el;
-
-      return el;
-    });
-
-    return newArr;
-  }
-
-  return arr;
-};
-
 export default class StateMachine {
 
   constructor(option) {

@@ -1,4 +1,4 @@
-import { JUDGE, empty, eq, loop, or } from '../../common';
+import { JUDGE, empty, eq, loop } from '../../common';
 
 let countId = 0;
 

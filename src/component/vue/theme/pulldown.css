@@ -28,6 +28,7 @@
     @mixin filament #afafaf;
     position: absolute;
     z-index: 100;
+    margin-top: -1px;
     min-height: 60pxr;
     padding: 10pxr 10pxr 0 10pxr;
     background-color: #fff;
@@ -89,9 +90,14 @@
         min-width: 300pxr;
       }
     }
+
+    .lilia-input::before {
+      background-color: #fff;
+    }
     
     .pulldown-checked {
       span.fa {
+        font-size: 12pxr;
         color: #006aff;
       }
     }
@@ -133,6 +139,7 @@
           border-radius: 0;
 
           span {
+            font-size: 12pxr;
             color: #006aff;
           }
         }

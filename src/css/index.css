@@ -3,7 +3,6 @@
 @import 'planes/border.css';
 @import 'planes/unit.css';
 @import '../lib/component/vue/theme/*.css';
-@import './iconfont/iconfont.css';
 
 * {
   font-family: Microsoft YaHei;

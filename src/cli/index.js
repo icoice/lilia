@@ -2,8 +2,6 @@
 
 const program = require('commander');
 
-console.log(program);
-
 program.version('1.0.0', '-v, --version')
   .command('init <name>')
   .action((name) => {
