@@ -42,7 +42,7 @@ const api = (method, name) => {
       if (typeof k === 'object' && k !== null && k.name) {
         config.origin[k.name] = !k.defaultValue ? '' : k.defaultValue;
 
-        if (k.aliasName) config.alias[k] = k.aliasName;
+        if (k.aliasName) config.alias[k.name] = k.aliasName;
 
         return code;
       }
