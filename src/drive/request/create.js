@@ -1,4 +1,3 @@
-import axios from 'axios';
 import Adapter from 'imagination-adapter';
 import Request from './request';
 

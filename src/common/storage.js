@@ -9,6 +9,7 @@ const state = {
   get(name) {
     try {
       const data = localStorage.getItem(name);
+
       return data !== null ? JSON.parse(data) : data;
     } catch(e) {
       this.exception(e);
@@ -22,6 +23,7 @@ export default (n, v, exception = () => {}) => {
 
   if (typeof v !== 'undefined') {
     state.set(n, v);
+
     return v;
   } else {
     return state.get(n);

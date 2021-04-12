@@ -1,4 +1,4 @@
-import RequestMecha from './mecha';
+import Mecha from './mecha';
 import request from './create';
 import { JUDGE, loop } from '../../common';
 import requestPack from './requestPack';
@@ -40,9 +40,10 @@ export default ({
   setHeaders,
   setPayload,
   sendBefore,
+  scopeName,
 })  => {
   const payloads = extractPayloads(access);
-  const mecha = new RequestMecha({
+  const mecha = new Mecha({
     ...request({
       access: extractAccess(access), // 接入映射
       domain, // 常规域名
@@ -54,7 +55,7 @@ export default ({
       setPayload, // 当payload载入时
     }),
     domain,
-  });
+  }, scopeName);
 
   payloads.map((payload) => {
     mecha.definePayload(
@@ -78,5 +79,5 @@ export default ({
   });
 
   // 初始化夹层
-  return mecha.init();
+  return mecha;
 };

@@ -2,20 +2,16 @@ import { JUDGE, empty, eq, loop } from '../../common';
 
 let countId = 0;
 
-function apiPack(api, adapter, records, beforeProcess) {
+function apiPack(me, api, adapter, records, beforeProcess) {
   const createAdapter = (callName, call) => ((py = {}) => {
-    countId += 1;
-    adapter.NOW_REQUEST_ID = countId;
-
     const id = countId;
     let payload = py;
 
-    this.sendId = id;
     records[callName] = empty(records[callName]) ? {} : records[callName];
     records[callName][id] = { REJECT_RESPONSE: false };
 
     if (JUDGE.NO_FOD(py)) {
-      payload = this.buildRequestPayload(callName, py);
+      payload = me.buildRequestPayload(callName, py);
 
       if (JUDGE.IS_FUN(beforeProcess)) {
         payload = {
@@ -36,14 +32,14 @@ function apiPack(api, adapter, records, beforeProcess) {
       };
 
       if (!data) {
-        return this.log('exception', '未获得服务器的响应数据', REQ_META);
+        return me.log('exception', '未获得服务器的响应数据', REQ_META);
       }
 
       if (JUDGE.IS_OBJ(data) && !empty(data)) {
         data.REQ_META = REQ_META;
       }
 
-      this.log('complete', `${description || ''}`, {
+      me.log('complete', `${description || ''}`, {
         domain: api.domain,
         methodName: callName,
         payload: { ...payload },
@@ -58,7 +54,7 @@ function apiPack(api, adapter, records, beforeProcess) {
     }).catch((e) => {
       delete records[callName][id];
 
-      this.requsetException(e);
+      me.requsetException(e);
 
       return e;
     });
@@ -75,7 +71,7 @@ function apiPack(api, adapter, records, beforeProcess) {
 
 export default class Mecha {
 
-  constructor(adapter) {
+  constructor(adapter, scopeName = '') {
     this.ERROR_MESSAGE = {
       1000: '未定义该API接口',
       1004: '未指定一组接口定义',
@@ -102,11 +98,13 @@ export default class Mecha {
     this.requestHandle = () => {}; // 请求完成的后续处理
     this.sendId = 0; // 发送id
     this.sendRecords = {}; // 当前接口发送记录
+    this.adapter = {};
 
     this.defineRequest(adapter); // 定义请求内容
+    this.init(scopeName);
   }
 
-  init() {
+  init(scopeName) {
     const {
      ERROR_MESSAGE,
      requestBeforeProcess,
@@ -114,7 +112,7 @@ export default class Mecha {
      setting,
     } = this;
     const { api } = setting;
-    const adapter = {};
+    const adapter = { SCOPE_NAME: scopeName };
 
     if (empty(api)) {
       return this.log('error', ERROR_MESSAGE[1004]);
@@ -151,14 +149,17 @@ export default class Mecha {
       });
     }
 
-    apiPack.apply(this, [
+    countId += 1;
+    adapter.NOW_REQUEST_ID = countId;
+    this.sendId = countId;
+
+    apiPack(this,
       api,
       adapter,
       sendRecords,
-      requestBeforeProcess,
-    ]);
+      requestBeforeProcess);
 
-    return adapter;
+    this.adapter = adapter;
   }
 
   log(type, description, data = null, name = '') {
