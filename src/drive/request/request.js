@@ -1,7 +1,7 @@
 import axios from 'axios';
 import {
   JUDGE,
-  assign,
+  contain,
   def,
   empty,
   eq,
@@ -75,7 +75,7 @@ export default class Request {
         sendParams = { ...query, ...data };
         sendBody = { ...body, ...data };
 
-        if (!eq(method, 'GET')) {
+        if (!contain(['GET', 'PUT', 'DELETE'], method)) {
           sendParams = {};
         }
 
@@ -119,6 +119,8 @@ export default class Request {
           }, fakeDelay);
         });
       }
+
+      console.log(pl);
 
       if (!sender) {
         return axios(pl);
